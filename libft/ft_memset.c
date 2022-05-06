@@ -1,41 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 15:53:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/04 17:04:39 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 17:05:07 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/05/06 18:04:41 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
+#include <string.h>
 #include <stdio.h>
 
-
-int ft_isalpha(unsigned char c)
+void	*ft_memset(void *s, int c, size_t size)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-	{
-		return (1024);
-	}
-	else
-	{
-		return (0);
-	}
+	int *ptr;
+
+	ptr = 
 }
 
 int main(void)
 {
-	unsigned char c = 'b';
-	int x;
+	int A[] = {10, 11, 12, 13, 14};
+	int i;
 
+	i = 0;
+	while (i <= 4)
+	{
+		printf("%d ", A[i]);
+		i++;
+	}
 
-	x = isalpha(c);
-	printf("original = %d\n", x);
+	printf( "\n\n" );
+	memset(A, 0, 12);
 
-	x = ft_isalpha(c);
-	printf("ft = %d", x);
-	
+	i = 0;
+	while (i <= 4)
+	{
+		printf("%d ", A[i]);
+		i++;
+	}
+
 }

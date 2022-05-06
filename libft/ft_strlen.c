@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 15:53:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/04 17:04:39 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/05/06 17:03:31 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
+#include <string.h>
 #include <stdio.h>
 
-
-int ft_isalpha(unsigned char c)
+int ft_strlen(char *c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	int i;
+
+	i = 0;
+	while (c[i])
 	{
-		return (1024);
+		i++;
 	}
-	else
-	{
-		return (0);
-	}
+	printf("%d", i);
+	return (i);
 }
 
 int main(void)
 {
-	unsigned char c = 'b';
-	int x;
-
-
-	x = isalpha(c);
-	printf("original = %d\n", x);
-
-	x = ft_isalpha(c);
-	printf("ft = %d", x);
-	
+	char c[] = "aaaaaaaa";
+	ft_strlen(c);
 }

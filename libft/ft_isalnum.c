@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 15:53:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/04 17:04:39 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/04 17:28:07 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/05/06 16:10:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
 #include <stdio.h>
+#include <ctype.h>
 
-
-int ft_isalpha(unsigned char c)
+int	ft_isalnum(unsigned char c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-	{
-		return (1024);
-	}
+	if (c >= '0' && c <= '9')
+		return (8);
+	else if (c >= 'a' && c <= 'z')
+		return (8);
+	else if (c >= 'A' && c <= 'Z')
+		return (8);
 	else
-	{
 		return (0);
-	}
 }
 
 int main(void)
 {
-	unsigned char c = 'b';
+	unsigned char c = '$';
 	int x;
 
+	x = isalnum(c);
+	printf("original %d\n", x);
 
-	x = isalpha(c);
-	printf("original = %d\n", x);
+	x = ft_isalnum(c);
+	printf("test %d", x);
 
-	x = ft_isalpha(c);
-	printf("ft = %d", x);
-	
 }
