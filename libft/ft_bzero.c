@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 20:25:31 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/06 21:43:09 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:36:42 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,34 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	int i;
+	size_t i;
+	char *ptr;
 
+	ptr = s;
+
+
+
+	i = 0;
 	while (i < n)
 	{
-		(char) s[i] = 0;
+		ptr[i] = '\0';
 		i++;
 	}
 }
 
 int	main(void)
 {
-	char t[] = {1, 2, 3, 4};
+	int t[] = {1, 2, 3, 4};
+	int p[] = {1, 2, 3, 4};
 
-	size_t size = sizeof(char) * 4;
+	size_t size = sizeof(int) * 2;
+
+	bzero(p, size);
+	printf("original %i %i %i %i \n", p[0], p[1], p[2], p[3]);
+
 
 	ft_bzero(t, size);
-	printf("%i\n", t[0]);
-	printf("%i\n", t[1]);
+	printf("%i %i %i %i \n", t[0], t[1], t[2], t[3]);
+
+
 }
