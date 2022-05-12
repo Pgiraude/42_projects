@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:17:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/12 15:27:44 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:56:39 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	char *ptr_dest;
-	char *ptr_src;
+	const char *ptr_src;
 	size_t i;
 
 	ptr_dest = dest;
@@ -24,7 +24,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	i = 0;
 	while(i < n)
 	{
-		(char*) dest[i] = (char*) src[i];
+		ptr_dest[i] = ptr_src[i];
 		i++;
 	}
 	return (dest);
@@ -33,11 +33,11 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 int	main(void)
 {
 	char a[] = {1, 2, 3};
-	char dest[] = {11, 12, 13};
-	char dest2[] = {111, 122, 133};
+	char dest[] = {11, 12, 130};
+	char dest2[] = {111, 122, 130};
 
 
-	size_t n = sizeof(char) * 3;
+	size_t n = sizeof(char) * 2;
 
 	memcpy(dest, a, n);
 
@@ -46,6 +46,6 @@ int	main(void)
 
 	ft_memcpy(dest2, a, n);
 	
-	printf("original %i %i %i \n", dest2[0], dest2[1], dest2[2]);
+	printf("test %i %i %i \n", dest2[0], dest2[1], dest2[2]);
 
 }
