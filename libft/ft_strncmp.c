@@ -18,8 +18,24 @@ int ft_strncmp(const char *s1, const char *s2, size_t n)
     int i;
 
     i = 0;
-    while (s1[i] == s2[i])
+    while ((s1[i] == s2[i]) && (n > 1) && s1[i] && s2[i])
     {
+        printf("%ld \n", n);
         i++;
+        n--;
     }
+    return (s1[i] - s2[i]);
+}
+
+int main(void)
+{
+    char s1[] = "abcd";
+    char s2[] = "abcde";
+    int x;
+
+    x = ft_strncmp(s1, s2, 10);
+    printf("test %d\n", x);
+
+    x = strncmp(s1, s2, 10);
+    printf("%d", x);
 }

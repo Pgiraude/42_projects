@@ -22,9 +22,31 @@ char    *ft_strchr(const char *s, int c)
     {
         if ( c == s[i])
         {
-            return(s[i]);
+            return((char*)(s + i));
+            /*
+            fonctionne pas si je mets s[i] ou sans le char*
+            */
         }
         i++;
     }
+    if (s[i] == c)
+    {
+        return((char*)(s + i));
+        // pour gerer le \0
+    }
     return (NULL);
+}
+
+int main()
+{
+    char s[] = "\0 salut me";
+
+    char *x;
+    char *p;
+    x = strchr(s, 0);
+
+    printf("%s\n", x);
+
+    p = ft_strchr(s, 0);
+    printf("%s\n", p);
 }
