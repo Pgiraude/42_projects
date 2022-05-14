@@ -15,7 +15,7 @@
 
 void *ft_memchr(const void *s, int c, size_t n)
 {
-    const char *ptr;
+    const unsigned char *ptr;
     size_t i;
 
     ptr = s;
@@ -24,18 +24,21 @@ void *ft_memchr(const void *s, int c, size_t n)
     {
         if (c == ptr[i])
         {
-            return ((unsigned char*) ptr + i);
+            return ((void*)(ptr + i));
         }
+        i++;
     }
+    return (NULL);
 }
 
-int main(void)
+int main()
 {
     char s[] = "salutc";
-    size_t n = sizeof(char) * 6;
 
-    char t;
+    void *x;
+    x = ft_memchr(s, 99, 6);
+    printf("%p  test\n", x);
 
-    t = memchr(s, 99, 6);
-    printf("original %d \n", t);
+    x = memchr(s, 99, 6);
+    printf("%p  original", x);
 }
