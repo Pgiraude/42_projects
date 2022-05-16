@@ -13,7 +13,49 @@
 #include <string.h>
 #include <stdio.h>
 
-char *strnstr(const char *big, const char *little, size_t len)
+char *ft_strnstr(const char *big, const char *little, size_t len)
 {
-    
+    int i;
+    int j;
+
+    i = 0;
+    while (big[i] && i < len)
+    {
+        j = 0;
+        while (big[i + j] == little[j])
+        {
+            j++;
+            if (!little[j])
+            {
+                return ((char*)big + i);
+            }
+        }
+        i++;
+    }
+    return (NULL);
+}
+
+int main(void)
+{
+    char s1[] = "patmate man   ";
+    char s2[] = "man";
+
+    char *x;
+    int i = 0;
+
+    x = strstr(s1, s2);
+
+    while (x[i])
+    {
+        printf("%d original\n", x[i]);
+        i++;
+    }
+
+    x = ft_strnstr(s1, s2, 14);
+
+    while (x[i])
+    {
+        printf("%d test\n", x[i]);
+        i++;
+    }
 }
