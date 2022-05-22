@@ -2,68 +2,31 @@
 #include <stdlib.h>
 
 
-int ft_len(char const *x, char c, int i)
+char   *ft_fill(char const *x, char c, int i)
 {
     int len;
+    char *str;
 
     len = 0;
-    while (x[i] && x[i] != c)
+    while(x[i + len] != c && x[i + len])
     {
         len++;
-        i++;
     }
-    return (len);
-}
 
-char ft_1st(char const *x, int i, int pos)
-{
-    char *str;
-    int j;
+    str = malloc(sizeof(char) * (len + 1));
+    if (!str)
+        return (NULL);
 
-    str = malloc(sizeof(char) * (i - pos + 1));
-
-    j = 0;
-    while (pos < i)
+    
+    len = 0;
+    while(x[i + len] != c && x[i + len])
     {
-        str[j] = x[pos];
-        j++;
-        pos++;
+        str[len] = x[i + len];
+        len++;
     }
-    str[j] = '\0';
+    str[len] = '\0';
     return (str);
 }
-
-
-
-char **ft_split(char const *x, char c)
-{
-    int i;
-    int pos;
-
-    pos = 0;
-    i = 0;
-    while (x[i] == c)
-    {
-        i++;
-    }
-    while (x[i])
-    {
-        if (x[i] == c)
-        {
-            ft_1st(x, i, pos)
-            while(x[i] == c)
-            {
-                i++;
-            }
-            pos = i;
-        }
-        else
-        {
-            i++;
-        }
-    }
-}
-
 
 int ft_nb_split(char const *x, char c)
 {
@@ -94,13 +57,66 @@ int ft_nb_split(char const *x, char c)
     return (count);
 }
 
+
+char **ft_split(char const *x, char c)
+{
+    char **str;
+    int i;
+    int y;
+
+    str = malloc(sizeof(char*) * (ft_nb_split(x, c) + 1));
+    if (!str)
+        return (NULL);
+
+
+    y = 0;
+    
+    i = 0;
+    while (x[i] == c)
+    {
+       i++;
+    }
+    while (x[i])
+    {
+        if(x[i] != c)
+        {
+            str[y] = ft_fill(x, c, i);
+            y++;
+            while (x[i] != c && x[i])
+            {
+                i++;
+            }
+        }
+        else
+        {
+            i++;
+        }
+    }
+    str[y] = '\0';
+    return (str);
+}
+
+
 int main()
 {
-    char s[] = "A+B+C";
+    char s[] = "";
     char c = '+';
+    int x = 0;
+    int y = 0;
 
-    int x;
+    char **P;
+    P = ft_split(s, c);
 
-    x = ft_nb_split(s, c);
-    printf("%d", x);
+    while (P[x])
+    {
+        y = 0;
+        while(P[x][y])
+        {
+            printf("%d", P[x][y]);
+            y++;
+        }
+        printf("\n");
+        x++;
+    }
+    
 }
