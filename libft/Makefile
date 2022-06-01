@@ -1,16 +1,25 @@
-NAME = libft.a
+NAME    =   libft.a
 
-SRC = $(wildcard *.c)
+SRC =   $(wildcard *.c)
 
-OBJS = $(SRC:.c=.o)
+OBJS    =   $(SRC:.c=.o)
 
 all: $(NAME)
 
+RM  =   rm -f
+
 CC = gcc
 
-RM = rm -f
+$(NAME): $(OBJS)
+	ar  rcs $(NAME) $(OBJS)
 
-$(NAME):
-    $(CC) -c $(SRC)
-    
-clean: 
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+COMP:
+	$(CC) 
