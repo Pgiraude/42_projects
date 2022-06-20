@@ -24,16 +24,3 @@ int	ft_isalnum(unsigned char c)
 	else
 		return (0);
 }
-
-int main(void)
-{
-	unsigned char c = '$';
-	int x;
-
-	x = isalnum(c);
-	printf("original %d\n", x);
-
-	x = ft_isalnum(c);
-	printf("test %d", x);
-
-}

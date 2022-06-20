@@ -14,24 +14,12 @@
 #include <ctype.h>
 #include <stdio.h>
 
-int ft_isdigit(unsigned char c)
+int	ft_isdigit(unsigned char c)
 {
 	if (c >= '0' && c <= '9')
 	{
-		return(10);
+		return (10);
 	}
 	else
-		return(0);
-}
-
-int	main(void)
-{
-	unsigned char c = 'a';
-	int x;
-
-	x = isdigit(c);
-	printf("original %d\n", x);
-
-	x = ft_isdigit(c);
-	printf("test %d\n", x);
+		return (0);
 }

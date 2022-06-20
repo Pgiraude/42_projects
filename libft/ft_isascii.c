@@ -13,24 +13,10 @@
 #include <ctype.h>
 #include <stdio.h>
 
-int ft_isascii(unsigned char c)
+int	ft_isascii(unsigned char c)
 {
 	if (c >= 0 && c <= 127)
 		return (1);
 	else
 		return (0);
 }
-
-int main(void)
-{
-	unsigned char c = -1;
-	int x;
-
-	x = isascii(c);
-	printf("origin %d\n", x);
-
-	x = ft_isascii(c);
-	printf("test %d", x);
-
-}
-	

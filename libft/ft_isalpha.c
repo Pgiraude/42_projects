@@ -13,8 +13,7 @@
 #include <ctype.h>
 #include <stdio.h>
 
-
-int ft_isalpha(unsigned char c)
+int	ft_isalpha(unsigned char c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 	{
@@ -24,18 +23,4 @@ int ft_isalpha(unsigned char c)
 	{
 		return (0);
 	}
-}
-
-int main(void)
-{
-	unsigned char c = 'b';
-	int x;
-
-
-	x = isalpha(c);
-	printf("original = %d\n", x);
-
-	x = ft_isalpha(c);
-	printf("ft = %d", x);
-	
 }

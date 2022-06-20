@@ -13,23 +13,10 @@
 #include <ctype.h>
 #include <stdio.h>
 
-int ft_isprint(unsigned char c)
+int	ft_isprint(unsigned char c)
 {
 	if (c >= 32 && c <= 126)
 		return (16384);
 	else
 		return (0);
-}
-
-int main(void)
-{
-	unsigned char c = -1;
-	int x;
-
-	x = isprint(c);
-	printf("original %d\n", x);
-
-	x = ft_isprint(c);
-	printf("test %d", x);
-
 }
