@@ -6,13 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:24:29 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/20 22:02:42 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:09:43 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
 char	*ft_strdup(const char *s)
 {

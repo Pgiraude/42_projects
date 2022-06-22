@@ -6,13 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:10:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/04 17:26:35 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:07:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <ctype.h>
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_isdigit(unsigned char c)
 {

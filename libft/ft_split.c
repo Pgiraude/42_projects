@@ -6,12 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:55:24 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/20 21:58:52 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:09:13 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
 char	*ft_fill(char const *x, char c, int i)
 {

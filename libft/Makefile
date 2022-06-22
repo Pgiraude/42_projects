@@ -8,9 +8,12 @@ all: $(NAME)
 
 RM  =   rm -f
 
+WWW = -Werror -Wextra -Wall
+
 CC = gcc
 
-$(NAME): $(OBJS)
+$(NAME):
+	gcc $(WWW) -c $(SRC)
 	ar  rcs $(NAME) $(OBJS)
 
 clean:
@@ -20,6 +23,3 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-COMP:
-	$(CC) 

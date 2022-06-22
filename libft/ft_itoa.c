@@ -6,12 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:41:03 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/20 21:43:13 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:07:34 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
 int	ft_len(int n)
 {

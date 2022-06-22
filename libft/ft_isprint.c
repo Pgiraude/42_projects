@@ -6,12 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:33:46 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/06 16:49:24 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:07:26 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_isprint(unsigned char c)
 {

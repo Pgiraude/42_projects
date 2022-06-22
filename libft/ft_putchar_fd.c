@@ -6,13 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:50:21 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/20 21:50:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:08:28 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {

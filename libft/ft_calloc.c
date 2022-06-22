@@ -6,12 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:24:03 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/06 21:24:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:06:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t sizeofby)
 {

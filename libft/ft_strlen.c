@@ -6,28 +6,20 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/05/06 17:03:31 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:10:30 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
-int ft_strlen(char *c)
+int	ft_strlen(char *c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (c[i])
 	{
 		i++;
 	}
-	printf("%d", i);
 	return (i);
-}
-
-int main(void)
-{
-	char c[] = "aaaaaaaa";
-	ft_strlen(c);
 }
