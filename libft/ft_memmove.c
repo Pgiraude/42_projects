@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:18:00 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:08:16 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/27 20:37:25 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	char		*ptr_dest;
 	size_t		i;
 
+	if (!dest || !src)
+		return (NULL);
 	ptr_dest = dest;
 	ptr_src = src;
 	i = 0;

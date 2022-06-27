@@ -6,13 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:41:03 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:07:34 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:27:58 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_len(int n)
+int	ft_len(long long int n)
 {
 	int	len;
 
@@ -33,7 +33,7 @@ int	ft_len(int n)
 	return (len);
 }
 
-char	*ft_convert(int n, int sign)
+char	*ft_convert(long long int n, int sign)
 {
 	char	*str;
 	int		len;
@@ -59,15 +59,17 @@ char	*ft_convert(int n, int sign)
 
 char	*ft_itoa(int n)
 {
-	int		sign;
-	char	*str;
+	int				sign;
+	char			*str;
+	long long int	p;
 
+	p = n;
 	sign = 0;
-	if (n < 0)
+	if (p < 0)
 	{
 		sign = 1;
-		n = n * -1;
+		p = p * -1;
 	}
-	str = ft_convert(n, sign);
+	str = ft_convert(p, sign);
 	return (str);
 }

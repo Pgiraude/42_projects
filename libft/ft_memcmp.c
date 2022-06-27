@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:22:37 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:12:39 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/06/27 20:33:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	ptr1 = s1;
 	ptr2 = s2;
 	i = 0;
-	while (ptr1[i] == ptr2[i] && n > 1)
+	while (i < n)
 	{
+		if (ptr1[i] != ptr2[i])
+			return (ptr1[i] - ptr2[i]);
 		i++;
-		n--;
 	}
-	return (ptr1[i] - ptr2[i]);
+	return (0);
 }
