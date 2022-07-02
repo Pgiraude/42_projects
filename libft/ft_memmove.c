@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:18:00 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/27 20:37:25 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:45:42 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		return (NULL);
 	ptr_dest = dest;
 	ptr_src = src;
-	i = 0;
-	while (i < n)
+	if (dest > src)
 	{
-		ptr_dest[i] = ptr_src[i];
-		i++;
+		while (n > 0)
+		{
+			ptr_dest[n - 1] = ptr_src[n - 1];
+			n--;
+		}
+	}
+	else
+	{
+		i = -1;
+		while (++i < n)
+			ptr_dest[i] = ptr_src[i];
 	}
 	return (dest);
 }

@@ -6,23 +6,23 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:38:35 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/23 19:39:32 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/02 20:52:54 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-int	ft_set_check(char const *s1, char const *set, int i)
+int	ft_set_check(char const c1, char const *set)
 {
-	int	j;
+	int	i;
 
-	j = 0;
-	while (set[j] == s1[i])
+	i = 0;
+	while (set[i])
 	{
-		j++;
-		i++;
-		if (!set[j])
+		if (set[i] == c1)
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -42,23 +42,21 @@ int	ft_strlen_tr(char const *s1)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		start;
-	int		len_s1;
-	int		len_set;
 	char	*str;
 	int		i;
+	int		end;
 
-	len_s1 = ft_strlen_tr(s1);
-	len_set = ft_strlen_tr(set);
+	end = ft_strlen_tr(s1) - 1;
 	start = 0;
-	if (ft_set_check(s1, set, 0))
-		start = len_set;
-	if (ft_set_check(s1, set, (len_s1 - len_set)))
-		len_s1 = len_s1 - len_set;
-	str = malloc(sizeof(char) * (len_s1 - start + 1));
+	while (ft_set_check(s1[start], set) != 0 && s1[start])
+		start++;
+	while (ft_set_check(s1[end], set) != 0 && end > start)
+		end--;
+	str = malloc(sizeof(char) * (end - start + 2));
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (i < (len_s1 - start))
+	while ((start + i) < (end + 1))
 	{
 		str[i] = s1[start + i];
 		i++;

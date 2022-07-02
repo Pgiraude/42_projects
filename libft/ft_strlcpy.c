@@ -6,30 +6,39 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:10:17 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/02 17:53:05 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+size_t	ft_strlen_strlcpy(const char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
 int	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	d;
+	size_t	len_src;
 
+	len_src = ft_strlen_strlcpy(src);
 	i = 0;
-	while (dst[i])
-		i++;
-	d = i;
-	i = 0;
-	while (i <= (size - 1))
+	if (size > 0)
 	{
-		dst[i] = src[i];
-		i++;
-	}
-	if (size > d)
-	{
+		while (i < (size - 1) && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
 		dst[i] = '\0';
 	}
-	return (i);
+	return (len_src);
 }
