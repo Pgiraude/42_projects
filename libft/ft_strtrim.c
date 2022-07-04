@@ -6,12 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:38:35 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/07/02 20:52:54 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/04 20:03:33 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 int	ft_set_check(char const c1, char const *set)
 {

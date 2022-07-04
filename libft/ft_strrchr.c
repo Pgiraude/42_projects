@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:20:52 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:13:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:38:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	while (l >= 0)
 	{
-		if (c == s[l])
+		if ((char)c == s[l])
 		{
 			return ((char *)(s + l));
 		}
