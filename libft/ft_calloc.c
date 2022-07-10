@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:24:03 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:06:46 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/10 13:59:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 void	*ft_calloc(size_t nmemb, size_t sizeofby)
 {
-	char	*ptr;
-	size_t	i;
+	void		*ptr;
 
+	if (nmemb > (SIZE_MAX / sizeofby) && sizeofby != 0)
+		return (NULL);
 	ptr = malloc(nmemb * sizeofby);
 	if (!ptr)
 		return (NULL);
-	i = 0;
-	while (i < (sizeofby * nmemb))
-	{
-		ptr[i] = '\0';
-		i++;
-	}
+	ft_memset(ptr, 0, (sizeofby * nmemb));
 	return (ptr);
 }

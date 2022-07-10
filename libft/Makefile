@@ -1,6 +1,6 @@
 NAME    =   libft.a
 
-SRC =   $(wildcard *.c)
+SRC =   $(wildcard ft_*.c)
 
 OBJS    =   $(SRC:.c=.o)
 
@@ -13,7 +13,7 @@ WWW = -Werror -Wextra -Wall
 CC = gcc
 
 $(NAME):
-	gcc $(WWW) -c $(SRC)
+	gcc -g3 $(WWW) -g3 -c $(SRC) -g3
 	ar  rcs $(NAME) $(OBJS)
 
 clean:

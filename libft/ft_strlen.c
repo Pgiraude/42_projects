@@ -6,16 +6,18 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:10:30 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/10 11:20:53 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(char *c)
+size_t	ft_strlen(const char *c)
 {
-	int	i;
+	size_t	i;
 
+	if (!c)
+		return (0);
 	i = 0;
 	while (c[i])
 	{

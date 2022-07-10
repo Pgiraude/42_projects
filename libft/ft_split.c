@@ -6,89 +6,105 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:55:24 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:09:13 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/10 19:58:00 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_fill(char const *x, char c, int i)
+char	**ft_errornull(char **str, int i)
 {
-	int		len;
-	char	*str;
-
-	len = 0;
-	while (x[i + len] != c && x[i + len])
+	while (i)
 	{
-		len++;
+		i--;
+		free(str[i]);
 	}
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	len = 0;
-	while (x[i + len] != c && x[i + len])
-	{
-		str[len] = x[i + len];
-		len++;
-	}
-	str[len] = '\0';
-	return (str);
+	free(str);
+	return (NULL);
 }
 
-int	ft_nb_split(char const *x, char c)
+int	ft_count_word(char const *x, char c)
 {
 	int	i;
 	int	count;
 
-	count = 0;
 	i = 0;
-	while (x[i] == c)
-		i++;
+	count = 0;
 	while (x[i])
 	{
-		if (x[i] == c)
+		while (x[i] == c)
+			i++;
+		if (x[i] != '\0')
 		{
 			count++;
-			while (x[i] == c)
-			{
-				i++;
-			}
-		}
-		else
-		{
 			i++;
-			if (x[i] == '\0')
-				count++;
 		}
+		while (x[i] != c && x[i])
+			i++;
 	}
 	return (count);
 }
 
+char	*the_word(char const *x, char c, int pos)
+{
+	char	*word;
+	int		len;
+	int		i;
+
+	len = 0;
+	while (x[pos + len] != c && x[pos + len])
+	{
+		len++;
+	}
+	word = malloc(sizeof(char) * len + 1);
+	if (!word)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		word[i] = x[pos + i];
+		i++;
+	}
+	word[len] = '\0';
+	return (word);
+}
+
+int	strlen_word(char const *x, char c, int i)
+{
+	int	pos;
+
+	pos = 0;
+	while (x[pos + i] != c && x[pos + i])
+		pos++;
+	while (x[pos + i] == c && x[pos + i])
+		pos++;
+	return (pos);
+}
+
 char	**ft_split(char const *x, char c)
 {
-	char	**str;
-	int		i;
+	char	**tab;
 	int		y;
+	int		pos;
+	int		nbr_word;
 
-	str = malloc(sizeof(char *) * (ft_nb_split(x, c) + 1));
-	if (!str)
+	nbr_word = ft_count_word(x, c);
+	tab = malloc(sizeof(*tab) * (nbr_word + 1));
+	if (!tab)
 		return (NULL);
 	y = 0;
-	i = 0;
-	while (x[i] == c)
-		i++;
-	while (x[i])
+	pos = 0;
+	if (nbr_word > 0)
+		while (x[pos] == c)
+			pos++;
+	while (y < nbr_word)
 	{
-		if (x[i] != c)
-		{
-			str[y] = ft_fill(x, c, i);
-			y++;
-			while (x[i] != c && x[i])
-				i++;
-		}
-		else
-			i++;
+		tab[y] = the_word(x, c, pos);
+		if (tab[y] == NULL)
+			return (ft_errornull(tab, y));
+		pos = pos + strlen_word(x, c, pos);
+		y++;
 	}
-	str[y] = '\0';
-	return (str);
+	tab[nbr_word] = 0;
+	return (tab);
 }
