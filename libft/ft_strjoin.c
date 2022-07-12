@@ -6,21 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 22:03:56 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 20:27:36 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/12 22:58:26 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int	ft_strlen_j(char const *s1)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i])
-		i++;
-	return (i);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -29,7 +19,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*str;
 	int		x;
 
-	x = ft_strlen_j(s1) + ft_strlen_j(s2);
+	if (!s1 && !s2)
+		return (NULL);
+	x = ft_strlen(s1) + ft_strlen(s2);
 	str = malloc(sizeof(char) * (x + 1));
 	if (!str)
 		return (NULL);
