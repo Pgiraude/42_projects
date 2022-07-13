@@ -14,12 +14,9 @@ all: $(NAME)
 
 RM  =   rm -f
 
-WWW = -Werror -Wextra -Wall
-
-CC = gcc
+CFLAGS = -Werror -Wextra -Wall
 
 $(NAME): $(OBJS)
-	gcc $(WWW) -c $(SRC) 
 	ar  rcs $(NAME) $(OBJS)
 
 clean:

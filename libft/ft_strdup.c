@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:24:29 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/22 21:09:43 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:46:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ char	*ft_strdup(const char *s)
 
 	len = 0;
 	while (s[len])
-	{
 		len++;
-	}
 	ptr = malloc(sizeof(char) * (len + 1));
 	if (!ptr)
 		return (NULL);
