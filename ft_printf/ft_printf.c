@@ -6,12 +6,20 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 19:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/07/14 20:28:55 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:32:28 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
+
+
+
+
+int	type_convert(va_list args, int type)
+{
+}
+
 
 void	ft_putchar(char c)
 {
@@ -30,7 +38,7 @@ void	ft_putstr(char *str)
 	}
 }
 
-void	ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list args;
 
@@ -39,12 +47,15 @@ void	ft_printf(const char *format, ...)
 	int	i;
 	char	*value;
 
+	int x;
+	x = 0;
 	i = 0;
-	while(format[i])
+	while(i < format)
 	{
-		value = va_arg(args,char*);
+		value = va_arg(args, char*);
 		ft_putstr(value);
 		ft_putchar('\n');
+		ft_putchar('A');
 		i++;
 	}
 	
