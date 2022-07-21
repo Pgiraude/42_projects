@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 19:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/07/21 21:18:57 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/20 21:41:03 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/27 21:27:58 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-
+#include "libft.h"
 
 int	ft_len(long long int n)
 {
@@ -76,62 +72,4 @@ char	*ft_itoa(int n)
 	}
 	str = ft_convert(p, sign);
 	return (str);
-}
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while(str[i])
-	{
-		ft_putchar(str[i]);
-		i++;
-	}
-}
-
-int	ft_select_format(va_list format, char x)
-{
-	if (x == '%')
-		ft_putchar('%');
-	else if (x == 's')
-		ft_putstr(va_arg(format, char*));
-	else if (x == 'd')
-		ft_putstr(ft_itoa(va_arg(format, int)));
-
-}
-
-int	ft_printf(const char *format, ...)
-{
-	va_list args;
-
-	int i;
-	va_start(args, format);
-
-	i= 0;
-	while(format[i])
-	{
-		if(format[i] == '%')
-		{
-			ft_select_format(args, format[i + 1]);
-			i++;
-		}
-		else
-		{
-			ft_putchar(format[i]);
-		}
-		i++;
-	}
-	
-	va_end(args);
-}
-
-int	main()
-{
-	ft_printf("j'aime les %s, les %s et la %s surtout avc %d tomates %% %% ", "oeufs", "patates", "ratatouille", 8);
 }
