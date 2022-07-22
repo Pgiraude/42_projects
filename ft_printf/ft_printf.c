@@ -13,6 +13,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "printf.h"
 
 
 
@@ -78,11 +79,6 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
 void	ft_putstr(char *str)
 {
 	int	i;
@@ -90,7 +86,7 @@ void	ft_putstr(char *str)
 	i = 0;
 	while(str[i])
 	{
-		ft_putchar(str[i]);
+		ft_putchar_fd(str[i], 1);
 		i++;
 	}
 }
@@ -98,7 +94,7 @@ void	ft_putstr(char *str)
 int	ft_select_format(va_list format, char x)
 {
 	if (x == '%')
-		ft_putchar('%');
+		ft_putchar_fd('%', 1);
 	else if (x == 's')
 		ft_putstr(va_arg(format, char*));
 	else if (x == 'd')
@@ -123,7 +119,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 		{
-			ft_putchar(format[i]);
+			ft_putchar_fd(format[i], 1);
 		}
 		i++;
 	}
