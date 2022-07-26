@@ -1,4 +1,4 @@
-NAME = printf.a
+NAME = libftprintf.a
 NAME2 = libft_cpy.a
 
 SRC = ft_printf.c
@@ -13,7 +13,7 @@ RM = rm -f
 
 $(NAME): $(OBJS)
 	cd ./libft && $(MAKE)
-	cp libft/libft.a $(NAME2)
+	cp libft/libft.a $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
 clean:
@@ -23,6 +23,5 @@ clean:
 fclean: clean
 	cd ./libft && $(MAKE) fclean
 	$(RM) $(NAME)
-	$(RM) $(NAME2)
 
 re: fclean all
