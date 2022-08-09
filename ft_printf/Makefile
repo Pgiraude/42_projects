@@ -1,5 +1,4 @@
 NAME = libftprintf.a
-NAME2 = libft_cpy.a
 
 SRC = ft_printf.c
 

@@ -6,14 +6,14 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 19:34:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/07/19 20:40:41 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:45:33 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
 #   define PRINTF_H
 
-#include "libft.h"
+#include "libft/libft.h"
 
 int ft_printf(const char *, ...);
 
