@@ -1,10 +1,10 @@
 NAME = libftprintf.a
 
-SRC = ft_printf.c
+SRC = ft_printf.c ft_convert_hex_len.c
 
 OBJS = $(SRC:.c=.o)
 
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

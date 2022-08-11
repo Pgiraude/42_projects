@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 19:34:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/09 19:45:33 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:50:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 #include "libft/libft.h"
 
 int ft_printf(const char *, ...);
+int	ft_convert_hex_len(int flag, int mode);
 
 #endif
