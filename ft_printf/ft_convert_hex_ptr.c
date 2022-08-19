@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_convert_hex_ptr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 19:34:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 20:40:12 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 19:49:46 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/19 20:21:21 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define  FT_PRINTF_H
+#include "ft_printf.h"
 
-# include "libft/libft.h"
+int	ft_convert_hex_ptr(int flag)
+{
+	int	len;
 
-int	ft_printf(const char *str, ...);
-int	ft_convert_hex_len(int flag, int mode);
-int	ft_convert_hex_ptr(int flag);
-int	ft_nbrconvert_len(int nbr, int base);
-int	ft_putnbr_printf(int flag);
-int	ft_putstr_printf(char *str);
-int	ft_uputnbr_printf(unsigned int flag);
-
-#endif
+	len = 0;
+	if (flag)
+	{
+		write(1, "0x", 2);
+		len = ft_convert_hex_len(flag, 0) + 2;
+	}
+	else
+	{
+		ft_putstr_fd("(nil)", 1);
+		len = 5;
+	}
+	return (len);
+}

@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_uputnbr_printf.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 19:34:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 20:40:12 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 20:01:34 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/19 20:22:03 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define  FT_PRINTF_H
+#include "ft_printf.h"
 
-# include "libft/libft.h"
+void	ft_putnbr_u(unsigned int n)
+{
+	long unsigned int	l;
 
-int	ft_printf(const char *str, ...);
-int	ft_convert_hex_len(int flag, int mode);
-int	ft_convert_hex_ptr(int flag);
-int	ft_nbrconvert_len(int nbr, int base);
-int	ft_putnbr_printf(int flag);
-int	ft_putstr_printf(char *str);
-int	ft_uputnbr_printf(unsigned int flag);
+	l = n;
+	if (l > 9)
+	{
+		ft_putnbr_u(l / 10);
+	}
+	ft_putchar_fd(((l % 10) + 48), 1);
+}
 
-#endif
+int	ft_uputnbr_printf(unsigned int flag)
+{
+	int	len;
+
+	len = ft_nbrconvert_len(flag, 10);
+	ft_putnbr_u(flag);
+	return (len);
+}

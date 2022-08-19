@@ -6,25 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:44:46 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/11 19:48:20 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:21:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-
-int ft_hexlen(int nbr)
-{
-	int	len;
-
-	len = 1;
-	while (nbr >= 16)
-	{
-		nbr /= 16;
-		len++;
-	}
-	return (len);
-}
 
 void	ft_convert_hex(int flag, int mode)
 {
@@ -47,7 +33,7 @@ int	ft_convert_hex_len(int flag, int mode)
 {
 	int	len;
 
-	len = ft_hexlen(flag);
+	len = ft_nbrconvert_len(flag, 16);
 	ft_convert_hex(flag, mode);
 	return (len);
 }
