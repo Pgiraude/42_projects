@@ -6,15 +6,15 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 20:21:16 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:11:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_nbrconvert_len(int nbr, int base)
+int	ft_nbrconvert_len(long int nbr, int base)
 {
-	int	len;
+	unsigned long int	len;
 
 	len = 1;
 	while (nbr >= base)

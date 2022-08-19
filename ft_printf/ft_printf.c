@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 19:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 20:44:41 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:50:33 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,4 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (len);
-}
-
-int	main(void)
-{
-	int	len;
-
-	len = 0;
-	len = ft_printf("%%%X", 847);
-	printf("\nprintf : %%%X len = %d", 847, len);
 }
