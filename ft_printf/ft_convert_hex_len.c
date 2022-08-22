@@ -6,13 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:44:46 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 21:34:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:32:37 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_convert_hex(unsigned long int flag, int mode)
+void	ft_convert_hex(size_t flag, int mode)
 {
 	char	*base;
 
@@ -27,9 +27,9 @@ void	ft_convert_hex(unsigned long int flag, int mode)
 	ft_putchar_fd(base[flag % 16], 1);
 }
 
-int	ft_convert_hex_len(unsigned long int flag, int mode)
+size_t	ft_convert_hex_len(size_t flag, int mode)
 {
-	unsigned long int	len;
+	size_t	len;
 
 	len = ft_nbrconvert_len(flag, 16);
 	ft_convert_hex(flag, mode);

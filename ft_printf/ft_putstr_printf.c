@@ -6,15 +6,15 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 19:57:11 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 21:11:48 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:54:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putstr_printf(char *str)
+size_t	ft_putstr_printf(char *str)
 {
-	int	len;
+	size_t	len;
 
 	len = 0;
 	if (str == NULL)

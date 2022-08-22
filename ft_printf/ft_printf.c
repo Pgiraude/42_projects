@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 19:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/19 20:50:33 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/22 21:10:04 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	ft_select_format(va_list format, char flag)
+size_t	ft_select_format(va_list format, char flag)
 {
 	if (flag == 'c')
 	{
@@ -48,7 +48,7 @@ int	ft_select_format(va_list format, char flag)
 int	ft_printf(const char *str, ...)
 {
 	int		i;
-	int		len;
+	size_t	len;
 	va_list	args;
 
 	va_start(args, str);
@@ -70,4 +70,22 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(args);
 	return (len);
+}
+
+
+int main ()
+{
+	unsigned int a;
+	unsigned long int b;
+	unsigned long long int c;
+	size_t d;
+
+	printf("%p %p %d\n", -1, LONG_MIN, LONG_MIN);
+	ft_printf("%p %p", -1, LONG_MIN);
+	a = -1;
+	b = -1;
+	c = -1;
+	d = -1;
+
+	printf ("\n%u %u %u %u", a ,b ,c ,d);
 }

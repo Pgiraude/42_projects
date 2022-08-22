@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 21:52:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/07/02 17:09:38 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:53:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_putchar_putnbr(char c, int fd)
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	long int	l;
+	long long int	l;
 
 	l = n;
 	if (l < 0)
