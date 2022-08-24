@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_convert_dec(int value)
+size_t	ft_convert_dec(int value)
 {
 	size_t			neg;
 	long long int	convert;

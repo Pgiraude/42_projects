@@ -24,9 +24,9 @@ void	ft_putnbr_u(unsigned int n)
 	ft_putchar_fd(((l % 10) + 48), 1);
 }
 
-int	ft_convert_udec(unsigned int value)
+size_t	ft_convert_udec(unsigned int value)
 {
-	int	len;
+	size_t	len;
 
 	len = ft_len_calculator(value, 10);
 	ft_putnbr_u(value);
