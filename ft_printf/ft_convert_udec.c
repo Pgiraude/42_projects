@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_printf.c                                 :+:      :+:    :+:   */
+/*   ft_convert_udec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 19:57:11 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:54:12 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 20:01:34 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/23 19:16:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putstr_printf(char *str)
+void	ft_putnbr_u(unsigned int n)
 {
-	size_t	len;
+	long unsigned int	l;
 
-	len = 0;
-	if (str == NULL)
+	l = n;
+	if (l > 9)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		ft_putnbr_u(l / 10);
 	}
-	len = ft_strlen(str);
-	ft_putstr_fd(str, 1);
+	ft_putchar_fd(((l % 10) + 48), 1);
+}
+
+int	ft_convert_udec(unsigned int value)
+{
+	int	len;
+
+	len = ft_len_calculator(value, 10);
+	ft_putnbr_u(value);
 	return (len);
 }

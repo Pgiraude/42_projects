@@ -12,28 +12,33 @@
 
 #include "ft_printf.h"
 
-void	ft_hexadecimal_ptr(unsigned int flag)
+void	ft_putchar_ptr(unsigned long int c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_hexadecimal_ptr(unsigned long int value)
 {
 	char	*base;
 
 	base = "0123456789abcdef";
-	if (flag > 15)
+	if (value > 15)
 	{
-		ft_hexadecimal_ptr((flag / 16));
+		ft_hexadecimal_ptr((value / 16));
 	}
-	ft_putchar_fd(base[flag % 16], 1);
+	ft_putchar_ptr(base[value % 16]);
 }
 
-size_t	ft_convert_ptr(unsigned long int flag)
+size_t	ft_convert_ptr(unsigned long int value)
 {
 	size_t	len;
 
 	len = 0;
-	if (flag)
+	if (value)
 	{
 		write(1, "0x", 2);
-		len = ft_nbrconvert_len(flag, 16) + 2;
-		ft_hexadecimal_ptr(flag);
+		len = ft_len_calculator((unsigned long int)value, 16) + 2;
+		ft_hexadecimal_ptr((unsigned long int)value);
 	}
 	else
 	{

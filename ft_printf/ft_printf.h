@@ -18,11 +18,11 @@
 # include <stdio.h>
 
 int		ft_printf(const char *str, ...);
-size_t	ft_convert_hex(unsigned int flag, int mode);
-size_t	ft_convert_ptr(unsigned long int flag);
-size_t	ft_nbrconvert_len(size_t nbr, size_t base);
-int		ft_putnbr_printf(int flag);
-size_t	ft_putstr_printf(char *str);
-int		ft_uputnbr_printf(unsigned int flag);
+size_t	ft_convert_hex(unsigned int value, int mode);
+size_t	ft_convert_ptr(unsigned long int value);
+size_t	ft_len_calculator(size_t nbr, size_t base);
+int		ft_convert_dec(int value);
+size_t	ft_convert_str(char *str);
+int		ft_convert_udec(unsigned int value);
 
 #endif

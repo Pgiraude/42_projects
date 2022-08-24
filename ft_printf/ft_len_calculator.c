@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_printf.c                                 :+:      :+:    :+:   */
+/*   ft_len_calculator.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 19:58:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/23 19:57:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr_printf(int flag)
+size_t	ft_len_calculator(size_t nbr, size_t base)
 {
-	size_t			neg;
-	long long int	convert;
+	size_t	len;
 
-	neg = 0;
-	convert = flag;
-	ft_putnbr_fd(convert, 1);
-	if (convert < 0)
+	len = 1;
+	while (nbr >= base)
 	{
-		neg++;
-		convert *= -1;
+		nbr /= base;
+		len++;
 	}
-	return (ft_nbrconvert_len(convert, 10) + neg);
+	return (len);
 }

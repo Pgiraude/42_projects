@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uputnbr_printf.c                                :+:      :+:    :+:   */
+/*   ft_convert_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:01:34 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/23 19:16:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 19:57:11 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/22 20:54:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_u(unsigned int n)
+size_t	ft_convert_str(char *str)
 {
-	long unsigned int	l;
+	size_t	len;
 
-	l = n;
-	if (l > 9)
+	len = 0;
+	if (str == NULL)
 	{
-		ft_putnbr_u(l / 10);
+		write(1, "(null)", 6);
+		return (6);
 	}
-	ft_putchar_fd(((l % 10) + 48), 1);
-}
-
-int	ft_uputnbr_printf(unsigned int flag)
-{
-	int	len;
-
-	len = ft_nbrconvert_len(flag, 10);
-	ft_putnbr_u(flag);
+	len = ft_strlen(str);
+	ft_putstr_fd(str, 1);
 	return (len);
 }

@@ -24,15 +24,15 @@ size_t	ft_select_format(va_list format, char flag)
 		return (1);
 	}
 	else if (flag == 's')
-		return (ft_putstr_printf(va_arg(format, char *)));
+		return (ft_convert_str(va_arg(format, char *)));
 	else if (flag == 'p')
 		return (ft_convert_ptr(va_arg(format, unsigned long int)));
 	else if (flag == 'd')
-		return (ft_putnbr_printf(va_arg(format, int)));
+		return (ft_convert_dec(va_arg(format, int)));
 	else if (flag == 'i')
-		return (ft_putnbr_printf(va_arg(format, int)));
+		return (ft_convert_dec(va_arg(format, int)));
 	else if (flag == 'u')
-		return (ft_uputnbr_printf(va_arg(format, int)));
+		return (ft_convert_udec(va_arg(format, int)));
 	else if (flag == 'x')
 		return (ft_convert_hex(va_arg(format, int), 0));
 	else if (flag == 'X')
@@ -71,11 +71,12 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (len);
 }
-
+/*
 int	main(void)
 {
 	int	len;
 
-	len = ft_printf("%p", LONG_MIN);
-	printf("\n%p, len = %d", LONG_MIN, len);
+	len = ft_printf("%p %p", LONG_MIN, -1);
+	printf("\n%p %p, len = %d", LONG_MIN, -1, len);
 }
+*/
