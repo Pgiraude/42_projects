@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:12:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/26 21:05:54 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:01:35 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,18 @@
 
 char    *get_next_line(int fd)
 {
+    static char buffer;
+    int reader;
+
+    reader = read()
+    if (!fd)
+        return (NULL);
+
+    buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+    if (!buffer)
+        return (NULL);
     
+
 }
 
 int main(void)
@@ -26,7 +37,7 @@ int main(void)
     int fd;
     char *result;
 
-    fd = open("TEXT", O_RDONLY);
+    fd = open("TEST", O_RDONLY);
     result = get_next_line(fd);
     printf("%s", result);
 }
