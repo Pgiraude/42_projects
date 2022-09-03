@@ -6,15 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 19:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/23 21:16:37 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/09/03 16:19:53 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "ft_printf.h"
-#include <stdio.h>
 
 size_t	ft_select_format(va_list format, char flag)
 {
@@ -71,12 +67,3 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (len);
 }
-/*
-int	main(void)
-{
-	int	len;
-
-	len = ft_printf("%p %p", LONG_MIN, -1);
-	printf("\n%p %p, len = %d", LONG_MIN, -1, len);
-}
-*/
