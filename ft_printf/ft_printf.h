@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 19:34:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/24 20:11:46 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:21:17 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include <limits.h>
 # include <stdio.h>
+# include <stdarg.h>
 
 int		ft_printf(const char *str, ...);
 size_t	ft_convert_hex(unsigned int value, int mode);
