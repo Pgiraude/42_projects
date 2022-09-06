@@ -6,16 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 19:18:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/09/03 19:16:25 by pgiraude         ###   ########.fr       */
+/*   Updated: 2022/09/06 20:28:10 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	ft_check_cast()
-{
-	
-}
 
 size_t	ft_select_format(va_list format, char flag)
 {
