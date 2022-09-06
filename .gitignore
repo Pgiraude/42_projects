@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 printfTester/
+main.c
 
 # Object files
 *.o
