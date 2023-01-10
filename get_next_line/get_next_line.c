@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:12:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/29 21:01:35 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:52:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,35 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+void    ft_putchar(char c)
+{
+    write(1, &c, 1);
+}
+
+static size_t	get_len(char *buffer)
+{
+	size_t	len;
+
+	len = 0;
+	while (buffer != '\n' && buffer != '0')
+		len++;
+	if (buffer[len] == '\n')
+		len++;
+	return (len);
+}
+
 char    *get_next_line(int fd)
 {
     static char buffer;
     int reader;
+    int i;
 
-    reader = read()
+	buffer = 42;	
+
+    i = 0;
     if (!fd)
         return (NULL);
-
-    buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
-    if (!buffer)
-        return (NULL);
-    
+    printf("%d", fd);
 
 }
 

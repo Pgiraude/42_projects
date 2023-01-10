@@ -36,4 +36,6 @@ int main(void)
 	len = ft_printf("%x", INT_MIN);
 	printf("\n%x len = %ld", INT_MIN, len);
 // reproduit le f(x) de printf meme si chelou
+
+
 }
