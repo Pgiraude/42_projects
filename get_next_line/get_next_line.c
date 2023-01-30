@@ -13,7 +13,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-size_t	ft_buffer_len(char *buffer)
+size_t	len_buffer(char *buffer)
 {
 	size_t			len;
 	
@@ -25,34 +25,13 @@ size_t	ft_buffer_len(char *buffer)
 	return (len);
 }
 
-char    *get_line(char *buffer)
-{
-    size_t  len;
-	size_t	i;
-    char    *str;
-
-	len = ft_buffer_len(buffer);
-    i = 0;
-	str = malloc(sizeof(char) * len + 1);
-	if (!str)
-		return (NULL);
-    while (len > 0)
-	{
-        str[i] = buffer[i];
-        i++;
-		len--;
-    }
-	str[i] = '\0';
-	return (str);
-}
-
-char	*rest_line(char *buffer)
+char	*rest_buffer(char *buffer)
 {
     size_t  len;
 	size_t	i;
     char    *str;
 	
-	len = ft_buffer_len(buffer);
+	len = len_buffer(buffer);
 	str = malloc(sizeof(char) * (BUFFER_SIZE - len) + 1);
 	if (!str)
 		return (NULL);
@@ -65,25 +44,40 @@ char	*rest_line(char *buffer)
 	str[i] = '\0';
 	return (str);
 }
+// seg fault si n'utilise pas un malloc??
 
-char    *get_next_line(int fd)
+char    *process_buffer(char *buffer)
 {
-    static char		buffer[BUFFER_SIZE + 1];
-    size_t  		size;
-    char			*line;
-    char    		*tmp;
+    size_t  len;
+	size_t	i;
+    char    *str;
+	char	*tmp;
 
-
-	if (fd < 0 || BUFFER_SIZE < 1)
+	len = len_buffer(buffer);
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
 		return (NULL);
+    i = 0;
+    while (len > 0)
+	{
+        str[i] = buffer[i];
+        i++;
+		len--;
+    }
+	str[i] = '\0';
+	tmp = rest_buffer(buffer);
+	ft_strlcpy(buffer, tmp, (BUFFER_SIZE - len));
+	free (tmp);
+	return (str);
+}
+//retire la partie après le \n si str n'est pas un malloc?? 
 
-	line = malloc(sizeof(char) * 1);
-	if (!line)
-		return (NULL);
-	line[0] = '\0';
-	if (buffer[0] != '\0')
-        line = ft_strjoin(line, buffer);
-    size = 1;
+char	*create_line(int fd, char *buffer, char *line)
+{
+	size_t	size;
+	char	*tmp;
+
+	size = 1;
 	while (size > 0)
 	{
         size = read(fd, buffer, BUFFER_SIZE);
@@ -92,17 +86,36 @@ char    *get_next_line(int fd)
         buffer[size] = '\0';
         if (ft_strchr(buffer, '\n'))
         {
-			tmp = get_line(buffer);
+			tmp = process_buffer(buffer);
             line = ft_strjoin(line, tmp);
 			free (tmp);
-			tmp = rest_line(buffer);
-			ft_strlcpy(buffer, tmp, (BUFFER_SIZE - ft_buffer_len(buffer)));
-			free (tmp);
-			break;
+			return (line);
         }
         else
             line = ft_strjoin(line, buffer);
 	}
-    return (line);
+	return (line);
 }
 
+char    *get_next_line(int fd)
+{
+    static char		buffer[BUFFER_SIZE + 1];
+    char			*line;
+	char			*tmp;
+
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (NULL);
+	line = malloc(sizeof(char) * 1);
+	if (!line)
+		return (NULL);
+	line[0] = '\0';
+	if (buffer[0] != '\0')
+	{
+		tmp = process_buffer(buffer);
+        line = ft_strjoin(line, tmp);
+		free (tmp);
+		if (ft_strchr(line, '\n'))
+			return (line);
+	}
+    return (create_line(fd, buffer, line));
+}
