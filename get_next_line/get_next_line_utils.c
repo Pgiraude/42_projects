@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:10:21 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/01/10 16:39:58 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:47:55 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,6 @@ void	*ft_memchr(const void *s, int c, size_t n)
 char	*ft_strchr(const char *s, int c)
 {
 	return (ft_memchr(s, c, ft_strlen(s) + 1));
-}
-
-char	*ft_strdup(const char *s)
-{
-	int		len;
-	char	*ptr;
-	int		i;
-
-	len = 0;
-	while (s[len])
-		len++;
-	ptr = malloc(sizeof(char) * (len + 1));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		ptr[i] = s[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
 }
 
 int	ft_strlcpy(char *dst, const char *src, size_t size)
