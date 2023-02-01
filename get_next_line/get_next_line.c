@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:12:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/01/31 20:12:14 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:46:29 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ char	*rest_buffer(char *buffer)
 {
 	size_t		len;
 	size_t		i;
-	char		*str;
+	char		*save;
 
 	len = len_buffer(buffer);
-	str = malloc(sizeof(char) * (BUFFER_SIZE - len) + 1);
-	if (!str)
+	save = malloc(sizeof(char) * (BUFFER_SIZE - len) + 1);
+	if (!save)
 		return (NULL);
 	i = 0;
 	while (buffer[(len) + i])
 	{
-		str[i] = buffer[(len) + i];
+		save[i] = buffer[(len) + i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	save[i] = '\0';
+	return (save);
 }
 // seg fault si n'utilise pas un malloc??
 
@@ -49,25 +49,25 @@ char	*process_buffer(char *buffer)
 {
 	size_t	len;
 	size_t	i;
-	char	*str;
+	char	*end_line;
 	char	*tmp;
 
 	len = len_buffer(buffer);
-	str = malloc(sizeof(char) * len + 1);
-	if (!str)
+	end_line = malloc(sizeof(char) * len + 1);
+	if (!end_line)
 		return (NULL);
 	i = 0;
 	while (len > 0)
 	{
-		str[i] = buffer[i];
+		end_line[i] = buffer[i];
 		i++;
 		len--;
 	}
-	str[i] = '\0';
+	end_line[i] = '\0';
 	tmp = rest_buffer(buffer);
 	ft_strlcpy(buffer, tmp, (BUFFER_SIZE - len));
 	free (tmp);
-	return (str);
+	return (end_line);
 }
 //retire la partie après le \n si str n'est pas un malloc?? 
 
@@ -80,8 +80,6 @@ char	*create_line(int fd, char *buffer, char *line)
 	while (size > 0)
 	{
 		size = read(fd, buffer, BUFFER_SIZE);
-		if (!fd)
-			return (NULL);
 		if (size < 0 || (size == 0 && ft_strlen(line) == 0))
 			return (free (line), NULL);
 		buffer[size] = '\0';
@@ -97,7 +95,8 @@ char	*create_line(int fd, char *buffer, char *line)
 	}
 	return (line);
 }
-//size doit etre un int et non size_t car on obtient -1 pour un invalid fd
+//size doit etre un int et non size_t car on obtient -1 pour un read invalid fd
+//pas oublier de free line si le fichier read est vide
 
 char	*get_next_line(int fd)
 {
@@ -105,7 +104,7 @@ char	*get_next_line(int fd)
 	char			*line;
 	char			*tmp;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd == -1 || BUFFER_SIZE < 1 || fd >= FOPEN_MAX)
 		return (NULL);
 	line = malloc(sizeof(char) * 1);
 	if (!line)
