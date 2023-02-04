@@ -1,5 +1,5 @@
 ligne suivante =~
-~
+XXXX
 ligne suivante = ligne vide avec retour à la ligne
 
 ligne suivante = très longue ligne terminé par ~

@@ -1,73 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   V2get_next_line.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/04 14:41:39 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/02/04 17:31:36 by pgiraude         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
 
-size_t	ft_buffer_len(char *buffer)
+char    *process_line(int fd)
 {
-	size_t			len;
-	
-	len = 0;
-	while (buffer[len] != '\n' && buffer[len] != '\0')
-		len++;
-	if (buffer[len] == '\n')
-		len++;
-	return (len);
-}
+    char    *buffer;
+    int     size_read;
+    char *line;
+    int     i;
 
-char    *rest_save(char *all_line, size_t len, char *rest_line)
-{
-    size_t	i;
-	
+    line = malloc(sizeof(char) * 1);
+    if (!line)
+        return (NULL);
+    line[0] = '\0';
+
+    buffer  = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+    if (!buffer)
+        return (NULL);
+    buffer[0] = '\0';
     i = 0;
-    while (all_line[(len) + i])
-	{
-        rest_line[i] = all_line[(len) + i];
+    size_read = 1;
+    while (size_read > 0 && !ft_strchr(buffer, '\n'))
+    {
+        size_read = read(fd, buffer, BUFFER_SIZE);
+        buffer[size_read] = '\0';
+
+        line = ft_strjoin(line, buffer);
         i++;
     }
-	rest_line[i] = '\0';
-	return (rest_line);
-}
-
-char    *get_all_line(int fd, char *rest_line)
-{
-    char    buffer[BUFFER_SIZE + 1];
-    char    *all_line;
-    size_t  size;
-
-    all_line = malloc(sizeof(char) * 1);
-    all_line[0] = '\0';
-//    printf("%s\n", rest_line);
-    if (rest_line[0] != '\0')
-    {
-//        if (ft_strchr(rest_line, '\n'))
-//            return (ft_strjoin(all_line, rest_line));
-//       all_line = ft_strjoin(all_line, rest_line);
-    }
-    size = 1;
-    while (!ft_strchr(buffer, '\n') && size != 0)
-    {
-        size = read(fd, buffer, BUFFER_SIZE);
-        buffer[size] ='\0';
-        all_line = ft_strjoin(all_line, buffer);
-    }
-    return (all_line);
+    free (buffer);
+    
+    
+    return (line);
 }
 
 char    *get_next_line(int fd)
 {
-    char        *all_line;
-    size_t      len;
-    static char *rest_line;
-    char        *line;
+    char    *line;
 
-    printf("%s\n", rest_line);
 
-    all_line = get_all_line(fd, rest_line);
-    len = ft_buffer_len(all_line);
-    line = malloc(sizeof(char) * len + 1);
-    ft_strlcpy(line, all_line, len);
-    
-    rest_save(all_line, len, rest_line);
+    line = process_line(fd);
+
     return (line);
+}
+
+int main(void)
+{
+    int fd;
+    char *result;
+
+    fd = open("TEST2.txt", O_RDONLY);
+
+    result = get_next_line(fd);
+    printf("%s", result);
+
 }

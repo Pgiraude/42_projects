@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:12:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/04 18:04:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/04 17:25:42 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ size_t	len_buffer(char *buffer)
 
 char	*rest_buffer(char *buffer)
 {
+	size_t		len;
 	size_t		i;
 	char		*save;
 
-	save = malloc(sizeof(char) * (ft_strlen(buffer) + 1));
+	len = len_buffer(buffer);
+	save = malloc(sizeof(char) * (BUFFER_SIZE - len) + 1);
 	if (!save)
 		return (NULL);
 	i = 0;
-	while (buffer[i])
+	while (buffer[(len) + i])
 	{
-		save[i] = buffer[i];
+		save[i] = buffer[(len) + i];
 		i++;
 	}
 	save[i] = '\0';
@@ -43,12 +45,12 @@ char	*rest_buffer(char *buffer)
 }
 // seg fault si n'utilise pas un malloc??
 
-char	*process_buffer(char *buffer, char *save)
+char	*process_buffer(char *buffer)
 {
 	size_t	len;
 	size_t	i;
 	char	*end_line;
-	
+	char	*tmp;
 
 	len = len_buffer(buffer);
 	end_line = malloc(sizeof(char) * len + 1);
@@ -62,21 +64,17 @@ char	*process_buffer(char *buffer, char *save)
 		len--;
 	}
 	end_line[i] = '\0';
-	save = rest_buffer(buffer + i);
-	printf("save =%s", save);
+	tmp = rest_buffer(buffer);
+	ft_strlcpy(buffer, tmp, (BUFFER_SIZE - len));
+	free (tmp);
 	return (end_line);
 }
 //retire la partie après le \n si str n'est pas un malloc?? 
 
-char	*create_line(int fd, char *line, char *save)
+char	*create_line(int fd, char *buffer, char *line)
 {
 	int		size;
 	char	*end_line;
-	char	*buffer;
-
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
 
 	size = 1;
 	while (size > 0)
@@ -87,7 +85,7 @@ char	*create_line(int fd, char *line, char *save)
 		buffer[size] = '\0';
 		if (ft_strchr(buffer, '\n'))
 		{
-			end_line = process_buffer(buffer, save);
+			end_line = process_buffer(buffer);
 			line = ft_strjoin(line, end_line);
 			free (end_line);
 			return (line);
@@ -103,9 +101,9 @@ char	*create_line(int fd, char *line, char *save)
 char	*get_next_line(int fd)
 {
 
-
+	static char		buffer[BUFFER_SIZE + 1];
 	char			*line;
-	static char		*save;
+	char			*tmp;
 
 	if (fd == -1 || BUFFER_SIZE < 1 || fd >= FOPEN_MAX)
 		return (NULL);
@@ -113,13 +111,14 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	line[0] = '\0';
-	if (save[0] != '\0')
+	if (buffer[0] != '\0')
 	{
-		save = process_buffer(save, '\0'); //pb ici seg fault
-		line = ft_strjoin(line, save);
+		tmp = process_buffer(buffer);
+		line = ft_strjoin(line, tmp);
+		free (tmp);
 		if (ft_strchr(line, '\n'))
 			return (line);
 	}
-	return (create_line(fd, line, save));
+	return (create_line(fd, buffer, line));
 }
 //seg fault avec BUFFER_SIZE>12,000,000,0000
