@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:10:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/01 12:31:10 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:57:55 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 4000
 # endif
 
 # include <sys/types.h>
@@ -30,5 +30,6 @@ char	*ft_strjoin(char *s1, const char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 int		ft_strlcpy(char *dst, const char *src, size_t size);
+char	*ft_strdup(const char *s);
 
 #endif

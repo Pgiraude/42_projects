@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:10:21 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/01/31 16:47:55 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:57:33 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (str);
 }
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strchr(const char *s, int c)
 {
-	const unsigned char		*ptr;
+	const char		*ptr;
 	size_t					i;
+	size_t					n;
 
+	n = ft_strlen(s) + 1;
 	if (!s)
 		return (NULL);
 	ptr = s;
@@ -66,11 +68,6 @@ void	*ft_memchr(const void *s, int c, size_t n)
 		i++;
 	}
 	return (NULL);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	return (ft_memchr(s, c, ft_strlen(s) + 1));
 }
 
 int	ft_strlcpy(char *dst, const char *src, size_t size)
@@ -90,4 +87,26 @@ int	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	dst[i] = '\0';
 	return (len_src);
+}
+
+char	*ft_strdup(const char *s)
+{
+	int		len;
+	char	*ptr;
+	int		i;
+
+	len = 0;
+	while (s[len])
+		len++;
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }
