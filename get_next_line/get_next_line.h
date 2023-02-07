@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:10:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/06 18:57:55 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/07 09:43:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4000
+#  define BUFFER_SIZE 4096
 # endif
 
 # include <sys/types.h>

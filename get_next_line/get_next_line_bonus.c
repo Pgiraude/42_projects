@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:12:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/06 19:47:07 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:09:16 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,17 @@ char	*get_start_line(int fd, char *buffer, char *line)
 char	*get_line(int fd, char *buffer, char *line)
 {
 	char	*end_line;
-	
+
 	if (line == NULL)
 	{
-		line = malloc(sizeof(char)* 1);
+		line = malloc(sizeof(char) * 1);
 		if (!line)
 			return (NULL);
 		line[0] = '\0';
 	}
 	line = get_start_line(fd, buffer, line);
+	if (line == NULL)
+		return (NULL);
 	end_line = get_end_line(buffer);
 	line = ft_strjoin(line, end_line);
 	free (end_line);
@@ -112,57 +114,60 @@ char	*get_next_line(int fd)
 	if (buffer_fd[fd])
 	{
 		line = get_end_line(buffer_fd[fd]);
+		// if (ft_strchr(line, '\n') && buffer_fd[fd] == '\0')
+		// 	return (free (buffer), free (buffer_fd[fd]), line);
 		if (ft_strchr(line, '\n'))
 			return (free (buffer), line);
 		free (buffer_fd[fd]);
 	}
 	line = get_line(fd, buffer, line);
-	buffer_fd[fd] = ft_strdup(buffer);
+	if (buffer[0] != '\0')
+		buffer_fd[fd] = ft_strdup(buffer);
 	return (free (buffer), line);
 }
 
-int	main(void)
-{
-    int fd;
-	// int	fd2;
-    char *result;
-    int     i;
+// int	main(void)
+// {
+//     int fd;
+// 	// int	fd2;
+//     char *result;
+//     int     i;
 
-    fd = open("TEST.txt", O_RDONLY);
-    i = 1;
-    while (i <= 1)
-    {
-        result = get_next_line(fd);
-        printf("1N°%d =%s", (i), result);
-        free(result);
-        i++;
-    }
+//     fd = open("TEST.txt", O_RDONLY);
+//     i = 1;
+//     while (i <= 1)
+//     {
+//         result = get_next_line(fd);
+//         printf("1N°%d =%s", (i), result);
+//         free(result);
+//         i++;
+//     }
 
-    // fd2 = open("TEST2.txt", O_RDONLY);
-    // i = 1;
-    // while (i <= 1)
-    // {
-    //     result = get_next_line(fd2);
-    //     printf("2N°%d =%s", (i), result);
-    //     free(result);
-    //     i++;
-    // }
+//     // fd2 = open("TEST2.txt", O_RDONLY);
+//     // i = 1;
+//     // while (i <= 1)
+//     // {
+//     //     result = get_next_line(fd2);
+//     //     printf("2N°%d =%s", (i), result);
+//     //     free(result);
+//     //     i++;
+//     // }
 
-    // i = 1;
-    // while (i <= 1)
-    // {
-    //     result = get_next_line(fd);
-    //     printf("1N°%d =%s", (i), result);
-    //     free(result);
-    //     i++;
-    // }
+//     // i = 1;
+//     // while (i <= 1)
+//     // {
+//     //     result = get_next_line(fd);
+//     //     printf("1N°%d =%s", (i), result);
+//     //     free(result);
+//     //     i++;
+//     // }
 
-    // i = 1;
-    // while (i <= 1)
-    // {
-    //     result = get_next_line(fd2);
-    //     printf("2N°%d =%s", (i), result);
-    //     free(result);
-    //     i++;
-    // }
-}
+//     // i = 1;
+//     // while (i <= 1)
+//     // {
+//     //     result = get_next_line(fd2);
+//     //     printf("2N°%d =%s", (i), result);
+//     //     free(result);
+//     //     i++;
+//     // }
+// }
