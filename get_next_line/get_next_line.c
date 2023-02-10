@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-size_t	len_buffer(char *buffer)
+size_t	len_line(char *buffer)
 {
 	size_t			len;
 
@@ -26,33 +26,31 @@ size_t	len_buffer(char *buffer)
 
 char	*rest_line(char *line)
 {
-	size_t		len;
 	size_t		i;
 	char		*save;
 
-	len = len_buffer(line);
-	if (len == ft_strlen(line))
+	if (ft_strlen(line) == 0)
 		return (NULL);
-	save = malloc(sizeof(char) * (ft_strlen(line + len) + 1));
+	save = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!save)
 		return (NULL);
 	i = 0;
-	while (line[len + i])
+	while (line[i])
 	{
-		save[i] = line[len + i];
+		save[i] = line[i];
 		i++;
 	}
 	save[i] = '\0';
 	return (save);
 }
 
-char	*get_line(char *line)
+char	*get_line(char *line, char **save)
 {
 	size_t	len;
 	size_t	i;
 	char	*new_line;
 
-	len = len_buffer(line);
+	len = len_line(line);
 	new_line = malloc(sizeof(char) * (len + 1));
 	if (!new_line)
 		return (NULL);
@@ -64,13 +62,17 @@ char	*get_line(char *line)
 		len--;
 	}
 	new_line[i] = '\0';
+	if (len != ft_strlen(line))
+		*save = rest_line(line + i);
+	else
+		*save = NULL;
 	return (free (line), new_line);
 }
 
-char	*create_line(int fd, char *line, int *found_nl)
+char	*generate_line(int fd, char *line, int *found_nl)
 {
-	int		size;
-	char	*buffer;
+	ssize_t		size;
+	char		*buffer;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
@@ -102,33 +104,20 @@ char	*get_next_line(int fd)
 	int				found_nl;
 
 	found_nl = 0;
-	if (fd == -1 || BUFFER_SIZE < 1 || fd >= FOPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= FOPEN_MAX)
 		return (NULL);
 	line = NULL;
 	if (save != NULL)
 	{
-		if (ft_strchr(save, '\n'))
-		{
-			line = ft_strdup(save);
-			free (save);
-			save = rest_line(line);
-			line = get_line(line);
+		line = ft_strdup(save);
+		free (save);
+		save = NULL;
+		line = get_line(line, &save);
+		if (ft_strchr(line, '\n'))
 			return (line);
-		}
-		if (!ft_strchr(save, '\n'))
-		{
-			line = ft_strdup(save);
-			free (save);
-			save = NULL;
-		}
 	}
-	line = create_line(fd, line, &found_nl);
+	line = generate_line(fd, line, &found_nl);
 	if (found_nl == 1)
-	{
-		save = rest_line(line);
-		line = get_line(line);
-		if (save)
-			printf("%s\n", save);
-	}
+		line = get_line(line, &save);
 	return (line);
 }

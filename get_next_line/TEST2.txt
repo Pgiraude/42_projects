@@ -1,2 +1,7 @@
-123456789*
-STOP
+
+
+
+
+
+valgrind  -s /gnlTest --leak-check=full --leak-resolution=high --show-reachable=yes
+pour tester avec l'ensemble des leaks

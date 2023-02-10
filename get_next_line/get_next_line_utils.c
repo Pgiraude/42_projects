@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:10:21 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/06 18:57:33 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:37:44 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*ft_strjoin(char *s1, const char *s2)
 char	*ft_strchr(const char *s, int c)
 {
 	const char		*ptr;
-	size_t					i;
-	size_t					n;
+	size_t			i;
+	size_t			n;
 
 	n = ft_strlen(s) + 1;
 	if (!s)

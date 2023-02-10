@@ -1,0 +1,2 @@
+modifier permission avec chmod u-r
+Ici fd=-1 -> pas les droits de lecture
