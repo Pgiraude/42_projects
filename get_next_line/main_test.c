@@ -8,7 +8,7 @@ int main(void)
 
     int     i;
     
-    fd = open("TEST3.txt", O_RDONLY);
+    fd = open("TEST.txt", O_RDONLY);
     i = 1;
     result = get_next_line(fd);
     if (!result)
