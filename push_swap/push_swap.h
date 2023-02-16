@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/16 16:01:10 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:49:20 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 # include <stdlib.h>
 # include <stdio.h>
 
+struct prenom
+{
+    int numero;
+};
+
 typedef struct Test
 {
     int Hp;
     int Mp;
+    struct prenom;
 }joueur; 
-
-int main(void);
 
 #endif
