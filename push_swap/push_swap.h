@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-struct prenom
+struct user
 {
     int numero;
 };
@@ -25,7 +25,7 @@ typedef struct Test
 {
     int Hp;
     int Mp;
-    struct prenom;
+    struct user prenom;
 }joueur; 
 
 #endif

@@ -28,5 +28,5 @@ int main(void)
     printf("Hp = %d Mp = %d\n", t1.Hp, t1.Mp);
     
     t1.prenom.numero = 12;
-    printf("numero = %d", t1.prenom.numero);
+    printf("numero = %d\n", t1.prenom.numero);
 }
