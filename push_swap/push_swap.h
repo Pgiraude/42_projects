@@ -21,11 +21,24 @@ struct user
     int numero;
 };
 
-typedef struct Test
+struct Test
 {
     int Hp;
     int Mp;
     struct user prenom;
-}joueur; 
+};
+
+typedef struct Test joueur;
+
+
+typedef struct Cellule
+{
+    long long int data;
+    struct Cellule *next;
+}List, Cell;
+
+int     is_empty_List(List *List);
+List    *create_List(void);
+List    addat_List(List *List, int data, int pos);
 
 #endif

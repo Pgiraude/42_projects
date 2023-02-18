@@ -22,11 +22,14 @@ void    create(joueur *lol)
 
 int main(void)
 {
-    joueur t1 = {0, 0, 0};
+    // joueur t1 = {0, 0, 0};
     
-    create(&t1);
-    printf("Hp = %d Mp = %d\n", t1.Hp, t1.Mp);
+    // create(&t1);
+    // printf("Test Hp = %d Mp = %d\n", t1.Hp, t1.Mp);
     
-    t1.prenom.numero = 12;
-    printf("numero = %d\n", t1.prenom.numero);
+    // t1.prenom.numero = 12;
+    // printf("Test numero = %d\n", t1.prenom.numero);
+
+    List *test = create_List();
+    printf("%d\n", is_empty_List(test));
 }
