@@ -31,5 +31,14 @@ int main(void)
     // printf("Test numero = %d\n", t1.prenom.numero);
 
     List *test = create_List();
-    printf("%d\n", is_empty_List(test));
+    test = addat_List(test, 10, 0);
+    printList(test);
+    test = addat_List(test, 8, 0);
+    printList(test);
+    test = addat_List(test, 9, 1);
+    printList(test);
+
+    test = freeList(test);
+    printList(test);
+    printf("%d", lenList(test));
 }

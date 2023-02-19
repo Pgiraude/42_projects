@@ -28,6 +28,8 @@ struct Test
     struct user prenom;
 };
 
+
+
 typedef struct Test joueur;
 
 
@@ -37,8 +39,17 @@ typedef struct Cellule
     struct Cellule *next;
 }List, Cell;
 
-int     is_empty_List(List *List);
+typedef enum
+{
+    false,
+    true
+}Bool;
+
+int     is_empty_List(List *L);
 List    *create_List(void);
-List    addat_List(List *List, int data, int pos);
+List    *addat_List(List *L, int data, int pos);
+void    printList(List *L);
+int     lenList(List *L);
+List    *freeList(List *L);
 
 #endif

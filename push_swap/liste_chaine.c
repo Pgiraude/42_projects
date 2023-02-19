@@ -27,24 +27,131 @@ List    *create_List(void)
     return (NULL);
 }
 
-int is_empty_List(List *List)
+int is_empty_List(List *L)
 {
-    if (List)
+    if (L)
         return (1);
     else
         return (0);
 }
 
-List    addat_List(List *List, int data, int pos)
+List    *addat_List(List *L, int data, int pos)
 {
-    //ft_strlen
-    int *test;
+    List *prec = L;
+    List *cur = L;
+    int i;
 
-    test = malloc(sizeof(data) * (1 + 1));
-    if (!test)
+    i = 0;
+    Cell *cell = create_Cell(data);
+    if (is_empty_List(L) == 0)
+        return (cell);
+    else if (pos == 0)
+    {
+        cell->next = L;
+        return (cell);
+    }
+    while (i < pos)
+    {
+        i++;
+        prec = cur;
+        cur = cur->next;
+    }
+    prec->next = cell;
+    cell->next = cur;
+
+    return (L); 
+}
+
+void printList(List *L)
+{
+    while (is_empty_List(L) == 1)
+    {
+        printf("%lld ", L->data);
+        L = L->next;
+    }
+    printf("\n");
+}
+
+List    *freeList(List *L)
+{
+    List *tmp = NULL;
+    while (L)
+    {
+        tmp = L->next;
+        free (L);
+        L = tmp;
+    }
+}
+
+int lenList(List *L)
+{
+    int i;
+
+    i = 0;
+    while (L != NULL)
+    {
+        i++;
+        L = L->next;
+    }
+    return (i);
+}
+
+int getAt (List *L, int pos)
+{
+    int i;
+
+    i = 0;
+    if (is_empty_List == 0)
+    (
         return (NULL);
-    test[0] = data;
-    test[1] = '\0';
-    
-    List->data = test;
+    )
+    while (i < pos)
+    {
+        i++;
+        L = L->next; 
+    }
+    return (L->data);
+}
+
+void setAt(List *L, int data, int pos)
+{
+    int i;
+
+    i = 0;
+    if (is_empty_List(L) == 0)
+        return (NULL);
+        while (i < pos)
+        {
+            i++;
+            L = L->next;
+        }
+    L->data = data;
+}
+
+List *freeAt(List *L, int pos)
+{
+    List *prec = L;
+    List *cur = L;
+    int i;
+
+    i = 0;
+    if (is_empty_List(L) == 0)
+        return (NULL);
+    else if (pos == 0)
+    {
+        L = L->next;
+        free (cur);
+        return (L);
+    }
+    if (pos >)
+    while (i < pos)
+    {
+        i++;
+        prec = cur;
+        cur = cur->next;
+    }
+    prec->next = cur->cell;
+    free (cur);
+
+    return (L); 
 }
