@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/20 14:21:03 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:17:40 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ typedef enum
 Bool    is_empty_List(List *L);
 List    *create_List(void);
 List    *addat_List(List *L, int data, int pos);
-void    printList(List *L);
-int     lenList(List *L);
-List    *freeList(List *L);
+void    print_List(List *L);
+int     len_List(List *L);
+List    *free_List(List *L);
+void    *getAt(List *L, int pos);
+void    setAt(List *L, int data, int pos);
+List    *freeAt(List *L, int pos);
 
 #endif

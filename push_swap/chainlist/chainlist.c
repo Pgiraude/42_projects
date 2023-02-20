@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/20 14:21:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:18:01 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ List    *addat_List(List *L, int data, int pos)
     return (L); 
 }
 
-void printList(List *L)
+void print_List(List *L)
 {
     while (is_empty_List(L) == false)
     {
@@ -71,7 +71,7 @@ void printList(List *L)
     }
 }
 
-List    *freeList(List *L)
+List    *free_List(List *L)
 {
     List *tmp = NULL;
     while (L)
@@ -83,7 +83,7 @@ List    *freeList(List *L)
     return (NULL);
 }
 
-int lenList(List *L)
+int len_List(List *L)
 {
     int i;
 
@@ -96,61 +96,61 @@ int lenList(List *L)
     return (i);
 }
 
-// void    *getAt(List *L, int pos)
-// {
-//     int i;
+void    *getAt(List *L, int pos)
+{
+    int i;
 
-//     i = 0;
-//     if (is_empty_List(L) == true)
-//         return (NULL);
-//     while (i < pos)
-//     {
-//         i++;
-//         L = L->next; 
-//     }
-//     return (L->data);
-// }
+    i = 0;
+    if (is_empty_List(L) == true)
+        return (NULL);
+    while (i < pos)
+    {
+        i++;
+        L = L->next; 
+    }
+    return (L->data);
+}
 
-// void setAt(List *L, int data, int pos)
-// {
-//     int i;
+void    setAt(List *L, int data, int pos)
+{
+    int i;
 
-//     i = 0;
-//     if (is_empty_List(L) == true)
-//         return (NULL);
-//     while (i < pos)
-//     {
-//         i++;
-//         L = L->next;
-//     }
-//     L->data = data;
-// }
+    i = 0;
+    if (is_empty_List(L) == true)
+        return (NULL);
+    while (i < pos)
+    {
+        i++;
+        L = L->next;
+    }
+    L->data = data;
+}
 
-// List *freeAt(List *L, int pos)
-// {
-//     List *prec = L;
-//     List *cur = L;
-//     int i;
+List *freeAt(List *L, int pos)
+{
+    List *prec = L;
+    List *cur = L;
+    int i;
 
-//     i = 0;
-//     if (is_empty_List(L) == true)
-//         return (NULL);
-//     else if (pos == 0)
-//     {
-//         L = L->next;
-//         free (cur);
-//         return (L);
-//     }
-//     if (pos > lenList(L))// protection
-//         return (NULL);
-//     while (i < pos)
-//     {
-//         i++;
-//         prec = cur;
-//         cur = cur->next;
-//     }
-//     prec->next = cur->next;
-//     free (cur);
+    i = 0;
+    if (is_empty_List(L) == true)
+        return (NULL);
+    else if (pos == 0)
+    {
+        L = L->next;
+        free (cur);
+        return (L);
+    }
+    if (pos > len_List(L))// protection
+        return (NULL);
+    while (i < pos)
+    {
+        i++;
+        prec = cur;
+        cur = cur->next;
+    }
+    prec->next = cur->next;
+    free (cur);
 
-//     return (L);
-// }
+    return (L);
+}
