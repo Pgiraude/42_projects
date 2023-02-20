@@ -6,28 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/20 15:18:01 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:11:55 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "chainlist.h"
 
-Cell    *create_Cell(int data)
-{
-    Cell *cell = malloc(sizeof(Cell));
-    if (!cell)
-        return (NULL);
-    cell->data = data;
-    cell->next = NULL;
-    return (cell);
-}
-
-List    *create_List(void)
-{
-    return (NULL);
-}
-
-Bool    is_empty_List(List *L)
+Bool    is_empty_Dlist(DList *L)
 {
     if (L)
         return (false);
@@ -35,122 +20,304 @@ Bool    is_empty_List(List *L)
         return (true);
 }
 
-List    *addat_List(List *L, int data, int pos)
+int first_Dlist(DList *L)
 {
-    List *prec = L;
-    List *cur = L;
-    int i;
-
-    i = 0;
-    Cell *cell = create_Cell(data);
-    if (is_empty_List(L) == true)
-        return (cell);
-    else if (pos == 0)
-    {
-        cell->next = L;
-        return (cell);
-    }
-    while (i < pos)
-    {
-        i++;
-        prec = cur;
-        cur = cur->next;
-    }
-    prec->next = cell;
-    cell->next = cur;
-
-    return (L); 
+    if (is_empty_Dlist(L))
+        return (0); //modifier -> pour l instant evite error
+    return (L->first->data);
 }
 
-void print_List(List *L)
+int last_Dlist(DList *L)
 {
-    while (is_empty_List(L) == false)
-    {
-        printf("[%d] ", L->data);
-        L = L->next;
-    }
+    if (is_empty_Dlist(L))
+        return (0); //modifier -> pour l instant evite error
+    return (L->last->data);
 }
 
-List    *free_List(List *L)
+DList   *create_List(void)
 {
-    List *tmp = NULL;
-    while (L)
-    {
-        tmp = L->next;
-        free (L);
-        L = tmp;
-    }
     return (NULL);
 }
 
-int len_List(List *L)
+DList   *insert_last_Dlist(DList *L, int data)
 {
-    int i;
-
-    i = 0;
-    while (L != NULL)
-    {
-        i++;
-        L = L->next;
-    }
-    return (i);
-}
-
-void    *getAt(List *L, int pos)
-{
-    int i;
-
-    i = 0;
-    if (is_empty_List(L) == true)
+    List *cell;
+    cell = malloc(sizeof(*cell));
+    if (!cell)
         return (NULL);
-    while (i < pos)
+    cell->data = data;
+    cell->next = NULL;
+    cell->back = NULL;
+    if (is_empty_Dlist(L))
     {
-        i++;
-        L = L->next; 
+        L = malloc(sizeof(*L));
+        if (!L)
+            return (NULL);
+        L->len = 0;
+        L->first = cell;
+        L->last = cell;
     }
-    return (L->data);
-}
-
-void    setAt(List *L, int data, int pos)
-{
-    int i;
-
-    i = 0;
-    if (is_empty_List(L) == true)
-        return (NULL);
-    while (i < pos)
+    else
     {
-        i++;
-        L = L->next;
+        L->last->next = cell;
+        cell->back = L->last;
+        L->last = cell;
     }
-    L->data = data;
-}
-
-List *freeAt(List *L, int pos)
-{
-    List *prec = L;
-    List *cur = L;
-    int i;
-
-    i = 0;
-    if (is_empty_List(L) == true)
-        return (NULL);
-    else if (pos == 0)
-    {
-        L = L->next;
-        free (cur);
-        return (L);
-    }
-    if (pos > len_List(L))// protection
-        return (NULL);
-    while (i < pos)
-    {
-        i++;
-        prec = cur;
-        cur = cur->next;
-    }
-    prec->next = cur->next;
-    free (cur);
-
+    L->len++;
     return (L);
 }
+
+DList   *insert_first_Dlist(DList *L, int data)
+{
+    List *cell;
+    cell = malloc(sizeof(*cell));
+    if (!cell)
+        return (NULL);
+    cell->data = data;
+    cell->next = NULL;
+    cell->back = NULL;
+    if (is_empty_Dlist(L))
+    {
+        L = malloc(sizeof(*L));
+        if (!L)
+            return (NULL);
+        L->len = 0;
+        L->first = cell;
+        L->last = cell;
+    }
+    else
+    {
+        L->first->back = cell;
+        cell->next = L->first;
+        L->first = cell;
+    }
+    L->len++;
+    return (L);
+}
+
+DList   *free_first_Dlist(DList *L)
+{
+    List *tmp = L->first;
+    
+    if (is_empty_Dlist(L))
+        return (NULL);
+    if (L->first == L->last)
+    {
+        free(L);
+        L = NULL;
+        return (NULL);
+    }
+    
+    L->first = L->first->next;
+    L->first->back = NULL;
+    tmp->next = NULL;
+    free (tmp);
+    tmp = NULL;
+    L->len--;
+    return (L);
+}
+DList   *free_last_Dlist(DList *L)
+{
+    List *tmp = L->last;
+    
+    if (is_empty_Dlist(L))
+        return (NULL);
+    if (L->first == L->last)
+    {
+        free(L);
+        L = NULL;
+        return (NULL);
+    }
+    
+    L->last = L->last->back;
+    L->last->next = NULL;
+    tmp->back = NULL;
+    free (tmp);
+    tmp = NULL;
+    L->len--;
+    return (L);
+}
+
+void    printf_Dlist(DList *L)
+{
+    if (is_empty_Dlist(L))
+        return ;
+    List *tmp = L->first;
+
+    while(tmp != NULL)
+    {
+        printf("[%d] ", tmp->data);
+        tmp = tmp->next;
+    }
+}
+
+int len_Dlist(DList *L)
+{
+    int i;
+
+    i = 0;
+    if (is_empty_Dlist(L))
+        return (0);
+    return (L->len);
+}
+
+
+/* partie sans double chainage */
+
+// Bool    is_empty_List(List *L)
+// {
+//     if (L)
+//         return (false);
+//     else
+//         return (true);
+// }
+
+// List    *create_Cell(int data)
+// {
+//     List *cell;
+//     cell = malloc(sizeof(*cell));
+//     if (!cell)
+//         return (NULL);
+//     cell->data = data;
+//     cell->next = NULL;
+//     cell->back = NULL;
+//     return (cell);
+// }
+
+// DList    *addat_List(DList *L, int data, int pos)
+// {
+//     List *prec = L;
+//     List *cur = L;
+//     List *suiv = L;
+//     int i;
+
+//     i = 0;
+//     List *cell = create_Cell(data);
+//     if (is_empty_List(L) == true)
+//         return (cell);
+//     else if (pos == 0)
+//     {
+//         cell->next = L;
+//         return (cell);
+//     }
+//     while (i < pos)
+//     {
+//         i++;
+//         prec = cur;
+//         cur = cur->next;
+//     }
+//     prec->next = cell;
+//     cell->next = cur;
+
+//     return (L); 
+// }
+
+
+// List    *addat_List(List *L, int data, int pos)
+// {
+//     List *prec = L;
+//     List *cur = L;
+//     int i;
+
+//     i = 0;
+//     List *cell = create_Cell(data);
+//     if (is_empty_List(L) == true)
+//         return (cell);
+//     else if (pos == 0)
+//     {
+//         cell->next = L;
+//         return (cell);
+//     }
+//     while (i < pos)
+//     {
+//         i++;
+//         prec = cur;
+//         cur = cur->next;
+//     }
+//     prec->next = cell;
+//     cell->next = cur;
+
+//     return (L); 
+// }
+
+// void print_List(List *L)
+// {
+//     while (is_empty_List(L) == false)
+//     {
+//         printf("[%d] ", L->data);
+//         L = L->next;
+//     }
+// }
+
+// List    *free_List(List *L)
+// {
+//     List *tmp = NULL;
+//     while (L)
+//     {
+//         tmp = L->next;
+//         free (L);
+//         L = tmp;
+//     }
+//     return (NULL);
+// }
+
+
+
+// void    *getAt(List *L, int pos)
+// {
+//     int i;
+
+//     i = 0;
+//     if (is_empty_List(L) == true)
+//         return (NULL);
+//     while (i < pos)
+//     {
+//         i++;
+//         L = L->next; 
+//     }
+//     return (L->data);
+// }
+
+// void    setAt(List *L, int data, int pos)
+// {
+//     int i;
+
+//     i = 0;
+//     if (is_empty_List(L) == true)
+//         return (NULL);
+//     while (i < pos)
+//     {
+//         i++;
+//         L = L->next;
+//     }
+//     L->data = data;
+// }
+
+// List *freeAt(List *L, int pos)
+// {
+//     List *prec = L;
+//     List *cur = L;
+//     int i;
+
+//     i = 0;
+//     if (is_empty_List(L) == true)
+//         return (NULL);
+//     else if (pos == 0)
+//     {
+//         L = L->next;
+//         free (cur);
+//         return (L);
+//     }
+//     if (pos > len_List(L))// protection
+//         return (NULL);
+//     while (i < pos)
+//     {
+//         i++;
+//         prec = cur;
+//         cur = cur->next;
+//     }
+//     prec->next = cur->next;
+//     free (cur);
+
+//     return (L);
+// }
