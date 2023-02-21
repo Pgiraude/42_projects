@@ -39,7 +39,7 @@ typedef enum
 }Bool;
 
 Bool    is_empty_Dlist(DList *L);
-DList   *create_List(void);
+DList   *create_Dlist(void);
 int     len_Dlist(DList *L);
 int     first_Dlist(DList *L);
 int     last_Dlist(DList *L);

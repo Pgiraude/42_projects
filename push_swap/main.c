@@ -14,10 +14,16 @@
 
 int main(int argc, char **argv)
 {
-    int x;
+    int i;
     
-    printf("a\n");
-    printf("b\n");
-    printf("c\n");
+    DList *ListA;
+    ListA = create_Dlist();
+    i = 1;
+    while (i <= argc)
+    {
+        ListA = insert_first_Dlist(ListA, (int *)argv[i]);
+    }
+
+    printf_Dlist(ListA);
 }
     

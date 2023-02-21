@@ -15,7 +15,7 @@
 int main(void)
 {
 
-    DList *test = create_List();
+    DList *test = create_Dlist();
     test = insert_first_Dlist(test, 100);
     test = insert_first_Dlist(test, 50);
     test = insert_last_Dlist(test, 200);
