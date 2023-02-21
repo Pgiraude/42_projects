@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/04 17:28:07 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/22 21:06:53 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *c)
+int	ft_isalnum(unsigned char c)
 {
-	size_t	i;
-
-	if (!c)
+	if (c >= '0' && c <= '9')
+		return (8);
+	else if (c >= 'a' && c <= 'z')
+		return (8);
+	else if (c >= 'A' && c <= 'Z')
+		return (8);
+	else
 		return (0);
-	i = 0;
-	while (c[i])
-	{
-		i++;
-	}
-	return (i);
 }

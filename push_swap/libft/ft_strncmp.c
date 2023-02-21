@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:21:26 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/27 21:17:32 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *c)
+int	ft_comp(char c1, char c2)
+{
+	if ((unsigned char)c1 != (unsigned char)c2)
+		return ((unsigned char)c1 - (unsigned char)c2);
+	return (0);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
-	if (!c)
-		return (0);
 	i = 0;
-	while (c[i])
+	while (i < n && s1[i] && s2[i])
 	{
+		if (ft_comp(s1[i], s2[i]) != 0)
+			return (ft_comp(s1[i], s2[i]));
 		i++;
 	}
-	return (i);
+	if (i < n)
+		return (ft_comp(s1[i], s2[i]));
+	return (0);
 }

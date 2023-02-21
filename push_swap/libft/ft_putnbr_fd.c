@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/20 21:52:13 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/02 17:09:38 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *c)
+void	ft_putchar_putnbr(char c, int fd)
 {
-	size_t	i;
+	write(fd, &c, 1);
+}
 
-	if (!c)
-		return (0);
-	i = 0;
-	while (c[i])
+void	ft_putnbr_fd(int n, int fd)
+{
+	long int	l;
+
+	l = n;
+	if (l < 0)
 	{
-		i++;
+		l = l * -1;
+		ft_putchar_putnbr('-', fd);
 	}
-	return (i);
+	if (l > 9)
+	{
+		ft_putnbr_fd((l / 10), fd);
+	}
+	ft_putchar_putnbr(((l % 10) + 48), fd);
 }

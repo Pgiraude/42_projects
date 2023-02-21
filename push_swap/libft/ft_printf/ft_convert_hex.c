@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_convert_hex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/11 19:44:46 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/23 20:37:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *c)
+void	ft_hexadecimal(unsigned int value, int mode)
 {
-	size_t	i;
+	char	*base;
 
-	if (!c)
-		return (0);
-	i = 0;
-	while (c[i])
+	if (mode > 0)
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
+	if (value > 15)
 	{
-		i++;
+		ft_hexadecimal((value / 16), mode);
 	}
-	return (i);
+	ft_putchar_fd(base[value % 16], 1);
+}
+
+size_t	ft_convert_hex(unsigned int value, int mode)
+{
+	size_t	len;
+
+	len = ft_len_calculator(value, 16);
+	ft_hexadecimal(value, mode);
+	return (len);
 }

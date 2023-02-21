@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_convert_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 19:57:11 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/22 20:54:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *c)
+size_t	ft_convert_str(char *str)
 {
-	size_t	i;
+	size_t	len;
 
-	if (!c)
-		return (0);
-	i = 0;
-	while (c[i])
+	len = 0;
+	if (str == NULL)
 	{
-		i++;
+		write(1, "(null)", 6);
+		return (6);
 	}
-	return (i);
+	len = ft_strlen(str);
+	ft_putstr_fd(str, 1);
+	return (len);
 }

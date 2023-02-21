@@ -6,13 +6,14 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/20 19:16:14 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:34:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHAINLIST_H
 # define CHAINLIST_H
 
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 

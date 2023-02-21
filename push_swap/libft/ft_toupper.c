@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:19:14 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/11 23:24:00 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *c)
+int	ft_toupper(int c)
 {
-	size_t	i;
-
-	if (!c)
-		return (0);
-	i = 0;
-	while (c[i])
+	if (c >= 'a' && c <= 'z')
 	{
-		i++;
+		c = c - 32;
 	}
-	return (i);
+	return (c);
 }

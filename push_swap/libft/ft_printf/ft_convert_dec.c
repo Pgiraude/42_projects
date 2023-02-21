@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_convert_dec.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 19:58:32 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/23 19:57:41 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *c)
+size_t	ft_convert_dec(int value)
 {
-	size_t	i;
+	size_t			neg;
+	long long int	convert;
 
-	if (!c)
-		return (0);
-	i = 0;
-	while (c[i])
+	neg = 0;
+	convert = value;
+	ft_putnbr_fd(convert, 1);
+	if (convert < 0)
 	{
-		i++;
+		neg++;
+		convert *= -1;
 	}
-	return (i);
+	return (ft_len_calculator(convert, 10) + neg);
 }

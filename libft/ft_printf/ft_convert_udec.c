@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_convert_udec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 20:01:34 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/23 19:16:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *c)
+void	ft_putnbr_u(unsigned int n)
 {
-	size_t	i;
+	long unsigned int	l;
 
-	if (!c)
-		return (0);
-	i = 0;
-	while (c[i])
+	l = n;
+	if (l > 9)
 	{
-		i++;
+		ft_putnbr_u(l / 10);
 	}
-	return (i);
+	ft_putchar_fd(((l % 10) + 48), 1);
+}
+
+size_t	ft_convert_udec(unsigned int value)
+{
+	size_t	len;
+
+	len = ft_len_calculator(value, 10);
+	ft_putnbr_u(value);
+	return (len);
 }

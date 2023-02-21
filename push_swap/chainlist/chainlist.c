@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/20 19:11:55 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:47:47 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int last_Dlist(DList *L)
     return (L->last->data);
 }
 
-DList   *create_List(void)
+DList   *create_Dlist(void)
 {
     return (NULL);
 }
@@ -146,16 +146,13 @@ void    printf_Dlist(DList *L)
 
     while(tmp != NULL)
     {
-        printf("[%d] ", tmp->data);
+        ft_printf("[%d] \n", tmp->data);
         tmp = tmp->next;
     }
 }
 
 int len_Dlist(DList *L)
 {
-    int i;
-
-    i = 0;
     if (is_empty_Dlist(L))
         return (0);
     return (L->len);

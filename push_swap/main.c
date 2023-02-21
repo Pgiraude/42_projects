@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/20 19:35:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:40:05 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,31 @@
 int main(int argc, char **argv)
 {
     int i;
+    int data;
     
-    DList *ListA;
-    ListA = create_Dlist();
-    i = 1;
-    while (i <= argc)
+    if (is_arg_error(argc, argv))
     {
-        ListA = insert_first_Dlist(ListA, (int *)argv[i]);
+        ft_printf("Error\n");
+        return (EXIT_FAILURE);
     }
+    
+    DList *Pile_a;
+    Pile_a = create_Dlist();
 
-    printf_Dlist(ListA);
+    i = 1;
+    while (i < argc)
+    {
+        data = ft_atoi(argv[i]);
+        Pile_a = insert_last_Dlist(Pile_a, data);
+        i++;
+    }
+    printf_Dlist(Pile_a);
+
+    // while (i <= argc)
+    // {
+    //     
+    // }
+
+
 }
     
