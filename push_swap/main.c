@@ -17,14 +17,16 @@ int main(int argc, char **argv)
     int i;
     int data;
     
-    if (is_arg_error(argc, argv))
+    if (is_error(argc, argv))
     {
         ft_printf("Error\n");
         return (EXIT_FAILURE);
     }
     
     DList *Pile_a;
+    DList *Pile_b;
     Pile_a = create_Dlist();
+    Pile_b = create_Dlist();
 
     i = 1;
     while (i < argc)
@@ -34,12 +36,7 @@ int main(int argc, char **argv)
         i++;
     }
     printf_Dlist(Pile_a);
-
-    // while (i <= argc)
-    // {
-    //     
-    // }
-
-
+    Pile_b = insert_last_Dlist(Pile_b, NULL);
+    printf_Dlist(Pile_b);
 }
     
