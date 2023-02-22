@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-Bool is_error(int argc, char **argv);
+Bool    is_error(int argc, char **argv);
+void    ft_printpiles(DList *A, DList *B);
 
 #endif

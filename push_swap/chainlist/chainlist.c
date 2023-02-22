@@ -116,6 +116,7 @@ DList   *free_first_Dlist(DList *L)
     L->len--;
     return (L);
 }
+
 DList   *free_last_Dlist(DList *L)
 {
     List *tmp = L->last;
@@ -146,7 +147,7 @@ void    printf_Dlist(DList *L)
 
     while(tmp != NULL)
     {
-        ft_printf("[%d] \n", tmp->data);
+        ft_printf("[%d] ", tmp->data);
         tmp = tmp->next;
     }
 }

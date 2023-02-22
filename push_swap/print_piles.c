@@ -2,26 +2,40 @@
 
 #include "push_swap.h"
 
-void    ft_print_pile(DList *A, DList *B)
+void    ft_printpiles(DList *A, DList *B)
 {
-    List *tmpA = A->first;
-    List *tmpB = B->first;
+    List *tmpA;
+    List *tmpB;
+
+    if (is_empty_Dlist(A) && is_empty_Dlist(B))
+        return ;
+
+    if (is_empty_Dlist(A))
+        tmpA = NULL;
+    else
+        tmpA = A->first;
+    
+    if (is_empty_Dlist(B))
+        tmpB = NULL;
+    else
+        tmpB = B->first;
 
     while (tmpA != NULL || tmpB != NULL)
     {
-        
-    }
-}
-
-void    printf_Dlist(DList *L)
-{
-    if (is_empty_Dlist(L))
-        return ;
-    List *tmp = L->first;
-
-    while(tmp != NULL)
-    {
-        ft_printf("[%d] ", tmp->data);
-        tmp = tmp->next;
+        if (tmpA == NULL)
+            ft_printf("[vide]");
+        else
+        {
+            ft_printf("[%d]", tmpA->data);
+            tmpA = tmpA->next;
+        }
+        ft_printf(" ");
+        if (tmpB == NULL)
+            ft_printf("[vide]\n");
+        else
+        {
+            ft_printf("[%d]\n", tmpB->data);
+            tmpB = tmpB->next;
+        }
     }
 }
