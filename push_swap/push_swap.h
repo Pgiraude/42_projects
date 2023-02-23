@@ -26,6 +26,8 @@ void    free_all_Dlist(DList *L);
 DList   *insert_cell_Dlist(DList *L, List *cell, int mode);
 List    *isolate_cell_Dlist(DList *L, int Mode);
 
-void    p_move(DList *src, DList *dest);
+void    R_move(DList *La, DList *Lb, int mode);
+void    S_move(DList *La, DList *Lb, int mode);
+void    P_move(DList *La, DList *Lb, int mode);
 
 #endif
