@@ -20,5 +20,6 @@
 
 Bool    is_error(int argc, char **argv);
 void    ft_printpiles(DList *A, DList *B);
+void    quick_sort(DList *A);
 
 #endif
