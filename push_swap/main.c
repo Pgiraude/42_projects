@@ -12,31 +12,6 @@
 
 #include "push_swap.h"
 
-
-// DList   *insert_firstquicksort_Dlist(DList *L, List *li)
-// {
-//     if (is_empty_Dlist(L))
-//     {
-//         L = malloc(sizeof(*L));
-//         if (!L)
-//             return (NULL);
-//         L->len = 0;
-//         L->first = li;
-//         L->last = li;
-//     }
-//     else
-//     {
-//         L->first->back = li;
-//         li->next = L->first;
-//         L->first = li;
-//     }
-//     L->len++;
-//     return (L);
-// }
-
-
-
-
 int main(int argc, char **argv)
 {
     int i;
@@ -69,15 +44,23 @@ int main(int argc, char **argv)
         i++;
     }
 
-    ft_printf("len A = %d le B = %d\n", Pile_a->len, Pile_b->len);
-    printf_Dlist(Pile_b);
 
+
+    /*---type move---*/
+    R_move(Pile_a, Pile_b, 0);
+    /*---type move---*/
+
+    /*---print result---*/
+    ft_printf("len A = %d le B = %d\n", Pile_a->len, Pile_b->len);
     ft_printpiles(Pile_a, Pile_b);
+    /*---print result---*/
+
+    /*---print solution---*/
     quick_sort(Solution);
     ft_printf("------\n");
     printf_Dlist(Solution);
     ft_printf("\n");
-
+    /*---print solution---*/
 
 
     free_all_Dlist(Pile_a);
