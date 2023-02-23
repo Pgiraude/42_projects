@@ -21,5 +21,11 @@
 Bool    is_error(int argc, char **argv);
 void    ft_printpiles(DList *A, DList *B);
 void    quick_sort(DList *A);
+void    free_all_Dlist(DList *L);
+
+DList   *insert_cell_Dlist(DList *L, List *cell, int mode);
+List    *isolate_cell_Dlist(DList *L, int Mode);
+
+void    p_move(DList *src, DList *dest);
 
 #endif

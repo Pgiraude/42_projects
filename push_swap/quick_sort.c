@@ -26,57 +26,17 @@ void   fusion_Dlist(DList *Inf, DList *Piv, DList *Sup)
     }
 }
 
-DList   *insert_lastquicksort_Dlist(DList *L, List *li)
-{
-    if (is_empty_Dlist(L))
-    {
-        L = malloc(sizeof(*L));
-        if (!L)
-            return (NULL);
-        L->len = 0;
-        L->first = li;
-        L->last = li;
-    }
-    else
-    {
-        L->last->next = li;
-        li->back = L->last;
-        L->last = li;
-    }
-    L->len++;
-    return (L);
-}
-
-DList   *insert_firstquicksort_Dlist(DList *L, List *li)
-{
-    if (is_empty_Dlist(L))
-    {
-        L = malloc(sizeof(*L));
-        if (!L)
-            return (NULL);
-        L->len = 0;
-        L->first = li;
-        L->last = li;
-    }
-    else
-    {
-        L->first->back = li;
-        li->next = L->first;
-        L->first = li;
-    }
-    L->len++;
-    return (L);
-}
-
 void   quick_sort(DList *A)
 {
     DList *Sup;
     DList *Inf;
     List *tmp;
 
-    Sup = create_Dlist();
-    Inf = create_Dlist();
-    
+    Sup = NULL;
+    Inf = NULL;
+    // Sup = create_Dlist(Sup);
+    // Inf = create_Dlist(Inf);
+
     while (A->last != A->first)
     {
         if (A->last->data > A->first->data)
@@ -87,7 +47,7 @@ void   quick_sort(DList *A)
             tmp->next = NULL;
             tmp->back = NULL;
             A->len--;
-            Inf = insert_lastquicksort_Dlist(Inf, tmp);
+            Inf = insert_cell_Dlist(Inf, tmp, 1);
         }
         else
         {
@@ -97,7 +57,7 @@ void   quick_sort(DList *A)
             tmp->next = NULL;
             tmp->back = NULL;
             A->len--;
-            Sup = insert_lastquicksort_Dlist(Sup, tmp);
+            Sup = insert_cell_Dlist(Sup, tmp, 1);
         }
     }
 

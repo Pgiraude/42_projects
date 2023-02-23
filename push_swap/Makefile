@@ -1,12 +1,12 @@
 NAME = push_swap.a
 
-SRC = push_swap.c check_error.c print_piles.c quick_sort.c
+SRC = push_swap.c check_error.c print_piles.c quick_sort.c free_dlist.c moove.c utils_chainlist.c
 
 SRC_CHAIN = chainlist/chainlist.c
 
 OBJS = $(SRC:.c=.o) $(SRC_CHAIN:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 

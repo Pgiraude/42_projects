@@ -40,7 +40,7 @@ typedef enum
 }Bool;
 
 Bool    is_empty_Dlist(DList *L);
-DList   *create_Dlist(void);
+DList   *create_Dlist(DList *L);
 int     len_Dlist(DList *L);
 int     first_Dlist(DList *L);
 int     last_Dlist(DList *L);
@@ -50,6 +50,7 @@ DList   *free_first_Dlist(DList *L);
 DList   *free_last_Dlist(DList *L);
 void    printf_Dlist(DList *L);
 
+DList   *insert_data_Dlist(DList *L, int data, int mode);
 
 /* partie liste simple*/
 
