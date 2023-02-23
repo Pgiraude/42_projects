@@ -51,13 +51,11 @@ int main(int argc, char **argv)
         ft_printf("Error\n");
         return (EXIT_FAILURE);
     }
-    tmp = create_Dlist(Pile_a);
-    Pile_a = tmp;
+    Pile_a = NULL;
+    Pile_b = NULL;
+    Solution = NULL;
 
-    if (Pile_a->len == 0)
-        ft_printf("ok %d\n", Pile_a->len);
-    ft_printf("Error1\n");
-
+    Pile_a = create_Dlist(Pile_a);
     Pile_b = create_Dlist(Pile_b);
     Solution = create_Dlist(Solution);
 
@@ -67,13 +65,12 @@ int main(int argc, char **argv)
         data = ft_atoi(argv[i]);
 
         Pile_a = insert_data_Dlist(Pile_a, data, 1);
-                        ft_printf("Error\n");
-        Solution = insert_data_Dlist(Pile_b, data, 1);
+        Solution = insert_data_Dlist(Solution, data, 1);
         i++;
     }
 
     ft_printf("len A = %d le B = %d\n", Pile_a->len, Pile_b->len);
-
+    printf_Dlist(Pile_b);
 
     ft_printpiles(Pile_a, Pile_b);
     quick_sort(Solution);

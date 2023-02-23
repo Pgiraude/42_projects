@@ -23,36 +23,6 @@ List    *isolate_lastcell_Dlist(DList *L)
     return (cell);
 }
 
-List    *isolate_cell_Dlist(DList *L, int Mode)
-{
-    List *cell;
-
-    cell = isolate_lastcell_Dlist(L);
-    if (cell != NULL)
-        return (cell);
-    if (Mode == 0)
-    {
-        cell = L->first;
-        L->first = L->first->next;
-        L->first->back = NULL;
-        cell->next = NULL;
-        cell->back = NULL;
-        L->len--;
-    }
-    if (Mode != 0)
-    {
-        cell = L->last;
-        L->last = L->last->back;
-        L->last->next = NULL;
-        cell->next = NULL;
-        cell->back = NULL;
-        L->len--;
-    }
-    return (cell);
-}
-
-
-
 DList   *insertlast_cell_Dlist(DList *L, List *li)
 {
     if (is_empty_Dlist(L))
@@ -105,6 +75,8 @@ DList   *insertfirst_cell_Dlist(DList *L, List *li)
     return (L);
 }
 
+/*--------------------Utils-------------------------*/
+
 DList    *insert_cell_Dlist(DList *L, List *cell, int mode)
 {
     if (mode == 0)
@@ -112,4 +84,32 @@ DList    *insert_cell_Dlist(DList *L, List *cell, int mode)
     else
         L = insertlast_cell_Dlist(L, cell);
     return (L);
+}
+
+List    *isolate_cell_Dlist(DList *L, int Mode)
+{
+    List *cell;
+
+    cell = isolate_lastcell_Dlist(L);
+    if (cell != NULL)
+        return (cell);
+    if (Mode == 0)
+    {
+        cell = L->first;
+        L->first = L->first->next;
+        L->first->back = NULL;
+        cell->next = NULL;
+        cell->back = NULL;
+        L->len--;
+    }
+    if (Mode != 0)
+    {
+        cell = L->last;
+        L->last = L->last->back;
+        L->last->next = NULL;
+        cell->next = NULL;
+        cell->back = NULL;
+        L->len--;
+    }
+    return (cell);
 }

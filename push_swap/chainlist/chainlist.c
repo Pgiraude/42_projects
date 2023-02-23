@@ -34,11 +34,10 @@ int last_Dlist(DList *L)
     return (L->last->data);
 }
 
-DList   *create_Dlist(DList *List)
+DList   *create_Dlist(DList *L)
 {
-    DList *L;
 
-    if (is_empty_Dlist(List))
+    if (is_empty_Dlist(L))
     {
         L = malloc(sizeof(*L));
         if (!L)
@@ -48,7 +47,7 @@ DList   *create_Dlist(DList *List)
         L->last = NULL;
         return (L);
     }
-    return (List);
+    return (L);
 }
 
 DList   *insertlast_data_Dlist(DList *L, int data)
@@ -60,9 +59,8 @@ DList   *insertlast_data_Dlist(DList *L, int data)
     cell->data = data;
     cell->next = NULL;
     cell->back = NULL;
-    if (is_empty_Dlist(L))
+    if (is_empty_Dlist(L) || L->len == 0)
     {
-
         L = create_Dlist(L);
         L->first = cell;
         L->last = cell;
