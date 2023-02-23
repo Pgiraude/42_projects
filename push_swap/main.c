@@ -33,6 +33,30 @@
 //     L->len--;
 //     return (L);
 // }
+void   biglast_insert_Dlist(DList *Inf, DList *Piv, DList *Sup)
+{
+    if (!is_empty_Dlist(Inf))
+    {
+        Inf->last->next = Piv->first;
+        Piv->last->back = Inf->last;
+        Piv->first = Inf->first;
+        Inf->first = NULL;
+        Inf->last = NULL;
+        Piv->len = Piv->len + Inf->len;
+        free (Inf);
+    }
+    if (!is_empty_Dlist(Sup))
+    {
+        Sup->first->back = Piv->last;
+        Piv->last->next = Sup->last;
+        Piv->last = Sup->last;
+        Sup->first = NULL;
+        Sup->last = NULL;
+        Piv->len = Piv->len + Sup->len;
+        free (Sup);
+    }
+}
+
 DList   *insert_lastquicksort_Dlist(DList *L, List *li)
 {
     if (is_empty_Dlist(L))
@@ -75,7 +99,7 @@ DList   *insert_firstquicksort_Dlist(DList *L, List *li)
     return (L);
 }
 
-DList   *quick_sort(DList *A)
+void   quick_sort(DList *A)
 {
     DList *Sup;
     DList *Inf;
@@ -84,9 +108,8 @@ DList   *quick_sort(DList *A)
     Sup = create_Dlist();
     Inf = create_Dlist();
     
+    is_empty_Dlist(Inf);
     
-    if (A->len >= 2)
-    {
         while (A->last != A->first)
         {
             if (A->last->data > A->first->data)
@@ -111,23 +134,26 @@ DList   *quick_sort(DList *A)
                 tmp->back = NULL;
 
                 A->len--;
+                ft_printf("start ajout SUP\n");
                 Sup = insert_lastquicksort_Dlist(Sup, tmp);
+                ft_printf("end ajout SUP\n");
             }
         }
-        tmp = A->first;
-        A->first = NULL;
-        A->last = NULL;
-
-        insert_firstquicksort_Dlist(Sup, tmp);
-    }
-
-    if (Inf->len <= 1)
-        return (Inf);
-    else
-        quick_sort(Inf);
-    
-    printf_Dlist(Sup);
-    return (A);
+        ft_printf("Start recursion\n");
+        if (!is_empty_Dlist(Inf) || Inf->len != 1)
+        {
+            ft_printf("start recursif INF\n");
+            quick_sort(Inf);
+            ft_printf("end recursif INF\n");
+            
+        }
+        if (!is_empty_Dlist(Sup) || Sup->len != 1)
+        {
+            ft_printf("start recursif SUP\n");
+            quick_sort(Sup);
+        }
+        ft_printf("end recursif SUP\n");
+        biglast_insert_Dlist(Inf, A, Sup);
 }
 
 int main(int argc, char **argv)
@@ -157,7 +183,8 @@ int main(int argc, char **argv)
         i++;
     }
     // ft_printpiles(Pile_a, Pile_b);
-    Solution = quick_sort(Solution);
+    quick_sort(Solution);
+    printf_Dlist(Solution);
 
 }
     
