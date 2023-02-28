@@ -12,15 +12,18 @@
 
 #include "push_swap.h"
 
-void    reset_Dlist(DList *La, DList *Lb, DList *test)
+void    reset_Dlist(DList *La, DList *Lb, DList *Move)
 {
-    if (test->len == 0)
+    if (Move->len == 0)
         return ;
-    if (test->last->data == sa)
+    if (Move->last->data == pa)
+        All_move(La, Lb, pb);
+    if (Move->last->data == pb)
+        All_move(La, Lb, pa);
+    if (Move->last->data == sa)
         All_move(La, Lb, sa);
-    if (test->last->data == ra)
+    if (Move->last->data == ra)
         All_move(La, Lb, rra);
-
 }
 
 Bool    check(DDList *ALL)
@@ -43,6 +46,7 @@ Bool    check(DDList *ALL)
         i++;
     }
     ALL->found_sol = true;
+    printf("good\n");
     return (true);
 }
 
@@ -61,9 +65,45 @@ int pb_recursive(DDList *ALL)
     ALL->pb = true;
     move = All_move(ALL->La, ALL->Lb, pb);
     if (move == -1)
-        return (move);
+        return (-1);
     ALL->Move = insert_data_Dlist(ALL->Move, pb, 1);
     // check(ALL);
+    return (move);
+}
+
+int sa_recursive(DDList *ALL)
+{
+    int move;
+
+    if (ALL->sa == true)
+    {
+        ALL->sa == false;
+        return (-1);
+    }
+    ALL->sa = true;
+    move = All_move(ALL->La, ALL->Lb, sa);
+    if (move == -1)
+        return (-1);
+    ALL->Move = insert_data_Dlist(ALL->Move, sa, 1);
+    check(ALL);
+    return (move);
+}
+
+int ra_recursive(DDList *ALL)
+{
+    int move;
+
+    if (ALL->rra == true)
+    {
+        ALL->rra == false;
+        return (-1);
+    }
+    ALL->ra = true;
+    move = All_move(ALL->La, ALL->Lb, ra);
+    if (move == -1)
+        return (-1);
+    ALL->Move = insert_data_Dlist(ALL->Move, ra, 1);
+    check(ALL);
     return (move);
 }
 
@@ -77,44 +117,43 @@ void    recursive(DDList * ALL, int max_profondeur)
     profondeur++;
     if (profondeur <= max_profondeur)
     {
-        if (ALL->La->len > 1 && ALL->found_sol == 0)
+        // RA
+        if (ALL->found_sol == false)
         {
-            All_move(ALL->La, ALL->Lb, sa);
-            ALL->Move = insert_data_Dlist(ALL->Move, sa, 1);
-            check(ALL);
+            move = ra_recursive(ALL);
             if (ALL->found_sol == true)
-            {
-                ft_printf("R_move\n");
                 return ;
+            if (move != -1)
+            {
+                ft_printf("good here\n");
+                recursive(ALL, max_profondeur);
             }
-            recursive(ALL, max_profondeur);
         }
 
-
-        if (ALL->La->len > 1 && ALL->found_sol == 0)
+        // SA
+        if (ALL->found_sol == false)
         {
-            All_move(ALL->La, ALL->Lb, ra);
-            ALL->Move = insert_data_Dlist(ALL->Move, ra, 1);
-            check(ALL);
-            if (ALL->found_sol == true)
-            {
-                ft_printf("R_move\n");
-                return ;
-            }
-            recursive(ALL, max_profondeur);
-        }
-
-        if (ALL->Lb->len > 1 && ALL->found_sol == 0)
-        {
-            move = pb_recursive(ALL);
+            move = sa_recursive(ALL);
             if (ALL->found_sol == true)
                 return ;
             if (move != -1)
                 recursive(ALL, max_profondeur);
         }
+
+        // PB
+        // if (ALL->found_sol == false)
+        // {
+        //     move = pb_recursive(ALL);
+        //     if (ALL->found_sol == true)
+        //         return ;
+        //     if (move != -1)
+        //         recursive(ALL, max_profondeur);
+        // }
+        
     }
 
-    if (ALL->found_sol == 0)
+    // Reset if not found sol
+    if (ALL->found_sol == false)
     {
         reset_Dlist(ALL->La, ALL->Lb, ALL->Move);
         if (ALL->Move->len > 0)
