@@ -39,7 +39,7 @@ void    rdo_move(DList *L)
     L = insert_cell_Dlist(L, cell, 0);
 }
 
-void    p_move(DList *src, DList *dest)
+void    push_move(DList *src, DList *dest)
 {
     List *cell;
 
@@ -51,47 +51,71 @@ void    p_move(DList *src, DList *dest)
 
 /*-------------------------*/
 
-void    P_move(DList *La, DList *Lb, int mode)
+int    P_move(DList *La, DList *Lb, Move mode)
 {
-    if (mode == 0 && La->len >= 1)
-        p_move(La, Lb);
-    if (mode == 1 && Lb->len >= 1)
-        p_move(Lb, La);    
+    if (mode == pa && Lb->len >= 1)
+        push_move(Lb, La);
+    else if (mode == pb && La->len >= 1)
+        push_move(La, Lb);
+    else
+        return (-1);
+    return (mode);
 }
 
-void    S_move(DList *La, DList *Lb, int mode)
+int    S_move(DList *La, DList *Lb, Move mode)
 {
-    if (mode == 0)
+    if (mode == sa && La->len >= 2)
         swap_move(La);
-    if (mode == 1)
+    else if (mode == sb && Lb->len >= 2)
         swap_move(Lb);
-    if (mode == 2 && La->len >= 2 && Lb->len >= 2)
+    else if (mode == ss && La->len >= 2 && Lb->len >= 2)
     {
         swap_move(La);
         swap_move(Lb);
     }
+    else
+        return (-1);
+    return (mode);
 }
 
-void    R_move(DList *La, DList *Lb, int mode)
+int    R_move(DList *La, DList *Lb, Move mode)
 {
-    if (mode == 0)
+    if (mode == ra && La->len >= 2)
         rup_move(La);
-    if (mode == 1)
+    else if (mode == rb && Lb->len >= 2)
         rup_move(Lb);
-    if (mode == 2 && La->len >= 2 && Lb->len >= 2)
+    else if (mode == rr && La->len >= 2 && Lb->len >= 2)
     {
         rup_move(La);
         rup_move(Lb);
     }
-
-
-    if (mode == 3)
+    else if (mode == rra && La->len >= 2)
         rdo_move(La);
-    if (mode == 4)
+    else if (mode == rrb && Lb->len >= 2)
         rdo_move(Lb);
-    if (mode == 5 && La->len >= 2 && Lb->len >= 2)
+    else if (mode == rrr && La->len >= 2 && Lb->len >= 2)
     {
         rup_move(La);
         rup_move(Lb);
     }
+    else
+        return (-1);
+    return (mode);
+}
+
+int    All_move(DList *La, DList * Lb, Move mode)
+{
+    int check_error;
+
+    if (mode == pa || mode == pb)
+        check_error = P_move(La, Lb, mode);
+    else if (mode == sa || mode == sb || mode == ss)
+        check_error = S_move(La, Lb, mode);
+    else if (mode == ra || mode == rb || mode == rr)
+        check_error = R_move(La, Lb, mode);
+    else if (mode == rra || mode == rrb || mode == rrr)
+        check_error = R_move(La, Lb, mode);
+    else
+        check_error = -1;
+    return (check_error);
 }

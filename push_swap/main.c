@@ -16,27 +16,25 @@ void    reset_Dlist(DList *La, DList *Lb, DList *test)
 {
     if (test->len == 0)
         return ;
-    if (test->last->data == 0)
-        S_move(La, Lb, 0);
-    if (test->last->data == 1)
-        P_move(La, Lb, 0);
-    if (test->last->data == 2)
-        R_move(La, Lb, 3);
+    if (test->last->data == sa)
+        All_move(La, Lb, sa);
+    if (test->last->data == ra)
+        All_move(La, Lb, rra);
 
 }
 
-Bool    check(DList *La, DList *solution)
+Bool    check(DDList *ALL)
 {
     List *A;
     List *S;
     int i;
 
-    A = La->first;
-    S = solution->first;
-    if (La->len != solution->len)
+    A = ALL->La->first;
+    S = ALL->Solution->first;
+    if (ALL->La->len != ALL->Solution->len)
         return (false);
     i = 1;
-    while (i <= solution->len)
+    while (i <= ALL->Solution->len)
     {
         if (A->data != S->data)
             return (false);
@@ -44,82 +42,129 @@ Bool    check(DList *La, DList *solution)
         S = S->next;
         i++;
     }
+    ALL->found_sol = true;
     return (true);
 }
 
-void    algo(DList *La, DList *Lb, DList *solution, DList *test)
+int pb_recursive(DDList *ALL)
+{
+    int move;
+
+    if (ALL->pa == true)
+    {
+        ALL->pa == false;
+        return (-1);
+    }
+    if (ALL->Lb->len == ALL->max_len)
+        return (-1);
+
+    ALL->pb = true;
+    move = All_move(ALL->La, ALL->Lb, pb);
+    if (move == -1)
+        return (move);
+    ALL->Move = insert_data_Dlist(ALL->Move, pb, 1);
+    // check(ALL);
+    return (move);
+}
+
+void    recursive(DDList * ALL, int max_profondeur)
 {
     static int      profondeur;
-    static int     saveA;
     static int      sol;
+    int             move;
     List *tmp;
 
-        if (check(La, solution))
-        {
-            sol = 1;
-            return ;
-        }
-
     profondeur++;
-    if (profondeur <= 4)
+    if (profondeur <= max_profondeur)
     {
-        if (La->len > 1 && saveA == 0 && sol == 0)
+        if (ALL->La->len > 1 && ALL->found_sol == 0)
         {
-            saveA = 1;
-            S_move(La, Lb, 0);
-            test = insert_data_Dlist(test, 0, 1);
-            if (check(La, solution))
+            All_move(ALL->La, ALL->Lb, sa);
+            ALL->Move = insert_data_Dlist(ALL->Move, sa, 1);
+            check(ALL);
+            if (ALL->found_sol == true)
             {
-                sol = 1;
-                ft_printf("S_move\n");
-                return ;
-            }
-            algo(La, Lb, solution, test);
-            // ne peut pas etre la solution final
-        }
-        if (test->len == 1 && sol == 0 && profondeur == 1)
-        {
-            tmp = isolate_cell_Dlist(test, 0);
-            free (tmp);
-        }
-
-        if (La->len > 1 && sol == 0)
-        {
-            saveA = 0;
-            R_move(La, Lb, 0);
-            test = insert_data_Dlist(test, 2, 1);
-            if (check(La, solution))
-            {
-                sol = 1;
                 ft_printf("R_move\n");
                 return ;
             }
-            algo(La, Lb, solution, test);
+            recursive(ALL, max_profondeur);
+        }
+
+
+        if (ALL->La->len > 1 && ALL->found_sol == 0)
+        {
+            All_move(ALL->La, ALL->Lb, ra);
+            ALL->Move = insert_data_Dlist(ALL->Move, ra, 1);
+            check(ALL);
+            if (ALL->found_sol == true)
+            {
+                ft_printf("R_move\n");
+                return ;
+            }
+            recursive(ALL, max_profondeur);
+        }
+
+        if (ALL->Lb->len > 1 && ALL->found_sol == 0)
+        {
+            move = pb_recursive(ALL);
+            if (ALL->found_sol == true)
+                return ;
+            if (move != -1)
+                recursive(ALL, max_profondeur);
         }
     }
 
-    if (sol == 0)
+    if (ALL->found_sol == 0)
     {
-        
-        reset_Dlist(La, Lb, test);
-        // printf("test\n");
-        if (test->len > 0)
-            tmp = isolate_cell_Dlist(test, 1);
-        // printf("endtest\n");
-        free (tmp);
+        reset_Dlist(ALL->La, ALL->Lb, ALL->Move);
+        if (ALL->Move->len > 0)
+        {
+            tmp = isolate_cell_Dlist(ALL->Move, 1);
+            free (tmp);
+        }
         profondeur--;
     }
+}
 
-    
+
+
+void    algo(DDList *ALL)
+{
+    int max_profondeur;
+
+    ALL->max_len = ALL->La->len;
+    ALL->pa = false;
+    ALL->pb = false;
+    ALL->sa = false;
+    ALL->sb = false;
+    ALL->ss = false;
+    ALL->ra = false;
+    ALL->rra = false;
+    ALL->rb = false;
+    ALL->rrb = false;
+    ALL->rr = false;
+    ALL->rrr = false;
+    ALL->found_sol = false;
+    if (check(ALL))
+        return ;
+    max_profondeur = 1;
+    while (ALL->Move->len == 0)
+    {
+        recursive(ALL, max_profondeur);
+        ft_printf("ok\n");
+        max_profondeur++;
+    }
 }
 
 int main(int argc, char **argv)
 {
     int i;
-    int data;
     DList *La;
     DList *Lb;
     DList *Solution;
+
+    DDList *ALL;
+
 
     
     if (is_error(argc, argv))
@@ -127,6 +172,11 @@ int main(int argc, char **argv)
         ft_printf("Error\n");
         return (EXIT_FAILURE);
     }
+
+
+    ALL = malloc(sizeof(*ALL));
+    if (!ALL)
+        return (EXIT_FAILURE);
 
     La = NULL;
     Lb = NULL;
@@ -140,17 +190,20 @@ int main(int argc, char **argv)
     i = 1;
     while (i < argc)
     {
-        data = ft_atoi(argv[i]);
-
-        La = insert_data_Dlist(La, data, 1);
-        Solution = insert_data_Dlist(Solution, data, 1);
+        La = insert_data_Dlist(La, ft_atoi(argv[i]), 1);
+        Solution = insert_data_Dlist(Solution, ft_atoi(argv[i]), 1);
         i++;
     }
     quick_sort(Solution);
 
-    DList *test;
-    test = NULL;
-    test = create_Dlist(test);
+    DList *Move;
+    Move = NULL;
+    Move = create_Dlist(Move);
+
+    ALL->La = La;
+    ALL->Lb = Lb;
+    ALL->Solution = Solution;
+    ALL->Move = Move;
 
 
     /*---print list---*/
@@ -168,18 +221,21 @@ int main(int argc, char **argv)
     /*---print solution---*/
 
     /*---type move---*/
-    algo(La, Lb, Solution, test);
+    
+    algo(ALL);
+    printf_Dlist(La);
     ft_printf("\n------\n");
     /*---type move---*/
 
     ft_printf("sol = ");
-    printf_Dlist(test);
+    printf_Dlist(Move);
 
 
 
     free_all_Dlist(La);
     free_all_Dlist(Lb);
     free_all_Dlist(Solution);
-    free_all_Dlist(test);
+    free_all_Dlist(Move);
+    free(ALL);
 }
     
