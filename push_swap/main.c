@@ -98,6 +98,7 @@ int ra_recursive(DDList *ALL)
         ALL->rra == false;
         return (-1);
     }
+    ALL->sa = false;
     ALL->ra = true;
     move = All_move(ALL->La, ALL->Lb, ra);
     if (move == -1)
