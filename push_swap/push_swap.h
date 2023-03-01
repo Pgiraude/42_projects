@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 18:17:38 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/01 13:35:37 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct DDList
 
 Bool    is_error(int argc, char **argv);
 void    ft_printpiles(DList *A, DList *B);
+void    ft_printresult(DList *Move);
 void    quick_sort(DList *A);
 void    free_all_Dlist(DList *L);
 
