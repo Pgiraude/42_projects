@@ -6,111 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/01 13:44:33 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:43:15 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-Bool    check_alignement_3(DDList *ALL)
-{
-    int i;
-    List *sol;
-    List *la;
-
-    la = ALL->La->first;
-    sol = ALL->Solution->first;
-    while (la->data != sol->data)
-        sol = sol->next;
-    i = 0;
-    while (i <= 2)
-    {
-        if (la->data != sol->data)
-            return (false);
-        la = la->next;
-        sol = sol->next;
-        if (sol == NULL)
-            sol = ALL->Solution->first;
-        i++;
-    }
-    return (true);
-}
-
-void    reset_Dlist(DList *La, DList *Lb, DList *Move)
-{
-    List *tmp;
-    int i;
-
-    if (Move->len == 0)
-        return ;
-    tmp = Move->last;
-    i = 1;
-    while (i <= Move->len)
-    {
-        if (tmp->data == pa)
-            All_move(La, Lb, pb);
-        if (tmp->data == pb)
-            All_move(La, Lb, pa);
-        if (tmp->data == sa)
-            All_move(La, Lb, sa);
-        if (tmp->data == ra)
-            All_move(La, Lb, rra);
-        if (tmp->data == rra)
-            All_move(La, Lb, ra);
-        if (tmp->data == rb)
-            All_move(La, Lb, rrb);
-        tmp = tmp->back;
-        i++;
-    }
-}
-
-Bool    check(DList *La, DList *Solution)
-{
-    List *A;
-    List *S;
-    int i;
-
-    A = La->first;
-    S = Solution->first;
-    if (La->len != Solution->len)
-        return (false);
-    i = 1;
-    while (i <= Solution->len)
-    {
-        if (A->data != S->data)
-            return (false);
-        A = A->next;
-        S = S->next;
-        i++;
-    }
-    return (true);
-}
-
-void    algo(DDList *ALL)
-{
-    DList *Move1;
-    DList *Move2;
-
-    Move1 = NULL;
-    Move2 = NULL;
-    if (check(ALL->La, ALL->Solution))
-        return ;
-    if (check_alignement_3(ALL))
-    {
-        while (check(ALL->La, ALL->Solution) == false)
-            Move1 = insert_data_Dlist(Move1, All_move(ALL->La, ALL->Lb, ra), 1);
-        reset_Dlist(ALL->La, ALL->Lb, Move1);
-        while (check(ALL->La, ALL->Solution) == false)
-            Move2 = insert_data_Dlist(Move2, All_move(ALL->La, ALL->Lb, rra), 1);
-        reset_Dlist(ALL->La, ALL->Lb, Move2);
-
-        if (Move1->len <= Move2->len)
-            ALL->Move = Move1;
-        else
-            ALL->Move = Move2;
-    }
-        
-}
 
 int main(int argc, char **argv)
 {
@@ -186,7 +86,6 @@ int main(int argc, char **argv)
 
     ft_printf("sol = ");
     ft_printresult(ALL->Move);
-
 
 
     free_all_Dlist(La);

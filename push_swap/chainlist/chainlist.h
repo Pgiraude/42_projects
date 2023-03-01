@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 17:34:18 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:38:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # include <stdlib.h>
 
 
+typedef enum
+{
+    false,
+    true
+}Bool;
 
 typedef struct DList
 {
@@ -29,15 +34,14 @@ typedef struct DList
 typedef struct Cellule
 {
     int data;
+    int final_pos;
+    int cur_pos;
+    int costA;
+    int costB;
+    Bool get_pb;
     struct Cellule *next;
     struct Cellule *back;
 }List;
-
-typedef enum
-{
-    false,
-    true
-}Bool;
 
 Bool    is_empty_Dlist(DList *L);
 DList   *create_Dlist(DList *L);

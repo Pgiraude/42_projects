@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/01 13:35:37 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:58:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct DDList
     struct DList *Lb;
     struct DList *Solution;
     struct DList *Move;
+    struct ListA *AL;
 }DDList;
 
 Bool    is_error(int argc, char **argv);
@@ -67,4 +68,6 @@ int    R_move(DList *La, DList *Lb, Move mode);
 int    S_move(DList *La, DList *Lb, Move mode);
 int    P_move(DList *La, DList *Lb, Move mode);
 int    All_move(DList *La, DList * Lb, Move mode);
+
+void    algo(DDList *ALL);
 #endif
