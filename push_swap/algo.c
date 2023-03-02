@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:45:29 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/02 16:39:59 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:22:15 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void    opti_pb(DDList *ALL)
     int pos;
     int z;
     int i;
-    int count;
+    int score;
 
 
     lla = ALL->La->first;
@@ -129,38 +129,36 @@ void    opti_pb(DDList *ALL)
 
     while (z < ALL->La->len)
     {   
-        printf("test2\n");
         i = 1;
         la = lla;
+        lla->get_pb = false;
         pos = la->final_pos;
+        score = 0;
         while (i <= ALL->La->len)
         {
             if (la->next == NULL)
             {
-                printf("test1\n");
                 la = ALL->La->first;
             }
             else
             {
-                    printf("test\n");
                 la = la->next;
             }
             if (la->final_pos == (pos + 1) || (pos == ALL->La->len && la->final_pos == 1))
             {
                 pos = la->final_pos;
-                count++;
+                score++;
             }
-            la = la->next;
             i++;
         }
-        tab[z][0] = count;
+        tab[z][0] = score;
         tab[z][1] = z + 1;
         tab[z][2] = '\0';
         lla->cur_pos = z + 1;
         lla = lla->next;        
         z++;
     }
-        printf("test\n");
+    
     int *mem;
 
     z = 0;
@@ -170,13 +168,16 @@ void    opti_pb(DDList *ALL)
         if (tab[z][0] > mem[0])
             mem = tab[z];
         z++;
+        
     }
+
     la = ALL->La->first;
-    while (mem[1] == la->cur_pos)
+    while (mem[1] != la->cur_pos)
         la = la->next;
     pos = la->final_pos;
     i = 1;
-    while (i <= ALL->La->len)
+    ft_printf("yep\n");
+    while (i < ALL->La->len)
     {
         if (la->next == NULL)
             la = ALL->La->first;
@@ -189,9 +190,41 @@ void    opti_pb(DDList *ALL)
         }
         else
             la->get_pb = true;
-        la = la->next;
         i++;
     }
+    if (la->next == NULL)
+        la = ALL->La->first;
+    else
+        la = la->next;
+    
+    ft_printf("pivot = %d\n", la->data);
+    if (ALL->La->first->get_pb == true)
+        ft_printf("1 is true\n");
+    if (ALL->La->first->next->get_pb == true)
+        ft_printf("2 is true\n");
+    if (ALL->La->first->next->next->get_pb == true)
+        ft_printf("3 is true\n");
+    if (ALL->La->first->next->next->next->get_pb == true)
+        ft_printf("4 is true\n");
+    if (ALL->La->first->next->next->next->next->get_pb == true)
+        ft_printf("5 is true\n");
+    if (ALL->La->first->next->next->next->next->next->get_pb == true)
+        ft_printf("6 is true\n");
+}
+
+void    process_pb(DDList *ALL)
+{
+    List *la;
+    int cur_pos;
+
+    la = ALL->La->first;
+    cur_pos = 1;
+    while (cur_pos <= ALL->La->len)
+    {
+        ALL->La->first->cur_pos = cur_pos;
+        cur_pos++;
+    }
+    
 }
 
 void    algo(DDList *ALL)
