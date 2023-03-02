@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:45:29 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/01 18:40:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:39:59 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,25 @@ void    opti_pb(DDList *ALL)
     la = ALL->La->first;
     
     z = 0;
+
     while (z < ALL->La->len)
     {   
+        printf("test2\n");
         i = 1;
         la = lla;
         pos = la->final_pos;
         while (i <= ALL->La->len)
         {
             if (la->next == NULL)
+            {
+                printf("test1\n");
                 la = ALL->La->first;
+            }
             else
+            {
+                    printf("test\n");
                 la = la->next;
+            }
             if (la->final_pos == (pos + 1) || (pos == ALL->La->len && la->final_pos == 1))
             {
                 pos = la->final_pos;
@@ -152,6 +160,7 @@ void    opti_pb(DDList *ALL)
         lla = lla->next;        
         z++;
     }
+        printf("test\n");
     int *mem;
 
     z = 0;
