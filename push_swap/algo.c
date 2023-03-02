@@ -22,15 +22,16 @@ Bool    check_alignement_3(DDList *ALL)
     sol = ALL->Solution->first;
     while (la->data != sol->data)
         sol = sol->next;
-    i = 0;
-    while (i <= 2)
+    i = 1;
+    while (i <= ALL->La->len)
     {
         if (la->data != sol->data)
             return (false);
-        la = la->next;
-        sol = sol->next;
-        if (sol == NULL)
+        if (sol->next == NULL)
             sol = ALL->Solution->first;
+        else
+            sol = sol->next;
+        la = la->next;
         i++;
     }
     return (true);
@@ -118,18 +119,19 @@ void    opti_pb(DDList *ALL)
     int pos;
     int z;
     int i;
-    int x;
-    int y;
+    int count;
+
 
     lla = ALL->La->first;
     la = ALL->La->first;
     
-    z = 1;
-    while (z >= ALL->La->len)
+    z = 0;
+    while (z < ALL->La->len)
     {   
-        i = 1; 
+        i = 1;
+        la = lla;
         pos = la->final_pos;
-        while (i >= ALL->La->len)
+        while (i <= ALL->La->len)
         {
             if (la->next == NULL)
                 la = ALL->La->first;
@@ -138,16 +140,48 @@ void    opti_pb(DDList *ALL)
             if (la->final_pos == (pos + 1) || (pos == ALL->La->len && la->final_pos == 1))
             {
                 pos = la->final_pos;
-                x++;
+                count++;
             }
             la = la->next;
             i++;
         }
-
-        tab[1][z] = x;
-        tab[2][z] = z;
+        tab[z][0] = count;
+        tab[z][1] = z + 1;
+        tab[z][2] = '\0';
+        lla->cur_pos = z + 1;
         lla = lla->next;        
         z++;
+    }
+    int *mem;
+
+    z = 0;
+    mem = tab[z];
+    while (z < ALL->La->len)
+    {
+        if (tab[z][0] > mem[0])
+            mem = tab[z];
+        z++;
+    }
+    la = ALL->La->first;
+    while (mem[1] == la->cur_pos)
+        la = la->next;
+    pos = la->final_pos;
+    i = 1;
+    while (i <= ALL->La->len)
+    {
+        if (la->next == NULL)
+            la = ALL->La->first;
+        else
+            la = la->next;
+        if (la->final_pos == (pos + 1) || (pos == ALL->La->len && la->final_pos == 1))
+        {
+            la->get_pb = false;
+            pos = la->final_pos;
+        }
+        else
+            la->get_pb = true;
+        la = la->next;
+        i++;
     }
 }
 
@@ -160,7 +194,7 @@ void    algo(DDList *ALL)
     Move2 = NULL;
 
     insert_solution(ALL);
-
+    opti_pb(ALL);
     
     
     
