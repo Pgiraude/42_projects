@@ -79,8 +79,8 @@ int main(int argc, char **argv)
     /*---type move---*/
     
     algo(ALL);
-    ft_printf("after algo La = ");
-    printf_Dlist(La);
+    ft_printf("after algo La = \n");
+    ft_printpiles(La, Lb);
     ft_printf("\n------\n");
     /*---type move---*/
 
