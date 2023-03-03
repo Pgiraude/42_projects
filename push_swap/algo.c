@@ -198,21 +198,10 @@ void    opti_pb(DDList *ALL)
         la = la->next;
     
     ft_printf("pivot = %d\n", la->data);
-    if (ALL->La->first->get_pb == true)
-        ft_printf("1 is true\n");
-    if (ALL->La->first->next->get_pb == true)
-        ft_printf("2 is true\n");
-    if (ALL->La->first->next->next->get_pb == true)
-        ft_printf("3 is true\n");
-    if (ALL->La->first->next->next->next->get_pb == true)
-        ft_printf("4 is true\n");
-    if (ALL->La->first->next->next->next->next->get_pb == true)
-        ft_printf("5 is true\n");
-    if (ALL->La->first->next->next->next->next->next->get_pb == true)
-        ft_printf("6 is true\n");
+
 }
 
-void    process_pb(DDList *ALL)
+void    get_cur_pos(DDList *ALL)
 {
     List *la;
     int cur_pos;
@@ -223,8 +212,123 @@ void    process_pb(DDList *ALL)
     {
         ALL->La->first->cur_pos = cur_pos;
         cur_pos++;
+        la = la->next;
     }
-    
+}
+
+void    get_score(DDList *ALL)
+{
+    List *la;
+    int i;
+    int impaire;
+
+    la = ALL->La->first;
+    i = 1;
+    impaire = 0;
+    if ((ALL->La->len % 2) != 0)
+        impaire = 1;
+    while (i <= ((ALL->La->len + impaire)/ 2))
+    {
+        if (la->get_pb == true)
+        {
+            la->costA = i;
+            la->costB = 0;
+        }
+        else
+        {
+            la->costA = 0;
+            la->costB = 0;
+        }
+        la = la->next;
+        i++;
+    }
+    la = ALL->La->last;
+    i = 1;
+    while (i <= (ALL->La->len / 2))
+    {
+        if (la->get_pb == true)
+        {
+            la->costA = (i + 1) * -1;
+            la->costB = 0;
+        }
+        else
+        {
+            la->costA = 0;
+            la->costB = 0;
+        }
+        la = la->back;
+        i++;
+    }
+
+    if (ALL->La->first->get_pb == true)
+        ft_printf("1 is true score = %d\n", ALL->La->first->costA);
+    if (ALL->La->first->next->get_pb == true)
+        ft_printf("2 is true score = %d\n", ALL->La->first->next->costA);
+    if (ALL->La->first->next->next->get_pb == true)
+        ft_printf("3 is true score = %d\n", ALL->La->first->next->next->costA);
+    if (ALL->La->first->next->next->next->get_pb == true)
+        ft_printf("4 is true score = %d\n", ALL->La->first->next->next->next->costA);
+    if (ALL->La->first->next->next->next->next->get_pb == true)
+        ft_printf("5 is true score = %d\n", ALL->La->first->next->next->next->next->costA);
+    if (ALL->La->first->next->next->next->next->next->get_pb == true)
+        ft_printf("6 is true score = %d\n", ALL->La->first->next->next->next->next->next->costA);
+}
+
+void    place_up(DDList *ALL, List target)
+{
+    int nbr_move;
+
+    if (target->costA > 0)
+    {
+        nbr_move = target->costA;
+        while (nbr_move != 1)
+        {
+            All_move(ALL->La, ALL->Lb, ra);
+            nbr_move--;
+        }
+    }
+    if (target->costA < 0)
+    {
+        nbr_move = target->costA * -1;
+        while (nbr_move != 1)
+        {
+            All_move(ALL->La, ALL->Lb, rra);
+            nbr_move--;
+        }
+    }
+}
+_
+void    push_to_b(DDList *ALL)
+{
+    List *lfirst;
+    List *llast;
+    int i;
+
+    lfirst = ALL->La->first;
+    llast = ALL->La->last;
+
+    i = 1
+    while (lfirst->costA == 0 && lfirst->next != NULL)
+        lfirst = lfirst->next;
+    while (llast->costA == 0 && llast->back != NULL)
+        llast = llast->back;
+
+    if (lfirst->costA < 0 && llast->costA < 0)
+    {
+        place_up(ALL, llast);
+        All_move(ALL->La, ALL->Lb, pb);
+    }
+    if (lfirst->costA > 0 && llast->costA > 0)
+    {
+        place_up(ALL, lfirst);
+        All_move(ALL->La, ALL->Lb, pb);
+    }
+    if (lfirst->costA > 0 && llast->costA > 0)
+    {
+        place_up(ALL, lfirst);
+        All_move(ALL->La, ALL->Lb, pb);
+    }
+
 }
 
 void    algo(DDList *ALL)
@@ -237,6 +341,8 @@ void    algo(DDList *ALL)
 
     insert_solution(ALL);
     opti_pb(ALL);
+    get_score(ALL);
+    push_to_b(ALL);
     
     
     
