@@ -111,102 +111,6 @@ void    insert_solution(DDList * ALL)
     }
 }
 
-int    opti_pb(DDList *ALL)
-{
-    int tab[ALL->La->len][3];
-    List *lla;
-    List *la;
-    int pos;
-    int z;
-    int i;
-    int score;
-    int nbr_pb;
-
-
-    lla = ALL->La->first;
-    la = ALL->La->first;
-    
-    z = 0;
-
-    while (z < ALL->La->len)
-    {   
-        i = 1;
-        la = lla;
-        lla->get_pb = false;
-        pos = la->final_pos;
-        score = 0;
-        while (i <= ALL->La->len)
-        {
-            if (la->next == NULL)
-            {
-                la = ALL->La->first;
-            }
-            else
-            {
-                la = la->next;
-            }
-            if (la->final_pos == (pos + 1) || (pos == ALL->La->len && la->final_pos == 1))
-            {
-                pos = la->final_pos;
-                score++;
-            }
-            i++;
-        }
-        tab[z][0] = score;
-        tab[z][1] = z + 1;
-        tab[z][2] = '\0';
-        lla->cur_pos = z + 1;
-        lla = lla->next;        
-        z++;
-    }
-    
-    int *mem;
-
-    z = 0;
-    mem = tab[z];
-    while (z < ALL->La->len)
-    {
-        if (tab[z][0] > mem[0])
-            mem = tab[z];
-        z++;
-        
-    }
-
-    la = ALL->La->first;
-    while (mem[1] != la->cur_pos)
-        la = la->next;
-    pos = la->final_pos;
-    i = 1;
-
-    nbr_pb = 0;
-    while (i < ALL->La->len)
-    {
-        if (la->next == NULL)
-            la = ALL->La->first;
-        else
-            la = la->next;
-        if (la->final_pos == (pos + 1) || (pos == ALL->La->len && la->final_pos == 1))
-        {
-            la->get_pb = false;
-            pos = la->final_pos;
-        }
-        else
-        {
-            nbr_pb++;
-            la->get_pb = true;
-        }
-        i++;
-    }
-    if (la->next == NULL)
-        la = ALL->La->first;
-    else
-        la = la->next;
-    
-    ft_printf("pivot = %d\n", la->data);
-    return (nbr_pb);
-
-}
-
 void    get_cur_pos(DDList *ALL)
 {
     List *la;
@@ -219,88 +123,6 @@ void    get_cur_pos(DDList *ALL)
         ALL->La->first->cur_pos = cur_pos;
         cur_pos++;
         la = la->next;
-    }
-}
-
-void    get_score(DDList *ALL)
-{
-    List *la;
-    int i;
-    int impaire;
-
-    la = ALL->La->first;
-    i = 1;
-    impaire = 0;
-    if ((ALL->La->len % 2) != 0)
-        impaire = 1;
-    while (i <= ((ALL->La->len + impaire)/ 2))
-    {
-        if (la->get_pb == true)
-        {
-            la->costA = i;
-            la->costB = 0;
-        }
-        else
-        {
-            la->costA = 0;
-            la->costB = 0;
-        }
-        la = la->next;
-        i++;
-    }
-    la = ALL->La->last;
-    i = 1;
-    while (i <= (ALL->La->len / 2))
-    {
-        if (la->get_pb == true)
-        {
-            la->costA = (i + 1) * -1;
-            la->costB = 0;
-        }
-        else
-        {
-            la->costA = 0;
-            la->costB = 0;
-        }
-        la = la->back;
-        i++;
-    }
-
-    // if (ALL->La->first->get_pb == true)
-    //     ft_printf("1 is true score = %d\n", ALL->La->first->costA);
-    // if (ALL->La->first->next->get_pb == true)
-    //     ft_printf("2 is true score = %d\n", ALL->La->first->next->costA);
-    // if (ALL->La->first->next->next->get_pb == true)
-    //     ft_printf("3 is true score = %d\n", ALL->La->first->next->next->costA);
-    // if (ALL->La->first->next->next->next->get_pb == true)
-    //     ft_printf("4 is true score = %d\n", ALL->La->first->next->next->next->costA);
-    // if (ALL->La->first->next->next->next->next->get_pb == true)
-    //     ft_printf("5 is true score = %d\n", ALL->La->first->next->next->next->next->costA);
-    // if (ALL->La->first->next->next->next->next->next->get_pb == true)
-    //     ft_printf("6 is true score = %d\n", ALL->La->first->next->next->next->next->next->costA);
-}
-
-void    place_up(DDList *ALL, List *target)
-{
-    int nbr_move;
-
-    if (target->costA > 0)
-    {
-        nbr_move = target->costA;
-        while (nbr_move != 1)
-        {
-            ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ra), 1);
-            nbr_move--;
-        }
-    }
-    if (target->costA < 0)
-    {
-        nbr_move = target->costA * -1;
-        while (nbr_move != 1)
-        {
-            ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rra), 1);
-            nbr_move--;
-        }
     }
 }
 
@@ -318,14 +140,14 @@ void    place_up(DDList *ALL, List *target)
 //     }
 // }
 
-DList   copy_Dlist(DList *L)
+DList   *copy_Dlist(DList *L)
 {
     DList *copy;
     List *list;
 
-    if (is_empty_Dlist(L))
-        return (NULL);
     copy = NULL;
+    if (is_empty_Dlist(L))
+        return (copy);
     list = L->first;
     copy = create_Dlist(copy);
     if (L->len == 0)
@@ -338,133 +160,45 @@ DList   copy_Dlist(DList *L)
     return (copy);
 }
 
-void    analyse(DDList *ALL, List *cell)
-{
-    DList *copy;
+// void    analyse(DDList *ALL, List *cell)
+// {
 
-    copy = copy_Dlist(ALL->La);
-    quick_sort(copy);
-    
-    
-    la = ALL->La->first;
-    i = 1;
-    impaire = 0;
-    if ((ALL->La->len % 2) != 0)
-        impaire = 1;
-    while (i <= ((ALL->La->len + impaire)/ 2))
-    {
-        if (la->get_pb == true)
-        {
-            la->costA = i;
-            la->costB = 0;
-        }
-        else
-        {
-            la->costA = 0;
-            la->costB = 0;
-        }
-        la = la->next;
-        i++;
-    }
-    la = ALL->La->last;
-    i = 1;
-    while (i <= (ALL->La->len / 2))
-    {
-        if (la->get_pb == true)
-        {
-            la->costA = (i + 1) * -1;
-            la->costB = 0;
-        }
-        else
-        {
-            la->costA = 0;
-            la->costB = 0;
-        }
-        la = la->back;
-        i++;
-    }
-}
+// }
 
 void    mega_score(DDList *ALL)
 {
-    List *la;
-    List *lb;
     List *cell;
-
-    la = ALL->La->first;
-    lb = ALL->Lb->first;
+    int i;
     
     cell = ALL->La->first;
+    i = 1;
+    while (cell->next == NULL)
+    {
+        cell->costA = i - cell->final_pos;
+        cell->costB = 0;
+        cell = cell->next;
+        i++;
+    }
+    cell = ALL->Lb->first;
+    i = 1;
     while (cell->next == NULL)
     {
         
-
-        cell = cell->next;
     }
 
 }
 
-void    push_to_b(DDList *ALL)
-{
-    List *lfirst;
-    List *llast;
-
-    lfirst = ALL->La->first;
-    llast = ALL->La->last;
-
-    while (lfirst->costA == 0 && lfirst->next != NULL)
-        lfirst = lfirst->next;
-    while (llast->costA == 0 && llast->back != NULL)
-        llast = llast->back;
-
-    if (llast->costA < 0 && lfirst->costA < 0)
-    {
-        place_up(ALL, llast);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else if (lfirst->costA > 0 && llast->costA > 0)
-    {
-        place_up(ALL, lfirst);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else if (lfirst->costA < (llast->costA * -1))
-    {
-        place_up(ALL, lfirst);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else if ((llast->costA * -1) < lfirst->costA)
-    {
-        place_up(ALL, llast);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else
-    {
-        place_up(ALL, lfirst);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-
-
-}
 
 void    algo(DDList *ALL)
 {
     DList *Move1;
     DList *Move2;
-    int nbr_pb;
-    int i;
+
 
     Move1 = NULL;
     Move2 = NULL;
 
-    insert_solution(ALL);
-    nbr_pb = opti_pb(ALL);
-    i = 1;
-    while(i <= nbr_pb)
-    {
-        get_score(ALL);
-        push_to_b(ALL);
-        i++;
-    }
+    algo_ststep(ALL);
     
     
     
