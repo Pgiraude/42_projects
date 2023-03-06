@@ -66,32 +66,28 @@ void    push_to_b(DDList *ALL)
     }
 }
 
-void    get_score_getup_La(DList *La)
+void    cost_getup_La(DList *ListA)
 {
     List *cell;
-    int i;
     int paire;
+    int i;
 
-    cell = La->first;
-    i = 0;
     paire = 0;
-    if ((La->len % 2) == 0)
+    if (ListA->len % 2 == 0)
         paire = 1;
-    while (i <= ((La->len / 2) - paire))
+    cell = ListA->first;
+    i = 0;
+    while (cell != NULL)
     {
-        cell->costA = i;
-        cell->costB = 0;
+        cell->move = false;
+        if (i <= ListA->len / 2)
+            cell->costA = i;
+        if (i == ListA->len / 2 && paire == 1)
+            cell->move = true;
+        if (i > ListA->len / 2)
+            cell->costA = i - ListA->len;
+        i++;
         cell = cell->next;
-        i++;
-    }
-    cell = La->last;
-    i = 1;
-    while (i <= (La->len / 2))
-    {
-        cell->costA = i * -1;
-        cell->costB = 0;
-        cell = cell->back;
-        i++;
     }
 }
 
@@ -149,7 +145,6 @@ int    get_pb_optimisation(DDList *ALL)
         pivot_pos++;
         
     }
-    ft_printf("%d\n", mem[1]);
     i = 1;
     tmp_2 = ALL->La->first;
     while (i < mem[1])
@@ -160,7 +155,6 @@ int    get_pb_optimisation(DDList *ALL)
     pos = tmp_2->target_pos;
     i = 1;
 
-    ft_printf("%d\n", tmp_2->data);
     nbr_pb = 0;
     while (i < ALL->La->len)
     {
@@ -200,7 +194,7 @@ void    algo_1step(DDList *ALL)
     i = 1;
     while(i <= nbr_pb)
     {
-        get_score_getup_La(ALL->La);
+        cost_getup_La(ALL->La);
         push_to_b(ALL);
         i++;
     }
