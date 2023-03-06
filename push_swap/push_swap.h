@@ -63,4 +63,6 @@ int    opti_pb(DDList *ALL);
 
 void    push_swap(DDList *ALL);
 
+void    algo_1step(DDList *ALL);
+
 #endif
