@@ -70,14 +70,14 @@ void    get_score_getup_La(DList *La)
 {
     List *cell;
     int i;
-    int impaire;
+    int paire;
 
     cell = La->first;
     i = 0;
-    impaire = 0;
-    if ((La->len % 2) != 0)
-        impaire = 1;
-    while ((i + 1) <= ((La->len + impaire)/ 2))
+    paire = 0;
+    if ((La->len % 2) == 0)
+        paire = 1;
+    while (i <= ((La->len / 2) - paire))
     {
         cell->costA = i;
         cell->costB = 0;
@@ -88,23 +88,11 @@ void    get_score_getup_La(DList *La)
     i = 1;
     while (i <= (La->len / 2))
     {
-        cell->costA = (i + 1) * -1;
+        cell->costA = i * -1;
         cell->costB = 0;
         cell = cell->back;
         i++;
     }
-    // if (ALL->La->first->get_pb == true)
-    //     ft_printf("1 is true score = %d\n", ALL->La->first->costA);
-    // if (ALL->La->first->next->get_pb == true)
-    //     ft_printf("2 is true score = %d\n", ALL->La->first->next->costA);
-    // if (ALL->La->first->next->next->get_pb == true)
-    //     ft_printf("3 is true score = %d\n", ALL->La->first->next->next->costA);
-    // if (ALL->La->first->next->next->next->get_pb == true)
-    //     ft_printf("4 is true score = %d\n", ALL->La->first->next->next->next->costA);
-    // if (ALL->La->first->next->next->next->next->get_pb == true)
-    //     ft_printf("5 is true score = %d\n", ALL->La->first->next->next->next->next->costA);
-    // if (ALL->La->first->next->next->next->next->next->get_pb == true)
-    //     ft_printf("6 is true score = %d\n", ALL->La->first->next->next->next->next->next->costA);
 }
 
 int    opti_pb(DDList *ALL)
@@ -202,13 +190,26 @@ int    opti_pb(DDList *ALL)
     return (nbr_pb);
 }
 
-void    algo_ststep(DDList *ALL)
+void    algo_1step(DDList *ALL)
 {
     int i;
     int nbr_pb;
 
-    insert_solution(ALL);
+
     nbr_pb = opti_pb(ALL);
+
+    if (ALL->La->first->get_pb == true)
+        ft_printf("pos 1 is true score = %d\n", ALL->La->first->costA);
+    if (ALL->La->first->next->get_pb == true)
+        ft_printf("pos 2 is true score = %d\n", ALL->La->first->next->costA);
+    if (ALL->La->first->next->next->get_pb == true)
+        ft_printf("pos 3 is true score = %d\n", ALL->La->first->next->next->costA);
+    if (ALL->La->first->next->next->next->get_pb == true)
+        ft_printf("pos 4 is true score = %d\n", ALL->La->first->next->next->next->costA);
+    if (ALL->La->first->next->next->next->next->get_pb == true)
+        ft_printf("pos 5 is true score = %d\n", ALL->La->first->next->next->next->next->costA);
+    if (ALL->La->first->next->next->next->next->next->get_pb == true)
+        ft_printf("pos 6 is true score = %d\n", ALL->La->first->next->next->next->next->next->costA);
     i = 1;
     while(i <= nbr_pb)
     {

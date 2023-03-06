@@ -197,9 +197,10 @@ void    algo(DDList *ALL)
 
     Move1 = NULL;
     Move2 = NULL;
+    insert_solution(ALL);
 
-    algo_ststep(ALL);
-    
+    algo_1step(ALL);
+    algo_2step(ALL);
     
     
     if (check(ALL->La, ALL->Solution))

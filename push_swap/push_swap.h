@@ -47,6 +47,8 @@ typedef struct DDList
     Bool rrb;
     Bool rr;
     Bool rrr;
+    Bool aligned_back;
+    Bool aligned_next;
     Bool found_sol;
     struct DList *La;
     struct DList *Lb;
@@ -73,5 +75,8 @@ void    algo(DDList *ALL);
 void    get_score_getup_La(DList *L);
 void    push_to_b(DDList *ALL);
 int    opti_pb(DDList *ALL);
-void    algo_ststep(DDList *ALL);
+
+
+void    algo_1step(DDList *ALL);
+void    algo_2step(DDList *ALL);
 #endif

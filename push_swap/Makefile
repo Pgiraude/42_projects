@@ -1,7 +1,7 @@
 NAME = push_swap.a
 
 SRC = 	push_swap.c check_error.c print_piles.c quick_sort.c free_dlist.c move.c \
-		utils_chainlist.c algo.c algo_ststep.c
+		utils_chainlist.c algo.c algo_1step.c algo_2step.c
 
 SRC_CHAIN = chainlist/chainlist.c
 
