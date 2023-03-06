@@ -1,6 +1,6 @@
 NAME = push_swap.a
 
-SRC = push_swap.c check_error.c print_piles.c quick_sort.c free_dlist.c move.c utils_chainlist.c
+SRC = push_swap.c src/check_error.c src/print_piles.c src/quick_sort.c src/free_dlist.c src/move.c src/utils_chainlist.c
 
 SRC_CHAIN = chainlist/chainlist.c
 

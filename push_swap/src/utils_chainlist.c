@@ -1,5 +1,5 @@
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 
 List    *isolate_lastcell_Dlist(DList *L)

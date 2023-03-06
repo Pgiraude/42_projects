@@ -1,6 +1,6 @@
 
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 void   fusion_Dlist(DList *Inf, DList *Piv, DList *Sup)
 {

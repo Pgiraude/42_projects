@@ -26,18 +26,27 @@ typedef struct DList
     struct Cellule *last;
 }DList;
 
-typedef struct Cellule
-{
-    int data;
-    struct Cellule *next;
-    struct Cellule *back;
-}List;
-
 typedef enum
 {
     false,
     true
 }Bool;
+
+typedef struct Cellule
+{
+    int data;
+    int costA;
+    int costB;
+    int target_pos;
+    Bool aligne_back;
+    Bool aligne_next;
+    Bool get_pb;
+    Bool move;
+    struct Cellule *next;
+    struct Cellule *back;
+}List;
+
+
 
 Bool    is_empty_Dlist(DList *L);
 DList   *create_Dlist(DList *L);

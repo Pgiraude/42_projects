@@ -12,75 +12,26 @@
 
 #include "push_swap.h"
 
-// void    algo(DList *La, DList *Lb, DList *solution, DList *test)
-// {
-//     static int      profondeur;
-//     static int     saveA;
-//     static int     saveB;
-//     static int      sol;
-//     List *tmp;
+void    set_all_cell(DDList *ALL)
+{
+    List *listA;
 
-//     profondeur++;
-//     if (sol == 0 || profondeur <= 3)
-//     {
-//         if (La->len > 0 && saveB == 0)
-//         {
-//             saveA = 1;
-//             P_move(La, Lb, 0);
-//             insertlast_data_Dlist(test, 0);
-//             algo(La, Lb, solution);
-//             // ne peut pas etre la solution final
-//         }
-//         if (profondeur == 1)
-//         {
-//             tmp = isolate_cell_Dlist(test, 0);
-//             free (tmp);
-//         }
+    listA = ALL->La->first;
+    ALL->max_len = ALL->La->len;
+    while(listA != NULL)
+    {
+        listA->costA = 0;
+        listA->costB = 0;
+        listA->target_pos = 0;
+        listA->get_pb = false;
+        listA->move = false;
+            Bool aligne_back;
+            aligne_next;
+        listA = listA->next;
+    }
+}
 
-
-//         if (Lb->len > 0 && saveA == 0)
-//         {
-//             saveB = 1;
-//             P_move(La, Lb, 1);
-//             test = insertlast_data_Dlist(test, 1);
-//             if (check(La, solution))
-//             {
-//                 sol = 1;
-//                 ft_printf("Pb_move\n");
-//                 return ;
-//             }
-//             algo(La, Lb, solution);
-//         }
-//         if (profondeur == 1)
-//         {
-//             tmp = isolate_cell_Dlist(test, 0);
-//             free (tmp);
-//         }
-
-
-//         if (La->len > 1)
-//         {
-//             saveA = 0;
-//             saveB = 0;
-//             R_move(La, Lb, 0);
-//             test = insertlast_data_Dlist(test, 2);
-//             if (check(La, solution))
-//             {
-//                 sol = 1;
-//                 ft_printf("R_move\n");
-//                 return ;
-//             }
-//             algo(La, Lb, solution);
-//         }
-//     }
-
-//     if (sol == 0)
-//     {
-//         reset_Dlist(La, test);
-//         tmp = isolate_cell_Dlist(test, 1);
-//         free (tmp);
-//         profondeur--;
-//     }
-
-    
-// }
+void    push_swap(DDList *ALL)
+{
+    set_all_cell(ALL);
+}
