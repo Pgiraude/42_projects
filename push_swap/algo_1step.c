@@ -2,7 +2,7 @@
 
 #include "push_swap.h"
 
-void    place_upLa(DDList *ALL, List *target)
+void    placeup_target_ListA(DDList *ALL, List *target)
 {
     int nbr_move;
 
@@ -26,44 +26,31 @@ void    place_upLa(DDList *ALL, List *target)
     }
 }
 
-void    push_to_b(DDList *ALL)
+List    *target_to_pushB(DDList *ALL)
 {
-    List *lfirst;
-    List *llast;
+    List *cell;
+    List *target;
+    int sign;
+    int lower_cost;
 
-    lfirst = ALL->La->first;
-    llast = ALL->La->last;
-
-    while (lfirst->get_pb == false && lfirst->next != NULL)
-        lfirst = lfirst->next;
-    while (llast->get_pb == false && llast->back != NULL)
-        llast = llast->back;
-
-    if (llast->costA < 0 && lfirst->costA < 0)
+    target = NULL;
+    cell = ALL->La->first;
+    lower_cost = ALL->max_len;
+    while (cell != NULL)
     {
-        place_upLa(ALL, llast);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
+        if (cell->costA >= 0)
+            sign = 1;
+        else
+            sign = -1;
+        
+        if (lower_cost > cell->costA * sign && cell->get_pb == true)
+        {
+            lower_cost = cell->costA * sign;
+            target = cell;
+        }
+        cell = cell->next;
     }
-    else if (lfirst->costA > 0 && llast->costA > 0)
-    {
-        place_upLa(ALL, lfirst);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else if (lfirst->costA < (llast->costA * -1))
-    {
-        place_upLa(ALL, lfirst);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else if ((llast->costA * -1) < lfirst->costA)
-    {
-        place_upLa(ALL, llast);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
-    else
-    {
-        place_upLa(ALL, lfirst);
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    }
+    return (target);
 }
 
 void    cost_getup_La(DList *ListA)
@@ -187,15 +174,17 @@ void    algo_1step(DDList *ALL)
 {
     int i;
     int nbr_pb;
-
+    List *target;
 
     nbr_pb = get_pb_optimisation(ALL);
-
+    target = NULL;
     i = 1;
     while(i <= nbr_pb)
     {
         cost_getup_La(ALL->La);
-        push_to_b(ALL);
+        target = target_to_pushB(ALL);
+        placeup_target_ListA(ALL, target);
+        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
         i++;
     }
 }
