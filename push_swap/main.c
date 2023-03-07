@@ -87,7 +87,7 @@ int main(int argc, char **argv)
     /*---type move---*/
 
     ft_printf("sol = ");
-    printf_Dlist(Move);
+    ft_printresult(Move);
 
 
 

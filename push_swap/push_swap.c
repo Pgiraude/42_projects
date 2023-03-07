@@ -122,6 +122,7 @@ void    push_swap(DDList *ALL)
     set_all_cell(ALL);
     get_final_pos(ALL);
     algo_1step(ALL);
+    algo_2step(ALL);
     
     check_allvalue(ALL);
 }
