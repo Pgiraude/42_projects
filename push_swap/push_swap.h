@@ -65,5 +65,11 @@ void    push_swap(DDList *ALL);
 
 void    algo_1step(DDList *ALL);
 void    algo_2step(DDList *ALL);
+void    algo_3step(DDList *ALL);
+
+
+void    cost_getup_La(DList *ListA);
+void    placeup_target_ListA(DDList *ALL, List *target);
+Bool    swap_optimisation(DDList *ALL);
 
 #endif
