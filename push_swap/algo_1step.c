@@ -79,186 +79,88 @@ void    cost_getup_La(DList *ListA)
 
 /*------------------------------------------------------------------*/
 
-int    get_pb_optimisation(DDList *ALL)
-{
-    int tab[ALL->La->len][3];
-    List *tmp_1;
-    List *tmp_2;
-    int pos;
-    int pivot_pos;
-    int i;
-    int score;
-    int nbr_pb;
 
-
-    tmp_1 = ALL->La->first;
-    tmp_2 = ALL->La->first;
-    pivot_pos = 0;
-    while (tmp_1 != NULL)
-    {   
-        i = 1;
-        tmp_2 = tmp_1;
-        pos = tmp_2->target_pos;
-        score = 0;
-        while (i++ <= ALL->La->len)
-        {
-            if (tmp_2->next == NULL)
-                tmp_2 = ALL->La->first;
-            else
-                tmp_2 = tmp_2->next;
-            if (tmp_2->target_pos == (pos + 1) || (pos == ALL->La->len && tmp_2->target_pos == 1))
-            {
-                pos = tmp_2->target_pos;
-                score++;
-            }
-        }
-        tab[pivot_pos][0] = score;
-        tab[pivot_pos][1] = pivot_pos + 1;
-        tab[pivot_pos][2] = '\0';
-        tmp_1 = tmp_1->next;        
-        pivot_pos++;
-    }
-    
-    int *mem;
-
-    pivot_pos = 0;
-    mem = tab[pivot_pos];
-    while (pivot_pos < ALL->La->len)
-    {
-        if (tab[pivot_pos][0] > mem[0])
-            mem = tab[pivot_pos];
-        pivot_pos++;
-        
-    }
-    i = 1;
-    tmp_2 = ALL->La->first;
-    while (i < mem[1])
-    {
-        tmp_2 = tmp_2->next;
-        i++;
-    }
-    pos = tmp_2->target_pos;
-    i = 1;
-
-    nbr_pb = 0;
-    while (i < ALL->La->len)
-    {
-        if (tmp_2->next == NULL)
-            tmp_2 = ALL->La->first;
-        else
-            tmp_2 = tmp_2->next;
-        if (tmp_2->target_pos == (pos + 1) || (pos == ALL->La->len && tmp_2->target_pos == 1))
-        {
-            tmp_2->get_pb = false;
-            pos = tmp_2->target_pos;
-        }
-        else
-        {
-            nbr_pb++;
-            tmp_2->get_pb = true;
-        }
-        i++;
-    }
-    if (tmp_2->next == NULL)
-        tmp_2 = ALL->La->first;
-    else
-        tmp_2 = tmp_2->next;
-    
-    ft_printf("pivot = %d\n", tmp_2->data);
-    return (nbr_pb);
-}
 
 /*---------------------------------------------*/
-int    get_pb_opti2(DDList *ALL, char *mem)
+int    get_pb_tag(List *pivot, DDList *ALL)
 {
-    List *cell;
-    int pos;
+    int last_pos;
     int i;
     int nbr_pb;
 
-    i = 1;
-    cell = ALL->La->first;
-    while (i++ < mem[1])
-        cell = cell->next;
-    pos = cell->target_pos;
+    last_pos = pivot->target_pos;
     i = 1;
     nbr_pb = 0;
     while (i++ < ALL->La->len)
     {
-        if (cell->next == NULL)
-            cell = ALL->La->first;
+        if (pivot->next == NULL)
+            pivot = ALL->La->first;
         else
-            cell = cell->next;
-        if (cell->target_pos == (pos + 1) || (pos == ALL->La->len && cell->target_pos == 1))
-        {
-            cell->get_pb = false;
-            pos = cell->target_pos;
-        }
+            pivot = pivot->next;
+        if (pivot->target_pos == (last_pos + 1) ||
+         (last_pos == ALL->La->len && pivot->target_pos == 1))
+            last_pos = pivot->target_pos;
         else
         {
             nbr_pb++;
-            cell->get_pb = true;
+            pivot->get_pb = true;
         }
     }
-
-    if (cell->next == NULL)
-        cell = ALL->La->first;
+    if (pivot->next == NULL)
+        pivot = ALL->La->first;
     else
-        cell = cell->next;
-    ft_printf("pivot = %d\n", cell->data);
+        pivot = pivot->next;
+    ft_printf("pivot = %d\n", pivot->data);
     return (nbr_pb);
 }
 
-int    get_pb_opti(DDList *ALL)
+int get_pb_score(List *pivot, DDList *ALL)
 {
-    int tab[ALL->La->len][3];
-    List *tmp_1;
-    List *tmp_2;
-    int pivot_pos;
     int i;
     int score;
-    int save_pos;
+    int save_target_pos;
 
-    tmp_1 = ALL->La->first;
-    pivot_pos = 0;
-    while (tmp_1 != NULL)
-    {   
-        i = 1;
-        tmp_2 = tmp_1;
-        save_pos = tmp_2->target_pos;
-        score = 0;
-        while (i++ <= ALL->La->len)
-        {
-            if (tmp_2->next == NULL)
-                tmp_2 = ALL->La->first;
-            else
-                tmp_2 = tmp_2->next;
-            if (tmp_2->target_pos == (save_pos + 1) || (save_pos == ALL->La->len && tmp_2->target_pos == 1))
-            {
-                save_pos = tmp_2->target_pos;
-                score++;
-            }
-        }
-        tab[pivot_pos][0] = score;
-        tab[pivot_pos][1] = pivot_pos + 1;
-        tab[pivot_pos][2] = '\0';
-        tmp_1 = tmp_1->next;        
-        pivot_pos++;
-    }
-
-
-    int *mem;
-
-    pivot_pos = 0;
-    mem = tab[pivot_pos];
-    while (pivot_pos < ALL->La->len)
+    i = 1;
+    score = 0;
+    save_target_pos = pivot->target_pos;
+    while (i++ <= ALL->La->len)
     {
-        if (tab[pivot_pos][0] > mem[0])
-            mem = tab[pivot_pos];
-        pivot_pos++;
-        
+        if (pivot->next == NULL)
+            pivot = ALL->La->first;
+        else
+            pivot = pivot->next;
+        if (pivot->target_pos == (save_target_pos + 1) ||
+         (save_target_pos == ALL->La->len && pivot->target_pos == 1))
+        {
+            save_target_pos = pivot->target_pos;
+            score++;
+        }
     }
-    return (get_pb_opti2(ALL, mem));
+    return (score);
+}
+
+int    get_pb_optimisation(DDList *ALL)
+{
+    List *pivot;
+    int best_score[3];
+    int score;
+
+    pivot = ALL->La->first;
+    while (pivot != NULL)
+    {   
+        score = get_pb_score(pivot, ALL);
+        if (score > best_score[0])
+        {
+            best_score[0] = score;
+            best_score[1] = pivot->target_pos;
+        }
+        pivot = pivot->next;        
+    }
+    best_score[2] = '\0';
+    pivot = ALL->La->first;
+    while (pivot->target_pos != best_score[1])
+        pivot = pivot->next;
+    return (get_pb_tag(pivot, ALL));
 }
 
 void    algo_1step(DDList *ALL)
