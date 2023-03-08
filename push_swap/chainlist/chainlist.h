@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 17:34:18 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:08:06 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct Cellule
     int target_pos;
     Bool aligne_back;
     Bool aligne_next;
-    Bool get_pb;
+    Bool tag;
     Bool move;
     struct Cellule *next;
     struct Cellule *back;

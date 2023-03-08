@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 16:33:50 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:10:01 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    set_all_cell(DDList *ALL)
         listA->costA = 0;
         listA->costB = 0;
         listA->target_pos = 0;
-        listA->get_pb = false;
+        listA->tag = false;
         listA->move = false;
         listA->aligne_back = false;
         listA->aligne_next = false;
@@ -71,8 +71,8 @@ void    check_allvalue(DDList *ALL)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" get_pb=");
-        if (list->get_pb == true)
+        ft_printf(" tag=");
+        if (list->tag == true)
             ft_printf("true");
         else
             ft_printf("false");
@@ -100,8 +100,8 @@ void    check_allvalue(DDList *ALL)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" get_pb=");
-        if (list->get_pb == true)
+        ft_printf(" tag=");
+        if (list->tag == true)
             ft_printf("true");
         else
             ft_printf("false");
@@ -121,7 +121,7 @@ void    push_swap(DDList *ALL)
 
     set_all_cell(ALL);
     get_final_pos(ALL);
-    algo_1step(ALL);
+    push_to_B(ALL);
 
     // while (ALL->Lb->len > 0)
     // {

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/01 16:58:50 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:58:38 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int    opti_pb(DDList *ALL);
 
 void    push_swap(DDList *ALL);
 
-void    algo_1step(DDList *ALL);
+
+void    push_to_B(DDList *ALL);
+int     get_pb_optimisation(DDList *ALL);
+
 void    algo_2step(DDList *ALL);
 void    algo_3step(DDList *ALL);
 
@@ -71,5 +74,7 @@ void    algo_3step(DDList *ALL);
 void    cost_getup_La(DList *ListA);
 void    placeup_target_ListA(DDList *ALL, List *target);
 Bool    swap_optimisation(DDList *ALL);
+
+
 
 #endif
