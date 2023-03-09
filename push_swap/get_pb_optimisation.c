@@ -71,24 +71,23 @@ int get_pb_score(List *pivot, DDList *ALL)
 
 int    get_pb_optimisation(DDList *ALL)
 {
+    List *cell;
     List *pivot;
-    int best_score[3];
+    int best_score;
     int score;
 
-    pivot = ALL->La->first;
-    while (pivot != NULL)
+    pivot = NULL;
+    cell = ALL->La->first;
+    while (cell != NULL)
     {   
-        score = get_pb_score(pivot, ALL);
-        if (score > best_score[0])
+        score = get_pb_score(cell, ALL);
+        if (score > best_score)
         {
-            best_score[0] = score;
-            best_score[1] = pivot->target_pos;
+            best_score = score;
+            pivot = cell;
         }
-        pivot = pivot->next;        
+        cell = cell->next;        
     }
-    best_score[2] = '\0';
-    pivot = ALL->La->first;
-    while (pivot->target_pos != best_score[1])
-        pivot = pivot->next;
+    ft_printf("yes\n");
     return (get_pb_tag(pivot, ALL));
 }

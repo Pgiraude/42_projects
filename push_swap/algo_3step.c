@@ -100,24 +100,42 @@ void    placeup_target_ListB(DDList *ALL, List *target)
 {
     if (target == NULL)
         return ;
-    while (target->costB-- > 0 && target->costA-- > 0)
+    while (target->costB > 0 && target->costA > 0)
     {
         target->move = false;
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rr), 1);
+        target->costB--;
+        target->costA--;
     }
     if (target->move == true && target->costA < 0)
         target->costB = target->costB * -1;
-    while (target->costB++ < 0 && target->costA++ < 0)
+    while (target->costB < 0 && target->costA < 0)
+    {
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rrr), 1);
+        target->costB++;
+        target->costA++;
+    }
 
-    while (target->costB-- > 0)
+    while (target->costB > 0)
+    {
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rb), 1);
-    while (target->costB++ < 0)
+        target->costB--;
+    }
+    while (target->costB < 0)
+    {
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rrb), 1);
-    while (target->costA-- > 0)
+        target->costB++;
+    }
+    while (target->costA > 0)
+    {
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ra), 1);
+        target->costA--;
+    }
     while (target->costA++ < 0)
+    {
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rra), 1);
+        target->costA++;
+    }
 }
 
 void    algo_3step(DDList *ALL)

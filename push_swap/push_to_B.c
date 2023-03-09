@@ -16,27 +16,19 @@
 
 void    placeup_target_ListA(DDList *ALL, List *target)
 {
-    int nbr_move;
     if (target == NULL)
         return ;
     target->tag = false;
-    if (target->costA > 0)
+    while (target->costA > 0)
     {
-        nbr_move = target->costA;
-        while (nbr_move != 0)
-        {
-            ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ra), 1);
-            nbr_move--;
-        }
+        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ra), 1);
+        target->costA--;
     }
-    if (target->costA < 0)
+
+    while (target->costA < 0)
     {
-        nbr_move = target->costA * -1;
-        while (nbr_move != 0)
-        {
-            ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rra), 1);
-            nbr_move--;
-        }
+        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rra), 1);
+        target->costA++;
     }
 }
 
@@ -142,26 +134,30 @@ void    target_to_swapA(DDList *ALL)
 
 void    push_to_B(DDList *ALL)
 {
-
     List *target;
 
     target_to_swapA(ALL);
     cost_getup_La(ALL->La);
     target = target_to_process(ALL);
-    placeup_target_ListA(ALL, target);
-    ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, sa), 1);
-
-    // int i;
-    // int nbr_pb;
-    // nbr_pb = get_pb_optimisation(ALL);
-    // target = NULL;
-    // i = 1;
-    // while(i <= nbr_pb)
-    // {
-    //     cost_getup_La(ALL->La);
-    //     target = target_to_pushB(ALL);
-    //     placeup_target_ListA(ALL, target);
-    //     ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
-    //     i++;
-    // }
+    while (target != NULL)
+    {
+        placeup_target_ListA(ALL, target);
+        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, sa), 1);
+        target_to_swapA(ALL);
+        cost_getup_La(ALL->La);
+        target = target_to_process(ALL);
+    }
+    int i;
+    int nbr_pb;
+    nbr_pb = get_pb_optimisation(ALL);
+    target = NULL;
+    i = 1;
+    while(i <= nbr_pb)
+    {
+        cost_getup_La(ALL->La);
+        target = target_to_process(ALL);
+        placeup_target_ListA(ALL, target);
+        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);
+        i++;
+    }
 }

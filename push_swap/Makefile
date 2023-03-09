@@ -2,7 +2,7 @@ NAME = push_swap.a
 
 SRC = push_swap.c src/check_error.c src/print_piles.c src/quick_sort.c src/free_dlist.c \
 		src/move.c src/utils_chainlist.c \
-		push_to_B.c algo_2step.c algo_3step.c algo_4step.c get_pb_optimisation.c
+		push_to_B.c get_all_cost.c is_aligned.c algo_3step.c algo_4step.c get_pb_optimisation.c
 
 
 SRC_CHAIN = chainlist/chainlist.c

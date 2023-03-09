@@ -117,23 +117,23 @@ void    check_allvalue(DDList *ALL)
 
 void    push_swap(DDList *ALL)
 {
-    // List *first_pos;
+    List *first_pos;
 
     set_all_cell(ALL);
     get_final_pos(ALL);
     push_to_B(ALL);
 
-    // while (ALL->Lb->len > 0)
-    // {
-    //     algo_2step(ALL);
-    //     algo_3step(ALL);
-    // }
+    while (ALL->Lb->len > 0)
+    {
+        get_all_cost(ALL);
+        algo_3step(ALL);
+    }
 
-    // first_pos = ALL->La->first;
-    // cost_getup_La(ALL->La);
-    // while (first_pos->target_pos != 1)
-    //     first_pos = first_pos->next;
-    // placeup_target_ListA(ALL, first_pos);
+    first_pos = ALL->La->first;
+    cost_getup_La(ALL->La);
+    while (first_pos->target_pos != 1)
+        first_pos = first_pos->next;
+    placeup_target_ListA(ALL, first_pos);
 
     
     check_allvalue(ALL);

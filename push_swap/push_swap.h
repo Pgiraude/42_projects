@@ -67,7 +67,9 @@ void    push_swap(DDList *ALL);
 void    push_to_B(DDList *ALL);
 int     get_pb_optimisation(DDList *ALL);
 
-void    algo_2step(DDList *ALL);
+void    get_all_cost(DDList *ALL);
+void    is_aligned(DDList *ALL);
+
 void    algo_3step(DDList *ALL);
 
 
