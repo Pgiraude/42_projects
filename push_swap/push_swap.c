@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 16:07:41 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:55:37 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,21 +136,21 @@ void    push_swap(DDList *ALL)
 
     set_all_cell(ALL);
     get_final_pos(ALL);
-    push_to_B(ALL);
+    push_to_b(ALL);
 
     // while (ALL->Lb->len > 0)
     // {
         get_all_cost(ALL);
-        algo_3step(ALL);
+        push_to_a(ALL);
     // }
 
     // List *first_pos;
 
     // first_pos = ALL->La->first;
-    // costA_getup_La(ALL->La);
+    // costa_getup_la(ALL->La);
     // while (first_pos->target_pos != 1)
     //     first_pos = first_pos->next;
-    // placeup_target_ListA(ALL, first_pos);
+    // placeup_target_lista(ALL, first_pos);
 
     
     check_allvalue(ALL);

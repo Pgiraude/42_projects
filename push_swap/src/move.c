@@ -103,7 +103,7 @@ int    R_move(DList *La, DList *Lb, Move mode)
     return (mode);
 }
 
-int    All_move(DList *La, DList * Lb, Move mode)
+int    all_move(DList *La, DList * Lb, Move mode)
 {
     int check_error;
 

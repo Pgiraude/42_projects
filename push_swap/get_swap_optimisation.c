@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:28:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 16:29:30 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:33:43 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ Bool    bigswap_optimisation(DDList *ALL)
     }
     if (Lb_is_aligned_bigswap(ALL->Lb, ALL) == false)
         return (false);
-    ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
-    ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
-    ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ss), 1);
+    ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
+    ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
+    ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, ss), 1);
     return (true);
 }
 
@@ -86,31 +86,31 @@ Bool    Lb_is_aligned_swap(DDList *ALL)
     return (true);
 }
 
-void    swap_optimisation(DDList *ALL)
+Bool    swap_optimisation(DDList *ALL)
 {
     List *first_pos;
     
-    if (Lb_is_aligned_swap(ALL) == true)
+    if (Lb_is_aligned_swap(ALL) == false)
+        return (false);
+    all_move(ALL->La, ALL->Lb, sb);
+    all_move(ALL->La, ALL->Lb, pa);
+    all_move(ALL->La, ALL->Lb, pa);
+    if (ALL->Lb->len == 0)
     {
-        All_move(ALL->La, ALL->Lb, sb);
-        All_move(ALL->La, ALL->Lb, pa);
-        All_move(ALL->La, ALL->Lb, pa);
-        if (ALL->Lb->len == 0)
+        first_pos = ALL->La->first;
+        costa_getup_la(ALL->La);
+        while (first_pos->target_pos != 1)
+            first_pos = first_pos->next;
+        if (first_pos->costA > 0)
         {
-            first_pos = ALL->La->first;
-            costA_getup_La(ALL->La);
-            while (first_pos->target_pos != 1)
-                first_pos = first_pos->next;
-            if (first_pos->costA > 0)
-            {
-                All_move(ALL->La, ALL->Lb, sa);
-                All_move(ALL->La, ALL->Lb, pb);
-                All_move(ALL->La, ALL->Lb, pb);
-                return ;
-            }
+            all_move(ALL->La, ALL->Lb, sa);
+            all_move(ALL->La, ALL->Lb, pb);
+            all_move(ALL->La, ALL->Lb, pb);
+            return (false);
         }
-        ALL->Move = insert_data_Dlist(ALL->Move, sb, 1);
-        ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
-        ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
     }
+    ALL->Move = insert_data_Dlist(ALL->Move, sb, 1);
+    ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
+    ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
+    return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 16:28:48 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:35:36 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void    placeup_target_ListB(DDList *ALL, List *target)
     while (target->costB > 0 && target->costA > 0)
     {
         target->moveB = false;
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rr), 1);
+        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rr), 1);
         target->costB--;
         target->costA--;
     }
@@ -83,53 +83,52 @@ void    placeup_target_ListB(DDList *ALL, List *target)
     while (target->costB < 0 && target->costA < 0)
     {
         target->moveB = false;
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rrr), 1);
+        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rrr), 1);
         target->costB++;
         target->costA++;
     }
 
     while (target->costB > 0)
     {
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rb), 1);
+        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rb), 1);
         target->costB--;
     }
     while (target->costB < 0)
     {
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rrb), 1);
+        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rrb), 1);
         target->costB++;
     }
     while (target->costA > 0)
     {
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ra), 1);
+        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, ra), 1);
         target->costA--;
     }
     while (target->costA < 0)
     {
-        ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rra), 1);
+        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rra), 1);
         target->costA++;
     }
 }
 
-void    algo_3step(DDList *ALL)
+void    push_to_a(DDList *ALL)
 {
     List *target;
-    // int loop;
+    int loop;
 
     target = target_to_pushA(ALL);
-    ft_printf("target=%d\n", target->data);
-    
     placeup_target_ListB(ALL, target);
-    swap_optimisation(ALL);
-    swap_optimisation(ALL);
-    // if (bigswap_optimisation(ALL) == false)
-    // {
-    //     loop = 1;
-    //     while (ALL->Lb->len > 0 && loop > 0)
-    //     {
-    //         if (ALL->Lb->first->aligne_next == true && ALL->Lb->first->next != NULL)
-    //             loop++;
-    //         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
-    //         loop--;
-    //     }
-    // }
+    if (bigswap_optimisation(ALL) == false)
+    {
+        if (swap_optimisation(ALL) == false)
+        {
+            loop = 1;
+            while (ALL->Lb->len > 0 && loop > 0 && target != NULL)
+            {
+                if (ALL->Lb->first->aligne_next == true && ALL->Lb->first->next != NULL)
+                    loop++;
+                ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
+                loop--;
+            }
+        }
+    }
 }

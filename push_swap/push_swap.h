@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 16:30:03 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 21:40:56 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ List    *isolate_cell_Dlist(DList *L, int Mode);
 int    R_move(DList *La, DList *Lb, Move mode);
 int    S_move(DList *La, DList *Lb, Move mode);
 int    P_move(DList *La, DList *Lb, Move mode);
-int    All_move(DList *La, DList * Lb, Move mode);
+int    all_move(DList *La, DList * Lb, Move mode);
 
 void    algo(DDList *ALL);
 void    get_score_getup_La(DList *L);
@@ -64,20 +64,20 @@ int    opti_pb(DDList *ALL);
 void    push_swap(DDList *ALL);
 
 
-void    push_to_B(DDList *ALL);
+void    push_to_b(DDList *ALL);
 int     get_pb_optimisation(DDList *ALL);
 
 void    get_all_cost(DDList *ALL);
 void    is_aligned(DDList *ALL);
 
-void    algo_3step(DDList *ALL);
+void    push_to_a(DDList *ALL);
 
 
-void    costA_getup_La(DList *ListA);
-void    placeup_target_ListA(DDList *ALL, List *target);
+void    costa_getup_la(DList *ListA);
+void    placeup_target_lista(DDList *ALL, List *target);
 
 Bool    bigswap_optimisation(DDList *ALL);
-void    swap_optimisation(DDList *ALL);
+Bool    swap_optimisation(DDList *ALL);
 
 
 

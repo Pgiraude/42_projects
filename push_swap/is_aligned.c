@@ -8,9 +8,11 @@ void    Lb_is_aligned_next(DList *ListB, DDList *ALL)
     List *next_cell;
     int i;
 
-    i = 1;
+    if (ListB->len < 2)
+        return ;
     cell = ListB->first;
     next_cell = ListB->first->next;
+    i = 1;
     while (i <= ListB->len)
     {
         cell->aligne_next = false;
@@ -32,9 +34,11 @@ void    Lb_is_aligned_back(DList *ListB, DDList *ALL)
     List *back_cell;
     int i;
 
-    i = 1;
+    if (ListB->len < 2)
+        return ;
     cell = ListB->last;
     back_cell = ListB->last->back;
+    i = 1;
     while (i <= ListB->len)
     {
         cell->aligne_back = false;
@@ -56,6 +60,8 @@ void    La_is_aligned_next(DList *ListA, DDList *ALL)
     List *next_cell;
     int i;
 
+    if (ListA->len < 2)
+        return ;
     i = 1;
     cell = ListA->first;
     next_cell = ListA->first->next;
@@ -80,6 +86,8 @@ void    La_is_aligned_back(DList *ListA, DDList *ALL)
     List *back_cell;
     int i;
 
+    if (ListA->len < 2)
+        return ;
     i = 1;
     cell = ListA->last;
     back_cell = ListA->last->back;
@@ -102,7 +110,6 @@ void    is_aligned(DDList *ALL)
 {
     La_is_aligned_next(ALL->La, ALL);
     La_is_aligned_back(ALL->La, ALL);
-
     Lb_is_aligned_next(ALL->Lb, ALL);
     Lb_is_aligned_back(ALL->Lb, ALL);
 }
