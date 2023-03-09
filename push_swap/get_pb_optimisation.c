@@ -6,11 +6,36 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:51:38 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 18:09:49 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:32:17 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void    costA_getup_La(DList *ListA)
+{
+    List *cell;
+    int paire;
+    int i;
+
+    paire = 0;
+    if (ListA->len % 2 == 0)
+        paire = 1;
+    cell = ListA->first;
+    i = 0;
+    while (cell != NULL)
+    {
+        cell->moveA = false;
+        if (i <= ListA->len / 2)
+            cell->costA = i;
+        if (i == ListA->len / 2 && paire == 1)
+            cell->moveA = true;
+        if (i > ListA->len / 2)
+            cell->costA = i - ListA->len;
+        i++;
+        cell = cell->next;
+    }
+}
 
 int    get_pb_tag(List *pivot, DDList *ALL)
 {

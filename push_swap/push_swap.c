@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 13:37:34 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:07:41 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void    push_swap(DDList *ALL)
     // List *first_pos;
 
     // first_pos = ALL->La->first;
-    // cost_getup_La(ALL->La);
+    // costA_getup_La(ALL->La);
     // while (first_pos->target_pos != 1)
     //     first_pos = first_pos->next;
     // placeup_target_ListA(ALL, first_pos);

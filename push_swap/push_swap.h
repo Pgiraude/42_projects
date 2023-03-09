@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 16:58:38 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:30:03 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ void    is_aligned(DDList *ALL);
 void    algo_3step(DDList *ALL);
 
 
-void    cost_getup_La(DList *ListA);
+void    costA_getup_La(DList *ListA);
 void    placeup_target_ListA(DDList *ALL, List *target);
-Bool    swap_optimisation(DDList *ALL);
+
+Bool    bigswap_optimisation(DDList *ALL);
+void    swap_optimisation(DDList *ALL);
 
 
 
