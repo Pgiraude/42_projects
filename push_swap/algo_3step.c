@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 10:16:33 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:29:35 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,35 @@ Bool    swap_optimisation(DDList *ALL)
     ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
     ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ss), 1);
     return (true);
+}
+
+/*-------------------------------------------------*/
+
+List    *target_lower_cost(int costA, int costB, List *target)
+{
+    static List *last_target;
+    static int  last_Tcost;
+    int         Tcost;
+    
+    Tcost = costA + costB + target->bonus_cost;
+    if (last_target == NULL)
+    {
+        ft_printf("test\n");
+        last_target = target;
+        last_Tcost = Tcost;
+        return (last_target);
+    }
+    else if (Tcost < last_Tcost)
+    {
+        last_target = target;
+        last_Tcost = Tcost;
+    }
+    else if (Tcost == last_Tcost && target->target_pos > last_target->target_pos)
+    {
+        last_target = target;
+        last_Tcost = Tcost;
+    }
+    return (last_target);
 }
 
 List    *target_to_pushA(DDList *ALL)
