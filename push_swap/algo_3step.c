@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 18:35:37 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:16:33 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,16 @@ void    placeup_target_ListB(DDList *ALL, List *target)
         return ;
     while (target->costB > 0 && target->costA > 0)
     {
-        target->move = false;
+        target->moveB = false;
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rr), 1);
         target->costB--;
         target->costA--;
     }
-    if (target->move == true && target->costA < 0)
+    if (target->moveB == true && target->costA < 0)
         target->costB = target->costB * -1;
     while (target->costB < 0 && target->costA < 0)
     {
+        target->moveB = false;
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rrr), 1);
         target->costB++;
         target->costA++;
@@ -131,7 +132,7 @@ void    placeup_target_ListB(DDList *ALL, List *target)
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ra), 1);
         target->costA--;
     }
-    while (target->costA++ < 0)
+    while (target->costA < 0)
     {
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, rra), 1);
         target->costA++;

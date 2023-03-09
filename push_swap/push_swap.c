@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 18:10:01 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:18:11 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void    set_all_cell(DDList *ALL)
     {
         listA->costA = 0;
         listA->costB = 0;
+        listA->bonus_cost = 0;
         listA->target_pos = 0;
         listA->tag = false;
-        listA->move = false;
+        listA->moveA = false;
+        listA->moveB = false;
         listA->aligne_back = false;
         listA->aligne_next = false;
         listA = listA->next;
@@ -76,8 +78,13 @@ void    check_allvalue(DDList *ALL)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" move=");
-        if (list->move == true)
+        ft_printf(" moveA=");
+        if (list->moveA == true)
+            ft_printf("true");
+        else
+            ft_printf("false");
+        ft_printf(" moveB=");
+        if (list->moveB == true)
             ft_printf("true");
         else
             ft_printf("false");
@@ -105,8 +112,13 @@ void    check_allvalue(DDList *ALL)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" move=");
-        if (list->move == true)
+        ft_printf(" moveA=");
+        if (list->moveA == true)
+            ft_printf("true");
+        else
+            ft_printf("false");
+        ft_printf(" moveB=");
+        if (list->moveB == true)
             ft_printf("true");
         else
             ft_printf("false");
@@ -117,23 +129,25 @@ void    check_allvalue(DDList *ALL)
 
 void    push_swap(DDList *ALL)
 {
-    List *first_pos;
+
 
     set_all_cell(ALL);
     get_final_pos(ALL);
     push_to_B(ALL);
 
-    while (ALL->Lb->len > 0)
-    {
+    // while (ALL->Lb->len > 0)
+    // {
         get_all_cost(ALL);
-        algo_3step(ALL);
-    }
+    //     algo_3step(ALL);
+    // }
 
-    first_pos = ALL->La->first;
-    cost_getup_La(ALL->La);
-    while (first_pos->target_pos != 1)
-        first_pos = first_pos->next;
-    placeup_target_ListA(ALL, first_pos);
+    // List *first_pos;
+
+    // first_pos = ALL->La->first;
+    // cost_getup_La(ALL->La);
+    // while (first_pos->target_pos != 1)
+    //     first_pos = first_pos->next;
+    // placeup_target_ListA(ALL, first_pos);
 
     
     check_allvalue(ALL);

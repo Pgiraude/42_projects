@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:17 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 18:48:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:58:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ List    *target_to_process(DDList *ALL)
     return (target);
 }
 
-void    cost_getup_La(DList *ListA)
+void    costA_getup_La(DList *ListA)
 {
     List *cell;
     int paire;
@@ -71,11 +71,11 @@ void    cost_getup_La(DList *ListA)
     i = 0;
     while (cell != NULL)
     {
-        cell->move = false;
+        cell->moveA = false;
         if (i <= ListA->len / 2)
             cell->costA = i;
         if (i == ListA->len / 2 && paire == 1)
-            cell->move = true;
+            cell->moveA = true;
         if (i > ListA->len / 2)
             cell->costA = i - ListA->len;
         i++;
@@ -137,14 +137,14 @@ void    push_to_B(DDList *ALL)
     List *target;
 
     target_to_swapA(ALL);
-    cost_getup_La(ALL->La);
+    costA_getup_La(ALL->La);
     target = target_to_process(ALL);
     while (target != NULL)
     {
         placeup_target_ListA(ALL, target);
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, sa), 1);
         target_to_swapA(ALL);
-        cost_getup_La(ALL->La);
+        costA_getup_La(ALL->La);
         target = target_to_process(ALL);
     }
     int i;
@@ -154,7 +154,7 @@ void    push_to_B(DDList *ALL)
     i = 1;
     while(i <= nbr_pb)
     {
-        cost_getup_La(ALL->La);
+        costA_getup_La(ALL->La);
         target = target_to_process(ALL);
         placeup_target_ListA(ALL, target);
         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pb), 1);

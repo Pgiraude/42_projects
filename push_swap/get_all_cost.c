@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo_2step.c                                       :+:      :+:    :+:   */
+/*   get_all_cost.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/08 18:35:41 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 10:14:22 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void    costB_getup_Lb(DList *ListB)
     i = 0;
     while (cell != NULL)
     {
-        cell->move = false;
+        cell->moveB = false;
         if (i <= ListB->len / 2)
             cell->costB = i;
         if (i == ListB->len / 2 && paire == 1)
-            cell->move = true;
+            cell->moveB = true;
         if (i > ListB->len / 2)
             cell->costB = i - ListB->len;
         i++;
@@ -46,11 +46,11 @@ void    costA_getposition_Lb(DList *ListA, DList *ListB, DDList *ALL)
     List *cellB;
     int mem;
     int i;
-
-    // int paire; si je rajoute autre booléen
-    // paire = 0;
-    // if (ListA->len % 2 == 0)
-    //     paire = 1;
+    int paire;
+    
+    paire = 0;
+    if (ListA->len % 2 == 0)
+        paire = 1;
 
     cellB = ListB->first;
     while (cellB != NULL)
@@ -89,8 +89,8 @@ void    costA_getposition_Lb(DList *ListA, DList *ListB, DDList *ALL)
 
         if (mem <= ListA->len / 2)
             cellB->costA = mem;
-        // if (mem == ListB->len / 2 && paire == 1) si je rajoute autre booleen
-        //     cell->move = true;
+        if (mem == ListA->len / 2 && paire == 1)
+            cellB->moveA = true;
         if (mem > ListA->len / 2)
             cellB->costA = mem - ListA->len;
         cellB = cellB->next;
