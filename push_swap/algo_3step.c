@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 13:29:35 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:07:04 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ Bool    Lb_is_aligned_swap(DList *ListB, DDList *ALL)
     return (true);
 }
 
-Bool    swap_optimisation(DDList *ALL)
+Bool    bigswap_optimisation(DDList *ALL)
 {
     List *cell;
     int i;
@@ -65,6 +65,16 @@ Bool    swap_optimisation(DDList *ALL)
     ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
     ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, ss), 1);
     return (true);
+}
+
+void    swap_optimisation(DDList *ALL)
+{
+    List *listB;
+
+    if (ALL->Lb->len < 2 || ALL->La->len < 2)
+        return ;
+    listB = ALL->Lb->first;
+    
 }
 
 /*-------------------------------------------------*/
@@ -102,11 +112,9 @@ List    *target_to_pushA(DDList *ALL)
     List *target;
     int signA;
     int signB;
-    int lower_cost;
 
     target = NULL;
     cell = ALL->Lb->first;
-    lower_cost = ALL->max_len;
     while (cell != NULL)
     {
         signB = 1;
@@ -115,11 +123,7 @@ List    *target_to_pushA(DDList *ALL)
             signA = -1;
         if (cell->costB < 0)
             signB = -1;
-        if (lower_cost > (cell->costA * signA + cell->costB * signB))
-        {
-            lower_cost = cell->costA * signA + cell->costB * signB;
-            target = cell;
-        }
+        target = target_lower_cost((cell->costA * signA), (cell->costB * signB), cell);
         cell = cell->next;
     }
     return (target);
@@ -171,19 +175,21 @@ void    placeup_target_ListB(DDList *ALL, List *target)
 void    algo_3step(DDList *ALL)
 {
     List *target;
-    int loop;
+    // int loop;
 
     target = target_to_pushA(ALL);
-    placeup_target_ListB(ALL, target);
-    if (swap_optimisation(ALL) == false)
-    {
-        loop = 1;
-        while (ALL->Lb->len > 0 && loop > 0)
-        {
-            if (ALL->Lb->first->aligne_next == true && ALL->Lb->first->next != NULL)
-                loop++;
-            ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
-            loop--;
-        }
-    }
+    ft_printf("target=%d\n", target->data);
+    
+    // placeup_target_ListB(ALL, target);
+    // if (bigswap_optimisation(ALL) == false)
+    // {
+    //     loop = 1;
+    //     while (ALL->Lb->len > 0 && loop > 0)
+    //     {
+    //         if (ALL->Lb->first->aligne_next == true && ALL->Lb->first->next != NULL)
+    //             loop++;
+    //         ALL->Move = insert_data_Dlist(ALL->Move, All_move(ALL->La, ALL->Lb, pa), 1);
+    //         loop--;
+    //     }
+    // }
 }

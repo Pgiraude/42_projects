@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 11:53:25 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/09 13:37:34 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void    push_swap(DDList *ALL)
     // while (ALL->Lb->len > 0)
     // {
         get_all_cost(ALL);
-    //     algo_3step(ALL);
+        algo_3step(ALL);
     // }
 
     // List *first_pos;
