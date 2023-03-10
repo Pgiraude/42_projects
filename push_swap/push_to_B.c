@@ -103,6 +103,8 @@ int	target_to_swapa(DDList *ALL)
 			cell->tag = true;
 			nbr_swap++;
 		}
+		if (ALL->max_len - nbr_swap == 3)
+			break;
 		cell_back = cell;
 		cell = cell->next;
 	}

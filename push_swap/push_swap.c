@@ -142,6 +142,7 @@ void    push_swap(DDList *ALL)
     // {
         get_all_cost(ALL);
         push_to_a(ALL);
+
     // }
 
     // List *first_pos;
