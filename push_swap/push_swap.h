@@ -74,7 +74,11 @@ void    push_to_a(DDList *ALL);
 
 
 void    costa_getup_la(DList *ListA);
+
+
 void    placeup_target_lista(DDList *ALL, List *target);
+void    placeup_target_listb(DDList *ALL, List *target);
+
 
 Bool    bigswap_optimisation(DDList *ALL);
 Bool    swap_optimisation(DDList *ALL);

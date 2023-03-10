@@ -95,8 +95,8 @@ int    R_move(DList *La, DList *Lb, Move mode)
         rdo_move(Lb);
     else if (mode == rrr && La->len >= 2 && Lb->len >= 2)
     {
-        rup_move(La);
-        rup_move(Lb);
+        rdo_move(La);
+        rdo_move(Lb);
     }
     else
         return (-1);

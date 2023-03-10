@@ -12,24 +12,7 @@
 
 #include "push_swap.h"
 
-void	placeup_target_lista(DDList *ALL, List *target)
-{
-	if (target == NULL)
-		return ;
-	target->tag = false;
-	while (target->costA > 0)
-	{
-		all_move(ALL->La, ALL->Lb, ra);
-		ALL->Move = insert_data_Dlist(ALL->Move, ra, 1);
-		target->costA--;
-	}
-	while (target->costA < 0)
-	{
-		all_move(ALL->La, ALL->Lb, rra);
-		ALL->Move = insert_data_Dlist(ALL->Move, rra, 1);
-		target->costA++;
-	}
-}
+
 
 List	*target_to_process(DDList *ALL)
 {
@@ -103,8 +86,6 @@ int	target_to_swapa(DDList *ALL)
 			cell->tag = true;
 			nbr_swap++;
 		}
-		if (ALL->max_len - nbr_swap == 3)
-			break;
 		cell_back = cell;
 		cell = cell->next;
 	}
@@ -137,5 +118,15 @@ void	push_to_b(DDList *ALL)
 		all_move(ALL->La, ALL->Lb, pb);
 		ALL->Move = insert_data_Dlist(ALL->Move, pb, 1);
 		i++;
+	}
+	nbr = target_to_swapa(ALL);
+	while (nbr != 0)
+	{
+		costa_getup_la(ALL->La);
+		target = target_to_process(ALL);
+		placeup_target_lista(ALL, target);
+		all_move(ALL->La, ALL->Lb, sa);
+		ALL->Move = insert_data_Dlist(ALL->Move, sa, 1);
+		nbr = target_to_swapa(ALL);
 	}
 }

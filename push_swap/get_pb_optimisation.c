@@ -48,10 +48,11 @@ int    get_pb_tag(List *pivot, DDList *ALL)
     ft_printf("yes\n");
     if (pivot == NULL)
         return (nbr_pb);
-    
     last_pos = pivot->target_pos;
     while (i++ < ALL->La->len)
     {
+        if (ALL->max_len - nbr_pb == 3)
+			break;
         if (pivot->next == NULL)
             pivot = ALL->La->first;
         else

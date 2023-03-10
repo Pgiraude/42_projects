@@ -26,7 +26,6 @@ List    *target_lower_cost(int costA, int costB, List *target)
     Tcost = costA + costB + target->bonus_cost;
     if (last_target == NULL)
     {
-        ft_printf("test\n");
         last_target = target;
         last_Tcost = Tcost;
         return (last_target);
@@ -67,56 +66,14 @@ List    *target_to_pushA(DDList *ALL)
     return (target);
 }
 
-void    placeup_target_ListB(DDList *ALL, List *target)
-{
-    if (target == NULL)
-        return ;
-    while (target->costB > 0 && target->costA > 0)
-    {
-        target->moveB = false;
-        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rr), 1);
-        target->costB--;
-        target->costA--;
-    }
-    if (target->moveB == true && target->costA < 0)
-        target->costB = target->costB * -1;
-    while (target->costB < 0 && target->costA < 0)
-    {
-        target->moveB = false;
-        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rrr), 1);
-        target->costB++;
-        target->costA++;
-    }
-
-    while (target->costB > 0)
-    {
-        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rb), 1);
-        target->costB--;
-    }
-    while (target->costB < 0)
-    {
-        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rrb), 1);
-        target->costB++;
-    }
-    while (target->costA > 0)
-    {
-        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, ra), 1);
-        target->costA--;
-    }
-    while (target->costA < 0)
-    {
-        ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, rra), 1);
-        target->costA++;
-    }
-}
-
 void    push_to_a(DDList *ALL)
 {
     List *target;
     int loop;
 
     target = target_to_pushA(ALL);
-    placeup_target_ListB(ALL, target);
+    ft_printf("target data=%d\n", target->data);
+    placeup_target_listb(ALL, target);
     if (bigswap_optimisation(ALL) == false)
     {
         if (swap_optimisation(ALL) == false)

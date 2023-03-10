@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void    set_all_cell(DDList *ALL)
+static void    set_all_cell(DDList *ALL)
 {
     List *listA;
 
@@ -33,7 +33,7 @@ void    set_all_cell(DDList *ALL)
     }
 }
 
-void    get_final_pos(DDList *ALL)
+static void    get_final_pos(DDList *ALL)
 {
     List *listA;
     List *listS;
@@ -138,11 +138,18 @@ void    push_swap(DDList *ALL)
     get_final_pos(ALL);
     push_to_b(ALL);
 
+
+    get_all_cost(ALL);
+    push_to_a(ALL);
+    
+    get_all_cost(ALL);
+    push_to_a(ALL);
+
+
     // while (ALL->Lb->len > 0)
     // {
-        get_all_cost(ALL);
-        push_to_a(ALL);
-
+        // get_all_cost(ALL);
+        // push_to_a(ALL);
     // }
 
     // List *first_pos;
