@@ -82,6 +82,6 @@ void    placeup_target_listb(DDList *ALL, List *target);
 Bool    bigswap_optimisation(DDList *ALL);
 Bool    swap_optimisation(DDList *ALL);
 
-
+Bool    check_is_aligned(List *target, List *compare, int max_len, int mode);
 
 #endif

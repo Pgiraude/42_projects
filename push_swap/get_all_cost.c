@@ -96,6 +96,68 @@ int    costA_Lb(DDList *ALL, List *cellA_back, List *cellA, List *cellB)
     return (cost);
 }
 
+/*----------------*/
+int    get_score(int target, int compare, int mode, DDList *ALL)
+{
+    int     tmp;
+    int     score;
+
+    tmp = target;
+    score = 0;
+    if (mode == 1)
+    {
+        while (tmp != compare)
+        {
+            tmp++;
+            score++;
+            if (tmp > ALL->max_len)
+                tmp = 1;
+        }
+        return (score);
+    }
+    while (tmp != compare)
+    {
+        tmp--;
+        score++;
+        if (tmp < 1)
+            tmp = ALL->max_len;
+    }
+    return (score);
+}
+
+
+int    costa_lb(DDList *ALL, List *cellA_back, List *cellA, List *cellB)
+{
+    int cost;
+    int i;
+    int score;
+    int save_score;
+
+    save_score = ALL->max_len * 2;
+    cost = 0;
+    i = 0;
+    while (cellA != NULL)
+    {
+        if (cellA->aligne_back == false)
+        {
+            if (check_is_aligned(cellB, cellA_back, ALL->max_len, 0) == true
+                || check_is_aligned(cellB, cellA, ALL->max_len, 1) == true)
+                return (i);
+            score = get_score(cellB->target_pos, cellA_back->target_pos, 0, ALL);
+            score = score + get_score(cellB->target_pos, cellA->target_pos, 1, ALL);
+            if (score < save_score)
+            {
+                save_score = score;
+                cost = i;
+            }
+        }
+        i++;
+        cellA_back = cellA;
+        cellA = cellA->next;
+    }
+    return (cost);
+}
+
 void    costA_getposition_Lb(DList *ListA, DList *ListB, DDList *ALL)
 {
     List *cellA;
@@ -113,7 +175,7 @@ void    costA_getposition_Lb(DList *ListA, DList *ListB, DDList *ALL)
         cellB->moveA = false;
         cellA_back = ListA->last;
         cellA = ListA->first;
-        cost = costA_Lb(ALL, cellA_back, cellA, cellB);
+        cost = costa_lb(ALL, cellA_back, cellA, cellB);
         if (cost <= ListA->len / 2)
             cellB->costA = cost;
         if (cost == ListA->len / 2 && paire == 1)
