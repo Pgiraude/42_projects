@@ -58,7 +58,6 @@ int    all_move(DList *La, DList * Lb, Move mode);
 
 void    algo(DDList *ALL);
 void    get_score_getup_La(DList *L);
-void    push_to_b(DDList *ALL);
 int    opti_pb(DDList *ALL);
 
 void    push_swap(DDList *ALL);

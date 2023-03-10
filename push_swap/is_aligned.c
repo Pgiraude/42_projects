@@ -106,6 +106,25 @@ void    La_is_aligned_back(DList *ListA, DDList *ALL)
     }
 }
 
+Bool    check_is_aligned(List *target, List *compare, int max_len, int mode)
+{
+    if (mode == 0)
+    {
+        if (target->target_pos == compare->target_pos + 1)
+            return (true);
+        else if (target->target_pos == 1 && compare->target_pos == max_len)
+            return (true);
+    }
+    else if (mode == 1)
+    {
+        if (target->target_pos == compare->target_pos - 1)
+            return (true);
+        if (target->target_pos == max_len && compare->target_pos == 1)
+            return (true);
+    }
+    return (false);
+}
+
 void    is_aligned(DDList *ALL)
 {
     La_is_aligned_next(ALL->La, ALL);

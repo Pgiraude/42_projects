@@ -54,7 +54,7 @@ static void    get_final_pos(DDList *ALL)
     }
 }
 
-void    check_allvalue(DDList *ALL)
+static void    check_allvalue(DDList *ALL)
 {
     List *list;
 
@@ -144,6 +144,10 @@ void    push_swap(DDList *ALL)
     
     get_all_cost(ALL);
     push_to_a(ALL);
+
+    get_all_cost(ALL);
+    get_all_cost(ALL);
+    // push_to_a(ALL);
 
 
     // while (ALL->Lb->len > 0)

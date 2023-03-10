@@ -66,6 +66,9 @@ void    costB_getup_Lb(DList *ListB)
     }
 }
 
+
+/*-------------------------------------------*/
+
 int    costA_Lb(DDList *ALL, List *cellA_back, List *cellA, List *cellB)
 {
     int cost;

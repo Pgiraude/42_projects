@@ -1,6 +1,6 @@
 
 
-#include "push_swap.c"
+#include "push_swap.h"
 
 void	placeup_target_lista(DDList *ALL, List *target)
 {
@@ -87,4 +87,6 @@ void    placeup_target_listb(DDList *ALL, List *target)
         target->bonus_cost++;
     }
     placeup_remain_listb(ALL, target);
+    target->moveA = false;
+    target->moveB = false;
 }
