@@ -6,194 +6,149 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 12:38:46 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:27:45 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "push_swap.h"
 
-void    calculate_bonus_cost(DDList *ALL)
+void	calculate_bonus_cost(DDList *ALL)
 {
-    List *cell;
-    int sign;
-    int i;
+	List	*cell;
+	int		sign;
+	int		i;
 
-    cell = ALL->Lb->first;
-    while (cell != NULL)
-    {
-        sign = 1;
-        i = 0;
-        if (i < cell->costA && i < cell->costB)
-            while (i < cell->costA && i < cell->costB)
-                i++;
-        else if (i > cell->costA && i > cell->costB)
-            while (i > cell->costA && i > cell->costB)
-                i--;
-        else if ((cell->moveA == true && i > cell->costB) || (cell->moveB == true && i > cell->costA))
-            while (i > cell->costB || i > cell->costA)
-                i--;
-        if (i > 0)
-            sign = -1;
-        cell->bonus_cost = i * sign;        
-        cell = cell->next;
-    }
+	cell = ALL->Lb->first;
+	while (cell != NULL)
+	{
+		sign = 1;
+		i = 0;
+		if (i < cell->costA && i < cell->costB)
+			while (i < cell->costA && i < cell->costB)
+				i++;
+		else if (i > cell->costA && i > cell->costB)
+			while (i > cell->costA && i > cell->costB)
+				i--;
+		else if ((cell->moveA == true && i > cell->costB)
+			|| (cell->moveB == true && i > cell->costA))
+			while (i > cell->costB || i > cell->costA)
+				i--;
+		if (i > 0)
+			sign = -1;
+		cell->bonus_cost = i * sign;
+		cell = cell->next;
+	}
 }
 
-void    costB_getup_Lb(DList *ListB)
+int	get_score(int target, int compare, int max_len, int mode)
 {
-    List *cell;
-    int paire;
-    int i;
+	int	tmp;
+	int	score;
 
-    paire = 0;
-    if (ListB->len % 2 == 0)
-        paire = 1;
-    cell = ListB->first;
-    i = 0;
-    while (cell != NULL)
-    {
-        cell->moveB = false;
-        if (i <= ListB->len / 2)
-            cell->costB = i;
-        if (i == ListB->len / 2 && paire == 1)
-            cell->moveB = true;
-        if (i > ListB->len / 2)
-            cell->costB = i - ListB->len;
-        i++;
-        cell = cell->next;
-    }
+	tmp = target;
+	score = 0;
+	if (mode == 1)
+	{
+		while (tmp != compare)
+		{
+			tmp++;
+			score++;
+			if (tmp > max_len)
+				tmp = 1;
+		}
+		return (score);
+	}
+	while (tmp != compare)
+	{
+		tmp--;
+		score++;
+		if (tmp < 1)
+			tmp = max_len;
+	}
+	return (score);
 }
 
-
-/*-------------------------------------------*/
-
-int    costA_Lb(DDList *ALL, List *cellA_back, List *cellA, List *cellB)
+int	costa_lb(int max_len, List *la_b, List *la, List *lb)
 {
-    int cost;
-    int i;
+	int	i;
+	int	cost;
+	int	score;
+	int	save_score;
 
-    cost = 0;
-    i = 0;
-    while (cellA != NULL)
-    {
-        if (cellA->aligne_back == false)
-        {
-            if (cellA->target_pos > cellB->target_pos)
-                cost = i;
-            else if (cellA_back->target_pos < cellB->target_pos)
-                cost = i;
-            else if (cellA->target_pos == 1 && cellB->target_pos == ALL->max_len)
-                cost = i;
-            else if (cellA_back->target_pos == ALL->max_len && cellB->target_pos == 1)
-                cost = i;
-        }
-        i++;
-        cellA_back = cellA;
-        cellA = cellA->next;
-    }
-    return (cost);
+	save_score = max_len * 2;
+	cost = 0;
+	i = 0;
+	while (la != NULL)
+	{
+		if (check_is_aligned(lb, la_b, max_len, 0) == true
+			|| check_is_aligned(lb, la, max_len, 1) == true)
+			return (i);
+		score = get_score(lb->target_pos, la_b->target_pos, max_len, 0);
+		score += get_score(lb->target_pos, la->target_pos, max_len, 1);
+		if (score < save_score)
+		{
+			save_score = score;
+			cost = i;
+		}
+		i++;
+		la_b = la;
+		la = la->next;
+	}
+	return (cost);
 }
 
-/*----------------*/
-int    get_score(int target, int compare, int mode, DDList *ALL)
+void	costa_getposition_lb(DList *ListA, DList *ListB, DDList *ALL)
 {
-    int     tmp;
-    int     score;
+	List	*cella;
+	List	*cella_back;
+	List	*cellb;
+	int		cost;
+	int		paire;
 
-    tmp = target;
-    score = 0;
-    if (mode == 1)
-    {
-        while (tmp != compare)
-        {
-            tmp++;
-            score++;
-            if (tmp > ALL->max_len)
-                tmp = 1;
-        }
-        return (score);
-    }
-    while (tmp != compare)
-    {
-        tmp--;
-        score++;
-        if (tmp < 1)
-            tmp = ALL->max_len;
-    }
-    return (score);
+	paire = 0;
+	if (ListA->len % 2 == 0)
+		paire = 1;
+	cellb = ListB->first;
+	while (cellb != NULL)
+	{
+		cellb->moveA = false;
+		cella_back = ListA->last;
+		cella = ListA->first;
+		cost = costa_lb(ALL->max_len, cella_back, cella, cellb);
+		if (cost <= ListA->len / 2)
+			cellb->costA = cost;
+		if (cost == ListA->len / 2 && paire == 1)
+			cellb->moveA = true;
+		if (cost > ListA->len / 2)
+			cellb->costA = cost - ListA->len;
+		cellb = cellb->next;
+	}
 }
 
-
-int    costa_lb(DDList *ALL, List *cellA_back, List *cellA, List *cellB)
+void	get_all_cost(DDList *ALL)
 {
-    int cost;
-    int i;
-    int score;
-    int save_score;
+	List	*cell;
+	int		paire;
+	int		i;
 
-    save_score = ALL->max_len * 2;
-    cost = 0;
-    i = 0;
-    while (cellA != NULL)
-    {
-        if (cellA->aligne_back == false)
-        {
-            if (check_is_aligned(cellB, cellA_back, ALL->max_len, 0) == true
-                || check_is_aligned(cellB, cellA, ALL->max_len, 1) == true)
-                return (i);
-            score = get_score(cellB->target_pos, cellA_back->target_pos, 0, ALL);
-            score = score + get_score(cellB->target_pos, cellA->target_pos, 1, ALL);
-            if (score < save_score)
-            {
-                save_score = score;
-                cost = i;
-            }
-        }
-        i++;
-        cellA_back = cellA;
-        cellA = cellA->next;
-    }
-    return (cost);
-}
-
-void    costA_getposition_Lb(DList *ListA, DList *ListB, DDList *ALL)
-{
-    List *cellA;
-    List *cellA_back;
-    List *cellB;
-    int cost;
-    int paire;
-    
-    paire = 0;
-    if (ListA->len % 2 == 0)
-        paire = 1;
-    cellB = ListB->first;
-    while (cellB != NULL)
-    {
-        cellB->moveA = false;
-        cellA_back = ListA->last;
-        cellA = ListA->first;
-        cost = costa_lb(ALL, cellA_back, cellA, cellB);
-        if (cost <= ListA->len / 2)
-            cellB->costA = cost;
-        if (cost == ListA->len / 2 && paire == 1)
-            cellB->moveA = true;
-        if (cost > ListA->len / 2)
-            cellB->costA = cost - ListA->len;
-        cellB = cellB->next;
-    }
-}
-
-/*-------------------------------------*/
-
-
-
-void    get_all_cost(DDList *ALL)
-{
-    is_aligned(ALL);
-    costB_getup_Lb(ALL->Lb);
-    costA_getposition_Lb(ALL->La, ALL->Lb, ALL);
-    calculate_bonus_cost(ALL);
+	paire = 0;
+	if (ALL->Lb->len % 2 == 0)
+		paire = 1;
+	cell = ALL->Lb->first;
+	i = 0;
+	while (cell != NULL)
+	{
+		cell->moveB = false;
+		if (i <= ALL->Lb->len / 2)
+			cell->costB = i;
+		if (i == ALL->Lb->len / 2 && paire == 1)
+			cell->moveB = true;
+		if (i > ALL->Lb->len / 2)
+			cell->costB = i - ALL->Lb->len;
+		i++;
+		cell = cell->next;
+	}
+	is_aligned(ALL);
+	costa_getposition_lb(ALL->La, ALL->Lb, ALL);
+	calculate_bonus_cost(ALL);
 }

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:03:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/21 18:40:05 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:42:34 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ int main(int argc, char **argv)
 
 
 
-    free_all_Dlist(La);
-    free_all_Dlist(Lb);
-    free_all_Dlist(Solution);
-    free_all_Dlist(Move);
+    free_all_dlist(La);
+    free_all_dlist(Lb);
+    free_all_dlist(Solution);
+    free_all_dlist(Move);
     free(ALL);
 }
     

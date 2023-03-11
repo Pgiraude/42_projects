@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 21:40:56 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:48:47 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,17 @@ Bool    is_error(int argc, char **argv);
 void    ft_printpiles(DList *A, DList *B);
 void    ft_printresult(DList *Move);
 void    quick_sort(DList *A);
-void    free_all_Dlist(DList *L);
+void    free_all_dlist(DList *L);
 
 DList   *insert_cell_Dlist(DList *L, List *cell, int mode);
 List    *isolate_cell_Dlist(DList *L, int Mode);
 
-int    R_move(DList *La, DList *Lb, Move mode);
-int    S_move(DList *La, DList *Lb, Move mode);
-int    P_move(DList *La, DList *Lb, Move mode);
-int    all_move(DList *La, DList * Lb, Move mode);
+void    swap_move(DList *L);
+void    rup_move(DList *L);
+void    push_move(DList *src, DList *dest);
+void    rdo_move(DList *L);
+int     all_move(DList *La, DList * Lb, Move mode);
 
-void    algo(DDList *ALL);
-void    get_score_getup_La(DList *L);
-int    opti_pb(DDList *ALL);
 
 void    push_swap(DDList *ALL);
 
@@ -76,7 +74,7 @@ void    costa_getup_la(DList *ListA);
 
 
 void    placeup_target_lista(DDList *ALL, List *target);
-void    placeup_target_listb(DDList *ALL, List *target);
+void    place_target_listb(DDList *ALL, List *target);
 
 
 Bool    bigswap_optimisation(DDList *ALL);

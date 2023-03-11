@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 21:35:36 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:13:09 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void    push_to_a(DDList *ALL)
 
     target = target_to_pushA(ALL);
     ft_printf("target data=%d\n", target->data);
-    placeup_target_listb(ALL, target);
+    place_target_listb(ALL, target);
     if (bigswap_optimisation(ALL) == false)
     {
         if (swap_optimisation(ALL) == false)
