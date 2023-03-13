@@ -35,23 +35,29 @@ static void    set_all_cell(t_ctrl *all)
 
 static void    get_final_pos(t_ctrl *all)
 {
-    t_cell *listA;
-    t_cell *listS;
-    int final_pos;
+    t_list  *list_s;
+    t_cell  *cell_a;
+    t_cell  *cell_s;
+    int     final_pos;
 
-    listA = all->list_a->first;
-    while (listA != NULL)
+    list_s = duplicate(all->list_a);
+    quick_sort(list_s);
+    cell_a = all->list_a->first;
+    while (cell_a != NULL)
     {
         final_pos = 1;
-        listS = all->Solution->first;
-        while (listA->data != listS->data)
+        cell_s = list_s->first;
+        while (cell_a->data != cell_s->data)
         {
             final_pos++;
-            listS = listS->next;
+            cell_s = cell_s->next;
         }
-        listA->final_pos = final_pos;
-        listA = listA->next;
+        cell_a->final_pos = final_pos;
+        cell_a = cell_a->next;
     }
+    ft_printf("------\nquicksort = ");
+    printf_list(list_s);
+    free_all_list(list_s);
 }
 
 static void    check_allvalue(t_ctrl *all)

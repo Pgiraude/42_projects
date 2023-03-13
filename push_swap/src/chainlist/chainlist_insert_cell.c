@@ -1,28 +1,6 @@
 
 #include "../push_swap.h"
 
-
-t_cell	*isolate_lastcell_Dlist(t_list *list)
-{
-	t_cell	*cell;
-
-	cell = NULL;
-	if (is_empty_list(list))
-		return (NULL);
-	if (list->len != 1)
-		return (NULL);
-	if (list->first == list->last)
-	{
-		cell = list->first;
-		cell->next = NULL;
-		cell->back = NULL;
-		list->first = NULL;
-		list->last = NULL;
-		list->len--;
-	}
-	return (cell);
-}
-
 t_list	*insertlast_cell_Dlist(t_list *list, t_cell *cell)
 {
 	if (is_empty_list(list))
@@ -82,6 +60,27 @@ t_list	*insert_cell_list(t_list *list, t_cell *cell, int mode)
 	else
 		list = insertlast_cell_Dlist(list, cell);
 	return (list);
+}
+
+t_cell	*isolate_lastcell_Dlist(t_list *list)
+{
+	t_cell	*cell;
+
+	cell = NULL;
+	if (is_empty_list(list))
+		return (NULL);
+	if (list->len != 1)
+		return (NULL);
+	if (list->first == list->last)
+	{
+		cell = list->first;
+		cell->next = NULL;
+		cell->back = NULL;
+		list->first = NULL;
+		list->last = NULL;
+		list->len--;
+	}
+	return (cell);
 }
 
 t_cell	*isolate_cell_Dlist(t_list *list, int Mode)

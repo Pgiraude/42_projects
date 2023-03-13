@@ -98,7 +98,7 @@ void	get_swap(t_ctrl *all)
 		target = target_to_process(all);
 		placeup_target_lista(all, target);
 		all_move(all->list_a, all->list_b, sa);
-		all->move = insert_data_Dlist(all->move, sa, 1);
+		all->move = insert_data_list(all->move, sa, 1);
 		nbr = target_to_swapa(all);
 	}
 }
@@ -110,7 +110,7 @@ void	push_to_b(t_ctrl *all)
 	int		nbr;
 
 	get_swap(all);
-	nbr = get_pb_optimisation(all);
+	nbr = push_to_b_optimisation(all);
 	i = 1;
 	while (i <= nbr)
 	{
@@ -118,7 +118,7 @@ void	push_to_b(t_ctrl *all)
 		target = target_to_process(all);
 		placeup_target_lista(all, target);
 		all_move(all->list_a, all->list_b, pb);
-		all->move = insert_data_Dlist(all->move, pb, 1);
+		all->move = insert_data_list(all->move, pb, 1);
 		i++;
 	}
 	get_swap(all);

@@ -12,7 +12,23 @@
 
 #include "../push_swap.h"
 
-void	free_all_dlist(t_list *list)
+t_list	*duplicate_list(t_list *list)
+{
+	t_list	*duplicate;
+	t_cell	*cell;
+
+	duplicate = NULL;
+	duplicate = create_list(duplicate);
+	cell = list->first;
+	while (cell != NULL)
+	{
+		duplicate = insert_data_list(duplicate, cell->data, 1);
+		cell = cell->next;
+	}
+	return (duplicate);
+}
+
+void	free_all_list(t_list *list)
 {
 	t_cell	*cell;
 

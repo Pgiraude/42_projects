@@ -2,27 +2,27 @@
 
 #include "../push_swap.h"
 
-void	fusion_list(t_list *Inf, t_list *Piv, t_list *Sup)
+void	fusion_list(t_list *list_inf, t_list *pivot, t_list *list_sup)
 {
-	if (!is_empty_list(Inf))
+	if (!is_empty_list(list_inf))
 	{
-		Inf->last->next = Piv->first;
-		Piv->last->back = Inf->last;
-		Piv->first = Inf->first;
-		Inf->first = NULL;
-		Inf->last = NULL;
-		Piv->len = Piv->len + Inf->len;
-		free (Inf);
+		list_inf->last->next = pivot->first;
+		pivot->last->back = list_inf->last;
+		pivot->first = list_inf->first;
+		list_inf->first = NULL;
+		list_inf->last = NULL;
+		pivot->len = pivot->len + list_inf->len;
+		free (list_inf);
 	}
-	if (!is_empty_list(Sup))
+	if (!is_empty_list(list_sup))
 	{
-		Sup->first->back = Piv->last;
-		Piv->last->next = Sup->first;
-		Piv->last = Sup->last;
-		Sup->first = NULL;
-		Sup->last = NULL;
-		Piv->len = Piv->len + Sup->len;
-		free (Sup);
+		list_sup->first->back = pivot->last;
+		pivot->last->next = list_sup->first;
+		pivot->last = list_sup->last;
+		list_sup->first = NULL;
+		list_sup->last = NULL;
+		pivot->len = pivot->len + list_sup->len;
+		free (list_sup);
 	}
 }
 

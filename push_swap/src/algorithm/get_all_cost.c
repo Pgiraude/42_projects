@@ -97,7 +97,7 @@ int	costa_lb(int max_len, t_cell *la_back, t_cell *la, t_cell *lb)
 	return (cost);
 }
 
-void	costa_getposition_lb(t_list *ListA, t_list *ListB, t_ctrl *all)
+void	costa_getposition_lb(t_list *list_a, t_list *list_b, t_ctrl *all)
 {
 	t_cell	*cella;
 	t_cell	*cella_back;
@@ -106,21 +106,21 @@ void	costa_getposition_lb(t_list *ListA, t_list *ListB, t_ctrl *all)
 	int		paire;
 
 	paire = 0;
-	if (ListA->len % 2 == 0)
+	if (list_a->len % 2 == 0)
 		paire = 1;
-	cellb = ListB->first;
+	cellb = list_b->first;
 	while (cellb != NULL)
 	{
 		cellb->move_a = false;
-		cella_back = ListA->last;
-		cella = ListA->first;
+		cella_back = list_a->last;
+		cella = list_a->first;
 		cost = costa_lb(all->max_len, cella_back, cella, cellb);
-		if (cost <= ListA->len / 2)
+		if (cost <= list_a->len / 2)
 			cellb->cost_a = cost;
-		if (cost == ListA->len / 2 && paire == 1)
+		if (cost == list_a->len / 2 && paire == 1)
 			cellb->move_a = true;
-		if (cost > ListA->len / 2)
-			cellb->cost_a = cost - ListA->len;
+		if (cost > list_a->len / 2)
+			cellb->cost_a = cost - list_a->len;
 		cellb = cellb->next;
 	}
 }

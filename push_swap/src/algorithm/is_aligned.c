@@ -33,23 +33,23 @@ e_bool	check_is_aligned(t_cell *target, t_cell *compare, int max_len, int mode)
 	return (false);
 }
 
-void	lb_is_aligned(t_list *ListB, t_ctrl *all)
+void	lb_is_aligned(t_list *list_b, t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*back_cell;
 	t_cell	*next_cell;
 
-	if (ListB->len < 2)
+	if (list_b->len < 2)
 		return ;
-	cell = ListB->first;
-	back_cell = ListB->last;
-	next_cell = ListB->first->next;
+	cell = list_b->first;
+	back_cell = list_b->last;
+	next_cell = list_b->first->next;
 	while (cell != NULL)
 	{
 		cell->aligne_back = false;
 		cell->aligne_next = false;
 		if (next_cell == NULL)
-			next_cell = ListB->first;
+			next_cell = list_b->first;
 		if (check_is_aligned(cell, back_cell, all->max_len, 1) == true)
 			cell->aligne_back = true;
 		if (check_is_aligned(cell, next_cell, all->max_len, 0) == true)
@@ -60,23 +60,23 @@ void	lb_is_aligned(t_list *ListB, t_ctrl *all)
 	}
 }
 
-void	la_is_aligned(t_list *ListA, t_ctrl *all)
+void	la_is_aligned(t_list *list_a, t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*back_cell;
 	t_cell	*next_cell;
 
-	if (ListA->len < 2)
+	if (list_a->len < 2)
 		return ;
-	cell = ListA->first;
-	back_cell = ListA->last;
-	next_cell = ListA->first->next;
+	cell = list_a->first;
+	back_cell = list_a->last;
+	next_cell = list_a->first->next;
 	while (cell != NULL)
 	{
 		cell->aligne_back = false;
 		cell->aligne_next = false;
 		if (next_cell == NULL)
-			next_cell = ListA->first;
+			next_cell = list_a->first;
 		if (check_is_aligned(cell, back_cell, all->max_len, 0) == true)
 			cell->aligne_back = true;
 		if (check_is_aligned(cell, next_cell, all->max_len, 1) == true)

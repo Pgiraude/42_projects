@@ -1,14 +1,18 @@
 NAME = push_swap.a
 
-SRC = 	push_swap.c src/check_error.c src/print_piles.c src/quick_sort.c src/free_dlist.c \
-		src/all_move.c src/move.c src/utils_chainlist.c \
-		push_to_B.c get_all_cost.c is_aligned.c push_to_A.c \
-		get_pb_optimisation.c get_swap_optimisation.c place_target.c
+SRC				= src/push_swap.c src/check_error.c src/print_piles.c src/quick_sort.c 
 
+SRC_MOVE		= src/move/move.c src/move/move_all.c
 
-SRC_CHAIN = chainlist/chainlist.c
+SRC_CHAINLIST 	= src/chainlist/chainlist.c src/chainlist/chainlist_copy_free.c \
+				src/chainlist/chainlist_insert_cell.c
 
-OBJS = $(SRC:.c=.o) $(SRC_CHAIN:.c=.o)
+SRC_ALGORITHM 	= src/algorithm/get_all_cost.c src/algorithm/push_to_b_optimisation.c \
+				src/algorithm/get_swap_optimisation.c src/algorithm/is_aligned.c \
+				src/algorithm/place_target.c src/algorithm/push_to_a.c \
+				src/algorithm/push_to_b.c
+
+OBJS = $(SRC:.c=.o) $(SRC_CHAINLIST:.c=.o) $(SRC_MOVE:.c=.o) $(SRC_ALGORITHM:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -32,3 +36,5 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

@@ -89,7 +89,7 @@ int	get_pb_score(t_cell *pivot, t_ctrl *all)
 	return (score);
 }
 
-int	get_pb_optimisation(t_ctrl *all)
+int	push_to_b_optimisation(t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*pivot;

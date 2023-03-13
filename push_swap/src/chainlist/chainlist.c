@@ -77,7 +77,7 @@ t_list	*insertfirst_data_list(t_list *list, int data)
 	return (list);
 }
 
-t_list	*insert_data_Dlist(t_list *list, int data, int mode)
+t_list	*insert_data_list(t_list *list, int data, int mode)
 {
 	if (mode == 0)
 		return(insertfirst_data_list(list, data));

@@ -58,11 +58,11 @@ e_bool	bigswap_optimisation(t_ctrl *all)
 	}
 	if (lb_is_aligned_bigswap(all->list_b, all) == false)
 		return (false);
-	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
-	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
-	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, ss), 1);
-	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
-	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, ss), 1);
+	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
 	get_all_cost(all);
 	return (true);
 }
@@ -108,9 +108,9 @@ e_bool	swap_optimisation(t_ctrl *all)
 	all_move(all->list_a, all->list_b, sb);
 	all_move(all->list_a, all->list_b, pa);
 	all_move(all->list_a, all->list_b, pa);
-	all->move = insert_data_Dlist(all->move, sb, 1);
-	all->move = insert_data_Dlist(all->move, pa, 1);
-	all->move = insert_data_Dlist(all->move, pa, 1);
+	all->move = insert_data_list(all->move, sb, 1);
+	all->move = insert_data_list(all->move, pa, 1);
+	all->move = insert_data_list(all->move, pa, 1);
 	get_all_cost(all);
 	return (true);
 }

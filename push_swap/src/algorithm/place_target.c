@@ -20,13 +20,13 @@ void	placeup_target_lista(t_ctrl *all, t_cell *target)
 	while (target->cost_a > 0)
 	{
 		all_move(all->list_a, all->list_b, ra);
-		all->move = insert_data_Dlist(all->move, ra, 1);
+		all->move = insert_data_list(all->move, ra, 1);
 		target->cost_a--;
 	}
 	while (target->cost_a < 0)
 	{
 		all_move(all->list_a, all->list_b, rra);
-		all->move = insert_data_Dlist(all->move, rra, 1);
+		all->move = insert_data_list(all->move, rra, 1);
 		target->cost_a++;
 	}
 }
@@ -48,7 +48,7 @@ void	placeup_bigmove_listb(t_ctrl *all, t_cell *target)
 			target->move_b = false;
 		}
 		all_move(all->list_a, all->list_b, rrr);
-		all->move = insert_data_Dlist(all->move, rrr, 1);
+		all->move = insert_data_list(all->move, rrr, 1);
 		target->cost_a++;
 		target->cost_b++;
 		target->bonus_cost++;
@@ -60,25 +60,25 @@ void	placeup_remain_listb(t_ctrl *all, t_cell *target)
 	while (target->cost_b > 0)
 	{
 		all_move(all->list_a, all->list_b, rb);
-		all->move = insert_data_Dlist(all->move, rb, 1);
+		all->move = insert_data_list(all->move, rb, 1);
 		target->cost_b--;
 	}
 	while (target->cost_b < 0)
 	{
 		all_move(all->list_a, all->list_b, rrb);
-		all->move = insert_data_Dlist(all->move, rrb, 1);
+		all->move = insert_data_list(all->move, rrb, 1);
 		target->cost_b++;
 	}
 	while (target->cost_a > 0)
 	{
 		all_move(all->list_a, all->list_b, ra);
-		all->move = insert_data_Dlist(all->move, ra, 1);
+		all->move = insert_data_list(all->move, ra, 1);
 		target->cost_a--;
 	}
 	while (target->cost_a < 0)
 	{
 		all_move(all->list_a, all->list_b, rra);
-		all->move = insert_data_Dlist(all->move, rra, 1);
+		all->move = insert_data_list(all->move, rra, 1);
 		target->cost_a++;
 	}
 }
@@ -91,7 +91,7 @@ void	place_target_listb(t_ctrl *all, t_cell *target)
 	while (target->cost_b > 0 && target->cost_a > 0)
 	{
 		all_move(all->list_a, all->list_b, rr);
-		all->move = insert_data_Dlist(all->move, rr, 1);
+		all->move = insert_data_list(all->move, rr, 1);
 		target->cost_b--;
 		target->cost_a--;
 		target->bonus_cost++;

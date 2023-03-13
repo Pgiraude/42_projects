@@ -65,7 +65,7 @@ int    get_cost(t_cell *target)
 	return (target_cost);
 }
 
-t_cell    *target_to_pushA(t_ctrl *all)
+t_cell    *target_to_push_a(t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*target;
@@ -96,7 +96,7 @@ void    push_to_a(t_ctrl *all)
 		return ;
 	bigswap_optimisation(all);
 	swap_optimisation(all);
-	target = target_to_pushA(all);
+	target = target_to_push_a(all);
 	ft_printf("target data=%d\n", target->data);
 	place_target_listb(all, target);
 	if (bigswap_optimisation(all) == false
@@ -108,7 +108,7 @@ void    push_to_a(t_ctrl *all)
 		{
 			if (all->list_b->first->aligne_next == true && all->list_b->first->next != NULL)
 				loop++;
-			all->move = insert_data_Dlist(all->move, pa, 1);
+			all->move = insert_data_list(all->move, pa, 1);
 			all_move(all->list_a, all->list_b, pa);
 			loop--;
 		}

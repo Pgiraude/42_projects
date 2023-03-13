@@ -67,7 +67,6 @@ typedef struct s_ctrl
     int max_len;
     struct t_list *list_a;
     struct t_list *list_b;
-    struct t_list *Solution;
     struct t_list *move;
 }t_ctrl;
 
@@ -75,10 +74,12 @@ e_bool    is_error(int argc, char **argv);
 void    ft_printpiles(t_list *A, t_list *B);
 void    ft_print_allmove(t_list *move);
 void    quick_sort(t_list *A);
-void    free_all_dlist(t_list *list);
+void    free_all_list(t_list *list);
 
 t_list   *insert_cell_list(t_list *list, t_cell *cell, int mode);
 t_cell    *isolate_cell_Dlist(t_list *list, int Mode);
+
+t_list	*duplicate_list(t_list *list);
 
 void    swap_move(t_list *list);
 void    rup_move(t_list *list);
