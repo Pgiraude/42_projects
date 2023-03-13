@@ -40,6 +40,19 @@ void	ft_printpiles(DList *A, DList *B)
 	}
 }
 
+void    printf_Dlist(DList *L)
+{
+    if (is_empty_Dlist(L))
+        return ;
+    List *tmp = L->first;
+
+    while(tmp != NULL)
+    {
+        ft_printf("[%d] ", tmp->data);
+        tmp = tmp->next;
+    }
+}
+
 void	ft_print_move(Move move)
 {
 	if (move == pa)

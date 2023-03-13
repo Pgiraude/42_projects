@@ -33,6 +33,35 @@ typedef enum
     rrr
 }Move;
 
+typedef enum
+{
+    false,
+    true
+}Bool;
+
+typedef struct Cellule
+{
+    int data;
+    int costA;
+    int costB;
+    int bonus_cost;
+    int target_pos;
+    Bool aligne_back;
+    Bool aligne_next;
+    Bool tag;
+    Bool moveA;
+    Bool moveB;
+    struct Cellule *next;
+    struct Cellule *back;
+}List;
+
+typedef struct DList
+{
+    int len;
+    struct Cellule *first;
+    struct Cellule *last;
+}DList;
+
 typedef struct DDList
 {
     int max_len;
