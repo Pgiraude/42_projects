@@ -82,4 +82,6 @@ Bool    swap_optimisation(DDList *ALL);
 
 Bool    check_is_aligned(List *target, List *compare, int max_len, int mode);
 
+int	get_score(List *target, List *compare, int max_len, int mode);
+
 #endif

@@ -40,35 +40,35 @@ void	calculate_bonus_cost(DDList *ALL)
 	}
 }
 
-int	get_score(int target, int compare, int max_len, int mode)
+int	get_score(List *target, List *compare, int max_len, int mode)
 {
-	int	tmp;
+	int	position;
 	int	score;
 
-	tmp = target;
+	position = target->target_pos;
 	score = 0;
-	if (mode == 1)
+	if (mode == 0)
 	{
-		while (tmp != compare)
+		while (position-- != compare->target_pos)
 		{
-			tmp++;
 			score++;
-			if (tmp > max_len)
-				tmp = 1;
+			if (position < 1)
+				position = max_len;
 		}
-		return (score);
 	}
-	while (tmp != compare)
+	else
 	{
-		tmp--;
-		score++;
-		if (tmp < 1)
-			tmp = max_len;
+		while (position++ != compare->target_pos)
+		{
+			score++;
+			if (position > max_len)
+				position = 1;
+		}
 	}
 	return (score);
 }
 
-int	costa_lb(int max_len, List *la_b, List *la, List *lb)
+int	costa_lb(int max_len, List *la_back, List *la, List *lb)
 {
 	int	i;
 	int	cost;
@@ -80,18 +80,18 @@ int	costa_lb(int max_len, List *la_b, List *la, List *lb)
 	i = 0;
 	while (la != NULL)
 	{
-		if (check_is_aligned(lb, la_b, max_len, 0) == true
+		if (check_is_aligned(lb, la_back, max_len, 0) == true
 			|| check_is_aligned(lb, la, max_len, 1) == true)
 			return (i);
-		score = get_score(lb->target_pos, la_b->target_pos, max_len, 0);
-		score += get_score(lb->target_pos, la->target_pos, max_len, 1);
+		score = get_score(lb, la_back, max_len, 0);
+		score += get_score(lb, la, max_len, 1);
 		if (score < save_score)
 		{
 			save_score = score;
 			cost = i;
 		}
 		i++;
-		la_b = la;
+		la_back = la;
 		la = la->next;
 	}
 	return (cost);

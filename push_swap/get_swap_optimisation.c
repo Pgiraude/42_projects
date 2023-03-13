@@ -61,6 +61,9 @@ Bool	bigswap_optimisation(DDList *ALL)
 	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
 	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
 	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, ss), 1);
+	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
+	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
+	get_all_cost(ALL);
 	return (true);
 }
 
@@ -86,28 +89,28 @@ Bool	lb_is_aligned_swap(DDList *ALL)
 Bool	swap_optimisation(DDList *ALL)
 {
 	List	*first_pos;
+	int		i;
 
 	if (lb_is_aligned_swap(ALL) == false)
 		return (false);
+	if (ALL->Lb->len == 2)
+	{
+		first_pos = ALL->La->first;
+		i = 0;
+		while (first_pos->target_pos != 1 || first_pos != NULL)
+		{
+			first_pos = first_pos->next;
+			i++;
+		}
+		if (i + 2 > ALL->max_len / 2 && first_pos != NULL)
+			return (false);
+	}
 	all_move(ALL->La, ALL->Lb, sb);
 	all_move(ALL->La, ALL->Lb, pa);
 	all_move(ALL->La, ALL->Lb, pa);
-	if (ALL->Lb->len == 0)
-	{
-		first_pos = ALL->La->first;
-		costa_getup_la(ALL->La);
-		while (first_pos->target_pos != 1)
-			first_pos = first_pos->next;
-		if (first_pos->costA > 0)
-		{
-			all_move(ALL->La, ALL->Lb, sa);
-			all_move(ALL->La, ALL->Lb, pb);
-			all_move(ALL->La, ALL->Lb, pb);
-			return (false);
-		}
-	}
 	ALL->Move = insert_data_Dlist(ALL->Move, sb, 1);
 	ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
 	ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
+	get_all_cost(ALL);
 	return (true);
 }

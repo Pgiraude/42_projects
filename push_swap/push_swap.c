@@ -139,20 +139,11 @@ void    push_swap(DDList *ALL)
     push_to_b(ALL);
 
 
-    get_all_cost(ALL);
-    push_to_a(ALL);
-    
-    get_all_cost(ALL);
-    push_to_a(ALL);
+        get_all_cost(ALL);
+        push_to_a(ALL);
+        get_all_cost(ALL);
+        push_to_a(ALL);
 
-    get_all_cost(ALL);
-    // get_all_cost(ALL);
-    push_to_a(ALL);
-
-    get_all_cost(ALL);
-    push_to_a(ALL);
-
-    
     // while (ALL->Lb->len > 0)
     // {
     //     get_all_cost(ALL);
