@@ -144,6 +144,7 @@ void    push_swap(DDList *ALL)
         get_all_cost(ALL);
         push_to_a(ALL);
 
+
     // while (ALL->Lb->len > 0)
     // {
     //     get_all_cost(ALL);

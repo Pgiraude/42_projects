@@ -12,26 +12,27 @@
 
 #include "../push_swap.h"
 
-void	free_all_dlist(DList *d_list)
+void	free_all_dlist(DList *list)
 {
-	List	*tmp;
+	List	*cell;
 
-	if (is_empty_Dlist(d_list))
+	if (is_empty_Dlist(list))
 		return ;
-	while (d_list->first != d_list->last)
+	while (list->first != list->last)
 	{
-		tmp = d_list->first;
-		d_list->first = d_list->first->next;
-		d_list->first->back = NULL;
-		tmp->next = NULL;
-		free (tmp);
-		tmp = NULL;
+		cell = list->first;
+		list->first = list->first->next;
+		list->first->back = NULL;
+		cell->next = NULL;
+		free (cell);
+		cell = NULL;
 	}
-	if (d_list->first == d_list->last)
+	if (list->first == list->last)
 	{
-		tmp = d_list->first;
-		free(tmp);
-		free(d_list);
-		d_list = NULL;
+		cell = list->first;
+		if (list->len == 1)
+			free(cell);
+		free(list);
+		list = NULL;
 	}
 }

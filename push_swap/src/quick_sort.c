@@ -2,7 +2,7 @@
 
 #include "../push_swap.h"
 
-void   fusion_Dlist(DList *Inf, DList *Piv, DList *Sup)
+void	fusion_Dlist(DList *Inf, DList *Piv, DList *Sup)
 {
 	if (!is_empty_Dlist(Inf))
 	{
@@ -26,50 +26,51 @@ void   fusion_Dlist(DList *Inf, DList *Piv, DList *Sup)
 	}
 }
 
-void   quick_sort(DList *A)
+void	quicksort_split(DList *list, DList **list_inf, DList **list_sup)
 {
-	DList *Sup;
-	DList *Inf;
-	List *tmp;
+	List *cell;
 
-	Sup = NULL;
-	Inf = NULL;
-	// Sup = create_Dlist(Sup);
-	// Inf = create_Dlist(Inf);
+	cell = list->first;
+	if (list->last->data > list->first->data)
+	{
+		list->first = list->first->next;
+		list->first->back = NULL;
+		cell->next = NULL;
+		cell->back = NULL;
+		list->len--;
+		*list_inf = insert_cell_Dlist(*list_inf, cell, 1);
+	}
+	else
+	{
+		list->first = list->first->next;
+		list->first->back = NULL;
+		cell->next = NULL;
+		cell->back = NULL;
+		list->len--;
+		*list_sup = insert_cell_Dlist(*list_sup, cell, 1);
+	}
+}
 
-	while (A->last != A->first)
-	{
-		if (A->last->data > A->first->data)
-		{
-			tmp = A->first;
-			A->first = A->first->next;
-			A->first->back = NULL;
-			tmp->next = NULL;
-			tmp->back = NULL;
-			A->len--;
-			Inf = insert_cell_Dlist(Inf, tmp, 1);
-		}
-		else
-		{
-			tmp = A->first;
-			A->first = A->first->next;
-			A->first->back = NULL;
-			tmp->next = NULL;
-			tmp->back = NULL;
-			A->len--;
-			Sup = insert_cell_Dlist(Sup, tmp, 1);
-		}
-	}
+void	quick_sort(DList *list)
+{
+	DList	*list_sup;
+	DList	*list_inf;
 
-	if (!is_empty_Dlist(Inf))
+	list_sup = NULL;
+	list_inf = NULL;
+	while (list->last != list->first)
 	{
-		if (Inf->len != 1)
-			quick_sort(Inf);
+		quicksort_split(list, &list_inf, &list_sup);
 	}
-	if (!is_empty_Dlist(Sup))
+	if (!is_empty_Dlist(list_inf))
 	{
-		if (Sup->len != 1)
-			quick_sort(Sup);
+		if (list_inf->len != 1)
+			quick_sort(list_inf);
 	}
-	fusion_Dlist(Inf, A, Sup);
+	if (!is_empty_Dlist(list_sup))
+	{
+		if (list_sup->len != 1)
+			quick_sort(list_sup);
+	}
+	fusion_Dlist(list_inf, list, list_sup);
 }
