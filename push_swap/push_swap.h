@@ -31,86 +31,86 @@ typedef enum
     rrb,
     rr,
     rrr
-}Move;
+}e_move;
 
 typedef enum
 {
     false,
     true
-}Bool;
+}e_bool;
 
-typedef struct Cellule
+typedef struct s_cell
 {
     int data;
-    int costA;
-    int costB;
+    int cost_a;
+    int cost_b;
+    int final_pos;
     int bonus_cost;
-    int target_pos;
-    Bool aligne_back;
-    Bool aligne_next;
-    Bool tag;
-    Bool moveA;
-    Bool moveB;
-    struct Cellule *next;
-    struct Cellule *back;
-}List;
+    e_bool aligne_back;
+    e_bool aligne_next;
+    e_bool tag;
+    e_bool move_a;
+    e_bool move_b;
+    struct s_cell *next;
+    struct s_cell *back;
+}t_cell;
 
-typedef struct DList
+typedef struct s_list
 {
     int len;
-    struct Cellule *first;
-    struct Cellule *last;
-}DList;
+    struct s_cell *first;
+    struct s_cell *last;
+}t_list;
 
-typedef struct DDList
+typedef struct s_ctrl
 {
     int max_len;
-    struct DList *La;
-    struct DList *Lb;
-    struct DList *Solution;
-    struct DList *Move;
-}DDList;
+    struct t_list *list_a;
+    struct t_list *list_b;
+    struct t_list *Solution;
+    struct t_list *move;
+}t_ctrl;
 
-Bool    is_error(int argc, char **argv);
-void    ft_printpiles(DList *A, DList *B);
-void    ft_print_allmove(DList *Move);
-void    quick_sort(DList *A);
-void    free_all_dlist(DList *L);
+e_bool    is_error(int argc, char **argv);
+void    ft_printpiles(t_list *A, t_list *B);
+void    ft_print_allmove(t_list *move);
+void    quick_sort(t_list *A);
+void    free_all_dlist(t_list *list);
 
-DList   *insert_cell_Dlist(DList *L, List *cell, int mode);
-List    *isolate_cell_Dlist(DList *L, int Mode);
+t_list   *insert_cell_list(t_list *list, t_cell *cell, int mode);
+t_cell    *isolate_cell_Dlist(t_list *list, int Mode);
 
-void    swap_move(DList *L);
-void    rup_move(DList *L);
-void    push_move(DList *src, DList *dest);
-void    rdo_move(DList *L);
-int     all_move(DList *La, DList * Lb, Move mode);
-
-
-void    push_swap(DDList *ALL);
+void    swap_move(t_list *list);
+void    rup_move(t_list *list);
+void    push_move(t_list *src, t_list *dest);
+void    rdo_move(t_list *list);
+int     all_move(t_list *list_a, t_list * list_b, move mode);
 
 
-void    push_to_b(DDList *ALL);
-int     get_pb_optimisation(DDList *ALL);
-
-void    get_all_cost(DDList *ALL);
-void    is_aligned(DDList *ALL);
-
-void    push_to_a(DDList *ALL);
+void    push_swap(t_ctrl *all);
 
 
-void    costa_getup_la(DList *ListA);
+void    push_to_b(t_ctrl *all);
+int     get_pb_optimisation(t_ctrl *all);
+
+void    get_all_cost(t_ctrl *all);
+void    is_aligned(t_ctrl *all);
+
+void    push_to_a(t_ctrl *all);
 
 
-void    placeup_target_lista(DDList *ALL, List *target);
-void    place_target_listb(DDList *ALL, List *target);
+void    costa_getup_la(t_list *ListA);
 
 
-Bool    bigswap_optimisation(DDList *ALL);
-Bool    swap_optimisation(DDList *ALL);
+void    placeup_target_lista(t_ctrl *all, t_cell *target);
+void    place_target_listb(t_ctrl *all, t_cell *target);
 
-Bool    check_is_aligned(List *target, List *compare, int max_len, int mode);
 
-int	get_score(List *target, List *compare, int max_len, int mode);
+e_bool    bigswap_optimisation(t_ctrl *all);
+e_bool    swap_optimisation(t_ctrl *all);
+
+e_bool    check_is_aligned(t_cell *target, t_cell *compare, int max_len, int mode);
+
+int	get_score(t_cell *target, t_cell *compare, int max_len, int mode);
 
 #endif

@@ -12,32 +12,32 @@
 
 #include "push_swap.h"
 
-Bool	check_is_aligned(List *target, List *compare, int max_len, int mode)
+e_bool	check_is_aligned(t_cell *target, t_cell *compare, int max_len, int mode)
 {
 	if (target == NULL || compare == NULL)
 		return (false);
 	if (mode == 0)
 	{
-		if (target->target_pos == compare->target_pos + 1)
+		if (target->final_pos == compare->final_pos + 1)
 			return (true);
-		else if (target->target_pos == 1 && compare->target_pos == max_len)
+		else if (target->final_pos == 1 && compare->final_pos == max_len)
 			return (true);
 	}
 	else if (mode == 1)
 	{
-		if (target->target_pos == compare->target_pos - 1)
+		if (target->final_pos == compare->final_pos - 1)
 			return (true);
-		else if (target->target_pos == max_len && compare->target_pos == 1)
+		else if (target->final_pos == max_len && compare->final_pos == 1)
 			return (true);
 	}
 	return (false);
 }
 
-void	lb_is_aligned(DList *ListB, DDList *ALL)
+void	lb_is_aligned(t_list *ListB, t_ctrl *all)
 {
-	List	*cell;
-	List	*back_cell;
-	List	*next_cell;
+	t_cell	*cell;
+	t_cell	*back_cell;
+	t_cell	*next_cell;
 
 	if (ListB->len < 2)
 		return ;
@@ -50,9 +50,9 @@ void	lb_is_aligned(DList *ListB, DDList *ALL)
 		cell->aligne_next = false;
 		if (next_cell == NULL)
 			next_cell = ListB->first;
-		if (check_is_aligned(cell, back_cell, ALL->max_len, 1) == true)
+		if (check_is_aligned(cell, back_cell, all->max_len, 1) == true)
 			cell->aligne_back = true;
-		if (check_is_aligned(cell, next_cell, ALL->max_len, 0) == true)
+		if (check_is_aligned(cell, next_cell, all->max_len, 0) == true)
 			cell->aligne_next = true;
 		next_cell = next_cell->next;
 		back_cell = cell;
@@ -60,11 +60,11 @@ void	lb_is_aligned(DList *ListB, DDList *ALL)
 	}
 }
 
-void	la_is_aligned(DList *ListA, DDList *ALL)
+void	la_is_aligned(t_list *ListA, t_ctrl *all)
 {
-	List	*cell;
-	List	*back_cell;
-	List	*next_cell;
+	t_cell	*cell;
+	t_cell	*back_cell;
+	t_cell	*next_cell;
 
 	if (ListA->len < 2)
 		return ;
@@ -77,9 +77,9 @@ void	la_is_aligned(DList *ListA, DDList *ALL)
 		cell->aligne_next = false;
 		if (next_cell == NULL)
 			next_cell = ListA->first;
-		if (check_is_aligned(cell, back_cell, ALL->max_len, 0) == true)
+		if (check_is_aligned(cell, back_cell, all->max_len, 0) == true)
 			cell->aligne_back = true;
-		if (check_is_aligned(cell, next_cell, ALL->max_len, 1) == true)
+		if (check_is_aligned(cell, next_cell, all->max_len, 1) == true)
 			cell->aligne_next = true;
 		next_cell = next_cell->next;
 		back_cell = cell;
@@ -87,8 +87,8 @@ void	la_is_aligned(DList *ListA, DDList *ALL)
 	}
 }
 
-void	is_aligned(DDList *ALL)
+void	is_aligned(t_ctrl *all)
 {
-	la_is_aligned(ALL->La, ALL);
-	lb_is_aligned(ALL->Lb, ALL);
+	la_is_aligned(all->list_a, all);
+	lb_is_aligned(all->list_b, all);
 }

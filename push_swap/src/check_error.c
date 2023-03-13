@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-Bool	check_arg(char *argv)
+e_bool	check_arg(char *argv)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ Bool	check_arg(char *argv)
 	return (false);
 }
 
-Bool	check_double(long long int *tab_data, int len)
+e_bool	check_double(long long int *tab_data, int len)
 {
 	int	x;
 	int	y;
@@ -50,7 +50,7 @@ Bool	check_double(long long int *tab_data, int len)
 	return (false);
 }
 
-Bool	is_error(int argc, char **argv)
+e_bool	is_error(int argc, char **argv)
 {
 	long long int	tab_data[argc];
 	long long int	data;

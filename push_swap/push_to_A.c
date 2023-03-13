@@ -12,43 +12,43 @@
 
 #include "push_swap.h"
 
-int	get_score_target(List *target, DDList *ALL)
+int	get_score_target(t_cell *target, t_ctrl *all)
 {
 	int		position;
-	List	*cell;
-	List	*cell_back;
+	t_cell	*cell;
+	t_cell	*cell_back;
 
-	position = target->costA;
-	if (target->costA < 0)
-		position = position + ALL->La->len;
-	cell_back = ALL->La->last;
-	cell = ALL->La->first;
+	position = target->cost_a;
+	if (target->cost_a < 0)
+		position = position + all->list_a->len;
+	cell_back = all->list_a->last;
+	cell = all->list_a->first;
 	while (position-- != 0)
 	{
 		cell_back = cell;
 		cell = cell->next;
 	}
-	if (check_is_aligned(target, cell_back, ALL->max_len, 0)
-		&& check_is_aligned(target, cell, ALL->max_len, 1))
+	if (check_is_aligned(target, cell_back, all->max_len, 0)
+		&& check_is_aligned(target, cell, all->max_len, 1))
 		return (0);
-	return (get_score(target, cell, ALL->max_len, 1));
+	return (get_score(target, cell, all->max_len, 1));
 }
 
-List    *get_best_target(List *save, List *analyse, DDList *ALL)
+t_cell    *get_best_target(t_cell *save, t_cell *analyse, t_ctrl *all)
 {
 	int	score_s;
 	int	score_a;
 
-	score_s = get_score_target(save, ALL);
-	score_a = get_score_target(analyse, ALL);
+	score_s = get_score_target(save, all);
+	score_a = get_score_target(analyse, all);
 	if (score_s > score_a)
 		return (analyse);
-	else if (score_s == score_a && save->target_pos < analyse->target_pos)
+	else if (score_s == score_a && save->final_pos < analyse->final_pos)
 		return (analyse);
 	return (save);
 }
 
-int    get_cost(List *target)
+int    get_cost(t_cell *target)
 {
 	int target_cost;
 	int sign_a;
@@ -56,23 +56,23 @@ int    get_cost(List *target)
 
 	sign_b = 1;
 	sign_a = 1;
-	if (target->costA < 0)
+	if (target->cost_a < 0)
 			sign_a = -1;
-	if (target->costB < 0)
+	if (target->cost_b < 0)
 			sign_b = -1;
-	target_cost = target->costA * sign_a + target->costB * sign_b;
+	target_cost = target->cost_a * sign_a + target->cost_b * sign_b;
 	target_cost += target->bonus_cost;
 	return (target_cost);
 }
 
-List    *target_to_pushA(DDList *ALL)
+t_cell    *target_to_pushA(t_ctrl *all)
 {
-	List	*cell;
-	List	*target;
+	t_cell	*cell;
+	t_cell	*target;
 	int		cell_cost;
 	int		target_cost;
 
-	cell = ALL->Lb->first;
+	cell = all->list_b->first;
 	target = cell;
 	while (cell != NULL)
 	{
@@ -81,38 +81,36 @@ List    *target_to_pushA(DDList *ALL)
 		if (cell_cost < target_cost)
 			target = cell;
 		else if (cell_cost == target_cost)
-			target = get_best_target(target, cell, ALL);
+			target = get_best_target(target, cell, all);
 		cell = cell->next;
 	}
 	return (target);
 }
 
-void    push_to_a(DDList *ALL)
+void    push_to_a(t_ctrl *all)
 {
-	List *target;
+	t_cell *target;
 	int loop;
 
-	if (ALL->Lb->len == 0)
+	if (all->list_b->len == 0)
 		return ;
-	bigswap_optimisation(ALL);
-	swap_optimisation(ALL);
-	target = target_to_pushA(ALL);
+	bigswap_optimisation(all);
+	swap_optimisation(all);
+	target = target_to_pushA(all);
 	ft_printf("target data=%d\n", target->data);
-	place_target_listb(ALL, target);
-	if (bigswap_optimisation(ALL) == false
-		&& swap_optimisation(ALL) == false)
+	place_target_listb(all, target);
+	if (bigswap_optimisation(all) == false
+		&& swap_optimisation(all) == false)
 	{
 		
 		loop = 1;
-		while (ALL->Lb->len > 0 && loop > 0 && target != NULL)
+		while (all->list_b->len > 0 && loop > 0 && target != NULL)
 		{
-			ft_printf("test?\n");
-			if (ALL->Lb->first->aligne_next == true && ALL->Lb->first->next != NULL)
+			if (all->list_b->first->aligne_next == true && all->list_b->first->next != NULL)
 				loop++;
-			ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
-			all_move(ALL->La, ALL->Lb, pa);
+			all->move = insert_data_Dlist(all->move, pa, 1);
+			all_move(all->list_a, all->list_b, pa);
 			loop--;
 		}
-		ft_printf("test2\n");
 	}
 }

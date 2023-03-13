@@ -1,7 +1,8 @@
 
+
 #include "../push_swap.h"
 
-Bool	is_empty_Dlist(DList *list)
+e_bool	is_empty_list(t_list *list)
 {
 	if (list)
 		return (false);
@@ -9,9 +10,9 @@ Bool	is_empty_Dlist(DList *list)
 		return (true);
 }
 
-DList	*create_Dlist(DList *list)
+t_list	*create_list(t_list *list)
 {
-	if (is_empty_Dlist(list))
+	if (is_empty_list(list))
 	{
 		list = malloc(sizeof(*list));
 		if (!list)
@@ -24,9 +25,9 @@ DList	*create_Dlist(DList *list)
 	return (list);
 }
 
-DList	*insertlast_data_Dlist(DList *list, int data)
+t_list	*insertlast_data_list(t_list *list, int data)
 {
-	List	*cell;
+	t_cell	*cell;
 
 	cell = malloc(sizeof(*cell));
 	if (!cell)
@@ -34,9 +35,9 @@ DList	*insertlast_data_Dlist(DList *list, int data)
 	cell->data = data;
 	cell->next = NULL;
 	cell->back = NULL;
-	if (is_empty_Dlist(list) || list->len == 0)
+	if (is_empty_list(list) || list->len == 0)
 	{
-		list = create_Dlist(list);
+		list = create_list(list);
 		list->first = cell;
 		list->last = cell;
 	}
@@ -50,9 +51,9 @@ DList	*insertlast_data_Dlist(DList *list, int data)
 	return (list);
 }
 
-DList	*insertfirst_data_Dlist(DList *list, int data)
+t_list	*insertfirst_data_list(t_list *list, int data)
 {
-	List	*cell;
+	t_cell	*cell;
 
 	cell = malloc(sizeof(*cell));
 	if (!cell)
@@ -60,9 +61,9 @@ DList	*insertfirst_data_Dlist(DList *list, int data)
 	cell->data = data;
 	cell->next = NULL;
 	cell->back = NULL;
-	if (is_empty_Dlist(list) || list->len == 0)
+	if (is_empty_list(list) || list->len == 0)
 	{
-		list = create_Dlist(list);
+		list = create_list(list);
 		list->first = cell;
 		list->last = cell;
 	}
@@ -76,10 +77,10 @@ DList	*insertfirst_data_Dlist(DList *list, int data)
 	return (list);
 }
 
-DList	*insert_data_Dlist(DList *list, int data, int mode)
+t_list	*insert_data_Dlist(t_list *list, int data, int mode)
 {
 	if (mode == 0)
-		return(insertfirst_data_Dlist(list, data));
+		return(insertfirst_data_list(list, data));
 	else
-		return(insertlast_data_Dlist(list, data));
+		return(insertlast_data_list(list, data));
 }

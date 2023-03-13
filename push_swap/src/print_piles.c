@@ -2,20 +2,20 @@
 
 #include "../push_swap.h"
 
-void	ft_printpiles(DList *A, DList *B)
+void	ft_printpiles(t_list *A, t_list *B)
 {
-	List *tmpA;
-	List *tmpB;
+	t_cell *tmpA;
+	t_cell *tmpB;
 
-	if (is_empty_Dlist(A) && is_empty_Dlist(B))
+	if (is_empty_list(A) && is_empty_list(B))
 		return ;
 
-	if (is_empty_Dlist(A))
+	if (is_empty_list(A))
 		tmpA = NULL;
 	else
 		tmpA = A->first;
 	
-	if (is_empty_Dlist(B))
+	if (is_empty_list(B))
 		tmpB = NULL;
 	else
 		tmpB = B->first;
@@ -40,11 +40,11 @@ void	ft_printpiles(DList *A, DList *B)
 	}
 }
 
-void    printf_Dlist(DList *L)
+void    printf_list(t_list *list)
 {
-    if (is_empty_Dlist(L))
+    if (is_empty_list(list))
         return ;
-    List *tmp = L->first;
+    t_cell *tmp = list->first;
 
     while(tmp != NULL)
     {
@@ -53,7 +53,7 @@ void    printf_Dlist(DList *L)
     }
 }
 
-void	ft_print_move(Move move)
+void	ft_print_move(e_move move)
 {
 	if (move == pa)
 		ft_printf("pa\n");
@@ -79,16 +79,16 @@ void	ft_print_move(Move move)
 		ft_printf("rrr\n");
 }
 
-void    ft_print_allmove(DList *Move)
+void    ft_print_allmove(t_list *move)
 {
 	int		i;
-	List	*cell;
+	t_cell	*cell;
 
-	if (Move->len == 0)
+	if (move->len == 0)
 		return ;
-	cell = Move->first;
+	cell = move->first;
 	i = 1;
-	while (i <= Move->len)
+	while (i <= move->len)
 	{
 		ft_print_move(cell->data);
 		cell = cell->next;

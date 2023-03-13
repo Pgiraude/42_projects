@@ -12,25 +12,25 @@
 
 #include "push_swap.h"
 
-List	*target_to_process(DDList *ALL)
+t_cell	*target_to_process(t_ctrl *all)
 {
-	List	*cell;
-	List	*target;
+	t_cell	*cell;
+	t_cell	*target;
 	int		sign;
 	int		lower_cost;
 
 	target = NULL;
-	cell = ALL->La->first;
-	lower_cost = ALL->max_len;
+	cell = all->list_a->first;
+	lower_cost = all->max_len;
 	while (cell != NULL)
 	{
-		if (cell->costA >= 0)
+		if (cell->cost_a >= 0)
 			sign = 1;
 		else
 			sign = -1;
-		if (lower_cost > cell->costA * sign && cell->tag == true)
+		if (lower_cost > cell->cost_a * sign && cell->tag == true)
 		{
-			lower_cost = cell->costA * sign;
+			lower_cost = cell->cost_a * sign;
 			target = cell;
 		}
 		cell = cell->next;
@@ -38,9 +38,9 @@ List	*target_to_process(DDList *ALL)
 	return (target);
 }
 
-int	check_further(List *cell, List *cell_back, DDList *ALL, int mode)
+int	check_further(t_cell *cell, t_cell *cell_back, t_ctrl *all, int mode)
 {
-	List	*further_pos;
+	t_cell	*further_pos;
 	int		i;
 
 	if (mode == 0)
@@ -51,31 +51,31 @@ int	check_further(List *cell, List *cell_back, DDList *ALL, int mode)
 	while (i++ <= 2)
 	{
 		if (further_pos->next == NULL)
-			further_pos = ALL->La->first;
+			further_pos = all->list_a->first;
 		else
 			further_pos = further_pos->next;
 	}
-	if (check_is_aligned(cell_back, further_pos, ALL->max_len, 1) == true)
+	if (check_is_aligned(cell_back, further_pos, all->max_len, 1) == true)
 		return (true);
-	if (check_is_aligned(cell, further_pos, ALL->max_len, 1) == true)
+	if (check_is_aligned(cell, further_pos, all->max_len, 1) == true)
 		return (true);
 	return (false);
 }
 
-int	target_to_swapa(DDList *ALL)
+int	target_to_swapa(t_ctrl *all)
 {
-	List	*cell;
-	List	*cell_back;
+	t_cell	*cell;
+	t_cell	*cell_back;
 	int		nbr_swap;
 
 	nbr_swap = 0;
-	cell = ALL->La->first;
-	cell_back = ALL->La->last;
+	cell = all->list_a->first;
+	cell_back = all->list_a->last;
 	while (cell != NULL)
 	{
 		cell->tag = false;
-		if (check_further(cell, cell_back, ALL, 0) == true
-			&& check_further(cell, cell_back, ALL, 1) == true)
+		if (check_further(cell, cell_back, all, 0) == true
+			&& check_further(cell, cell_back, all, 1) == true)
 		{
 			cell->tag = true;
 			nbr_swap++;
@@ -86,40 +86,40 @@ int	target_to_swapa(DDList *ALL)
 	return (nbr_swap);
 }
 
-void	get_swap(DDList *ALL)
+void	get_swap(t_ctrl *all)
 {
-	List	*target;
+	t_cell	*target;
 	int		nbr;
 
-	nbr = target_to_swapa(ALL);
+	nbr = target_to_swapa(all);
 	while (nbr != 0)
 	{
-		costa_getup_la(ALL->La);
-		target = target_to_process(ALL);
-		placeup_target_lista(ALL, target);
-		all_move(ALL->La, ALL->Lb, sa);
-		ALL->Move = insert_data_Dlist(ALL->Move, sa, 1);
-		nbr = target_to_swapa(ALL);
+		costa_getup_la(all->list_a);
+		target = target_to_process(all);
+		placeup_target_lista(all, target);
+		all_move(all->list_a, all->list_b, sa);
+		all->move = insert_data_Dlist(all->move, sa, 1);
+		nbr = target_to_swapa(all);
 	}
 }
 
-void	push_to_b(DDList *ALL)
+void	push_to_b(t_ctrl *all)
 {
-	List	*target;
+	t_cell	*target;
 	int		i;
 	int		nbr;
 
-	get_swap(ALL);
-	nbr = get_pb_optimisation(ALL);
+	get_swap(all);
+	nbr = get_pb_optimisation(all);
 	i = 1;
 	while (i <= nbr)
 	{
-		costa_getup_la(ALL->La);
-		target = target_to_process(ALL);
-		placeup_target_lista(ALL, target);
-		all_move(ALL->La, ALL->Lb, pb);
-		ALL->Move = insert_data_Dlist(ALL->Move, pb, 1);
+		costa_getup_la(all->list_a);
+		target = target_to_process(all);
+		placeup_target_lista(all, target);
+		all_move(all->list_a, all->list_b, pb);
+		all->move = insert_data_Dlist(all->move, pb, 1);
 		i++;
 	}
-	get_swap(ALL);
+	get_swap(all);
 }

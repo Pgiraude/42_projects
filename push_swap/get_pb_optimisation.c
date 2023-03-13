@@ -12,34 +12,34 @@
 
 #include "push_swap.h"
 
-void	costa_getup_la(DList *ListA)
+void	costa_getup_la(t_list *list_a)
 {
-	List	*cell;
+	t_cell	*cell;
 	int		paire;
 	int		i;
 
 	paire = 0;
-	if (ListA->len % 2 == 0)
+	if (list_a->len % 2 == 0)
 		paire = 1;
-	cell = ListA->first;
+	cell = list_a->first;
 	i = 0;
 	while (cell != NULL)
 	{
-		cell->moveA = false;
-		if (i <= ListA->len / 2)
-			cell->costA = i;
-		if (i == ListA->len / 2 && paire == 1)
-			cell->moveA = true;
-		if (i > ListA->len / 2)
-			cell->costA = i - ListA->len;
+		cell->move_a = false;
+		if (i <= list_a->len / 2)
+			cell->cost_a = i;
+		if (i == list_a->len / 2 && paire == 1)
+			cell->move_a = true;
+		if (i > list_a->len / 2)
+			cell->cost_a = i - list_a->len;
 		i++;
 		cell = cell->next;
 	}
 }
 
-int	get_pb_tag(List *pivot, DDList *ALL)
+int	get_pb_tag(t_cell *pivot, t_ctrl *all)
 {
-	List	*last_pos;
+	t_cell	*last_pos;
 	int		nbr_pb;
 	int		i;
 
@@ -48,14 +48,14 @@ int	get_pb_tag(List *pivot, DDList *ALL)
 	if (pivot == NULL)
 		return (nbr_pb);
 	last_pos = pivot;
-	while (i++ < ALL->La->len)
+	while (i++ < all->list_a->len)
 	{
-		if (ALL->La->len - nbr_pb == 3)
+		if (all->list_a->len - nbr_pb == 3)
 			break ;
 		pivot = pivot->next;
 		if (pivot == NULL)
-			pivot = ALL->La->first;
-		if (check_is_aligned(pivot, last_pos, ALL->max_len, 0) == true)
+			pivot = all->list_a->first;
+		if (check_is_aligned(pivot, last_pos, all->max_len, 0) == true)
 			last_pos = pivot;
 		else
 		{
@@ -66,21 +66,21 @@ int	get_pb_tag(List *pivot, DDList *ALL)
 	return (nbr_pb);
 }
 
-int	get_pb_score(List *pivot, DDList *ALL)
+int	get_pb_score(t_cell *pivot, t_ctrl *all)
 {
-	List	*last_pos;
+	t_cell	*last_pos;
 	int		score;
 	int		i;
 
 	i = 1;
 	score = 0;
 	last_pos = pivot;
-	while (i++ <= ALL->La->len)
+	while (i++ <= all->list_a->len)
 	{
 		pivot = pivot->next;
 		if (pivot == NULL)
-			pivot = ALL->La->first;
-		if (check_is_aligned(pivot, last_pos, ALL->max_len, 0) == true)
+			pivot = all->list_a->first;
+		if (check_is_aligned(pivot, last_pos, all->max_len, 0) == true)
 		{
 			last_pos = pivot;
 			score++;
@@ -89,19 +89,19 @@ int	get_pb_score(List *pivot, DDList *ALL)
 	return (score);
 }
 
-int	get_pb_optimisation(DDList *ALL)
+int	get_pb_optimisation(t_ctrl *all)
 {
-	List	*cell;
-	List	*pivot;
+	t_cell	*cell;
+	t_cell	*pivot;
 	int		best_score;
 	int		score;
 
 	pivot = NULL;
 	best_score = 0;
-	cell = ALL->La->first;
+	cell = all->list_a->first;
 	while (cell != NULL)
 	{
-		score = get_pb_score(cell, ALL);
+		score = get_pb_score(cell, all);
 		if (score > best_score)
 		{
 			best_score = score;
@@ -109,7 +109,7 @@ int	get_pb_optimisation(DDList *ALL)
 		}
 		cell = cell->next;
 	}
-	if (best_score == ALL->max_len)
+	if (best_score == all->max_len)
 		return (0);
-	return (get_pb_tag(pivot, ALL));
+	return (get_pb_tag(pivot, all));
 }

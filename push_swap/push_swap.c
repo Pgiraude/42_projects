@@ -12,57 +12,57 @@
 
 #include "push_swap.h"
 
-static void    set_all_cell(DDList *ALL)
+static void    set_all_cell(t_ctrl *all)
 {
-    List *listA;
+    t_cell *listA;
 
-    listA = ALL->La->first;
-    ALL->max_len = ALL->La->len;
+    listA = all->list_a->first;
+    all->max_len = all->list_a->len;
     while(listA != NULL)
     {
-        listA->costA = 0;
-        listA->costB = 0;
+        listA->cost_a = 0;
+        listA->cost_b = 0;
         listA->bonus_cost = 0;
-        listA->target_pos = 0;
+        listA->final_pos = 0;
         listA->tag = false;
-        listA->moveA = false;
-        listA->moveB = false;
+        listA->move_a = false;
+        listA->move_b = false;
         listA->aligne_back = false;
         listA->aligne_next = false;
         listA = listA->next;
     }
 }
 
-static void    get_final_pos(DDList *ALL)
+static void    get_final_pos(t_ctrl *all)
 {
-    List *listA;
-    List *listS;
-    int target_pos;
+    t_cell *listA;
+    t_cell *listS;
+    int final_pos;
 
-    listA = ALL->La->first;
+    listA = all->list_a->first;
     while (listA != NULL)
     {
-        target_pos = 1;
-        listS = ALL->Solution->first;
+        final_pos = 1;
+        listS = all->Solution->first;
         while (listA->data != listS->data)
         {
-            target_pos++;
+            final_pos++;
             listS = listS->next;
         }
-        listA->target_pos = target_pos;
+        listA->final_pos = final_pos;
         listA = listA->next;
     }
 }
 
-static void    check_allvalue(DDList *ALL)
+static void    check_allvalue(t_ctrl *all)
 {
-    List *list;
+    t_cell *list;
 
-    list = ALL->La->first;
+    list = all->list_a->first;
     ft_printf("ListA\n");
     while (list != NULL)
     {
-        ft_printf("data=%d target_pos=%d costA=%d costB=%d", list->data, list->target_pos, list->costA, list->costB);
+        ft_printf("data=%d final_pos=%d cost_a=%d cost_b=%d", list->data, list->final_pos, list->cost_a, list->cost_b);
         ft_printf(" aligne_back=");
         if (list->aligne_back == true)
             ft_printf("true");
@@ -78,13 +78,13 @@ static void    check_allvalue(DDList *ALL)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" moveA=");
-        if (list->moveA == true)
+        ft_printf(" move_a=");
+        if (list->move_a == true)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" moveB=");
-        if (list->moveB == true)
+        ft_printf(" move_b=");
+        if (list->move_b == true)
             ft_printf("true");
         else
             ft_printf("false");
@@ -94,10 +94,10 @@ static void    check_allvalue(DDList *ALL)
     }
 
     ft_printf("ListB\n");
-    list = ALL->Lb->first;
+    list = all->list_b->first;
     while (list != NULL)
     {
-        ft_printf("data=%d target_pos=%d costA=%d costB=%d", list->data, list->target_pos, list->costA, list->costB);
+        ft_printf("data=%d final_pos=%d cost_a=%d cost_b=%d", list->data, list->final_pos, list->cost_a, list->cost_b);
         ft_printf(" aligne_back=");
         if (list->aligne_back == true)
             ft_printf("true");
@@ -113,13 +113,13 @@ static void    check_allvalue(DDList *ALL)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" moveA=");
-        if (list->moveA == true)
+        ft_printf(" move_a=");
+        if (list->move_a == true)
             ft_printf("true");
         else
             ft_printf("false");
-        ft_printf(" moveB=");
-        if (list->moveB == true)
+        ft_printf(" move_b=");
+        if (list->move_b == true)
             ft_printf("true");
         else
             ft_printf("false");
@@ -130,35 +130,35 @@ static void    check_allvalue(DDList *ALL)
     }
 }
 
-void    push_swap(DDList *ALL)
+void    push_swap(t_ctrl *all)
 {
 
 
-    set_all_cell(ALL);
-    get_final_pos(ALL);
-    push_to_b(ALL);
+    set_all_cell(all);
+    get_final_pos(all);
+    push_to_b(all);
 
 
-        get_all_cost(ALL);
-        push_to_a(ALL);
-        get_all_cost(ALL);
-        push_to_a(ALL);
+        get_all_cost(all);
+        push_to_a(all);
+        get_all_cost(all);
+        push_to_a(all);
 
 
-    // while (ALL->Lb->len > 0)
+    // while (all->list_b->len > 0)
     // {
-    //     get_all_cost(ALL);
-    //     push_to_a(ALL);
+    //     get_all_cost(all);
+    //     push_to_a(all);
     // }
 
-    // List *first_pos;
+    // t_cell *first_pos;
 
-    // first_pos = ALL->La->first;
-    // costa_getup_la(ALL->La);
-    // while (first_pos->target_pos != 1)
+    // first_pos = all->list_a->first;
+    // costa_getup_la(all->list_a);
+    // while (first_pos->final_pos != 1)
     //     first_pos = first_pos->next;
-    // placeup_target_lista(ALL, first_pos);
+    // placeup_target_lista(all, first_pos);
 
     
-    check_allvalue(ALL);
+    check_allvalue(all);
 }

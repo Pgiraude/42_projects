@@ -2,12 +2,12 @@
 #include "../push_swap.h"
 
 
-List	*isolate_lastcell_Dlist(DList *list)
+t_cell	*isolate_lastcell_Dlist(t_list *list)
 {
-	List	*cell;
+	t_cell	*cell;
 
 	cell = NULL;
-	if (is_empty_Dlist(list))
+	if (is_empty_list(list))
 		return (NULL);
 	if (list->len != 1)
 		return (NULL);
@@ -23,9 +23,9 @@ List	*isolate_lastcell_Dlist(DList *list)
 	return (cell);
 }
 
-DList	*insertlast_cell_Dlist(DList *list, List *cell)
+t_list	*insertlast_cell_Dlist(t_list *list, t_cell *cell)
 {
-	if (is_empty_Dlist(list))
+	if (is_empty_list(list))
 	{
 		list = malloc(sizeof(*list));
 		if (!list)
@@ -49,9 +49,9 @@ DList	*insertlast_cell_Dlist(DList *list, List *cell)
 	return (list);
 }
 
-DList	*insertfirst_cell_Dlist(DList *list, List *cell)
+t_list	*insertfirst_cell_Dlist(t_list *list, t_cell *cell)
 {
-	if (is_empty_Dlist(list))
+	if (is_empty_list(list))
 	{
 		list = malloc(sizeof(*list));
 		if (!list)
@@ -75,9 +75,7 @@ DList	*insertfirst_cell_Dlist(DList *list, List *cell)
 	return (list);
 }
 
-/*--------------------Utils-------------------------*/
-
-DList	*insert_cell_Dlist(DList *list, List *cell, int mode)
+t_list	*insert_cell_list(t_list *list, t_cell *cell, int mode)
 {
 	if (mode == 0)
 		list = insertfirst_cell_Dlist(list, cell);
@@ -86,9 +84,9 @@ DList	*insert_cell_Dlist(DList *list, List *cell, int mode)
 	return (list);
 }
 
-List	*isolate_cell_Dlist(DList *list, int Mode)
+t_cell	*isolate_cell_Dlist(t_list *list, int Mode)
 {
-	List	*cell;
+	t_cell	*cell;
 
 	cell = isolate_lastcell_Dlist(list);
 	if (cell != NULL)

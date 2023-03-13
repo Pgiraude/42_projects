@@ -12,49 +12,49 @@
 
 #include "../push_swap.h"
 
-void	swap_move(DList *list)
+void	swap_move(t_list *list)
 {
-	List	*cell_a;
-	List	*cell_b;
+	t_cell	*cell_a;
+	t_cell	*cell_b;
 
 	cell_a = NULL;
 	cell_b = NULL;
-	if (is_empty_Dlist(list) || list->len < 2)
+	if (is_empty_list(list) || list->len < 2)
 		return ;
 	cell_a = isolate_cell_Dlist(list, 0);
 	cell_b = isolate_cell_Dlist(list, 0);
-	list = insert_cell_Dlist(list, cell_a, 0);
-	list = insert_cell_Dlist(list, cell_b, 0);
+	list = insert_cell_list(list, cell_a, 0);
+	list = insert_cell_list(list, cell_b, 0);
 }
 
-void	rup_move(DList *list)
+void	rup_move(t_list *list)
 {
-	List	*cell;
+	t_cell	*cell;
 
 	cell = NULL;
-	if (is_empty_Dlist(list) || list->len < 2)
+	if (is_empty_list(list) || list->len < 2)
 		return ;
 	cell = isolate_cell_Dlist(list, 0);
-	list = insert_cell_Dlist(list, cell, 1);
+	list = insert_cell_list(list, cell, 1);
 }
 
-void	rdo_move(DList *list)
+void	rdo_move(t_list *list)
 {
-	List	*cell;
+	t_cell	*cell;
 
 	cell = NULL;
-	if (is_empty_Dlist(list) || list->len < 2)
+	if (is_empty_list(list) || list->len < 2)
 		return ;
 	cell = isolate_cell_Dlist(list, 1);
-	list = insert_cell_Dlist(list, cell, 0);
+	list = insert_cell_list(list, cell, 0);
 }
 
-void	push_move(DList *src, DList *dest)
+void	push_move(t_list *src, t_list *dest)
 {
-	List	*cell;
+	t_cell	*cell;
 
-	if (is_empty_Dlist(src) || src->len == 0)
+	if (is_empty_list(src) || src->len == 0)
 		return ;
 	cell = isolate_cell_Dlist(src, 0);
-	dest = insert_cell_Dlist(dest, cell, 0);
+	dest = insert_cell_list(dest, cell, 0);
 }

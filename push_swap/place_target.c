@@ -12,91 +12,91 @@
 
 #include "push_swap.h"
 
-void	placeup_target_lista(DDList *ALL, List *target)
+void	placeup_target_lista(t_ctrl *all, t_cell *target)
 {
 	if (target == NULL)
 		return ;
 	target->tag = false;
-	while (target->costA > 0)
+	while (target->cost_a > 0)
 	{
-		all_move(ALL->La, ALL->Lb, ra);
-		ALL->Move = insert_data_Dlist(ALL->Move, ra, 1);
-		target->costA--;
+		all_move(all->list_a, all->list_b, ra);
+		all->move = insert_data_Dlist(all->move, ra, 1);
+		target->cost_a--;
 	}
-	while (target->costA < 0)
+	while (target->cost_a < 0)
 	{
-		all_move(ALL->La, ALL->Lb, rra);
-		ALL->Move = insert_data_Dlist(ALL->Move, rra, 1);
-		target->costA++;
+		all_move(all->list_a, all->list_b, rra);
+		all->move = insert_data_Dlist(all->move, rra, 1);
+		target->cost_a++;
 	}
 }
 
-void	placeup_bigmove_listb(DDList *ALL, List *target)
+void	placeup_bigmove_listb(t_ctrl *all, t_cell *target)
 {
-	while ((target->costB < 0 && target->costA < 0)
-		|| (target->moveA == true && target->costB < 0)
-		|| (target->moveB == true && target->costA < 0))
+	while ((target->cost_b < 0 && target->cost_a < 0)
+		|| (target->move_a == true && target->cost_b < 0)
+		|| (target->move_b == true && target->cost_a < 0))
 	{
-		if (target->moveA == true)
+		if (target->move_a == true)
 		{
-			target->costA = target->costA * -1;
-			target->moveA = false;
+			target->cost_a = target->cost_a * -1;
+			target->move_a = false;
 		}
-		if (target->moveB == true)
+		if (target->move_b == true)
 		{
-			target->costB = target->costB * -1;
-			target->moveB = false;
+			target->cost_b = target->cost_b * -1;
+			target->move_b = false;
 		}
-		all_move(ALL->La, ALL->Lb, rrr);
-		ALL->Move = insert_data_Dlist(ALL->Move, rrr, 1);
-		target->costA++;
-		target->costB++;
+		all_move(all->list_a, all->list_b, rrr);
+		all->move = insert_data_Dlist(all->move, rrr, 1);
+		target->cost_a++;
+		target->cost_b++;
 		target->bonus_cost++;
 	}
 }
 
-void	placeup_remain_listb(DDList *ALL, List *target)
+void	placeup_remain_listb(t_ctrl *all, t_cell *target)
 {
-	while (target->costB > 0)
+	while (target->cost_b > 0)
 	{
-		all_move(ALL->La, ALL->Lb, rb);
-		ALL->Move = insert_data_Dlist(ALL->Move, rb, 1);
-		target->costB--;
+		all_move(all->list_a, all->list_b, rb);
+		all->move = insert_data_Dlist(all->move, rb, 1);
+		target->cost_b--;
 	}
-	while (target->costB < 0)
+	while (target->cost_b < 0)
 	{
-		all_move(ALL->La, ALL->Lb, rrb);
-		ALL->Move = insert_data_Dlist(ALL->Move, rrb, 1);
-		target->costB++;
+		all_move(all->list_a, all->list_b, rrb);
+		all->move = insert_data_Dlist(all->move, rrb, 1);
+		target->cost_b++;
 	}
-	while (target->costA > 0)
+	while (target->cost_a > 0)
 	{
-		all_move(ALL->La, ALL->Lb, ra);
-		ALL->Move = insert_data_Dlist(ALL->Move, ra, 1);
-		target->costA--;
+		all_move(all->list_a, all->list_b, ra);
+		all->move = insert_data_Dlist(all->move, ra, 1);
+		target->cost_a--;
 	}
-	while (target->costA < 0)
+	while (target->cost_a < 0)
 	{
-		all_move(ALL->La, ALL->Lb, rra);
-		ALL->Move = insert_data_Dlist(ALL->Move, rra, 1);
-		target->costA++;
+		all_move(all->list_a, all->list_b, rra);
+		all->move = insert_data_Dlist(all->move, rra, 1);
+		target->cost_a++;
 	}
 }
 
-void	place_target_listb(DDList *ALL, List *target)
+void	place_target_listb(t_ctrl *all, t_cell *target)
 {
 	if (target == NULL)
 		return ;
-	placeup_bigmove_listb(ALL, target);
-	while (target->costB > 0 && target->costA > 0)
+	placeup_bigmove_listb(all, target);
+	while (target->cost_b > 0 && target->cost_a > 0)
 	{
-		all_move(ALL->La, ALL->Lb, rr);
-		ALL->Move = insert_data_Dlist(ALL->Move, rr, 1);
-		target->costB--;
-		target->costA--;
+		all_move(all->list_a, all->list_b, rr);
+		all->move = insert_data_Dlist(all->move, rr, 1);
+		target->cost_b--;
+		target->cost_a--;
 		target->bonus_cost++;
 	}
-	placeup_remain_listb(ALL, target);
-	target->moveA = false;
-	target->moveB = false;
+	placeup_remain_listb(all, target);
+	target->move_a = false;
+	target->move_b = false;
 }

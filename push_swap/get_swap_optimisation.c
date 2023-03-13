@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-Bool	lb_is_aligned_bigswap(DList *ListB, DDList *ALL)
+e_bool	lb_is_aligned_bigswap(t_list *ListB, t_ctrl *all)
 {
-	List	*cell;
-	List	*next_cell;
+	t_cell	*cell;
+	t_cell	*next_cell;
 	int		i;
 
 	i = 1;
@@ -25,13 +25,13 @@ Bool	lb_is_aligned_bigswap(DList *ListB, DDList *ALL)
 	next_cell = ListB->first->next;
 	while (i <= 2)
 	{
-		if (check_is_aligned(cell, next_cell, ALL->max_len, 1) == false)
+		if (check_is_aligned(cell, next_cell, all->max_len, 1) == false)
 			return (false);
 		if (i != 2)
 		{
 			cell = cell->next;
 			next_cell = next_cell->next->next;
-			if (cell->target_pos < next_cell->target_pos)
+			if (cell->final_pos < next_cell->final_pos)
 				return (false);
 			cell = cell->next;
 		}
@@ -40,14 +40,14 @@ Bool	lb_is_aligned_bigswap(DList *ListB, DDList *ALL)
 	return (true);
 }
 
-Bool	bigswap_optimisation(DDList *ALL)
+e_bool	bigswap_optimisation(t_ctrl *all)
 {
-	List	*cell;
+	t_cell	*cell;
 	int		i;
 
-	if (ALL->Lb->len < 4)
+	if (all->list_b->len < 4)
 		return (false);
-	cell = ALL->Lb->first;
+	cell = all->list_b->first;
 	i = 1;
 	while (i <= 4)
 	{
@@ -56,61 +56,61 @@ Bool	bigswap_optimisation(DDList *ALL)
 		i++;
 		cell = cell->next;
 	}
-	if (lb_is_aligned_bigswap(ALL->Lb, ALL) == false)
+	if (lb_is_aligned_bigswap(all->list_b, all) == false)
 		return (false);
-	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
-	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
-	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, ss), 1);
-	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
-	ALL->Move = insert_data_Dlist(ALL->Move, all_move(ALL->La, ALL->Lb, pa), 1);
-	get_all_cost(ALL);
+	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, ss), 1);
+	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_Dlist(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	get_all_cost(all);
 	return (true);
 }
 
-Bool	lb_is_aligned_swap(DDList *ALL)
+e_bool	lb_is_aligned_swap(t_ctrl *all)
 {
-	List	*cellb;
-	List	*cella;
+	t_cell	*cellb;
+	t_cell	*cella;
 
-	if (ALL->Lb->len < 2)
+	if (all->list_b->len < 2)
 		return (false);
-	cella = ALL->La->first;
-	cellb = ALL->Lb->first;
+	cella = all->list_a->first;
+	cellb = all->list_b->first;
 	if (cella->aligne_next == false)
 		return (false);
-	if (check_is_aligned(cellb, cellb->next, ALL->max_len, 1) == false)
+	if (check_is_aligned(cellb, cellb->next, all->max_len, 1) == false)
 		return (false);
 	cellb = cellb->next;
-	if (check_is_aligned(cellb, cella, ALL->max_len, 1) == false)
+	if (check_is_aligned(cellb, cella, all->max_len, 1) == false)
 		return (false);
 	return (true);
 }
 
-Bool	swap_optimisation(DDList *ALL)
+e_bool	swap_optimisation(t_ctrl *all)
 {
-	List	*first_pos;
+	t_cell	*first_pos;
 	int		i;
 
-	if (lb_is_aligned_swap(ALL) == false)
+	if (lb_is_aligned_swap(all) == false)
 		return (false);
-	if (ALL->Lb->len == 2)
+	if (all->list_b->len == 2)
 	{
-		first_pos = ALL->La->first;
+		first_pos = all->list_a->first;
 		i = 0;
-		while (first_pos->target_pos != 1 || first_pos != NULL)
+		while (first_pos->final_pos != 1 || first_pos != NULL)
 		{
 			first_pos = first_pos->next;
 			i++;
 		}
-		if (i + 2 > ALL->max_len / 2 && first_pos != NULL)
+		if (i + 2 > all->max_len / 2 && first_pos != NULL)
 			return (false);
 	}
-	all_move(ALL->La, ALL->Lb, sb);
-	all_move(ALL->La, ALL->Lb, pa);
-	all_move(ALL->La, ALL->Lb, pa);
-	ALL->Move = insert_data_Dlist(ALL->Move, sb, 1);
-	ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
-	ALL->Move = insert_data_Dlist(ALL->Move, pa, 1);
-	get_all_cost(ALL);
+	all_move(all->list_a, all->list_b, sb);
+	all_move(all->list_a, all->list_b, pa);
+	all_move(all->list_a, all->list_b, pa);
+	all->move = insert_data_Dlist(all->move, sb, 1);
+	all->move = insert_data_Dlist(all->move, pa, 1);
+	all->move = insert_data_Dlist(all->move, pa, 1);
+	get_all_cost(all);
 	return (true);
 }

@@ -12,11 +12,11 @@
 
 #include "../push_swap.h"
 
-void	free_all_dlist(DList *list)
+void	free_all_dlist(t_list *list)
 {
-	List	*cell;
+	t_cell	*cell;
 
-	if (is_empty_Dlist(list))
+	if (is_empty_list(list))
 		return ;
 	while (list->first != list->last)
 	{
