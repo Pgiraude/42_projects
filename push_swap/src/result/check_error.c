@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:57:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 14:30:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:34:16 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ t_bool	is_error(int argc, char **argv)
 	tab_data = get_number(argc, argv, i);
 	if (check_double(tab_data, i))
 		return (free (tab_data), true);
-	return (false);
+	return (free (tab_data), false);
 }

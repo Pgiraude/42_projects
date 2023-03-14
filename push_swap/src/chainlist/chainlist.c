@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:07:30 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 14:30:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:53:40 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	is_empty_list(t_list *list)
 
 t_list	*create_list(t_list *list)
 {
-	if (is_empty_list(list))
+	if (is_empty_list(list) == true)
 	{
 		list = malloc(sizeof(*list));
 		if (!list)

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:17 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:25:29 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ void	get_swap(t_ctrl *all)
 	t_cell	*target;
 	int		nbr;
 
+	if (all->list_a->len == 2)
+	{
+		target = all->list_a->first;
+		if (check_is_aligned(target, target->next, 2, 2) == false)
+		{
+			all_move(all->list_a, all->list_b, sa);
+			all->move = insert_data_list(all->move, sa, 1);
+		}
+		return ;
+	}
 	nbr = target_to_swapa(all);
 	while (nbr != 0)
 	{

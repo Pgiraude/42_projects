@@ -1,4 +1,4 @@
-NAME = push_swap.a
+NAME = push_swap
 
 SRC				= src/push_swap.c src/main.c
 
@@ -28,7 +28,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(LIBFT)
-	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(CFLAGS)
+	$(CC) -g -o $(NAME) $(OBJS) ./libft/libft.a $(CFLAGS)
 
 clean:
 	cd libft && $(MAKE) clean

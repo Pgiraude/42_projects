@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:40:04 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 14:07:43 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:13:16 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	free_all_list(t_list *list)
 	if (list->first == list->last)
 	{
 		cell = list->first;
-		if (list->len == 1)
+		list->first = NULL;
+		list->last = NULL;
+		if (cell)
 			free(cell);
 		free(list);
 		list = NULL;
