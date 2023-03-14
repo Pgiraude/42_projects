@@ -6,11 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:09:18 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/11 18:13:09 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 void	placeup_target_lista(t_ctrl *all, t_cell *target)
 {

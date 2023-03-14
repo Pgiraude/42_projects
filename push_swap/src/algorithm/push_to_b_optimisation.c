@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pb_optimisation.c                              :+:      :+:    :+:   */
+/*   push_to_b_optimisation.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:51:38 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/11 17:27:39 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 void	costa_getup_la(t_list *list_a)
 {

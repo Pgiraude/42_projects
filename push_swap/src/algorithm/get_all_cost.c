@@ -6,11 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/11 18:27:45 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 void	calculate_bonus_cost(t_ctrl *all)
 {

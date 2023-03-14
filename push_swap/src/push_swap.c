@@ -6,30 +6,47 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/09 21:55:37 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:27:27 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "include/push_swap.h"
+
+void    set_all_list(t_ctrl *all)
+{
+    t_list	*list_a;
+	t_list	*list_b;
+	t_list	*move;
+
+    list_a = NULL;
+	list_b = NULL;
+	move = NULL;
+	list_a = create_list(list_a);
+	list_b = create_list(list_b);
+    move = create_list(move);
+	all->list_a = list_a;
+	all->list_b = list_b;
+	all->move = move;
+}
 
 static void    set_all_cell(t_ctrl *all)
 {
-    t_cell *listA;
+    t_cell *cell_a;
 
-    listA = all->list_a->first;
+    cell_a = all->list_a->first;
     all->max_len = all->list_a->len;
-    while(listA != NULL)
+    while(cell_a != NULL)
     {
-        listA->cost_a = 0;
-        listA->cost_b = 0;
-        listA->bonus_cost = 0;
-        listA->final_pos = 0;
-        listA->tag = false;
-        listA->move_a = false;
-        listA->move_b = false;
-        listA->aligne_back = false;
-        listA->aligne_next = false;
-        listA = listA->next;
+        cell_a->cost_a = 0;
+        cell_a->cost_b = 0;
+        cell_a->bonus_cost = 0;
+        cell_a->final_pos = 0;
+        cell_a->tag = false;
+        cell_a->move_a = false;
+        cell_a->move_b = false;
+        cell_a->aligne_back = false;
+        cell_a->aligne_next = false;
+        cell_a = cell_a->next;
     }
 }
 
@@ -40,7 +57,7 @@ static void    get_final_pos(t_ctrl *all)
     t_cell  *cell_s;
     int     final_pos;
 
-    list_s = duplicate(all->list_a);
+    list_s = duplicate_list(all->list_a);
     quick_sort(list_s);
     cell_a = all->list_a->first;
     while (cell_a != NULL)
@@ -136,21 +153,25 @@ static void    check_allvalue(t_ctrl *all)
     }
 }
 
-void    push_swap(t_ctrl *all)
+void    push_swap(t_ctrl *all, int argc, char **argv)
 {
+    int     i;
 
-
+    set_all_list(all);
+    i = 1;
+	while (i < argc)
+	{
+		all->list_a = insert_data_list(all->list_a, ft_atoi(argv[i]), 1);
+		i++;
+	}
     set_all_cell(all);
     get_final_pos(all);
+
+    ft_printf("len A = %d le B = %d\n", all->list_a->len, all->list_b->len);
+	ft_printpiles(all->list_a, all->list_b);
+	ft_printf("\n------\n");
+
     push_to_b(all);
-
-
-        get_all_cost(all);
-        push_to_a(all);
-        get_all_cost(all);
-        push_to_a(all);
-
-
     // while (all->list_b->len > 0)
     // {
     //     get_all_cost(all);

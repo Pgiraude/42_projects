@@ -6,11 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:28:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/11 17:43:34 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 e_bool	lb_is_aligned_bigswap(t_list *ListB, t_ctrl *all)
 {

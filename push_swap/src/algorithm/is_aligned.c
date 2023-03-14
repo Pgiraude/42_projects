@@ -6,11 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:46:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/11 17:48:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 e_bool	check_is_aligned(t_cell *target, t_cell *compare, int max_len, int mode)
 {

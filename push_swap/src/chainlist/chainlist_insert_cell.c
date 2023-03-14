@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chainlist_insert_cell.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/14 10:07:24 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/03/14 14:09:16 by pgiraude         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "../include/push_swap.h"
 
-t_list	*insertlast_cell_Dlist(t_list *list, t_cell *cell)
+t_list	*insertlast_cell_list(t_list *list, t_cell *cell)
 {
 	if (is_empty_list(list))
 	{
@@ -27,7 +38,7 @@ t_list	*insertlast_cell_Dlist(t_list *list, t_cell *cell)
 	return (list);
 }
 
-t_list	*insertfirst_cell_Dlist(t_list *list, t_cell *cell)
+t_list	*insertfirst_cell_list(t_list *list, t_cell *cell)
 {
 	if (is_empty_list(list))
 	{
@@ -56,13 +67,13 @@ t_list	*insertfirst_cell_Dlist(t_list *list, t_cell *cell)
 t_list	*insert_cell_list(t_list *list, t_cell *cell, int mode)
 {
 	if (mode == 0)
-		list = insertfirst_cell_Dlist(list, cell);
+		list = insertfirst_cell_list(list, cell);
 	else
-		list = insertlast_cell_Dlist(list, cell);
+		list = insertlast_cell_list(list, cell);
 	return (list);
 }
 
-t_cell	*isolate_lastcell_Dlist(t_list *list)
+t_cell	*isolate_lastcell_list(t_list *list)
 {
 	t_cell	*cell;
 
@@ -83,11 +94,11 @@ t_cell	*isolate_lastcell_Dlist(t_list *list)
 	return (cell);
 }
 
-t_cell	*isolate_cell_Dlist(t_list *list, int Mode)
+t_cell	*isolate_cell_list(t_list *list, int Mode)
 {
 	t_cell	*cell;
 
-	cell = isolate_lastcell_Dlist(list);
+	cell = isolate_lastcell_list(list);
 	if (cell != NULL)
 		return (cell);
 	if (Mode == 0)
