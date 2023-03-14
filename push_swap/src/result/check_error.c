@@ -6,13 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:57:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 13:30:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:30:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-e_bool	check_arg(char *argv)
+t_bool	check_arg(char *argv)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ e_bool	check_arg(char *argv)
 	return (false);
 }
 
-e_bool	check_double(int *tab_data, int len)
+t_bool	check_double(int *tab_data, int len)
 {
 	int	x;
 	int	y;
@@ -72,7 +72,7 @@ int	*get_number(int argc, char **argv, int len)
 	return (tab_data);
 }
 
-e_bool	is_error(int argc, char **argv)
+t_bool	is_error(int argc, char **argv)
 {
 	long long int	data;
 	int				*tab_data;

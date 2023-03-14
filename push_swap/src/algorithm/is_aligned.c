@@ -6,28 +6,28 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 17:46:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:47:10 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-e_bool	check_is_aligned(t_cell *target, t_cell *compare, int max_len, int mode)
+t_bool	check_is_aligned(t_cell *targ, t_cell *comp, int max_len, int mode)
 {
-	if (target == NULL || compare == NULL)
+	if (targ == NULL || comp == NULL)
 		return (false);
 	if (mode == 0)
 	{
-		if (target->final_pos == compare->final_pos + 1)
+		if (targ->final_pos == comp->final_pos + 1)
 			return (true);
-		else if (target->final_pos == 1 && compare->final_pos == max_len)
+		else if (targ->final_pos == 1 && comp->final_pos == max_len)
 			return (true);
 	}
 	else if (mode == 1)
 	{
-		if (target->final_pos == compare->final_pos - 1)
+		if (targ->final_pos == comp->final_pos - 1)
 			return (true);
-		else if (target->final_pos == max_len && compare->final_pos == 1)
+		else if (targ->final_pos == max_len && comp->final_pos == 1)
 			return (true);
 	}
 	return (false);

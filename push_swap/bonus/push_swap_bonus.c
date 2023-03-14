@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:07:03 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 11:15:46 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:30:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int check_move(int argc, char **argv)
         return (-1);
 }
 
-e_bool  check_error_bonus(int argc, char **argv)
+t_bool  check_error_bonus(int argc, char **argv)
 {
     
 }

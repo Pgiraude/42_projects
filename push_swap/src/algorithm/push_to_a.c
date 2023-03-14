@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:36 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:28:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	get_score_target(t_cell *target, t_ctrl *all)
 	return (get_score(target, cell, all->max_len, 1));
 }
 
-t_cell    *get_best_target(t_cell *save, t_cell *analyse, t_ctrl *all)
+t_cell	*get_best_target(t_cell *save, t_cell *analyse, t_ctrl *all)
 {
 	int	score_s;
 	int	score_a;
@@ -48,11 +48,11 @@ t_cell    *get_best_target(t_cell *save, t_cell *analyse, t_ctrl *all)
 	return (save);
 }
 
-int    get_cost(t_cell *target)
+int	get_cost(t_cell *target)
 {
-	int target_cost;
-	int sign_a;
-	int sign_b;
+	int	target_cost;
+	int	sign_a;
+	int	sign_b;
 
 	sign_b = 1;
 	sign_a = 1;
@@ -65,7 +65,7 @@ int    get_cost(t_cell *target)
 	return (target_cost);
 }
 
-t_cell    *target_to_push_a(t_ctrl *all)
+t_cell	*target_to_push_a(t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*target;
@@ -87,26 +87,25 @@ t_cell    *target_to_push_a(t_ctrl *all)
 	return (target);
 }
 
-void    push_to_a(t_ctrl *all)
+void	push_to_a(t_ctrl *all)
 {
-	t_cell *target;
-	int loop;
+	t_cell	*target;
+	int		loop;
 
 	if (all->list_b->len == 0)
 		return ;
 	bigswap_optimisation(all);
 	swap_optimisation(all);
 	target = target_to_push_a(all);
-	ft_printf("target data=%d\n", target->data);
 	place_target_listb(all, target);
 	if (bigswap_optimisation(all) == false
 		&& swap_optimisation(all) == false)
 	{
-		
 		loop = 1;
 		while (all->list_b->len > 0 && loop > 0 && target != NULL)
 		{
-			if (all->list_b->first->aligne_next == true && all->list_b->first->next != NULL)
+			if (all->list_b->first->aligne_next == true
+				&& all->list_b->first->next != NULL)
 				loop++;
 			all->move = insert_data_list(all->move, pa, 1);
 			all_move(all->list_a, all->list_b, pa);

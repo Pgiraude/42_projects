@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:08:02 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:16:38 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:31:39 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	fusion_list(t_list *list_inf, t_list *pivot, t_list *list_sup)
 
 void	quicksort_split(t_list *list, t_list **list_inf, t_list **list_sup)
 {
-	t_cell *cell;
+	t_cell	*cell;
 
 	cell = list->first;
 	if (list->last->data > list->first->data)

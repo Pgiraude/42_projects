@@ -6,13 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:44:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:30:27 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	p_move(t_list *list_a, t_list *list_b, e_move mode)
+int	p_move(t_list *list_a, t_list *list_b, t_move mode)
 {
 	if (mode == pa && list_b->len >= 1)
 		push_move(list_b, list_a);
@@ -23,7 +23,7 @@ int	p_move(t_list *list_a, t_list *list_b, e_move mode)
 	return (mode);
 }
 
-int	s_move(t_list *list_a, t_list *list_b, e_move mode)
+int	s_move(t_list *list_a, t_list *list_b, t_move mode)
 {
 	if (mode == sa && list_a->len >= 2)
 		swap_move(list_a);
@@ -39,7 +39,7 @@ int	s_move(t_list *list_a, t_list *list_b, e_move mode)
 	return (mode);
 }
 
-int	r_move(t_list *list_a, t_list *list_b, e_move mode)
+int	r_move(t_list *list_a, t_list *list_b, t_move mode)
 {
 	if (mode == ra && list_a->len >= 2)
 		rup_move(list_a);
@@ -64,7 +64,7 @@ int	r_move(t_list *list_a, t_list *list_b, e_move mode)
 	return (mode);
 }
 
-int	all_move(t_list *list_a, t_list *list_b, e_move mode)
+int	all_move(t_list *list_a, t_list *list_b, t_move mode)
 {
 	int	check_error;
 

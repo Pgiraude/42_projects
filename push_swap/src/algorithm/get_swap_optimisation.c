@@ -6,13 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:28:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:30:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-e_bool	lb_is_aligned_bigswap(t_list *ListB, t_ctrl *all)
+t_bool	lb_is_aligned_bigswap(t_list *ListB, t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*next_cell;
@@ -40,7 +40,7 @@ e_bool	lb_is_aligned_bigswap(t_list *ListB, t_ctrl *all)
 	return (true);
 }
 
-e_bool	bigswap_optimisation(t_ctrl *all)
+t_bool	bigswap_optimisation(t_ctrl *all)
 {
 	t_cell	*cell;
 	int		i;
@@ -58,16 +58,17 @@ e_bool	bigswap_optimisation(t_ctrl *all)
 	}
 	if (lb_is_aligned_bigswap(all->list_b, all) == false)
 		return (false);
-	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
-	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
-	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, ss), 1);
-	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
-	all->move = insert_data_list(all->move, all_move(all->list_a, all->list_b, pa), 1);
+	all->move = insert_data_list(all->move, pa, 1);
+	all->move = insert_data_list(all->move, pa, 1);
+	all->move = insert_data_list(all->move, ss, 1);
+	all_move(all->list_a, all->list_b, pa);
+	all_move(all->list_a, all->list_b, pa);
+	all_move(all->list_a, all->list_b, ss);
 	get_all_cost(all);
 	return (true);
 }
 
-e_bool	lb_is_aligned_swap(t_ctrl *all)
+t_bool	lb_is_aligned_swap(t_ctrl *all)
 {
 	t_cell	*cellb;
 	t_cell	*cella;
@@ -86,7 +87,7 @@ e_bool	lb_is_aligned_swap(t_ctrl *all)
 	return (true);
 }
 
-e_bool	swap_optimisation(t_ctrl *all)
+t_bool	swap_optimisation(t_ctrl *all)
 {
 	t_cell	*first_pos;
 	int		i;
