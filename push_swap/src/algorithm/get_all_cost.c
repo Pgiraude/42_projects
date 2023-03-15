@@ -125,6 +125,65 @@ void	costa_getposition_lb(t_list *list_a, t_list *list_b, t_ctrl *all)
 	}
 }
 
+int	costb_la(int max_len, t_cell *lb_back, t_cell *lb, t_cell *la)
+{
+	int	i;
+	int	cost;
+	int	score;
+	int	save_score;
+
+	save_score = max_len * 2;
+	cost = 0;
+	i = 0;
+	while (lb != NULL)
+	{
+		if (check_is_aligned(la, lb_back, max_len, 1) == true
+			|| check_is_aligned(la, lb, max_len, 0) == true)
+			return (i);
+		score = get_score(la, lb_back, max_len, 1);
+		score += get_score(la, lb, max_len, 0);
+		if (score < save_score)
+		{
+			save_score = score;
+			cost = i;
+		}
+		i++;
+		lb_back = lb;
+		lb = lb->next;
+	}
+	return (cost);
+}
+
+void	costb_getposition_la(t_list *list_a, t_list *list_b, t_ctrl *all)
+{
+	t_cell	*cell_b;
+	t_cell	*cellb_back;
+	t_cell	*cell_a;
+	int		cost;
+	int		paire;
+
+	if (list_b->len <= 2)
+		return ;
+	paire = 0;
+	if (list_b->len % 2 == 0)
+		paire = 1;
+	cell_a = list_a->first;
+	while (cell_a != NULL)
+	{
+		cell_a->move_b = false;
+		cellb_back = list_b->last;
+		cell_b = list_b->first;
+		cost = costb_la(all->max_len, cellb_back, cell_b, cell_a);
+		if (cost <= list_b->len / 2)
+			cell_a->cost_b = cost;
+		if (cost == list_b->len / 2 && paire == 1)
+			cell_a->move_b = true;
+		if (cost > list_b->len / 2)
+			cell_a->cost_b = cost - list_b->len;
+		cell_a = cell_a->next;
+	}
+}
+
 void	get_all_cost(t_ctrl *all)
 {
 	t_cell	*cell;
