@@ -77,9 +77,12 @@ t_bool	lb_is_aligned_swap(t_ctrl *all)
 		return (false);
 	cella = all->list_a->first;
 	cellb = all->list_b->first;
-	if (cella->aligne_next == false)
+	if (all->list_b->len == 2
+		&& check_is_aligned(cellb->next, cellb, all->max_len, 2))
+		return (true);
+	if (check_is_aligned(cella, all->list_a->last, all->max_len, 0))
 		return (false);
-	if (check_is_aligned(cellb, cellb->next, all->max_len, 1) == false)
+	if (check_is_aligned(cellb, cellb->next, all->max_len, 0) == false)
 		return (false);
 	cellb = cellb->next;
 	if (check_is_aligned(cellb, cella, all->max_len, 1) == false)
