@@ -148,7 +148,6 @@ void	get_all_cost(t_ctrl *all)
 		i++;
 		cell = cell->next;
 	}
-	is_aligned(all);
 	costa_getposition_lb(all->list_a, all->list_b, all);
 	calculate_bonus_cost(all);
 }

@@ -44,8 +44,6 @@ void	set_all_cell(t_ctrl *all)
 		cell_a->tag = false;
 		cell_a->move_a = false;
 		cell_a->move_b = false;
-		cell_a->aligne_back = false;
-		cell_a->aligne_next = false;
 		cell_a = cell_a->next;
 	}
 }

@@ -12,17 +12,17 @@
 
 #include "../include/push_swap.h"
 
-t_bool	lb_is_aligned_bigswap(t_list *ListB, t_ctrl *all)
+t_bool	lb_is_aligned_bigswap(t_list *List_b, t_ctrl *all)
 {
 	t_cell	*cell;
 	t_cell	*next_cell;
 	int		i;
 
 	i = 1;
-	if (ListB->len < 4)
+	if (List_b->len < 4)
 		return (false);
-	cell = ListB->first;
-	next_cell = ListB->first->next;
+	cell = List_b->first;
+	next_cell = List_b->first->next;
 	while (i <= 2)
 	{
 		if (check_is_aligned(cell, next_cell, all->max_len, 1) == false)
@@ -49,12 +49,11 @@ t_bool	bigswap_optimisation(t_ctrl *all)
 		return (false);
 	cell = all->list_b->first;
 	i = 1;
-	while (i <= 4)
+	while (i++ <= 2)
 	{
-		if (cell->aligne_next == true)
+		if (check_is_aligned(cell, cell->next, all->max_len, 0))
 			return (false);
-		i++;
-		cell = cell->next;
+		cell = cell->next->next;
 	}
 	if (lb_is_aligned_bigswap(all->list_b, all) == false)
 		return (false);
@@ -70,22 +69,22 @@ t_bool	bigswap_optimisation(t_ctrl *all)
 
 t_bool	lb_is_aligned_swap(t_ctrl *all)
 {
-	t_cell	*cellb;
-	t_cell	*cella;
+	t_cell	*cell_b;
+	t_cell	*cell_a;
 
 	if (all->list_b->len < 2)
 		return (false);
-	cella = all->list_a->first;
-	cellb = all->list_b->first;
+	cell_a = all->list_a->first;
+	cell_b = all->list_b->first;
+	if (check_is_aligned(cell_a, all->list_a->last, all->max_len, 0))
+		return (false);
 	if (all->list_b->len == 2
-		&& check_is_aligned(cellb->next, cellb, all->max_len, 2))
+		&& check_is_aligned(cell_b->next, cell_b, all->max_len, 2))
 		return (true);
-	if (check_is_aligned(cella, all->list_a->last, all->max_len, 0))
+	if (check_is_aligned(cell_b, cell_b->next, all->max_len, 0) == false)
 		return (false);
-	if (check_is_aligned(cellb, cellb->next, all->max_len, 0) == false)
-		return (false);
-	cellb = cellb->next;
-	if (check_is_aligned(cellb, cella, all->max_len, 1) == false)
+	cell_b = cell_b->next;
+	if (check_is_aligned(cell_b, cell_a, all->max_len, 1) == false)
 		return (false);
 	return (true);
 }
@@ -101,7 +100,7 @@ t_bool	swap_optimisation(t_ctrl *all)
 	{
 		first_pos = all->list_a->first;
 		i = 0;
-		while (first_pos->final_pos != 1 || first_pos != NULL)
+		while (first_pos != NULL && first_pos->final_pos != 1)
 		{
 			first_pos = first_pos->next;
 			i++;
