@@ -48,6 +48,8 @@ t_bool	bigswap_optimisation(t_ctrl *all)
 	if (all->list_b->len < 4)
 		return (false);
 	cell = all->list_b->first;
+	if (check_is_aligned(cell->next, all->list_a->first, all->max_len, 1) == false)
+		return (false);
 	i = 1;
 	while (i++ <= 2)
 	{
