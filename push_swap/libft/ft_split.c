@@ -92,19 +92,18 @@ char	**ft_split(char const *x, char c)
 	tab = malloc(sizeof(*tab) * (nbr_word + 1));
 	if (!tab)
 		return (NULL);
-	y = 0;
 	pos = 0;
 	if (nbr_word > 0)
 		while (x[pos] == c)
 			pos++;
-	while (y < nbr_word)
+	y = -1;
+	while (++y < nbr_word)
 	{
 		tab[y] = the_word(x, c, pos);
 		if (tab[y] == NULL)
 			return (ft_errornull(tab, y));
 		pos = pos + strlen_word(x, c, pos);
-		y++;
 	}
-	tab[nbr_word] = 0;
+	tab[nbr_word] = NULL;
 	return (tab);
 }

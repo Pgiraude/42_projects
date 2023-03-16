@@ -67,7 +67,7 @@ typedef struct s_ctrl
 	struct s_list	*move;
 }t_ctrl;
 
-t_bool	is_error(char **str_values, int **values);
+t_bool	is_error(char **str_values);
 void	ft_print_allmove(t_list *move);
 void	quick_sort(t_list *A);
 
@@ -77,7 +77,7 @@ void	push_move(t_list *src, t_list *dest);
 void	rdo_move(t_list *list);
 int		all_move(t_list *list_a, t_list *list_b, t_move mode);
 
-void	push_swap(t_ctrl *all, int *values);
+void	push_swap(t_ctrl *all, char **values);
 
 void	push_to_b(t_ctrl *all);
 int		push_to_b_optimisation(t_ctrl *all);

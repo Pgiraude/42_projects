@@ -90,9 +90,10 @@ int	*get_number(char **char_values, int len)
 	return (tab_data);
 }
 
-t_bool	is_error(char **str_values, int **values)
+t_bool	is_error(char **str_values)
 {
-	int				i;
+	int	i;
+	int	*int_values;
 
 	i = 0;
 	while (str_values[i])
@@ -101,10 +102,10 @@ t_bool	is_error(char **str_values, int **values)
 			return (true);
 		i++;
 	}
-	*values = get_number(str_values, i);
-	if (*values == NULL)
+	int_values = get_number(str_values, i);
+	if (int_values == NULL)
 		return (true);
-	else if (check_double(*values, i))
-		return (free (*values), true);
-	return (false);
+	else if (check_double(int_values, i))
+		return (free (int_values), true);
+	return (free(int_values), false);
 }

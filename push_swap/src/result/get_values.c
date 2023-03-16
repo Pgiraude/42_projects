@@ -35,7 +35,7 @@ char	**create_tab_values(char **values, char **tmp)
 	index_b = -1;
 	while (tmp[++index_b])
 		new_values[index_a + index_b] = tmp[index_b];
-	new_values[index_a + index_b] = 0;
+	new_values[index_a + index_b] = NULL;
 	return (free (values), free (tmp), new_values);
 }
 
@@ -55,6 +55,11 @@ char	**get_values(int argc, char **argv)
 		tmp = ft_split(argv[i + 1], ' ');
 		values = create_tab_values(values, tmp);
 		i++;
+	}
+	if (values[0] == NULL)
+	{
+		free (values);
+		return (NULL);
 	}
 	return (values);
 }

@@ -73,7 +73,7 @@ void	get_final_pos(t_ctrl *all)
 	free_all_list(list_s);
 }
 
-void	push_swap(t_ctrl *all, int *values)
+void	push_swap(t_ctrl *all, char **values)
 {
 	t_cell	*first_pos;
 	int		i;
@@ -81,7 +81,7 @@ void	push_swap(t_ctrl *all, int *values)
 	set_all_list(all);
 	i = -1;
 	while (values[++i])
-		all->list_a = insert_data_list(all->list_a, values[i], 1);
+		all->list_a = insert_data_list(all->list_a, ft_atoi(values[i]), 1);
 	if (all->list_a->len == 1)
 		return ;
 	set_all_cell(all);
