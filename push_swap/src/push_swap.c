@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 16:51:50 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:29:55 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,17 @@ void	get_final_pos(t_ctrl *all)
 	free_all_list(list_s);
 }
 
-void	push_swap(t_ctrl *all, int argc, char **argv)
+void	push_swap(t_ctrl *all, int *values)
 {
 	t_cell	*first_pos;
 	int		i;
 
 	set_all_list(all);
-	i = 1;
-	while (i < argc)
-	{
-		all->list_a = insert_data_list(all->list_a, ft_atoi(argv[i]), 1);
-		i++;
-	}
+	i = -1;
+	while (values[++i])
+		all->list_a = insert_data_list(all->list_a, values[i], 1);
+	if (all->list_a->len == 1)
+		return ;
 	set_all_cell(all);
 	get_final_pos(all);
 	push_to_b(all);

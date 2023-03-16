@@ -6,29 +6,42 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:57:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 16:34:16 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:18:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-t_bool	check_arg(char *argv)
+void	free_str_values(char **values)
 {
 	int	i;
 
 	i = 0;
-	if (ft_strlen(argv) > 11)
-		return (true);
-	if ((argv[i] == '-' && argv[i + 1] == '0')
-		|| (argv[i] == '-' && argv[i + 1] == '\0'))
-		return (true);
-	if (argv[i] == '0' && argv[i + 1] != '\0')
-		return (true);
-	if (argv[i] == '-')
-		i++;
-	while (argv[i])
+	while (values[i])
 	{
-		if (!(argv[i] >= '0' && argv[i] <= '9'))
+		free (values[i]);
+		i++;
+	}
+	free (values);
+}
+
+t_bool	check_arg(char *val)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strlen(val) > 11)
+		return (true);
+	if ((val[i] == '-' && val[i + 1] == '0')
+		|| (val[i] == '-' && val[i + 1] == '\0'))
+		return (true);
+	if (val[i] == '0' && val[i + 1] != '\0')
+		return (true);
+	if (val[i] == '-')
+		i++;
+	while (val[i])
+	{
+		if (!(val[i] >= '0' && val[i] <= '9'))
 			return (true);
 		i++;
 	}
@@ -55,19 +68,21 @@ t_bool	check_double(int *tab_data, int len)
 	return (false);
 }
 
-int	*get_number(int argc, char **argv, int len)
+int	*get_number(char **char_values, int len)
 {
-	int	*tab_data;
-	int	data;
-	int	i;
+	long long int	data;
+	int				*tab_data;
+	int				i;
 
 	tab_data = malloc(sizeof(int) * (len + 1));
 	if (!tab_data)
 		return (NULL);
 	i = 0;
-	while ((i + 1) < argc)
+	while (char_values[i])
 	{
-		data = ft_atoi(argv[i + 1]);
+		data = ft_atoi(char_values[i]);
+		if (data > INT_MAX || data < INT_MIN)
+			return (free (tab_data), NULL);
 		tab_data[i] = data;
 		i++;
 	}
@@ -75,26 +90,21 @@ int	*get_number(int argc, char **argv, int len)
 	return (tab_data);
 }
 
-t_bool	is_error(int argc, char **argv)
+t_bool	is_error(char **str_values, int **values)
 {
-	long long int	data;
-	int				*tab_data;
 	int				i;
 
-	if (argc < 3)
-		return (true);
 	i = 0;
-	while ((i + 1) < argc)
+	while (str_values[i])
 	{
-		if (check_arg(argv[i + 1]) == true)
-			return (true);
-		data = ft_atoi(argv[i + 1]);
-		if (data > INT_MAX || data < INT_MIN)
+		if (check_arg(str_values[i]) == true)
 			return (true);
 		i++;
 	}
-	tab_data = get_number(argc, argv, i);
-	if (check_double(tab_data, i))
-		return (free (tab_data), true);
-	return (free (tab_data), false);
+	*values = get_number(str_values, i);
+	if (*values == NULL)
+		return (true);
+	else if (check_double(*values, i))
+		return (free (*values), true);
+	return (false);
 }

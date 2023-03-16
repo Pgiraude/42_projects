@@ -12,7 +12,8 @@ SRC_ALGORITHM 	= src/algorithm/get_all_cost.c src/algorithm/push_to_b_optimisati
 				src/algorithm/place_target.c src/algorithm/push_to_a.c \
 				src/algorithm/push_to_b.c
 
-SRC_RESULT		= src/result/check_error.c src/result/print_piles.c src/result/quick_sort.c
+SRC_RESULT		= src/result/check_error.c src/result/print_piles.c src/result/quick_sort.c \
+				src/result/get_values.c
 
 OBJS = $(SRC:.c=.o) $(SRC_CHAINLIST:.c=.o) $(SRC_MOVE:.c=.o) $(SRC_ALGORITHM:.c=.o) $(SRC_RESULT:.c=.o)
 
