@@ -54,3 +54,4 @@ dkms.conf
 # Testers
 printfTester/
 gnlTester/
+push_swap_tester/
