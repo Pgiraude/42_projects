@@ -91,6 +91,8 @@ void	get_swap(t_ctrl *all)
 	t_cell	*target;
 	int		nbr;
 
+	if (all->max_len > 100)
+		return ;
 	if (all->list_a->len == 2)
 	{
 		target = all->list_a->first;

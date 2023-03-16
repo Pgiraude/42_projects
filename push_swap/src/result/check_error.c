@@ -19,10 +19,13 @@ t_bool	check_arg(char *argv)
 	i = 0;
 	if (ft_strlen(argv) > 11)
 		return (true);
-	if (argv[i] == '-')
-		i++;
+	if ((argv[i] == '-' && argv[i + 1] == '0')
+		|| (argv[i] == '-' && argv[i + 1] == '\0'))
+		return (true);
 	if (argv[i] == '0' && argv[i + 1] != '\0')
 		return (true);
+	if (argv[i] == '-')
+		i++;
 	while (argv[i])
 	{
 		if (!(argv[i] >= '0' && argv[i] <= '9'))

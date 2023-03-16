@@ -92,6 +92,12 @@ void	placeup_target_lista(t_ctrl *all, t_cell *target)
 	if (target == NULL)
 		return ;
 	target->tag = false;
+	if (target->cost_a > 0 && target->cost_b < 0 && target->move_b == false
+		&& target->cost_a >= all->list_b->len + target->cost_b)
+		target->cost_b = all->list_b->len + target->cost_b;
+	else if (target->cost_a < 0 && target->cost_b > 0 && target->move_b == false
+		&& target->cost_a <= target->cost_b - all->list_b->len)
+		target->cost_b = target->cost_b - all->list_b->len;
 	placeup_bigmove_listb(all, target);
 	placeup_otherbigmove_listb(all, target);
 	while (target->cost_a > 0)
