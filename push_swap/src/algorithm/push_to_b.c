@@ -91,6 +91,8 @@ void	get_swap(t_ctrl *all)
 	t_cell	*target;
 	int		nbr;
 
+	if (all->max_len > 100)
+		return ;
 	if (all->list_a->len == 2)
 	{
 		target = all->list_a->first;
@@ -125,10 +127,18 @@ void	push_to_b(t_ctrl *all)
 	while (i <= nbr)
 	{
 		costa_getup_la(all->list_a);
+		costb_getposition_la(all->list_a, all->list_b, all);
 		target = target_to_process(all);
 		placeup_target_lista(all, target);
 		all_move(all->list_a, all->list_b, pb);
 		all->move = insert_data_list(all->move, pb, 1);
+		if (all->list_b->len > 2
+			&& (check_is_aligned(target, target->next, all->max_len, 1)
+			|| check_is_aligned(target, target->next->next, all->max_len, 0)))
+		{
+			all_move(all->list_a, all->list_b, sb);
+			all->move = insert_data_list(all->move, sb, 1);
+		}
 		i++;
 	}
 	get_swap(all);

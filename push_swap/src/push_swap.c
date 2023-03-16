@@ -44,8 +44,6 @@ void	set_all_cell(t_ctrl *all)
 		cell_a->tag = false;
 		cell_a->move_a = false;
 		cell_a->move_b = false;
-		cell_a->aligne_back = false;
-		cell_a->aligne_next = false;
 		cell_a = cell_a->next;
 	}
 }
@@ -99,5 +97,7 @@ void	push_swap(t_ctrl *all, int argc, char **argv)
 	costa_getup_la(all->list_a);
 	while (first_pos->final_pos != 1)
 		first_pos = first_pos->next;
+	first_pos->cost_b = 0;
+	first_pos->move_b = false;
 	placeup_target_lista(all, first_pos);
 }

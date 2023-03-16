@@ -45,8 +45,6 @@ typedef struct s_cell
 	int				cost_b;
 	int				final_pos;
 	int				bonus_cost;
-	t_bool			aligne_back;
-	t_bool			aligne_next;
 	t_bool			tag;
 	t_bool			move_a;
 	t_bool			move_b;
@@ -85,8 +83,8 @@ void	push_to_b(t_ctrl *all);
 int		push_to_b_optimisation(t_ctrl *all);
 int		get_score(t_cell *target, t_cell *compare, int max_len, int mode);
 void	costa_getup_la(t_list *ListA);
+void	costb_getposition_la(t_list *list_a, t_list *list_b, t_ctrl *all);
 void	get_all_cost(t_ctrl *all);
-void	is_aligned(t_ctrl *all);
 t_bool	check_is_aligned(t_cell *targ, t_cell *comp, int max_len, int mode);
 void	push_to_a(t_ctrl *all);
 

@@ -104,8 +104,8 @@ void	push_to_a(t_ctrl *all)
 		loop = 1;
 		while (all->list_b->len > 0 && loop > 0 && target != NULL)
 		{
-			if (all->list_b->first->aligne_next == true
-				&& all->list_b->first->next != NULL)
+			target = all->list_b->first;
+			if (check_is_aligned(target, target->next, all->max_len, 0))
 				loop++;
 			all->move = insert_data_list(all->move, pa, 1);
 			all_move(all->list_a, all->list_b, pa);
