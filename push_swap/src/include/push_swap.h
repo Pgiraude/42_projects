@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:49:08 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/16 19:25:28 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:23:44 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ int		get_score(t_cell *target, t_cell *compare, int max_len, int mode);
 void	costa_getup_la(t_list *ListA);
 void	costb_getposition_la(t_list *list_a, t_list *list_b, t_ctrl *all);
 void	get_all_cost(t_ctrl *all);
+int		is_paire(int len);
+void	calculate_bonus_cost(t_ctrl *all);
+int		get_score(t_cell *target, t_cell *compare, int max_len, int mode);
 t_bool	check_is_aligned(t_cell *targ, t_cell *comp, int max_len, int mode);
 void	push_to_a(t_ctrl *all);
 
@@ -104,4 +107,9 @@ t_list	*insert_cell_list(t_list *list, t_cell *cell, int mode);
 
 char	**get_values(int argc, char **argv);
 void	free_str_values(char **values);
+
+void	get_final_pos(t_ctrl *all);
+void	set_all_cell(t_ctrl *all);
+void	set_all_list(t_ctrl *all);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:28:58 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 14:30:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:27:41 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_bool	bigswap_optimisation(t_ctrl *all)
 	if (all->list_b->len < 4)
 		return (false);
 	cell = all->list_b->first;
-	if (check_is_aligned(cell->next, all->list_a->first, all->max_len, 1) == false)
+	if (!check_is_aligned(cell->next, all->list_a->first, all->max_len, 1))
 		return (false);
 	i = 1;
 	while (i++ <= 2)

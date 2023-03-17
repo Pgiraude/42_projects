@@ -55,3 +55,6 @@ dkms.conf
 printfTester/
 gnlTester/
 push_swap_tester/
+
+#parametre vscode
+.vscode/

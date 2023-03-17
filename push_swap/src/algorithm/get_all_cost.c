@@ -6,67 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:40 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 12:12:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:15:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-
-void	calculate_bonus_cost(t_ctrl *all)
-{
-	t_cell	*cell;
-	int		sign;
-	int		i;
-
-	cell = all->list_b->first;
-	while (cell != NULL)
-	{
-		sign = 1;
-		i = 0;
-		if (i < cell->cost_a && i < cell->cost_b)
-			while (i < cell->cost_a && i < cell->cost_b)
-				i++;
-		else if (i > cell->cost_a && i > cell->cost_b)
-			while (i > cell->cost_a && i > cell->cost_b)
-				i--;
-		else if ((cell->move_a == true && i > cell->cost_b)
-			|| (cell->move_b == true && i > cell->cost_a))
-			while (i > cell->cost_b || i > cell->cost_a)
-				i--;
-		if (i > 0)
-			sign = -1;
-		cell->bonus_cost = i * sign;
-		cell = cell->next;
-	}
-}
-
-int	get_score(t_cell *target, t_cell *compare, int max_len, int mode)
-{
-	int	position;
-	int	score;
-
-	position = target->final_pos;
-	score = 0;
-	if (mode == 0)
-	{
-		while (position-- != compare->final_pos)
-		{
-			score++;
-			if (position < 1)
-				position = max_len;
-		}
-	}
-	else
-	{
-		while (position++ != compare->final_pos)
-		{
-			score++;
-			if (position > max_len)
-				position = 1;
-		}
-	}
-	return (score);
-}
 
 int	costa_lb(int max_len, t_cell *la_back, t_cell *la, t_cell *lb)
 {
@@ -105,9 +49,7 @@ void	costa_getposition_lb(t_list *list_a, t_list *list_b, t_ctrl *all)
 	int		cost;
 	int		paire;
 
-	paire = 0;
-	if (list_a->len % 2 == 0)
-		paire = 1;
+	paire = is_paire(list_a->len);
 	cellb = list_b->first;
 	while (cellb != NULL)
 	{
@@ -164,9 +106,7 @@ void	costb_getposition_la(t_list *list_a, t_list *list_b, t_ctrl *all)
 
 	if (list_b->len <= 2)
 		return ;
-	paire = 0;
-	if (list_b->len % 2 == 0)
-		paire = 1;
+	paire = is_paire(list_b->len);
 	cell_a = list_a->first;
 	while (cell_a != NULL)
 	{

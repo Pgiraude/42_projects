@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_lineV2.c                                  :+:      :+:    :+:   */
+/*   get_next_line_v2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:12:47 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/10 10:10:23 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 10:51:42 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*process_buffer(char *buffer)
 	}
 	end_line[i] = '\0';
 	tmp = rest_buffer(buffer);
-	ft_strlcpy(buffer, tmp, (BUFFER_SIZE - len));
+	ft_strlcpy_gnl(buffer, tmp, (BUFFER_SIZE - len));
 	free (tmp);
 	return (end_line);
 }
@@ -83,15 +83,15 @@ char	*create_line(int fd, char *buffer, char *line)
 		if (size < 0 || (size == 0 && ft_strlen(line) == 0))
 			return (free (line), NULL);
 		buffer[size] = '\0';
-		if (ft_strchr(buffer, '\n'))
+		if (ft_strchr_gnl(buffer, '\n'))
 		{
 			end_line = process_buffer(buffer);
-			line = ft_strjoin(line, end_line);
+			line = ft_strjoin_gnl(line, end_line);
 			free (end_line);
 			return (line);
 		}
 		else
-			line = ft_strjoin(line, buffer);
+			line = ft_strjoin_gnl(line, buffer);
 	}
 	return (line);
 }
@@ -112,9 +112,9 @@ char	*get_next_line(int fd)
 	if (buffer[0] != '\0')
 	{
 		tmp = process_buffer(buffer);
-		line = ft_strjoin(line, tmp);
+		line = ft_strjoin_gnl(line, tmp);
 		free (tmp);
-		if (ft_strchr(line, '\n'))
+		if (ft_strchr_gnl(line, '\n'))
 			return (line);
 	}
 	return (create_line(fd, buffer, line));

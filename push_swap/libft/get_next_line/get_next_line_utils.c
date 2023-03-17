@@ -6,25 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 21:10:21 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/02/09 11:37:44 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:58:16 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *c)
-{
-	size_t	i;
-
-	i = 0;
-	while (c[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin_gnl(char *s1, const char *s2)
 {
 	int		i;
 	int		j;
@@ -48,7 +36,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (str);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr_gnl(const char *s, int c)
 {
 	const char		*ptr;
 	size_t			i;
@@ -70,7 +58,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-int	ft_strlcpy(char *dst, const char *src, size_t size)
+int	ft_strlcpy_gnl(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	len_src;
@@ -87,26 +75,4 @@ int	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	dst[i] = '\0';
 	return (len_src);
-}
-
-char	*ft_strdup(const char *s)
-{
-	int		len;
-	char	*ptr;
-	int		i;
-
-	len = 0;
-	while (s[len])
-		len++;
-	ptr = malloc(sizeof(char) * (len + 1));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		ptr[i] = s[i];
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
 }

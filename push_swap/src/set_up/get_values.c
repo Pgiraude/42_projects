@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:16:37 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/16 20:03:52 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:28:39 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**get_values(int argc, char **argv)
 	if (argc == 1)
 		return (NULL);
 	i = 0;
-	while(argv[i + 1])
+	while (argv[i + 1])
 	{
 		tmp = ft_split(argv[i + 1], ' ');
 		values = create_tab_values(values, tmp);

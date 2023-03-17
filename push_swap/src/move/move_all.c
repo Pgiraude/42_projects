@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:44:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 14:30:27 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:59:43 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int	s_move(t_list *list_a, t_list *list_b, t_move mode)
 		swap_move(list_a);
 	else if (mode == sb && list_b->len >= 2)
 		swap_move(list_b);
-	else if (mode == ss && list_a->len >= 2 && list_b->len >= 2)
+	else if (mode == ss)
 	{
-		swap_move(list_a);
-		swap_move(list_b);
+		if (list_a->len >= 2)
+			swap_move(list_a);
+		if (list_b->len >= 2)
+			swap_move(list_b);
 	}
 	else
 		return (-1);
@@ -45,19 +47,23 @@ int	r_move(t_list *list_a, t_list *list_b, t_move mode)
 		rup_move(list_a);
 	else if (mode == rb && list_b->len >= 2)
 		rup_move(list_b);
-	else if (mode == rr && list_a->len >= 2 && list_b->len >= 2)
+	else if (mode == rr)
 	{
-		rup_move(list_a);
-		rup_move(list_b);
+		if (list_a->len >= 2)
+			rup_move(list_a);
+		if (list_b->len >= 2)
+			rup_move(list_b);
 	}
 	else if (mode == rra && list_a->len >= 2)
 		rdo_move(list_a);
 	else if (mode == rrb && list_b->len >= 2)
 		rdo_move(list_b);
-	else if (mode == rrr && list_a->len >= 2 && list_b->len >= 2)
+	else if (mode == rrr)
 	{
-		rdo_move(list_a);
-		rdo_move(list_b);
+		if (list_a->len >= 2)
+			rdo_move(list_a);
+		if (list_b->len >= 2)
+			rdo_move(list_b);
 	}
 	else
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 18:35:17 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/14 16:25:29 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:22:05 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	get_swap(t_ctrl *all)
 
 void	push_to_b(t_ctrl *all)
 {
-	t_cell	*target;
+	t_cell	*targ;
 	int		i;
 	int		nbr;
 
@@ -128,13 +128,13 @@ void	push_to_b(t_ctrl *all)
 	{
 		costa_getup_la(all->list_a);
 		costb_getposition_la(all->list_a, all->list_b, all);
-		target = target_to_process(all);
-		placeup_target_lista(all, target);
+		targ = target_to_process(all);
+		placeup_target_lista(all, targ);
 		all_move(all->list_a, all->list_b, pb);
 		all->move = insert_data_list(all->move, pb, 1);
 		if (all->list_b->len > 2
-			&& (check_is_aligned(target, target->next, all->max_len, 1)
-			|| check_is_aligned(target, target->next->next, all->max_len, 0)))
+			&& (check_is_aligned(targ, targ->next, all->max_len, 1)
+				|| check_is_aligned(targ, targ->next->next, all->max_len, 0)))
 		{
 			all_move(all->list_a, all->list_b, sb);
 			all->move = insert_data_list(all->move, sb, 1);
