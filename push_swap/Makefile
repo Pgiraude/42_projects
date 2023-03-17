@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/17 13:30:36 by pgiraude          #+#    #+#              #
-#    Updated: 2023/03/17 13:30:39 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/03/17 15:12:53 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ RM = rm -f
 CC = cc
 
 all: $(NAME) $(B_NAME)
+
+push: $(NAME)
 
 bonus: $(B_NAME)
 

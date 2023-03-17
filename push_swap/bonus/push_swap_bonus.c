@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:07:03 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/17 13:03:32 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:09:05 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	push_swap_bonus(t_ctrl *all, char **values)
 	get_final_pos(all);
 	if (ft_instruction_list(all->list_a, all->list_b) == EXIT_FAILURE)
 	{
-		ft_printf("Error here\n");
+		ft_printf("Error\n");
 		return ;
 	}
 	check_result(all->list_a, all->max_len);
