@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:24:03 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/13 18:39:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+void	*ft_calloc(size_t nmemb, size_t sizeofby)
 {
-	size_t	len;
+	void		*ptr;
 
-	len = 1;
-	while (nbr >= base)
-	{
-		nbr /= base;
-		len++;
-	}
-	return (len);
+	if (sizeofby == 0 || nmemb == 0)
+		return (malloc(0));
+	if (nmemb > (SIZE_MAX / sizeofby))
+		return (NULL);
+	ptr = malloc(nmemb * sizeofby);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, 0, (sizeofby * nmemb));
+	return (ptr);
 }

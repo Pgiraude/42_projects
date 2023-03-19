@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 16:11:20 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/27 20:17:45 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+int	ft_isascii(unsigned char c)
 {
-	size_t	len;
-
-	len = 1;
-	while (nbr >= base)
-	{
-		nbr /= base;
-		len++;
-	}
-	return (len);
+	if (c == 0)
+		return (1);
+	if (c > 0 && c <= 127)
+		return (1);
+	else
+		return (0);
 }

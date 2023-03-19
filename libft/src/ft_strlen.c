@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 16:50:07 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/02/21 16:17:41 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+size_t	ft_strlen(const char *c)
 {
-	size_t	len;
+	size_t	i;
 
-	len = 1;
-	while (nbr >= base)
+	if (!c)
+		return (0);
+	i = 0;
+	while (c[i])
 	{
-		nbr /= base;
-		len++;
+		i++;
 	}
-	return (len);
+	return (i);
 }

@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/04 17:10:14 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/22 21:07:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+int	ft_isdigit(unsigned char c)
 {
-	size_t	len;
-
-	len = 1;
-	while (nbr >= base)
+	if (c >= '0' && c <= '9')
 	{
-		nbr /= base;
-		len++;
+		return (10);
 	}
-	return (len);
+	else
+		return (0);
 }

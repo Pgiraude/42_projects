@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 17:05:07 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/22 21:08:22 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+void	*ft_memset(void *s, int c, size_t size)
 {
-	size_t	len;
+	char	*ptr;
+	size_t	i;
 
-	len = 1;
-	while (nbr >= base)
+	ptr = s;
+	i = 0;
+	while (i < size)
 	{
-		nbr /= base;
-		len++;
+		ptr[i] = (char)c;
+		i++;
 	}
-	return (len);
+	return (ptr);
 }

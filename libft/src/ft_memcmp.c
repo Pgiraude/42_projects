@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:22:37 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/27 20:33:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	len;
+	const unsigned char	*ptr1;
+	const unsigned char	*ptr2;
+	size_t				i;
 
-	len = 1;
-	while (nbr >= base)
+	ptr1 = s1;
+	ptr2 = s2;
+	i = 0;
+	while (i < n)
 	{
-		nbr /= base;
-		len++;
+		if (ptr1[i] != ptr2[i])
+			return (ptr1[i] - ptr2[i]);
+		i++;
 	}
-	return (len);
+	return (0);
 }

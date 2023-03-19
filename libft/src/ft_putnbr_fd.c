@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/20 21:52:13 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/02 17:09:38 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+void	ft_putchar_putnbr(char c, int fd)
 {
-	size_t	len;
+	write(fd, &c, 1);
+}
 
-	len = 1;
-	while (nbr >= base)
+void	ft_putnbr_fd(int n, int fd)
+{
+	long int	l;
+
+	l = n;
+	if (l < 0)
 	{
-		nbr /= base;
-		len++;
+		l = l * -1;
+		ft_putchar_putnbr('-', fd);
 	}
-	return (len);
+	if (l > 9)
+	{
+		ft_putnbr_fd((l / 10), fd);
+	}
+	ft_putchar_putnbr(((l % 10) + 48), fd);
 }

@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:17:36 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/12 20:18:30 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t	len;
+	char		*ptr_dest;
+	char		*ptr_src;
+	size_t		i;
 
-	len = 1;
-	while (nbr >= base)
+	if (!src && !dest)
+		return (NULL);
+	ptr_dest = (void *)dest;
+	ptr_src = (void *)src;
+	i = 0;
+	while (i < n)
 	{
-		nbr /= base;
-		len++;
+		ptr_dest[i] = ptr_src[i];
+		i++;
 	}
-	return (len);
+	return (dest);
 }

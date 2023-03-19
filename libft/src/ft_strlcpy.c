@@ -1,26 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:18:25 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/02 17:53:05 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+size_t	ft_strlen_strlcpy(const char *c)
 {
-	size_t	len;
+	int	i;
 
-	len = 1;
-	while (nbr >= base)
+	i = 0;
+	while (c[i])
 	{
-		nbr /= base;
-		len++;
+		i++;
 	}
-	return (len);
+	return (i);
+}
+
+int	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	len_src;
+
+	len_src = ft_strlen_strlcpy(src);
+	i = 0;
+	if (size > 0)
+	{
+		while (i <= (size - 1) && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (len_src);
 }

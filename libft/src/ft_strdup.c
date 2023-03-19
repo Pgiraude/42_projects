@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:24:29 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/13 18:46:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+char	*ft_strdup(const char *s)
 {
-	size_t	len;
+	int		len;
+	char	*ptr;
+	int		i;
 
-	len = 1;
-	while (nbr >= base)
-	{
-		nbr /= base;
+	len = 0;
+	while (s[len])
 		len++;
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		ptr[i] = s[i];
+		i++;
 	}
-	return (len);
+	ptr[i] = '\0';
+	return (ptr);
 }

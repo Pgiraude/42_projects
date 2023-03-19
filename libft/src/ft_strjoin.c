@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/20 22:03:56 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/12 22:58:26 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len;
+	int		i;
+	int		j;
+	char	*str;
+	int		x;
 
-	len = 1;
-	while (nbr >= base)
+	if (!s1 && !s2)
+		return (NULL);
+	x = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc(sizeof(char) * (x + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		nbr /= base;
-		len++;
+		str[i] = s1[i];
+		i++;
 	}
-	return (len);
+	j = 0;
+	while (s2[j])
+	{
+			str[i + j] = s2[j];
+			j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

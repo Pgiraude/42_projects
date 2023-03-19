@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/22 19:33:40 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/12 19:51:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	len;
+	char	*str;
+	int		i;
 
-	len = 1;
-	while (nbr >= base)
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str)
+		return (NULL);
+	while (s[i])
 	{
-		nbr /= base;
-		len++;
+		str[i] = (*f)(i, s[i]);
+		i++;
 	}
-	return (len);
+	str[i] = 0;
+	return (str);
 }

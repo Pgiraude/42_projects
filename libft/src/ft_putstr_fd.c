@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/20 21:54:42 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/13 18:45:34 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+void	ft_putchar_putstr(char c, int fd)
 {
-	size_t	len;
+	write(fd, &c, 1);
+}
 
-	len = 1;
-	while (nbr >= base)
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		nbr /= base;
-		len++;
+		ft_putchar_putstr(s[i], fd);
+		i++;
 	}
-	return (len);
 }

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_len_calculator.c                                :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 20:04:32 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/08/22 20:44:18 by pgiraude         ###   ########.fr       */
+/*   Created: 2023/03/17 11:56:04 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/03/17 12:29:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_printf.h"
+#include "../include/libft.h"
 
-size_t	ft_len_calculator(size_t nbr, size_t base)
+int	ft_strcmp(char *str_1, char *str_2)
 {
-	size_t	len;
+	int	i;
 
-	len = 1;
-	while (nbr >= base)
+	i = 0;
+	while (str_1[i] || str_2[i])
 	{
-		nbr /= base;
-		len++;
+		if (str_1[i] < str_2[i])
+			return (str_1[i] - str_2[i]);
+		if(str_1[i] > str_2[i])
+			return (str_1[i] - str_2[i]);
+		i++;
 	}
-	return (len);
+	return (0);
 }

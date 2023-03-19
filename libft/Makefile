@@ -1,5 +1,7 @@
 NAME    =   libft.a
 
+SRCDIR	=	src/
+
 SRC =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c	\
 		ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c	\
 		ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c	\
@@ -8,25 +10,36 @@ SRC =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c	\
 		ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c	\
 		ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_strcmp.c
 
-OBJS    =   $(SRC:.c=.o)
+SRC_PRINTFDIR	=	src/ft_printf/
 
-all: $(NAME)
+SRC_PRINTF	=	ft_printf.c ft_convert_hex.c ft_convert_ptr.c \
+				ft_len_calculator.c ft_convert_dec.c ft_convert_str.c ft_convert_udec.c
+
+SRC_GNLDIR	=	src/get_next_line/
+
+SRC_GNL		=	get_next_line.c get_next_line_utils.c get_next_line_bonus.c
+
+OBJS    =   $(addprefix $(SRCDIR), $(SRC:.c=.o)) \
+			$(addprefix $(SRC_PRINTFDIR), $(SRC_PRINTF:.c=.o)) \
+			$(addprefix $(SRC_GNLDIR), $(SRC_GNL:.c=.o))
 
 RM  =   rm -f
+
+MAKEFLAGS	=	--no-print-directory
 
 CFLAGS = -Werror -Wextra -Wall
 
 $(NAME): $(OBJS)
-	cd ./ft_printf && $(MAKE)
-	cp ft_printf/libftprintf.a $(NAME)
 	ar  rcs $(NAME) $(OBJS)
 
+all: $(NAME)
+
 clean:
-	cd ./ft_printf && $(MAKE) clean
 	$(RM) $(OBJS)
 
 fclean: clean
-	cd ./ft_printf && $(MAKE) fclean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re
