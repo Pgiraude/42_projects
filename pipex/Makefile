@@ -1,26 +1,33 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/18 11:03:41 by pgiraude          #+#    #+#              #
-#    Updated: 2023/03/18 17:43:15 by pgiraude         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = pipex
 
-NAME	=	pipex
+SRC = pipex.c
 
-SRC		=	pipex.c
+OBJS = $(SRC:.c=.o)
 
-OBJS	=	$(SRC:.c=.0)
+RM = rm -f
 
-CC		= cc
+CC = cc
 
-CFLAGS	= -Werror -Wextra -Wall
+FLAGS = -Werror -Wextra -Wall
 
-all:	$(NAME) $(OBJS)
+LIBFT = cd libft && make
+
+MAKEFLAGS	=	--no-print-directory
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
+	$(LIBFT) 
+	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(FLAGS)
+
+all: $(NAME)
+
+clean:
+	$(LIBFT) clean
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(LIBFT) fclean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
