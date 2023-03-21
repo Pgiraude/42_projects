@@ -1,9 +1,0 @@
-total 40
-drwxr-xr-x 4 pgiraude 2022_paris  4096 Mar 20 19:17 libft
--rw-r--r-- 1 pgiraude 2022_paris  1277 Mar 20 19:17 Makefile
--rwxr-xr-x 1 pgiraude 2022_paris 17888 Mar 20 19:17 pipex
--rw-r--r-- 1 pgiraude 2022_paris  1063 Mar 20 19:17 pipex.c
--rw-r--r-- 1 pgiraude 2022_paris   968 Mar 20 19:17 pipex.h
--rw-r--r-- 1 pgiraude 2022_paris     0 Mar 21 15:16 tac
--rw-r--r-- 1 pgiraude 2022_paris     0 Mar 21 16:44 test01
--rw-r--r-- 1 pgiraude 2022_paris    14 Mar 21 16:20 test02

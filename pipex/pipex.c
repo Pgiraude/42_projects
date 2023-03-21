@@ -15,15 +15,33 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int	i;
+	int		i;
 	pid_t	pid;
+	int		fd;
+	int		fd2;
 
 	// if (argc < 5)
 	// {
-	// 	ft_printf("Not enough argument\n");
+	// 	ft_printf("Error, not enough argument\n");
 	// 	return (1); 
 	// }
-	
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("Error, cannot open %s\n", argv[1]);
+		return (1);
+	}
+
+	fd2 = open(argv[2], O_WRONLY);
+	if (fd2 < 0)
+	{
+		ft_printf("Error, cannot open %s\n", argv[4]);
+		return (1);
+	}
+
+
+
 	i = 0;
 	while (envp[i])
 	{
