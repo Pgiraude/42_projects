@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/20 19:15:14 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:49:44 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PIPEX_H
 
 # include "libft/include/libft.h"
+# include <sys/types.h>
+# include <unistd.h>
+
 
 
 #endif
