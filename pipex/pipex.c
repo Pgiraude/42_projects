@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 
-	file2 = open(argv[2], O_WRONLY);
+	file2 = open(argv[2], O_WRONLY | O_RDONLY);
 	if (file2 < 0)
 	{
 		ft_printf("Error, cannot open file2=%s\n", argv[4]);
@@ -49,11 +49,11 @@ int	main(int argc, char **argv, char **envp)
 	}
 
 /*  test pipe */
-	char buffer[12];
+	// char buffer[12];
 	int	pid_fd[2];
 	pipe(pid_fd);
 
-	write(pid_fd[1], "Pipe : test\n", ft_strlen("Pipe : test\n"));
+	// write(pid_fd[1], "Pipe : test\n", ft_strlen("Pipe : test\n"));
 
 	// read(pid_fd[0], buffer, 11);
 	// printf("%s", buffer);
@@ -69,20 +69,47 @@ int	main(int argc, char **argv, char **envp)
 	if (pid == 0)
 	{
 		/* test redirection*/
-		ft_printf("\n\n");
-		close(pid_fd[1]);	
-		ft_printf("i m the son PID =%d ->print avant test\n", pid);
-		dup2(pid_fd[0], STDOUT_FILENO);
-		dup2(file2, STDIN_FILENO);
+		char *str;
+		int	len;
+		str = NULL;
+		str = "I come from the child\n";
+
+		ft_printf("\n-----------\n");
+		ft_printf("i m the son ->print avant test\n");
 		close(pid_fd[0]);
-		close(file2);
-		ft_printf("Child : is it print in the file?\n");
+
+		len = ft_strlen(str);
+		write(pid_fd[1], &len, sizeof(int));
+		write(pid_fd[1], &str, sizeof(char) * len);
+		close(pid_fd[1]);
 	}
 	if (pid != 0)
 	{
-		ft_printf("\n\n");		
-		ft_printf("i m the father PID =%d\n", pid);
-		ft_printf("test printf father?\n");
+		char *str;
+		// char string[20];
+		int		len;
+
+		str = NULL;
+		wait(NULL);
+		ft_printf("\n-----------\n");		
+		ft_printf("i m the father\n");
+		close(pid_fd[1]);
+
+		// dup2(pid_fd[0], STDIN_FILENO);
+		dup2(file2, STDOUT_FILENO);
+
+		read(pid_fd[0], &len, sizeof(int));
+		read(pid_fd[0], &str, sizeof(char) * len);
+
+				ft_printf("Father : %s", str);
+		// close(pid_fd[0]);
+
+
+		close(pid_fd[0]);
+
+		close(file2);
+
+
 	}
 
 }
