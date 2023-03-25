@@ -19,6 +19,10 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-
+typedef struct e_data
+{
+    char    *cmd;
+    char    **option;
+}t_data;
 
 #endif

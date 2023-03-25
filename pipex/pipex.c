@@ -48,6 +48,19 @@ char	*get_command(char **envp, char *cmd)
 		}
 		line_envp = get_environnement(envp);
 	}
+	return (NULL);
+}
+
+t_data	*parsing(char *command, t_data *data)
+{
+	char	**split_command;
+	int		i;
+
+	split_command = ft_split(command, ' ');
+	data->cmd = split_command[0];
+	data->option = split_command + 1;
+	printf("cmd=%s\n", data->cmd);
+	printf("option=%s\n", data->option[0]);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -56,16 +69,19 @@ int	main(int argc, char **argv, char **envp)
 	// pid_t	pid;
 	// int		file1;
 	// int		file2;
-	char	*cmd;
 	char	*path;
 	char	**option;
+	t_data	*data;
+	int		i;
 
 	option = NULL;
-	cmd = "ls";
+	i = 0;
 
-	path = get_command(envp, ft_strjoin("/", cmd));
+	data = parsing(argv[2], data);
+
+	path = get_command(envp, ft_strjoin("/", data->cmd));
 	ft_printf("%s\n", path);
-	execve(path, option, envp);
+	execve(path, data->option, envp);
 	// if (argc < 5)
 	// {
 	// 	ft_printf("Error, not enough argument\n");
@@ -79,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 // 		return (1);
 // 	}
 
-// 	file2 = open(argv[2], O_WRONLY | O_RDONLY);
+// 	file2 = open(argv[argc - 1], O_WRONLY | O_RDONLY);
 // 	if (file2 < 0)
 // 	{
 // 		ft_printf("Error, cannot open file2=%s\n", argv[4]);
