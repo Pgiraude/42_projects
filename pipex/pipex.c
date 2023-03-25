@@ -14,8 +14,9 @@
 
 char	*get_environnement(char **envp)
 {
-	static int	i;
+	int	i;
 
+	i = 0;
 	while (envp[i])
 	{
 		if (ft_strnstr(envp[i], "PATH=", 5) != NULL)
@@ -41,7 +42,6 @@ char	*get_command(char **envp, char *cmd)
 		{
 			
 			the_path = ft_strjoin(paths[i], cmd);
-			// ft_printf("%s\n", the_path);
 			i++;
 			if (access(the_path, F_OK) == 0)
 				return (the_path);
@@ -51,31 +51,73 @@ char	*get_command(char **envp, char *cmd)
 	return (NULL);
 }
 
-t_data	*parsing(char *command, t_data *data)
+t_data	parsing(char *command, t_data data)
 {
-	data->cmd = ft_split(command, ' ');
+	data.cmd = ft_split(command, ' ');
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	// int		i;
-	// pid_t	pid;
-	// int		file1;
-	// int		file2;
+
+	int		file1;
+	int		file2;
+	t_data	data;
 	char	*path;
-	t_data	*data;
+	char	*path2;
 	char	*start_cmd;
+	pid_t	pid;
+	int		fd[2];
+	char	***big_tab;
+	int		i;
 
+	data.cmd = NULL;
 
-	data->cmd = NULL;
-	ft_printf("test\n");
+	big_tab = malloc(sizeof(char**) * (argc - 3 + 1));
+	if (!big_tab)
+		return (1);
+	i = 2;
+	while (i <= argc - 2)
+	{
+		big_tab[i - 2] = ft_split(argv[i], ' ');
+		i++;
+	}
+	big_tab[i - 2] = NULL;
 
-	data = parsing(argv[2], data);
-	start_cmd = data->cmd[0];
+	start_cmd = big_tab[0][0];
 
 	path = get_command(envp, ft_strjoin("/", start_cmd));
-	ft_printf("%s\n", path);
-	execve(path, data->cmd, envp);
+
+	printf("path1=%s + big_tab=%s\n", path, big_tab[1][0]);
+	start_cmd = NULL;
+	start_cmd = big_tab[1][0];
+
+	path2 = get_command(envp, ft_strjoin("/", start_cmd));
+
+	printf("path2=%s\n", path2);
+
+	file1 = open(argv[1], O_RDONLY);
+	file2 = open(argv[argc - 1], O_WRONLY);
+	pipe(fd);
+
+	pid = fork();
+
+	if (pid == 0)
+	{
+		close(fd[0]);
+		dup2(file1, STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+		execve(path, big_tab[0], envp);
+	}
+	if (pid > 0)
+	{
+		close(fd[1]);
+		dup2(file2, STDOUT_FILENO);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		execve(path2, big_tab[1], envp);
+	}
 	// if (argc < 5)
 	// {
 	// 	ft_printf("Error, not enough argument\n");
