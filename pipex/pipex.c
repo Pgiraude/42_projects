@@ -53,14 +53,7 @@ char	*get_command(char **envp, char *cmd)
 
 t_data	*parsing(char *command, t_data *data)
 {
-	char	**split_command;
-	int		i;
-
-	split_command = ft_split(command, ' ');
-	data->cmd = split_command[0];
-	data->option = split_command + 1;
-	printf("cmd=%s\n", data->cmd);
-	printf("option=%s\n", data->option[0]);
+	data->cmd = ft_split(command, ' ');
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -70,18 +63,19 @@ int	main(int argc, char **argv, char **envp)
 	// int		file1;
 	// int		file2;
 	char	*path;
-	char	**option;
 	t_data	*data;
-	int		i;
+	char	*start_cmd;
 
-	option = NULL;
-	i = 0;
+
+	data->cmd = NULL;
+	ft_printf("test\n");
 
 	data = parsing(argv[2], data);
+	start_cmd = data->cmd[0];
 
-	path = get_command(envp, ft_strjoin("/", data->cmd));
+	path = get_command(envp, ft_strjoin("/", start_cmd));
 	ft_printf("%s\n", path);
-	execve(path, data->option, envp);
+	execve(path, data->cmd, envp);
 	// if (argc < 5)
 	// {
 	// 	ft_printf("Error, not enough argument\n");

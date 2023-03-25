@@ -21,8 +21,7 @@
 
 typedef struct e_data
 {
-    char    *cmd;
-    char    **option;
+    char    **cmd;
 }t_data;
 
 #endif
