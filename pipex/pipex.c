@@ -55,12 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	int		file1;
 	int		file2;
-	char	*path;
-	char	*path2;
-	char	*start_cmd;
 	pid_t	pid;
 	int		fd[2];
-	char	***big_tab;
 	int		i;
 	char	*cmd;
 
@@ -82,15 +78,15 @@ int	main(int argc, char **argv, char **envp)
 		return (3);
 	}
 
-
-	data.options = malloc(sizeof(char**) * (argc - 3 + 1));
+	data.nbr_cmd = argc - 3;
+	data.options = malloc(sizeof(char**) * (data.nbr_cmd + 1));
 	if (!data.options)
 		return (4);
-	data.paths = malloc(sizeof(char*) * (argc - 3 + 1));
+	data.paths = malloc(sizeof(char*) * (data.nbr_cmd + 1));
 	if (!data.paths)
 		return (5);
 	i = 0;
-	while (i <= argc - 4)
+	while (i < data.nbr_cmd)
 	{
 		data.options[i] = ft_split(argv[i + 2], ' ');
 		cmd = NULL;
@@ -118,16 +114,19 @@ int	main(int argc, char **argv, char **envp)
 	printf("path2=%s\n", data.paths[1]);
 
 	pipe(fd);
-
 	pid = fork();
 
+	while (data.nbr_cmd > 0)
+	{
+		
+	}
 	if (pid == 0)
 	{
 		close(fd[0]);
 		dup2(file1, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
-		execve(path, data.options[0], envp);
+		execve(data.paths[0], data.options[0], envp);
 	}
 	if (pid > 0)
 	{
@@ -135,7 +134,7 @@ int	main(int argc, char **argv, char **envp)
 		dup2(file2, STDOUT_FILENO);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
-		execve(path2, data.options[1], envp);
+		execve(data.paths[1], data.options[1], envp);
 	}
 	wait(NULL);
 	i = 0;
