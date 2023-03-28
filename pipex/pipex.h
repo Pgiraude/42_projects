@@ -19,6 +19,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+typedef enum e_pipe
+{
+    READ,
+    WRITE
+}t_pipe;
+
 typedef struct e_data
 {
     char    ***options;

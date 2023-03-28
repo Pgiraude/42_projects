@@ -50,6 +50,28 @@ char	*get_path(char **envp, char *cmd)
 	return (ft_freestrings(paths), NULL);
 }
 
+void	child_process(t_data *data, int file1, int *fd, char **envp)
+{
+	pid_t	pid;
+	int		fd2[2];
+
+	pid = 0;
+	while (data->nbr_cmd > 2 && pid == 0)
+	{
+		pipe(fd2);
+		pid = fork();
+		data->nbr_cmd--;
+		if (pid > 0)
+			wait (NULL);
+		close(fd[READ]);
+		dup2(file1, STDIN_FILENO);
+		dup2(fd[WRITE], STDOUT_FILENO);
+		close(fd[WRITE]);
+		wait(NULL);
+	}
+		execve(data->paths[0], data->options[0], envp);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
@@ -116,32 +138,24 @@ int	main(int argc, char **argv, char **envp)
 	pipe(fd);
 	pid = fork();
 
-	while (data.nbr_cmd > 0)
-	{
-		
-	}
 	if (pid == 0)
 	{
-		close(fd[0]);
-		dup2(file1, STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		execve(data.paths[0], data.options[0], envp);
+		child_process(&data, file1, fd, envp);
 	}
 	if (pid > 0)
 	{
-		close(fd[1]);
+		close(fd[WRITE]);
 		dup2(file2, STDOUT_FILENO);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
+		dup2(fd[READ], STDIN_FILENO);
+		close(fd[READ]);
 		execve(data.paths[1], data.options[1], envp);
 	}
-	wait(NULL);
-	i = 0;
-	while (data.options[i])
-	{
-		ft_freestrings(data.options[i]);
-		i++;
-	}
-	free (data.options);
+	// wait(NULL);
+	// i = 0;
+	// while (data.options[i])
+	// {
+	// 	ft_freestrings(data.options[i]);
+	// 	i++;
+	// }
+	// free (data.options);
 }
