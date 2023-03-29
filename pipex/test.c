@@ -26,6 +26,16 @@ void    child(int cmd, pid_t pid)
     }
 }
 
+int *inter(void)
+{
+    int *fd;
+
+    fd = malloc(sizeof(int) * (2 + 1));
+
+    fd[2] = '\0';
+    return (fd);
+}
+
 int main(int argc, char **argv, char **env)
 {
     pid_t   pid;
@@ -42,5 +52,26 @@ int main(int argc, char **argv, char **env)
     {
         wait (NULL);
         printf("i m the father\n");
+    }
+
+    int     **big_fd;
+    cmd = 3;
+    big_fd = malloc(sizeof(int*) * (cmd + 1));
+
+    int i = 0;
+    while (i < cmd)
+    {
+        big_fd[i] = inter();
+        big_fd[i][0] = i;
+        big_fd[i][1] = -i;
+        i++;
+    }
+    big_fd[i] = NULL;
+
+    i = 0;
+    while (big_fd[1][i])
+    {
+        printf("test %d\n", big_fd[1][i]);
+        i++;
     }
 }

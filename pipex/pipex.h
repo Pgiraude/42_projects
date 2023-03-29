@@ -29,6 +29,7 @@ typedef struct e_data
 {
     char    ***options;
     char    **paths;
+    int     **tab_fd;
     int     nbr_cmd;
 }t_data;
 
