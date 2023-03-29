@@ -72,10 +72,11 @@ void	child_process(t_data *data, int file1, int *fd, char **envp, pid_t pid)
 			}
 			else
 			{
+				data.nbr_cmd--;
 				pipe(data.tab_fd[data.nbr_cmd]);
 				pid = fork();
-				if (pid == 0)
-					data.nbr_cmd--;
+				if (pid > 0)
+					data.nbr_cmd++;
 			}
 		}
 		if (pid > 0)
@@ -189,10 +190,10 @@ int	main(int argc, char **argv, char **envp)
 /*-----------start of processing---------------*/
 	int max;
 
+	data.nbr_cmd -= 1;
 	max = data.nbr_cmd;
 	pipe(data.tab_fd[data.nbr_cmd]);
 	pid = fork();
-	data.nbr_cmd -= 1;
 
 	if (pid == 0)
 	{
