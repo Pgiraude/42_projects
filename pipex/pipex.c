@@ -50,15 +50,10 @@ char	*get_path(char **envp, char *cmd)
 	return (ft_freestrings(paths), NULL);
 }
 
-void	child_process(t_data *data, int file1, int *fd, char **envp, pid_t pid)
+void	child_process(t_data data, int file1, char **envp, pid_t pid)
 {
-	int		fd2[2];
-	int		fd1[2];
-	int		val;
 
-	val = -1;
-
-	while (data.nbr_cmd >= 0 || val == -1)
+	while (data.nbr_cmd >= 0)
 	{
 		if (pid == 0)
 		{
@@ -68,45 +63,27 @@ void	child_process(t_data *data, int file1, int *fd, char **envp, pid_t pid)
 				dup2(file1, STDIN_FILENO);
 				dup2(data.tab_fd[0][WRITE], STDOUT_FILENO);
 				close(data.tab_fd[0][WRITE]);
-				execve(data->paths[0], data->options[0], envp);
+				execve(data.paths[0], data.options[0], envp);
 			}
 			else
 			{
 				data.nbr_cmd--;
 				pipe(data.tab_fd[data.nbr_cmd]);
 				pid = fork();
-				if (pid > 0)
-					data.nbr_cmd++;
 			}
 		}
 		if (pid > 0)
 		{
+			data.nbr_cmd++;
 			wait(NULL);
-			if (val == 1)
-			{
-				pipe(data.tab_fd[data.nbr_cmd]);
-				val = 2;
-				dup2([READ], STDIN_FILENO);
-				dup2(fd2[WRITE], STDOUT_FILENO);
-				close(fd1[READ]);
-				close(fd1[WRITE]);
-			}
+
+			dup2(data.tab_fd[data.nbr_cmd - 1][READ], STDIN_FILENO);
+			dup2(data.tab_fd[data.nbr_cmd][WRITE], STDOUT_FILENO);
+			close(data.tab_fd[data.nbr_cmd - 1][READ]);
+			close(data.tab_fd[data.nbr_cmd - 1][WRITE]);
+			execve(data.paths[data.nbr_cmd], data.options[data.nbr_cmd], envp);
 		}
 	}
-	while (data->nbr_cmd > 2 && pid == 0)
-	{
-		pipe(fd2);
-		pid = fork();
-		data->nbr_cmd--;
-		if (pid > 0)
-			wait (NULL);
-		close(fd[READ]);
-		dup2(file1, STDIN_FILENO);
-		dup2(fd[WRITE], STDOUT_FILENO);
-		close(fd[WRITE]);
-		wait(NULL);
-	}
-		execve(data->paths[0], data->options[0], envp);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -172,7 +149,7 @@ int	main(int argc, char **argv, char **envp)
 	printf("path1=%s\n", data.paths[0]);
 	printf("path2=%s\n", data.paths[1]);
 
-	data.tab_fd = malloc(sizeof(int*) * (data.nbr_cmd + 2))
+	data.tab_fd = malloc(sizeof(int*) * (data.nbr_cmd + 2));
 	if (!data.tab_fd)
 		return (7);
 	i = 0;
@@ -182,7 +159,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!fd)
 			return (8);
 		fd[2] = '\0';
-		data.tab_fd = fd;
+		data.tab_fd[i] = fd;
 		i++;
 	}
 	data.tab_fd[i] = NULL;
@@ -197,7 +174,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (pid == 0)
 	{
-		child_process(&data, file1, fd, envp, pid);
+		child_process(data, file1, envp, pid);
 	}
 	if (pid > 0)
 	{
@@ -205,14 +182,6 @@ int	main(int argc, char **argv, char **envp)
 		dup2(file2, STDOUT_FILENO);
 		dup2(data.tab_fd[max][READ], STDIN_FILENO);
 		close(data.tab_fd[max][READ]);
-		execve(data.paths[1], data.options[1], envp);
+		execve(data.paths[data.nbr_cmd + 1], data.options[data.nbr_cmd + 1], envp);
 	}
-	// wait(NULL);
-	// i = 0;
-	// while (data.options[i])
-	// {
-	// 	ft_freestrings(data.options[i]);
-	// 	i++;
-	// }
-	// free (data.options);
 }
