@@ -1,21 +1,23 @@
 #include "pipex.h"
 
-void    child(int *i)
+void    child(int i)
 {
     pid_t   pid;
 
     pid = fork();
-    while (*i++ < 2)
+    while (i < 2)
     {
         if (pid == 0)
         {
-            printf("i m the son of the son i = %d\n", *i);
+            printf("i m the son of the son i = %d\n", i);
             pid = fork();
+            i++;
         }
-        else if (pid > 0)
+        if (pid > 0  && i < 2)
         {
             wait (NULL);
-            printf("i m the son i = %d\n", *i);
+            printf("i m the son i = %d\n", i);
+            break ;
         }
     }
 }
@@ -30,7 +32,7 @@ int main(int argc, char **argv, char **env)
     pid = fork();
 
     if (pid == 0)
-        child(&i);
+        child(i);
     if (pid > 0)
     {
         wait (NULL);
