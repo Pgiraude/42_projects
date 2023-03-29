@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		return (3);
 	}
 
-	data.nbr_cmd = argc - 3;
+	data.nbr_cmd = argc - 4;
 	data.options = malloc(sizeof(char**) * (data.nbr_cmd + 1));
 	if (!data.options)
 		return (4);
@@ -108,7 +108,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!data.paths)
 		return (5);
 	i = 0;
-	while (i < data.nbr_cmd)
+	while (i <= data.nbr_cmd)
 	{
 		data.options[i] = ft_split(argv[i + 2], ' ');
 		cmd = NULL;
