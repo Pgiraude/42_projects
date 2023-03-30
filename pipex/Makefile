@@ -6,13 +6,13 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/03/20 19:15:01 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/03/30 16:05:08 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRC = pipex.c
+SRC = pipex.c get_command.c prepare_fd.c
 
 OBJS = $(SRC:.c=.o)
 
