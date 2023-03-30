@@ -25,7 +25,10 @@ int	open_file(int argc, char **argv, t_data *data)
 	while (i - 2 < argc - 3)
 	{
 		if (argv[i][0] == '\0')
+		{
+			ft_printf("Error : one argument is empty\n");
 			return (1);
+		}
 		i++;
 	}
 	data->file1 = open(argv[1], O_RDONLY);
