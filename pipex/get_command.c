@@ -16,6 +16,8 @@ char	*get_environnement(char **envp)
 {
 	int	i;
 
+	if (!envp)
+		return (NULL);
 	i = 0;
 	while (envp[i])
 	{
@@ -68,15 +70,15 @@ int	get_command(int argc, char **argv, char **envp, t_data *data)
 	int		i;
 	char	*cmd;
 
-	data->nbr_cmd = argc - 4;
-	data->options = malloc(sizeof(char **) * (data->nbr_cmd + 2));
+	data->index_cmd = argc - 4;
+	data->options = malloc(sizeof(char **) * (data->index_cmd + 2));
 	if (!data->options)
 		return (4);
-	data->paths = malloc(sizeof(char *) * (data->nbr_cmd + 2));
+	data->paths = malloc(sizeof(char *) * (data->index_cmd + 2));
 	if (!data->paths)
 		return (5);
 	i = 0;
-	while (i <= data->nbr_cmd)
+	while (i <= data->index_cmd)
 	{
 		data->options[i] = ft_split(argv[i + 2], ' ');
 		cmd = NULL;

@@ -12,70 +12,85 @@
 
 #include "pipex.h"
 
-void	child_process(t_data data, int file1, char **envp, pid_t pid)
+void	execve_process(int index_cmd, char **envp, pid_t pid, t_data *data)
 {
+	if (pid == 0)
+	{
+		dup2(data->file1, STDIN_FILENO);
+		dup2(data->tab_fd[0][WRITE], STDOUT_FILENO);
+		close(data->tab_fd[0][WRITE]);
+		close(data->tab_fd[0][READ]);
+		execve(data->paths[0], data->options[0], envp);
+	}
+	if (pid > 0)
+	{
+		// wait(NULL);
+		dup2(data->tab_fd[index_cmd][READ], STDIN_FILENO);
+		dup2(data->tab_fd[index_cmd + 1][WRITE], STDOUT_FILENO);
+		close(data->tab_fd[index_cmd][READ]);
+		close(data->tab_fd[index_cmd][WRITE]);
+		close(data->tab_fd[index_cmd + 1][WRITE]);
+		close(data->tab_fd[index_cmd + 1][READ]);
+		execve(data->paths[index_cmd + 1], data->options[index_cmd + 1], envp);
+	}
+}
 
-	while (data.nbr_cmd >= 0)
+int	loop_process(t_data *data, char **envp, pid_t pid)
+{
+	while (1)
 	{
 		if (pid == 0)
 		{
-			if (data.nbr_cmd == 0)
+			if (data->index_cmd == 0)
 			{
-				dup2(file1, STDIN_FILENO);
-				dup2(data.tab_fd[0][WRITE], STDOUT_FILENO);
-				close(data.tab_fd[0][WRITE]);
-				close(data.tab_fd[0][READ]);
-				execve(data.paths[0], data.options[0], envp);
+				execve_process(data->index_cmd, envp, pid, data);
+				return (2);
 			}
 			else
 			{
-				data.nbr_cmd--;
-				pipe(data.tab_fd[data.nbr_cmd]);
+				data->index_cmd--;
+				if (pipe(data->tab_fd[data->index_cmd]) < 0)
+					return (1);
 				pid = fork();
 			}
 		}
 		if (pid > 0)
 		{
-			data.nbr_cmd++;
-			wait(NULL);
-
-			dup2(data.tab_fd[data.nbr_cmd - 1][READ], STDIN_FILENO);
-			dup2(data.tab_fd[data.nbr_cmd][WRITE], STDOUT_FILENO);
-			close(data.tab_fd[data.nbr_cmd - 1][READ]);
-			close(data.tab_fd[data.nbr_cmd - 1][WRITE]);
-			close(data.tab_fd[data.nbr_cmd][WRITE]);
-			close(data.tab_fd[data.nbr_cmd][READ]);
-			execve(data.paths[data.nbr_cmd], data.options[data.nbr_cmd], envp);
+			execve_process(data->index_cmd, envp, pid, data);
+			return (3);
 		}
 	}
 }
 
-void	lunch_process(char **envp, t_data data)
+int	lunch_process(char **envp, t_data *data)
 {
 	int 	max;
 	pid_t	pid;
 
-	data.nbr_cmd -= 1;
-	max = data.nbr_cmd;
-	pipe(data.tab_fd[data.nbr_cmd]);
+	data->index_cmd -= 1;
+	max = data->index_cmd;
+	if (pipe(data->tab_fd[data->index_cmd]) < 0)
+		return (1);
 	pid = fork();
 	if (pid == 0)
-		child_process(data, data.file1, envp, pid);
+		loop_process(data, envp, pid);
 	if (pid > 0)
 	{
-		close(data.tab_fd[max][WRITE]);
-		dup2(data.file2, STDOUT_FILENO);
-		dup2(data.tab_fd[max][READ], STDIN_FILENO);
-		close(data.tab_fd[max][READ]);
-		execve(data.paths[data.nbr_cmd + 1], data.options[data.nbr_cmd + 1], envp);
+		close(data->tab_fd[max][WRITE]);
+		dup2(data->file2, STDOUT_FILENO);
+		dup2(data->tab_fd[max][READ], STDIN_FILENO);
+		close(data->tab_fd[max][READ]);
+		execve(data->paths[max + 1], data->options[max + 1], envp);
 	}
+	ft_printf("Error : execution of processus didn't work\n");
+	free_all(data);
+	return (2);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	pid_t	pid;
-	int		*fd;
 	int		i;
 	char	*cmd;
 
@@ -83,11 +98,11 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (get_command(argc, argv, envp, &data) != 0)
 		return (2);
-	if (prepare_pipe(&data)!= 0)
+	if (prepare_pipe(&data) != 0)
 		return (3);
 	pid = fork();
 	if (pid == 0)
-		lunch_process(envp, data);
+		lunch_process(envp, &data);
 	wait(NULL);
 	free_all(&data);
 }

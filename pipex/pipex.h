@@ -32,7 +32,7 @@ typedef struct e_data
     char    ***options;
     char    **paths;
     int     **tab_fd;
-    int     nbr_cmd;
+    int     index_cmd;
 }t_data;
 
 int	    open_file(int argc, char **argv, t_data *data);

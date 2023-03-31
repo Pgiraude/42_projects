@@ -59,11 +59,11 @@ int	prepare_pipe(t_data *data)
 	int	*fd;
 	int	i;
 
-	data->tab_fd = malloc(sizeof(int *) * (data->nbr_cmd + 2));
+	data->tab_fd = malloc(sizeof(int *) * (data->index_cmd + 2));
 	if (!data->tab_fd)
 		return (1);
 	i = 0;
-	while (i <= data->nbr_cmd)
+	while (i <= data->index_cmd)
 	{
 		fd = malloc(sizeof(int) * (2 + 1));
 		if (!fd)
@@ -87,9 +87,10 @@ void	free_all(t_data *data)
 		i++;
 	}
 	free(data->options);
-	ft_freestrings(data->paths);
+	if (data->paths)
+		ft_freestrings(data->paths);
 	i = 0;
-	while (i <= data->nbr_cmd)
+	while (i <= data->index_cmd)
 	{
 		free (data->tab_fd[i]);
 		i++;
