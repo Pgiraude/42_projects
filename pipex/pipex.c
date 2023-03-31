@@ -50,6 +50,27 @@ void	child_process(t_data data, int file1, char **envp, pid_t pid)
 	}
 }
 
+void	lunch_process(char **envp, t_data data)
+{
+	int 	max;
+	pid_t	pid;
+
+	data.nbr_cmd -= 1;
+	max = data.nbr_cmd;
+	pipe(data.tab_fd[data.nbr_cmd]);
+	pid = fork();
+	if (pid == 0)
+		child_process(data, data.file1, envp, pid);
+	if (pid > 0)
+	{
+		close(data.tab_fd[max][WRITE]);
+		dup2(data.file2, STDOUT_FILENO);
+		dup2(data.tab_fd[max][READ], STDIN_FILENO);
+		close(data.tab_fd[max][READ]);
+		execve(data.paths[data.nbr_cmd + 1], data.options[data.nbr_cmd + 1], envp);
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
@@ -64,33 +85,9 @@ int	main(int argc, char **argv, char **envp)
 		return (2);
 	if (prepare_pipe(&data)!= 0)
 		return (3);
-
-	ft_printf("path1=%s\n", data.paths[0]);
-	ft_printf("path2=%s\n", data.paths[1]);
-
-
-
-
-/*-----------start of processing---------------*/
-	// int max;
-
-	// data.nbr_cmd -= 1;
-	// max = data.nbr_cmd;
-	// pipe(data.tab_fd[data.nbr_cmd]);
-	// pid = fork();
-
-	// if (pid == 0)
-	// {
-	// 	child_process(data, file1, envp, pid);
-	// }
-	// if (pid > 0)
-	// {
-	// 	close(data.tab_fd[max][WRITE]);
-	// 	dup2(file2, STDOUT_FILENO);
-	// 	dup2(data.tab_fd[max][READ], STDIN_FILENO);
-	// 	close(data.tab_fd[max][READ]);
-	// 	execve(data.paths[data.nbr_cmd + 1], data.options[data.nbr_cmd + 1], envp);
-	// }
-
+	pid = fork();
+	if (pid == 0)
+		lunch_process(envp, data);
+	wait(NULL);
 	free_all(&data);
 }

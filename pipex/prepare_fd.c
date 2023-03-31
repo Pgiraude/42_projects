@@ -12,7 +12,8 @@
 
 #include "pipex.h"
 
-int	open_file(int argc, char **argv, t_data *data)
+
+int	check_arguments(int argc, char **argv)
 {
 	int	i;
 
@@ -27,17 +28,24 @@ int	open_file(int argc, char **argv, t_data *data)
 		if (argv[i][0] == '\0')
 		{
 			ft_printf("Error : one argument is empty\n");
-			return (1);
+			return (2);
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	open_file(int argc, char **argv, t_data *data)
+{
+	if (check_arguments(argc, argv) != 0)
+		return (1);
 	data->file1 = open(argv[1], O_RDONLY);
 	if (data->file1 < 0)
 	{
 		ft_printf("Error : cannot open %s\n", argv[1]);
 		return (2);
 	}
-	data->file2 = open(argv[argc - 1], O_WRONLY);
+	data->file2 = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (data->file2 < 0)
 	{
 		ft_printf("Error : cannot open %s\n", argv[argc - 1]);
