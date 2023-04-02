@@ -48,6 +48,7 @@ int	open_file(int argc, char **argv, t_data *data)
 	data->file2 = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (data->file2 < 0)
 	{
+		close(data->file1);
 		ft_printf("Error : cannot open %s\n", argv[argc - 1]);
 		return (3);
 	}
