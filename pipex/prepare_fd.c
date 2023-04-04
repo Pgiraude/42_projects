@@ -13,17 +13,17 @@
 #include "pipex.h"
 
 
-int	check_arguments(int argc, char **argv)
+int	check_arguments(int argc, char **argv, int min_arg)
 {
 	int	i;
 
-	if (argc < 5)
+	if (argc < min_arg + 1)
 	{
 		ft_printf("Error : need more arguments\n");
 		return (1);
 	}
-	i = 2;
-	while (i - 2 < argc - 3)
+	i = 1;
+	while (i < argc - 1)
 	{
 		if (argv[i][0] == '\0')
 		{
@@ -37,7 +37,7 @@ int	check_arguments(int argc, char **argv)
 
 int	open_file(int argc, char **argv, t_data *data)
 {
-	if (check_arguments(argc, argv) != 0)
+	if (check_arguments(argc, argv, 4) != 0)
 		return (1);
 	data->file1 = open(argv[1], O_RDONLY);
 	if (data->file1 < 0)
