@@ -35,7 +35,7 @@ typedef struct e_data
     int     index_cmd;
 }t_data;
 
-int	    open_file(int argc, char **argv, t_data *data);
+int	    open_file(int argc, char **argv, char **envp, t_data *data);
 int	    get_command(int argc, char **argv, char **envp, t_data *data);
 int	    prepare_pipe(t_data *data);
 void	free_all(t_data *data);

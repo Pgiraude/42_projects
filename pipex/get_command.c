@@ -54,7 +54,7 @@ char	*get_path(char **envp, char *cmd)
 
 int	get_command_error(int i, char **argv, t_data *data)
 {
-	ft_printf("Error : couldn't found command %s\n", argv[i + 2]);
+	ft_printf("Error : couldn't found command %s\n", argv[i]);
 	while (i >= 0)
 	{
 		ft_freestrings(data->options[i]);
@@ -65,22 +65,22 @@ int	get_command_error(int i, char **argv, t_data *data)
 	return (6);
 }
 
-int	get_command(int argc, char **argv, char **envp, t_data *data)
+int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
 {
 	int		i;
 	char	*cmd;
 
-	data->index_cmd = argc - 4;
-	data->options = malloc(sizeof(char **) * (data->index_cmd + 2));
+	data->index_cmd = nbr_cmd - 1;
+	data->options = malloc(sizeof(char **) * (nbr_cmd + 1));
 	if (!data->options)
 		return (4);
-	data->paths = malloc(sizeof(char *) * (data->index_cmd + 2));
+	data->paths = malloc(sizeof(char *) * (nbr_cmd + 1));
 	if (!data->paths)
 		return (5);
 	i = 0;
 	while (i <= data->index_cmd)
 	{
-		data->options[i] = ft_split(argv[i + 2], ' ');
+		data->options[i] = ft_split(argv[i], ' ');
 		cmd = NULL;
 		cmd = ft_strjoin("/", data->options[i][0]);
 		data->paths[i] = get_path(envp, cmd);

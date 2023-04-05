@@ -91,15 +91,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	pid_t	pid;
-	int		i;
 	char	*cmd;
 
-	if (open_file(argc, argv, &data) != 0)
+	if (open_file(argc, argv, envp, &data) != 0)
 		return (1);
-	if (get_command(argc, argv, envp, &data) != 0)
-		return (2);
 	if (prepare_pipe(&data) != 0)
-		return (3);
+		return (4);
 	pid = fork();
 	if (pid == 0)
 		lunch_process(envp, &data);

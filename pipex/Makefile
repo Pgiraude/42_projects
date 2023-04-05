@@ -12,7 +12,7 @@
 
 NAME = pipex
 
-SRC = pipex.c get_command.c prepare_fd.c
+SRC = pipex.c get_command.c utils.c openfile_bonus.c
 
 OBJS = $(SRC:.c=.o)
 
