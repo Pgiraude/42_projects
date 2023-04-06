@@ -43,6 +43,8 @@ int	heredoc(int argc, char **argv, t_data *data)
 		ft_putstr_fd(line, data->file1);
 		free (line);
 	}
+	close (data->file1);
+	data->file1 = open(".heredoc", O_RDONLY);
 	data->file2 = open(argv[argc - 1], O_APPEND | O_CREAT | O_WRONLY, 0644);
 	if (data->file2 < 0)
 	{

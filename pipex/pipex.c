@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/30 16:53:12 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:11:54 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	loop_process(t_data *data, char **envp, pid_t pid)
 	}
 }
 
-int	lunch_process(char **envp, t_data *data)
+int	lunch_process(char **envp, char **argv, t_data *data)
 {
 	int 	max;
 	pid_t	pid;
@@ -83,7 +83,7 @@ int	lunch_process(char **envp, t_data *data)
 		execve(data->paths[max + 1], data->options[max + 1], envp);
 	}
 	ft_printf("Error : execution of processus didn't work\n");
-	free_all(data);
+	free_all(argv, data);
 	return (2);
 }
 
@@ -95,11 +95,32 @@ int	main(int argc, char **argv, char **envp)
 
 	if (open_file(argc, argv, envp, &data) != 0)
 		return (1);
+	
 	if (prepare_pipe(&data) != 0)
 		return (4);
+	
+	// int	i;
+	// int	y;
+	
+	// i = 0;
+	// ft_printf("\n------START-------\n");
+	// while (data.options[i])
+	// {
+	// 	y = 0;
+	// 	while (data.options[i][y])
+	// 	{
+	// 		ft_printf("%s\n", data.options[i][y]);
+	// 		y++;
+	// 	}
+	// 	ft_printf("\n-------------\n");
+	// 	i++;
+	// }
+	// ft_printf("END OF OPTIONS\n");
+	
+	
 	pid = fork();
 	if (pid == 0)
-		lunch_process(envp, &data);
+		lunch_process(envp, argv, &data);
 	wait(NULL);
-	free_all(&data);
+	free_all(argv, &data);
 }

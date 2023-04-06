@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/30 16:47:24 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:11:11 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct e_data
 int	    open_file(int argc, char **argv, char **envp, t_data *data);
 int	    get_command(int argc, char **argv, char **envp, t_data *data);
 int	    prepare_pipe(t_data *data);
-void	free_all(t_data *data);
+void	free_all(char **argv, t_data *data);
 int     check_arguments(int argc, char **argv, int min_arg);
 
 #endif
