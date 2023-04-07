@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/30 17:08:50 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/07 21:21:44 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	get_command_error(int i, char **argv, t_data *data)
 	}
 	free (data->options);
 	ft_freestrings(data->paths);
+	close(data->file1);
+	close(data->file2);
 	return (6);
 }
 
@@ -73,10 +75,10 @@ int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
 	data->index_cmd = nbr_cmd - 1;
 	data->options = malloc(sizeof(char **) * (nbr_cmd + 1));
 	if (!data->options)
-		return (4);
+		return (close(data->file1), close(data->file2), 4);
 	data->paths = malloc(sizeof(char *) * (nbr_cmd + 1));
 	if (!data->paths)
-		return (5);
+		return (close(data->file1), close(data->file2), 5);
 	i = 0;
 	while (i <= data->index_cmd)
 	{

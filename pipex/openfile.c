@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   openfile.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/07 19:17:33 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/04/07 21:26:05 by pgiraude         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "pipex.h"
 
@@ -29,7 +40,7 @@ int	open_file(int argc, char **argv, char **envp, t_data *data)
 		return (3);
 	}
 	no_heredoc(argc, argv, data);
-	if (get_command(argc, argv + 2, envp, data) != 0)
+	if (get_command(2, argv + 2, envp, data) != 0)
 		return (2);
     return (0);
 }

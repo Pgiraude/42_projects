@@ -6,13 +6,11 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/04/06 17:54:14 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/04/07 21:06:06 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-
-NAME_B = pipex_bonus
 
 SRC = pipex.c get_command.c utils.c openfile.c
 
@@ -36,13 +34,20 @@ $(NAME): $(OBJS)
 	$(LIBFT) 
 	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(FLAGS)
 
-$(NAME_B): $(OBJS_B)
-	$(LIBFT) 
-	$(CC) -o $(NAME_B) $(OBJS_B) ./libft/libft.a $(FLAGS)
-
 all: $(NAME)
 
-bonus: $(NAME_B)
+#bonus: openfile_bonus.o $(filter-out openfile.o, $(OBJS))
+
+#bonus:
+#	$(CC) -c openfile_bonus.c
+#	mv openfile_bonus.o openfile.o
+#	$(LIBFT) 
+#	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(FLAGS)
+
+bonus: $(OBJS_B)
+	$(LIBFT) 
+	$(CC) -o $(NAME) $(OBJS_B) ./libft/libft.a $(FLAGS)
+	$(RM) openfile.o
 
 clean:
 	$(LIBFT) clean
@@ -52,7 +57,6 @@ clean:
 fclean: clean
 	$(LIBFT) fclean
 	$(RM) $(NAME)
-	$(RM) $(NAME_B)
 
 re: fclean all
 

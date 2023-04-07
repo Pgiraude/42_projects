@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/06 16:12:59 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/07 20:59:14 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,4 @@ void	free_all(char **argv, t_data *data)
 	close(data->file2);
 	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
 		unlink (".heredoc");
-	
 }
