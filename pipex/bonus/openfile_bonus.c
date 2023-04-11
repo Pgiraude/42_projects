@@ -12,6 +12,17 @@
 
 #include "../include/pipex.h"
 
+char	*ft_strjoin_pipex(char *s1, char *s2)
+{
+	char	*tmp;
+
+	tmp = s1;
+	s1 = ft_strjoin(tmp, s2);
+	free (tmp);
+	free (s2);
+	return (s1);
+}
+
 char	*gnl_heredoc(char *limiter)
 {
 	char	*line;
@@ -34,9 +45,7 @@ char	*gnl_heredoc(char *limiter)
 			&& ft_strlen(limiter) == (ft_strlen(new_line) - 1))
 			return (free(new_line), line);
 		else
-		{
-			line = ft_strjoin(line, new_line);
-		}
+			line = ft_strjoin_pipex(line, new_line);
 	}
 }
 

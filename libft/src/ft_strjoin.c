@@ -12,31 +12,35 @@
 
 #include "../include/libft.h"
 
+char	*ft_strjoin_dup(char const *str_to_dup, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str_to_dup == NULL)
+		return (str + i);
+	while (str_to_dup[i])
+	{
+		str[i] = str_to_dup[i];
+		i++;
+	}
+	return (str + i);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
 	char	*str;
-	int		x;
+	char	*str_index;
+	int		len;
 
 	if (!s1 && !s2)
 		return (NULL);
-	x = ft_strlen(s1) + ft_strlen(s2);
-	str = malloc(sizeof(char) * (x + 1));
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-			str[i + j] = s2[j];
-			j++;
-	}
-	str[i + j] = '\0';
+	str_index = ft_strjoin_dup(s1, str);
+	str_index = ft_strjoin_dup(s2, str_index);
+	str_index = '\0';
 	return (str);
 }
