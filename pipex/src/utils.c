@@ -56,7 +56,7 @@ int	prepare_pipe(t_data *data)
 	return (0);
 }
 
-void	free_all(char **argv, t_data *data)
+void	exit_clean(char **argv, t_data *data)
 {
 	int	i;
 

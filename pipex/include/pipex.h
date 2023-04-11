@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 typedef enum e_pipe
 {
@@ -38,7 +39,7 @@ typedef struct e_data
 int	    open_file(int argc, char **argv, char **envp, t_data *data);
 int	    get_command(int argc, char **argv, char **envp, t_data *data);
 int	    prepare_pipe(t_data *data);
-void	free_all(char **argv, t_data *data);
+void	exit_clean(char **argv, t_data *data);
 int     check_arguments(int argc, char **argv, int min_arg);
 
 #endif

@@ -85,7 +85,7 @@ int	lunch_process(char **envp, char **argv, t_data *data)
 		execve(data->paths[max + 1], data->options[max + 1], envp);
 	}
 	ft_printf("Error : execution of processus didn't work\n");
-	free_all(argv, data);
+	exit_clean(argv, data);
 	return (2);
 }
 
@@ -94,6 +94,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	pid_t	pid;
 	char	*cmd;
+	int		i;
 
 	if (open_file(argc, argv, envp, &data) != 0)
 		return (1);
@@ -102,6 +103,14 @@ int	main(int argc, char **argv, char **envp)
 	pid = fork();
 	if (pid == 0)
 		lunch_process(envp, argv, &data);
-	wait(NULL);
-	free_all(argv, &data);
+	i = 0;
+	while (wait(NULL) != -1)
+	{
+		wait(NULL);
+		ft_printf("waited for a child to finish\n");
+		i++;
+	}
+	ft_printf("all children finish\n");
+	exit_clean(argv, &data);
 }
+// wait(NULL) != -1 || errno != ECHILD
