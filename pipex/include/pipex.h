@@ -6,14 +6,14 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/06 16:11:11 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:18:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft/include/libft.h"
+# include "../libft/include/libft.h"
 # include <sys/types.h>
 # include <unistd.h>
 # include <sys/types.h>

@@ -6,12 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/07 20:59:14 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:30:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
+#include "../include/pipex.h"
 
 int	check_arguments(int argc, char **argv, int min_arg)
 {

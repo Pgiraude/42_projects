@@ -6,11 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 13:44:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:03:49 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	execve_process(int index_cmd, char **envp, pid_t pid, t_data *data)
 {
@@ -65,7 +65,7 @@ int	loop_process(t_data *data, char **envp, pid_t pid)
 
 int	lunch_process(char **envp, char **argv, t_data *data)
 {
-	int 	max;
+	int		max;
 	pid_t	pid;
 
 	data->index_cmd -= 1;
@@ -94,36 +94,11 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	pid_t	pid;
 	char	*cmd;
-	
-	// int i = -1;
-	// while (envp[++i])
-	// 	ft_printf("%s\n", envp[i]);
 
 	if (open_file(argc, argv, envp, &data) != 0)
 		return (1);
-	
 	if (prepare_pipe(&data) != 0)
 		return (4);
-	
-	// int	i;
-	// int	y;
-	
-	// i = 0;
-	// ft_printf("\n------START-------\n");
-	// while (data.options[i])
-	// {
-	// 	y = 0;
-	// 	while (data.options[i][y])
-	// 	{
-	// 		ft_printf("%s\n", data.options[i][y]);
-	// 		y++;
-	// 	}
-	// 	ft_printf("\n-------------\n");
-	// 	i++;
-	// }
-	// ft_printf("END OF OPTIONS\n");
-	
-	
 	pid = fork();
 	if (pid == 0)
 		lunch_process(envp, argv, &data);

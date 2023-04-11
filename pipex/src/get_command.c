@@ -6,11 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 13:43:18 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:59:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 char	*get_environnement(char **envp)
 {
@@ -28,28 +28,32 @@ char	*get_environnement(char **envp)
 	return (NULL);
 }
 
-char	*get_path(char **envp, char *cmd)
+int	get_path(char **envp, int index, t_data *data)
 {
 	char	*line_envp;
 	char	**paths;
 	char	*the_path;
+	char	*cmd;
 	int		i;
 
-	i = 0;
-	line_envp = NULL;
 	line_envp = get_environnement(envp);
 	if (line_envp == NULL)
-		return (NULL);
+		return (1);
 	paths = ft_split(line_envp, ':');
-	while (paths[i])
+	i = -1;
+	while (paths[++i])
 	{
+		cmd = ft_strjoin("/", data->options[index][0]);
 		the_path = ft_strjoin(paths[i], cmd);
-		i++;
 		if (access(the_path, F_OK) == 0)
-			return (ft_freestrings(paths), the_path);
+		{
+			data->paths[index] = the_path;
+			return (free (cmd), ft_freestrings(paths), 0);
+		}
 		free (the_path);
+		free (cmd);
 	}
-	return (ft_freestrings(paths), NULL);
+	return (ft_freestrings(paths), 2);
 }
 
 int	get_command_error(int i, char **argv, t_data *data)
@@ -67,10 +71,29 @@ int	get_command_error(int i, char **argv, t_data *data)
 	return (6);
 }
 
+int	check_path(int index, t_data *data)
+{
+	char	**tmp;
+	int		i;
+
+	data->paths[index] = data->options[index][0];
+	data->options[index][0] = NULL;
+	tmp = NULL;
+	tmp = ft_split(data->paths[index], '/');
+	i = 0;
+	while (tmp[i])
+		i++;
+	data->options[index][0] = ft_strdup(tmp[i - 1]);
+	ft_freestrings(tmp);
+	if (access(data->paths[index], F_OK) == 0)
+		return (0);
+	return (1);
+}
+
 int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
 {
-	int		i;
-	char	*cmd;
+	int	index;
+	int	error;
 
 	data->index_cmd = nbr_cmd - 1;
 	data->options = malloc(sizeof(char **) * (nbr_cmd + 1));
@@ -79,39 +102,19 @@ int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
 	data->paths = malloc(sizeof(char *) * (nbr_cmd + 1));
 	if (!data->paths)
 		return (close(data->file1), close(data->file2), 5);
-	i = 0;
-	while (i <= data->index_cmd)
+	index = -1;
+	error = 0;
+	while (++index <= data->index_cmd)
 	{
-		
-		data->options[i] = ft_split(argv[i], ' ');
-		if (ft_strchr(data->options[i][0], '/'))
-		{
-			data->paths[i] = ft_strdup(data->options[i][0]);
-
-			char **tmp;
-			tmp = ft_split(data->options[i][0], '/');
-			int y = -1;
-			while (tmp[++y])
-			data->options[i][0] = tmp[y - 1];
-			
-			if (access(data->paths[i], F_OK) == 0)
-				return (0);
-			else
-				return (get_command_error(i, argv, data));
-			printf("TEST\n");
-		}
+		data->options[index] = ft_split(argv[index], ' ');
+		if (ft_strchr(data->options[index][0], '/'))
+			error += check_path(index, data);
 		else
-		{
-			cmd = NULL;
-			cmd = ft_strjoin("/", data->options[i][0]);
-			data->paths[i] = get_path(envp, cmd);
-			free (cmd);
-			if (data->paths[i] == NULL)
-				return (get_command_error(i, argv, data));
-		}
-		i++;
+			error += get_path(envp, index, data);
+		if (error != 0)
+			return (get_command_error(index, argv, data));
 	}
-	data->options[i] = NULL;
-	data->paths[i] = NULL;
+	data->options[index] = NULL;
+	data->paths[index] = NULL;
 	return (0);
 }

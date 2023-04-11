@@ -6,15 +6,15 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/04/07 21:06:06 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/04/11 16:30:05 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRC = pipex.c get_command.c utils.c openfile.c
+SRC = src/pipex.c src/get_command.c src/utils.c src/openfile.c
 
-SRC_B = pipex.c get_command.c utils.c openfile_bonus.c
+SRC_B = src/pipex.c src/get_command.c src/utils.c bonus/openfile_bonus.c
 
 OBJS = $(SRC:.c=.o)
 
@@ -60,4 +60,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
