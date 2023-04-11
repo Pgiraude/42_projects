@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/07 21:21:44 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:43:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,33 @@ int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
 	i = 0;
 	while (i <= data->index_cmd)
 	{
+		
 		data->options[i] = ft_split(argv[i], ' ');
-		cmd = NULL;
-		cmd = ft_strjoin("/", data->options[i][0]);
-		data->paths[i] = get_path(envp, cmd);
-		free (cmd);
-		if (data->paths[i] == NULL)
-			return (get_command_error(i, argv, data));
+		if (ft_strchr(data->options[i][0], '/'))
+		{
+			data->paths[i] = ft_strdup(data->options[i][0]);
+
+			char **tmp;
+			tmp = ft_split(data->options[i][0], '/');
+			int y = -1;
+			while (tmp[++y])
+			data->options[i][0] = tmp[y - 1];
+			
+			if (access(data->paths[i], F_OK) == 0)
+				return (0);
+			else
+				return (get_command_error(i, argv, data));
+			printf("TEST\n");
+		}
+		else
+		{
+			cmd = NULL;
+			cmd = ft_strjoin("/", data->options[i][0]);
+			data->paths[i] = get_path(envp, cmd);
+			free (cmd);
+			if (data->paths[i] == NULL)
+				return (get_command_error(i, argv, data));
+		}
 		i++;
 	}
 	data->options[i] = NULL;

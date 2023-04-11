@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/06 16:11:54 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:44:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	execve_process(int index_cmd, char **envp, pid_t pid, t_data *data)
 		close(data->tab_fd[index_cmd + 1][READ]);
 		execve(data->paths[index_cmd + 1], data->options[index_cmd + 1], envp);
 	}
+	ft_printf("Error : execution of child processus didn't work\n");
 }
 
 int	loop_process(t_data *data, char **envp, pid_t pid)
@@ -76,6 +77,7 @@ int	lunch_process(char **envp, char **argv, t_data *data)
 		loop_process(data, envp, pid);
 	if (pid > 0)
 	{
+		// wait(NULL);
 		close(data->tab_fd[max][WRITE]);
 		dup2(data->file2, STDOUT_FILENO);
 		dup2(data->tab_fd[max][READ], STDIN_FILENO);
@@ -92,6 +94,10 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	pid_t	pid;
 	char	*cmd;
+	
+	// int i = -1;
+	// while (envp[++i])
+	// 	ft_printf("%s\n", envp[i]);
 
 	if (open_file(argc, argv, envp, &data) != 0)
 		return (1);

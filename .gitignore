@@ -55,6 +55,7 @@ dkms.conf
 printfTester/
 gnlTester/
 push_swap_tester/
+PIPEX_TESTER/
 
 #parametre vscode
 .vscode/
