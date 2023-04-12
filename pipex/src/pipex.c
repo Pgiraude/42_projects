@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 18:03:49 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:12:25 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	while (wait(NULL) != -1)
 	{
-		wait(NULL);
+		// wait(NULL);
 		ft_printf("waited for a child to finish\n");
 		i++;
 	}
