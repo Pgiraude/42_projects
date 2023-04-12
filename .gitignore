@@ -56,6 +56,8 @@ printfTester/
 gnlTester/
 push_swap_tester/
 PIPEX_TESTER/
+pipex_tester_42/
+pipexMedic/
 
 #parametre vscode
 .vscode/
