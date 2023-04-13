@@ -89,21 +89,35 @@ int	loop_process(t_data *data, char **envp, pid_t pid)
 // 	return (2);
 // }
 
-int	lunch_process(char **envp, char **argv, t_data *data)
+int	lunch_child(int fd_stdin)
 {
 	pid_t	pid;
+	int		fd[2];
+
+	pipe(fd[2]);
+
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
+		dup2(fd[WRITE], STDOUT_FILENO); //on écrit dans le pipe qui suit
+		close(fd[WRITE]);
+		close(fd[READ]);
+		
+	}
+	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
+		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
+}
+
+int	lunch_process(char **envp, char **argv, t_data *data)
+{
 	int		i;
 
 	i = 0;
 	while (i <= data->index_cmd)
 	{
-		pid = fork();
 		if (i == 0)
 		{
-			dup2(data->file1, STDIN_FILENO);
-			dup2(data->tab_fd[0][WRITE], STDOUT_FILENO);
-			close(data->tab_fd[0][WRITE]);
-			close(data->tab_fd[0][READ]);
 			execve(data->paths[0], data->options[0], envp);
 
 			if (pid == 0)
@@ -125,7 +139,9 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (prepare_pipe(&data) != 0)
 		return (4);
-		
+	
+
+
 	lunch_process(envp, argv, &data);
 	
 	i = 0;
