@@ -1,7 +1,0 @@
-petit test facil
-pierre n°1 deux trois quatre cinque six
-pierre n°2 yes
-zfokngidg
-azpirfpdg,
-pierre n°3
-valgrind --track-origins=yes --trace-children=yes --track-fds=yes --leak-check=full env -i ./pipex /dev/stdin "ls" "cat -e" /dev/stdout

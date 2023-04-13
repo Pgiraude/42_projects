@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 17:59:12 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:52:39 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,18 @@ int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
 	int	error;
 
 	data->index_cmd = nbr_cmd - 1;
-	data->options = malloc(sizeof(char **) * (nbr_cmd + 1));
-	if (!data->options)
-		return (close(data->file1), close(data->file2), 4);
-	data->paths = malloc(sizeof(char *) * (nbr_cmd + 1));
-	if (!data->paths)
-		return (close(data->file1), close(data->file2), 5);
+
+
 	index = -1;
 	error = 0;
+
+	data->options = ft_split(argv, ' ');
+	if (ft_strchr(data->options[0], '/'))
+		error += check_path(index, data);
+	else
+		error += get_path(envp, index, data);
+
+	
 	while (++index <= data->index_cmd)
 	{
 		data->options[index] = ft_split(argv[index], ' ');

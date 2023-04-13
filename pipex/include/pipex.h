@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 16:18:50 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:49:50 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct e_data
 {
     int     file1;
     int     file2;
-    char    ***options;
-    char    **paths;
+    char    **options;
+    char    *paths;
     int     **tab_fd;
     int     index_cmd;
 }t_data;
