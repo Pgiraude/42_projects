@@ -1,27 +1,10 @@
--rw-r--r-- 1 pgiraude 2022_paris  2792 Apr 11 15:08 utils.o
--rw-r--r-- 1 pgiraude 2022_paris  2012 Apr  7 20:59 utils.c
--rw-r--r-- 1 pgiraude 2022_paris  1045 Apr  7 19:17 test.c
--rw-r--r-- 1 pgiraude 2022_paris     0 Apr 11 15:52 test02
--rw-r--r-- 1 pgiraude 2022_paris   242 Apr  6 16:51 test01
-drwxr-xr-x 4 pgiraude 2022_paris  4096 Apr 11 12:12 PIPEX_TESTER
--rw-r--r-- 1 pgiraude 2022_paris  3752 Apr 11 15:08 pipex.o
--rw-r--r-- 1 pgiraude 2022_paris  1553 Apr  6 16:11 pipex.h
--rw-r--r-- 1 pgiraude 2022_paris  3385 Apr 11 13:44 pipex.c
--rwxr-xr-x 1 pgiraude 2022_paris 27536 Apr 11 15:45 pipex
--rw-r--r-- 1 pgiraude 2022_paris  1619 Apr  7 21:26 openfile.c
--rw-r--r-- 1 pgiraude 2022_paris  4152 Apr 11 15:45 openfile_bonus.o
--rw-r--r-- 1 pgiraude 2022_paris  3010 Apr  7 21:19 openfile_bonus.c
--rw-r--r-- 1 pgiraude 2022_paris  1702 Apr  7 21:06 Makefile
-drwxr-xr-x 4 pgiraude 2022_paris  4096 Apr 11 15:08 libft
--rw-r--r-- 1 pgiraude 2022_paris  4376 Apr 11 15:45 get_command.o
--rw-r--r-- 1 pgiraude 2022_paris  3202 Apr 11 15:47 get_command.c
-total 96
-salut
-mon
-gars
-go
-mec
-salut
-c
-b
-a
+a.out
+bonus
+include
+libft
+Makefile
+PIPEX_TESTER
+src
+test01
+test02
+test.c

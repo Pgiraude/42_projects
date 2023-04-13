@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 19:17:49 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/12 18:34:04 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:40:13 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int main(int argc, char **argv, char **env)
             else
             {
                 pid2 = fork();
-                tmp = ft_split("sleep 1", ' ');
+                if (pid2 == 0)
+                    tmp = ft_split("sleep 10", ' ');
             }
             execve("/usr/bin/sleep", tmp, env);
         }
