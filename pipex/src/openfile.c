@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 19:17:33 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 18:01:30 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:47:07 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 	data->file1 = open(argv[1], O_RDONLY);
 	if (data->file1 < 0)
 	{
+		perror("TEST cannot open file");
 		ft_printf("Error : cannot open %s\n", argv[1]);
 		return (2);
 	}

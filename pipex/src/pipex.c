@@ -6,104 +6,30 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/13 16:47:00 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:50:32 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	execve_process(int index_cmd, char **envp, pid_t pid, t_data *data)
-{
-	if (pid == 0)
-	{
-		dup2(data->file1, STDIN_FILENO);
-		dup2(data->tab_fd[0][WRITE], STDOUT_FILENO);
-		close(data->tab_fd[0][WRITE]);
-		close(data->tab_fd[0][READ]);
-		execve(data->paths[0], data->options[0], envp);
-	}
-	if (pid > 0)
-	{
-		// wait(NULL);
-		dup2(data->tab_fd[index_cmd][READ], STDIN_FILENO);
-		dup2(data->tab_fd[index_cmd + 1][WRITE], STDOUT_FILENO);
-		close(data->tab_fd[index_cmd][READ]);
-		close(data->tab_fd[index_cmd][WRITE]);
-		close(data->tab_fd[index_cmd + 1][WRITE]);
-		close(data->tab_fd[index_cmd + 1][READ]);
-		execve(data->paths[index_cmd + 1], data->options[index_cmd + 1], envp);
-	}
-	ft_printf("Error : execution of child processus didn't work\n");
-}
-
-int	loop_process(t_data *data, char **envp, pid_t pid)
-{
-	while (1)
-	{
-		if (pid == 0)
-		{
-			if (data->index_cmd == 0)
-			{
-				execve_process(data->index_cmd, envp, pid, data);
-				return (2);
-			}
-			else
-			{
-				data->index_cmd--;
-				if (pipe(data->tab_fd[data->index_cmd]) < 0)
-					return (1);
-				pid = fork();
-			}
-		}
-		if (pid > 0)
-		{
-			execve_process(data->index_cmd, envp, pid, data);
-			return (3);
-		}
-	}
-}
-
-// int	lunch_process(char **envp, char **argv, t_data *data)
-// {
-// 	int		max;
-// 	pid_t	pid;
-
-// 	data->index_cmd -= 1;
-// 	max = data->index_cmd;
-// 	if (pipe(data->tab_fd[data->index_cmd]) < 0)
-// 		return (1);
-// 	pid = fork();
-// 	if (pid == 0)
-// 		loop_process(data, envp, pid);
-// 	if (pid > 0)
-// 	{
-// 		// wait(NULL);
-// 		close(data->tab_fd[max][WRITE]);
-// 		dup2(data->file2, STDOUT_FILENO);
-// 		dup2(data->tab_fd[max][READ], STDIN_FILENO);
-// 		close(data->tab_fd[max][READ]);
-// 		execve(data->paths[max + 1], data->options[max + 1], envp);
-// 	}
-// 	ft_printf("Error : execution of processus didn't work\n");
-// 	exit_clean(argv, data);
-// 	return (2);
-// }
-
-int	lunch_child(int fd_stdin)
+int	lunch_child(int fd_stdin, int index, t_data *data, char **envp)
 {
 	pid_t	pid;
 	int		fd[2];
 
-	pipe(fd[2]);
-
+	pipe(fd);
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
-		dup2(fd[WRITE], STDOUT_FILENO); //on écrit dans le pipe qui suit
+		if (index == data->index_cmd)
+			dup2(fd[WRITE], data->file2);
+		else
+			dup2(fd[WRITE], STDOUT_FILENO); //on écrit dans le pipe qui suit
 		close(fd[WRITE]);
 		close(fd[READ]);
-		
+
+		execve(data->path, data->options, envp);
 	}
 	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
 		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
@@ -111,22 +37,21 @@ int	lunch_child(int fd_stdin)
 
 int	lunch_process(char **envp, char **argv, t_data *data)
 {
-	int		i;
+	int		index;
+	int		fd_read;
+	int		last_read;
 
-	i = 0;
-	while (i <= data->index_cmd)
+	fd_read = data->file1;
+	index = 0;
+	while (index <= data->index_cmd)
 	{
-		if (i == 0)
-		{
-			execve(data->paths[0], data->options[0], envp);
-
-			if (pid == 0)
-			{
-				lunch()
-			}
-		}
-		i++;
+		last_read = fd_read;
+		fd_read = lunch_child(fd_read, index, data, envp);
+		close(last_read);
+		index++;
 	}
+	close(fd_read);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)

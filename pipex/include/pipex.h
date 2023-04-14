@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/13 16:49:50 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/14 13:44:20 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <string.h>
 
 typedef enum e_pipe
 {
@@ -31,7 +32,7 @@ typedef struct e_data
     int     file1;
     int     file2;
     char    **options;
-    char    *paths;
+    char    *path;
     int     **tab_fd;
     int     index_cmd;
 }t_data;
