@@ -22,16 +22,13 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 	if (pid == 0)
 	{
 		get_command(cmd, envp, data, index);
-		ft_printf("path =%s\n", data->path);
-		ft_printf("options 0 =%s\n", data->options[0]);
 		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
 		if (index == data->index_cmd)
-			dup2(fd[WRITE], data->file2);
+			dup2(data->file2, STDOUT_FILENO);
 		else
 			dup2(fd[WRITE], STDOUT_FILENO); //on écrit dans le pipe qui suit
 		close(fd[WRITE]);
 		close(fd[READ]);
-
 		execve(data->path, data->options, envp);
 	}
 	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 

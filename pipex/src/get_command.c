@@ -28,7 +28,7 @@ char	*get_environnement(char **envp)
 	return (NULL);
 }
 
-int	get_path(char **envp, char **path, char **options)
+int	get_path(char **envp, char **path, char ***options)
 {
 	char	*line_envp;
 	char	**all_paths;
@@ -43,7 +43,7 @@ int	get_path(char **envp, char **path, char **options)
 	i = -1;
 	while (all_paths[++i])
 	{
-		cmd = ft_strjoin("/", options[0]);
+		cmd = ft_strjoin("/", *options[0]);
 		the_path = ft_strjoin(all_paths[i], cmd);
 		if (access(the_path, F_OK) == 0)
 		{
@@ -53,27 +53,27 @@ int	get_path(char **envp, char **path, char **options)
 		free (the_path);
 		free (cmd);
 	}
-	ft_printf("Command %s not found : %s", options[0], strerror(errno));
+	ft_printf("Command %s not found : %s\n", *options[0], strerror(errno));
 	return (ft_freestrings(all_paths), 2);
 }
 
-int	check_path(char *path, char **options)
+int	check_path(char **path, char ***options)
 {
 	char	**tmp;
 	int		i;
 
-	path = options[0];
-	options[0] = NULL;
+	*path = *options[0];
+	*options[0] = NULL;
 	tmp = NULL;
-	tmp = ft_split(path, '/');
+	tmp = ft_split(*path, '/');
 	i = 0;
 	while (tmp[i])
 		i++;
-	options[0] = ft_strdup(tmp[i - 1]);
+	*options[0] = ft_strdup(tmp[i - 1]);
 	ft_freestrings(tmp);
-	if (access(path, F_OK) == 0)
+	if (access(*path, F_OK) == 0)
 		return (0);
-	ft_printf("Command %s not found : %s", options[0], strerror(errno));
+	ft_printf("Command %s not found : %s", *options[0], strerror(errno));
 	return (1);
 }
 
@@ -89,9 +89,9 @@ int	get_command(char *cmd, char **envp, t_data *data, int index)
 	data->options = NULL;
 	data->options = ft_split(cmd, ' ');
 	if (ft_strchr(data->options[0], '/'))
-		check_path(data->path, data->options);
+		check_path(&data->path, &data->options);
 	else
-		get_path(envp, &data->path, data->options);
+		get_path(envp, &data->path, &data->options);
 
 	return (0);
 }
