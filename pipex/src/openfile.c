@@ -47,3 +47,8 @@ int	open_file(int argc, char **argv, char **envp, t_data *data)
 	}
 	return (0);
 }
+
+int	open_thefile()
+{
+	if (check_arguments())
+}

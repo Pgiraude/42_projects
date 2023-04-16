@@ -81,3 +81,11 @@ void	exit_clean(char **argv, t_data *data)
 	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
 		unlink (".heredoc");
 }
+
+int	is_here_doc(char **argv)
+{
+	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
+		return (1);
+	else
+		return (0);
+}

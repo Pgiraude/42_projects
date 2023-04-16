@@ -65,9 +65,14 @@ int	main(int argc, char **argv, char **envp)
 	if (prepare_pipe(&data) != 0)
 		return (4);
 	
+	int first_cmd;
 
+	if (is_here_doc(argv))
+		first_cmd = 3;
+	else
+		first_cmd = 2;
 
-	lunch_process(envp, argv, &data);
+	lunch_process(envp, argv + first_cmd , &data);
 	
 	i = 0;
 	while (wait(NULL) != -1)
