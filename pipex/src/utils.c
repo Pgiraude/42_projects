@@ -34,48 +34,13 @@ int	check_arguments(int argc, char **argv, int min_arg)
 	return (0);
 }
 
-int	prepare_pipe(t_data *data)
-{
-	int	*fd;
-	int	i;
-
-	data->tab_fd = malloc(sizeof(int *) * (data->index_cmd + 2));
-	if (!data->tab_fd)
-		return (1);
-	i = 0;
-	while (i <= data->index_cmd)
-	{
-		fd = malloc(sizeof(int) * (2 + 1));
-		if (!fd)
-			return (2);
-		fd[2] = '\0';
-		data->tab_fd[i] = fd;
-		i++;
-	}
-	data->tab_fd[i] = NULL;
-	return (0);
-}
-
 void	exit_clean(char **argv, t_data *data)
 {
-	int	i;
+	ft_freestrings(data->options);
+	ft_printf("TEST\n");
+	if (data->path)
+		free(data->path);
 
-	i = 0;
-	while (data->options[i])
-	{
-		ft_freestrings(data->options[i]);
-		i++;
-	}
-	free(data->options);
-	if (data->paths)
-		ft_freestrings(data->paths);
-	i = 0;
-	while (i <= data->index_cmd)
-	{
-		free (data->tab_fd[i]);
-		i++;
-	}
-	free (data->tab_fd);
 	close(data->file1);
 	close(data->file2);
 	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)

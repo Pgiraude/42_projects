@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-int	lunch_child(int fd_stdin, int index, t_data *data, char **envp)
+int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -21,6 +21,9 @@ int	lunch_child(int fd_stdin, int index, t_data *data, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
+		get_command(cmd, envp, data, index);
+		ft_printf("path =%s\n", data->path);
+		ft_printf("options 0 =%s\n", data->options[0]);
 		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
 		if (index == data->index_cmd)
 			dup2(fd[WRITE], data->file2);
@@ -35,7 +38,7 @@ int	lunch_child(int fd_stdin, int index, t_data *data, char **envp)
 		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
 }
 
-int	lunch_process(char **envp, char **argv, t_data *data)
+int	lunch_process(char **envp, char **all_cmd, t_data *data)
 {
 	int		index;
 	int		fd_read;
@@ -46,7 +49,7 @@ int	lunch_process(char **envp, char **argv, t_data *data)
 	while (index <= data->index_cmd)
 	{
 		last_read = fd_read;
-		fd_read = lunch_child(fd_read, index, data, envp);
+		fd_read = lunch_child(fd_read, index, all_cmd[index], data, envp);
 		close(last_read);
 		index++;
 	}
@@ -60,28 +63,34 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd;
 	int		i;
 
-	if (open_file(argc, argv, envp, &data) != 0)
+	if (open_file(argc, argv, &data) != 0)
 		return (1);
-	if (prepare_pipe(&data) != 0)
-		return (4);
-	
+
+
+
 	int first_cmd;
-
 	if (is_here_doc(argv))
-		first_cmd = 3;
-	else
-		first_cmd = 2;
-
-	lunch_process(envp, argv + first_cmd , &data);
-	
-	i = 0;
-	while (wait(NULL) != -1)
 	{
-		// wait(NULL);
-		ft_printf("waited for a child to finish\n");
-		i++;
+		data.index_cmd = argc - 4 - 1;
+		first_cmd = 3;
 	}
-	ft_printf("all children finish\n");
-	exit_clean(argv, &data);
+	else
+	{
+		data.index_cmd = argc - 3 - 1;
+		first_cmd = 2;
+	}
+	lunch_process(envp, argv + first_cmd, &data);
+
+
+
+	// i = 0;
+	// while (wait(NULL) != -1)
+	// {
+	// 	// wait(NULL);
+	// 	ft_printf("waited for a child to finish\n");
+	// 	i++;
+	// }
+	// ft_printf("all children finish\n");
+	// exit_clean(argv, &data);
 }
 // wait(NULL) != -1 || errno != ECHILD

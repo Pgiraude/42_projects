@@ -28,7 +28,7 @@ char	*get_environnement(char **envp)
 	return (NULL);
 }
 
-int	get_path(char **envp, char *path, char **options)
+int	get_path(char **envp, char **path, char **options)
 {
 	char	*line_envp;
 	char	**all_paths;
@@ -47,7 +47,7 @@ int	get_path(char **envp, char *path, char **options)
 		the_path = ft_strjoin(all_paths[i], cmd);
 		if (access(the_path, F_OK) == 0)
 		{
-			path = the_path;
+			*path = the_path;
 			return (free (cmd), ft_freestrings(all_paths), 0);
 		}
 		free (the_path);
@@ -77,18 +77,21 @@ int	check_path(char *path, char **options)
 	return (1);
 }
 
-int	get_command(int nbr_cmd, char **argv, char **envp, t_data *data)
+int	get_command(char *cmd, char **envp, t_data *data, int index)
 {
-	int	index;
+	if (!cmd)
+	{
+		ft_printf("Error : command n°%d is empty", (index + 1));
+		return (1);
+	}
 
-	data->index_cmd = nbr_cmd - 1;
 	data->path = NULL;
 	data->options = NULL;
-	data->options = ft_split(argv, ' ');
+	data->options = ft_split(cmd, ' ');
 	if (ft_strchr(data->options[0], '/'))
 		check_path(data->path, data->options);
 	else
-		get_path(envp, data->path, data->options);
+		get_path(envp, &data->path, data->options);
 
 	return (0);
 }

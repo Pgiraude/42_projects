@@ -31,24 +31,13 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 	return (0);
 }
 
-int	open_file(int argc, char **argv, char **envp, t_data *data)
+int	open_file(int argc, char **argv, t_data *data)
 {
-	if (check_arguments(argc, argv, 4) != 0)
-		return (1);
 	if (argc > 5)
 	{
 		ft_printf("Error : to much arguments\n");
 		return (3);
 	}
 	no_heredoc(argc, argv, data);
-	if (get_command(2, argv + 2, envp, data) != 0)
-	{
-		return (2);
-	}
 	return (0);
-}
-
-int	open_thefile()
-{
-	if (check_arguments())
 }
