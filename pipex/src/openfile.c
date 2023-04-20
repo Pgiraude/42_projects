@@ -41,7 +41,12 @@ int	open_file(int argc, char **argv, t_data *data)
 	if (argc > 5)
 	{
 		ft_printf("Error : to much arguments\n");
-		return (3);
+		return (1);
+	}
+	else if (argc < 5)
+	{
+		ft_printf("Error : to few arguments\n");
+		return (2);
 	}
 	no_heredoc(argc, argv, data);
 	return (0);

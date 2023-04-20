@@ -94,25 +94,27 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 	return (0);
 }
 
-int	open_file(int argc, char **argv, char **envp, t_data *data)
+int	open_file(int argc, char **argv, t_data *data)
 {
-	if (check_arguments(argc, argv, 4) != 0)
-		return (3);
-	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
+	if (is_here_doc(argv))
 	{
-		if (check_arguments(argc, argv, 5) != 0)
+		if (argc < 5)
+		{
+			ft_printf("Error heredoc : to few arguments\n");
 			return (1);
+		}
 		if (heredoc(argc, argv, data) != 0)
 			return (2);
-		if (get_command((argc - 4), argv + 3, envp, data) != 0)
-			return (3);
 	}
 	else
 	{
+		if (argc < 4)
+		{
+			ft_printf("Error no heredoc : to few arguments\n");
+			return (1);
+		}
 		if (no_heredoc(argc, argv, data) != 0)
 			return (4);
-		if (get_command((argc - 3), argv + 2, envp, data) != 0)
-			return (5);
 	}
 	return (0);
 }

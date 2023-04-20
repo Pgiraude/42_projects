@@ -37,13 +37,13 @@ int	check_arguments(int argc, char **argv, int min_arg)
 void	exit_clean(char **argv, t_data *data)
 {
 	ft_freestrings(data->options);
-	ft_printf("TEST\n");
 	if (data->path)
 		free(data->path);
-
 	close(data->file1);
 	close(data->file2);
-	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
+	if (data->pid)
+		free(data->pid);
+	if (is_here_doc(argv))
 		unlink (".heredoc");
 }
 
@@ -53,4 +53,20 @@ int	is_here_doc(char **argv)
 		return (1);
 	else
 		return (0);
+}
+
+void	wait_all_child(t_data *data)
+{
+	int		wstatus;
+	pid_t	end_status;
+	int		i;
+
+	i = 0;
+	while(i <= data->index_cmd)
+	{
+		end_status = waitpid(data->pid[i], &wstatus, 0);
+		if (end_status == -1)
+			perror("Error child process");
+		i++;
+	}
 }

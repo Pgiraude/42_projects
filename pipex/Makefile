@@ -12,13 +12,17 @@
 
 NAME = pipex
 
-SRC = src/pipex.c src/get_command.c src/utils.c src/openfile.c
+SRC = src/pipex.c  src/openfile.c
 
-SRC_B = src/pipex.c src/get_command.c src/utils.c bonus/openfile_bonus.c
+SRC_B = bonus/pipex_bonus.c bonus/openfile_bonus.c
 
-OBJS = $(SRC:.c=.o)
+SRC_UTILS = src/get_command.c src/utils.c
 
-OBJS_B = $(SRC_B:.c=.o)
+OBJS = $(SRC:.c=.o) $(SRC_UTILS:.c=.o)
+
+OBJS_B = $(SRC_B:.c=.o) $(SRC_UTILS:.c=.o)
+
+#OBJS_UTILS = $(SRC_UTILS:.c=.o)
 
 RM = rm -f
 
@@ -45,14 +49,16 @@ all: $(NAME)
 #	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(FLAGS)
 
 bonus: $(OBJS_B)
-	$(LIBFT) 
+	$(LIBFT)
 	$(CC) -o $(NAME) $(OBJS_B) ./libft/libft.a $(FLAGS)
 	$(RM) openfile.o
+	$(RM) pipex.o
 
 clean:
 	$(LIBFT) clean
 	$(RM) $(OBJS)
 	$(RM) $(OBJS_B)
+
 
 fclean: clean
 	$(LIBFT) fclean

@@ -32,7 +32,6 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 		close(fd[WRITE]);
 		close(fd[READ]);
 		execve(data->path, data->options, envp);
-		perror("C'ant exec");
 	}
 	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
 		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
@@ -51,12 +50,9 @@ int	lunch_process(char **envp, char **all_cmd, t_data *data)
 		last_read = fd_read;
 		fd_read = lunch_child(fd_read, index, all_cmd[index], data, envp);
 		close(last_read);
-		if (data->pid[index] <= 0)
-			return (1);
 		index++;
 	}
 	close(fd_read);
-	wait_all_child(data);
 	return (0);
 }
 
@@ -66,16 +62,24 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd;
 	int		i;
 
-	data.path = NULL;
-	data.options = NULL;
 	if (open_file(argc, argv, &data) != 0)
 		return (1);
-	data.index_cmd = argc - 3 - 1;
+	int first_cmd;
+	if (is_here_doc(argv))
+	{
+		data.index_cmd = argc - 4 - 1;
+		first_cmd = 3;
+	}
+	else
+	{
+		data.index_cmd = argc - 3 - 1;
+		first_cmd = 2;
+	}
 	data.pid = malloc(sizeof(pid_t) * (data.index_cmd + 2));
 	if (!data.pid)
 		return (1);
 	data.pid[data.index_cmd + 1] = '\0';
-	lunch_process(envp, argv + 2, &data);
+	lunch_process(envp, argv + first_cmd, &data);
 
 
 
@@ -87,6 +91,6 @@ int	main(int argc, char **argv, char **envp)
 	// 	i++;
 	// }
 	// ft_printf("all children finish\n");
-	exit_clean(argv, &data);
+	// exit_clean(argv, &data);
 }
 // wait(NULL) != -1 || errno != ECHILD

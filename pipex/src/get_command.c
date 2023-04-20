@@ -73,7 +73,7 @@ int	check_path(char **path, char ***options)
 	ft_freestrings(tmp);
 	if (access(*path, F_OK) == 0)
 		return (0);
-	ft_printf("Command %s not found : %s", *options[0], strerror(errno));
+	ft_printf("Command %s not found : %s\n", *options[0], strerror(errno));
 	return (1);
 }
 

@@ -33,6 +33,7 @@ typedef struct e_data
     int     file2;
     char    **options;
     char    *path;
+    pid_t   *pid;
     int     index_cmd;
 }t_data;
 
@@ -42,5 +43,6 @@ int     get_command(char *cmd, char **envp, t_data *data, int index);
 void	exit_clean(char **argv, t_data *data);
 int     check_arguments(int argc, char **argv, int min_arg);
 int     is_here_doc(char **argv);
+void	wait_all_child(t_data *data);
 
-#endif
+#endif 
