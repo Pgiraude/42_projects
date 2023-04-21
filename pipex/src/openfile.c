@@ -18,9 +18,10 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 	if (data->file1 < 0)
 	{
 		if (argv[1][0] == '\0')
-			ft_printf("Need a file to open: %s\n", strerror(errno));
+			error_manager(NULL, 1);
 		else if (argv[1])
-			ft_printf("Cannot open %s: %s\n", argv[1], strerror(errno));
+			error_manager(argv[1], 2);
+			
 		return (2);
 	}
 	data->file2 = open(argv[argc - 1], O_TRUNC | O_CREAT | O_WRONLY, 0644);
@@ -28,9 +29,9 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 	{
 		close(data->file1);
 		if (argv[argc - 1][0] == '\0')
-			ft_printf("Need a file to open: %s\n", strerror(errno));
+			error_manager(NULL, 1);
 		else if (argv[argc - 1])
-			ft_printf("Cannot open %s: %s\n", argv[argc - 1], strerror(errno));
+			error_manager(argv[argc - 1], 2);
 		return (3);
 	}
 	return (0);
@@ -40,12 +41,12 @@ int	open_file(int argc, char **argv, t_data *data)
 {
 	if (argc > 5)
 	{
-		ft_printf("Error : to much arguments\n");
+		error_manager("much", 3);
 		return (1);
 	}
 	else if (argc < 5)
 	{
-		ft_printf("Error : to few arguments\n");
+		error_manager("few", 3);
 		return (2);
 	}
 	no_heredoc(argc, argv, data);

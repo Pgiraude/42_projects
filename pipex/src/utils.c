@@ -45,6 +45,7 @@ void	exit_clean(char **argv, t_data *data)
 		free(data->pid);
 	if (is_here_doc(argv))
 		unlink (".heredoc");
+	
 }
 
 int	is_here_doc(char **argv)

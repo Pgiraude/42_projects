@@ -44,5 +44,6 @@ void	exit_clean(char **argv, t_data *data);
 int     check_arguments(int argc, char **argv, int min_arg);
 int     is_here_doc(char **argv);
 void	wait_all_child(t_data *data);
+void    error_manager(char *msg, int error_code);
 
 #endif 

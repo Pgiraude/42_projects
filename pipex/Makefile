@@ -16,7 +16,7 @@ SRC = src/pipex.c  src/openfile.c
 
 SRC_B = bonus/pipex_bonus.c bonus/openfile_bonus.c
 
-SRC_UTILS = src/get_command.c src/utils.c
+SRC_UTILS = src/get_command.c src/utils.c error_manager.c
 
 OBJS = $(SRC:.c=.o) $(SRC_UTILS:.c=.o)
 
