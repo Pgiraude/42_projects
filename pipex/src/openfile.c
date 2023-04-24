@@ -39,6 +39,8 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 
 int	open_file(int argc, char **argv, t_data *data)
 {
+	int	error;
+
 	if (argc > 5)
 	{
 		error_manager("much", 3);

@@ -20,7 +20,7 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 	pipe(fd);
 	data->pid[index] = fork();
 	if (data->pid[index] == -1)
-		perror("Error, couldnt fork");
+		error_manager(NULL, 4);
 	if (data->pid[index] == 0)
 	{
 		get_command(cmd, envp, data, index);
@@ -32,7 +32,7 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 		close(fd[WRITE]);
 		close(fd[READ]);
 		execve(data->path, data->options, envp);
-		perror("C'ant exec");
+		error_manager(NULL, 8);
 	}
 	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
 		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
