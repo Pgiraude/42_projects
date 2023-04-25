@@ -17,7 +17,14 @@ void    error_manager(char *msg, int error_code)
 	else if (error_code == 7)
 		ft_printf("Error : couldn't found a PATH\n");
 	else if (error_code == 8) //child
-		perror("Can't execut process");
+	{
+		perror("Can't execut process\n");
+		write(1, "exit\n", 5);
+		ft_printf("exit\n");
+		exit(0);
+	}
+	else if (error_code == 9)
+		ft_printf("Error : Pid = -1\n");
 
 
 }

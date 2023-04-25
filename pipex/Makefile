@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/04/11 16:30:05 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/04/25 16:27:50 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = src/pipex.c  src/openfile.c
 
 SRC_B = bonus/pipex_bonus.c bonus/openfile_bonus.c
 
-SRC_UTILS = src/get_command.c src/utils.c error_manager.c
+SRC_UTILS = src/get_command.c src/utils.c src/error_manager.c
 
 OBJS = $(SRC:.c=.o) $(SRC_UTILS:.c=.o)
 

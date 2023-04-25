@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/14 13:50:32 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:05:06 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 	if (data->pid[index] == 0)
 	{
 		get_command(cmd, envp, data, index);
-		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
+		
 		if (index == data->index_cmd)
 			dup2(data->file2, STDOUT_FILENO);
 		else
 			dup2(fd[WRITE], STDOUT_FILENO); //on écrit dans le pipe qui suit
+		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
 		close(fd[WRITE]);
 		close(fd[READ]);
-		execve(data->path, data->options, envp);
+		if (fd_stdin == -1)
+			exit(0);
+		else if (index == data->index_cmd && data->file2 == -1)
+			exit(0);
+		else
+			data->pid[index] = execve(data->path, data->options, envp);
 		error_manager(NULL, 8);
 	}
 	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
@@ -51,8 +57,11 @@ int	lunch_process(char **envp, char **all_cmd, t_data *data)
 		last_read = fd_read;
 		fd_read = lunch_child(fd_read, index, all_cmd[index], data, envp);
 		close(last_read);
-		if (data->pid[index] <= 0)
-			return (1);
+		// if (data->pid[index] <= 0)
+		// {
+		// 	error_manager(NULL, 9);
+		// 	return (9);
+		// }
 		index++;
 	}
 	close(fd_read);

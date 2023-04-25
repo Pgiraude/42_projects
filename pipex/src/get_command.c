@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/14 13:48:33 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:48:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int	get_command(char *cmd, char **envp, t_data *data, int index)
 {
 	if (!cmd)
 	{
-		error_manager(ft_atoi(index + 1), 5);
+		error_manager(ft_itoa(index + 1), 5);
 		return (5);
 	}
-
+	
 	data->path = NULL;
 	data->options = NULL;
 	data->options = ft_split(cmd, ' ');
@@ -95,7 +95,6 @@ int	get_command(char *cmd, char **envp, t_data *data, int index)
 		check_path(&data->path, &data->options);
 	else
 		get_path(envp, &data->path, &data->options);
-
 	return (0);
 }
 

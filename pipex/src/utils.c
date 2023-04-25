@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 18:30:46 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:09:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	exit_clean(char **argv, t_data *data)
 		free(data->pid);
 	if (is_here_doc(argv))
 		unlink (".heredoc");
-	
+	exit(0);
 }
 
-int	is_here_doc(char **argv)
+int	is_here_doc(char *argv)
 {
-	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
+	if (ft_strnstr(argv, "here_doc", 8) && ft_strlen(argv[1]) == 8)
 		return (1);
 	else
 		return (0);
@@ -67,7 +67,9 @@ void	wait_all_child(t_data *data)
 	{
 		end_status = waitpid(data->pid[i], &wstatus, 0);
 		if (end_status == -1)
+		{
 			perror("Error child process");
+		}
 		i++;
 	}
 }

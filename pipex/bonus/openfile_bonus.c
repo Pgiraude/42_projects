@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 19:17:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/11 18:39:14 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:10:07 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 
 int	open_file(int argc, char **argv, t_data *data)
 {
-	if (is_here_doc(argv))
+	if (is_here_doc(argv[1]))
 	{
 		if (argc < 5)
 		{
