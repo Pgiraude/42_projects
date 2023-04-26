@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/25 19:05:06 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:03:14 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 	pipe(fd);
 	data->pid[index] = fork();
 	if (data->pid[index] == -1)
-		error_manager(NULL, 4);
+		error_manager(NULL, NULL, 4);
 	if (data->pid[index] == 0)
 	{
+		if (fd_stdin == -1)
+			error_manager(NULL, data, 8);
+		else if (index == data->index_cmd && data->file2 == -1)
+			error_manager(NULL, data, 8);
 		get_command(cmd, envp, data, index);
-		
 		if (index == data->index_cmd)
 			dup2(data->file2, STDOUT_FILENO);
 		else
@@ -32,13 +35,9 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
 		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
 		close(fd[WRITE]);
 		close(fd[READ]);
-		if (fd_stdin == -1)
-			exit(0);
-		else if (index == data->index_cmd && data->file2 == -1)
-			exit(0);
-		else
-			data->pid[index] = execve(data->path, data->options, envp);
-		error_manager(NULL, 8);
+		data->pid[index] = execve(data->path, data->options, envp);
+
+		error_manager(NULL, NULL, 8);
 	}
 	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
 		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
@@ -96,6 +95,8 @@ int	main(int argc, char **argv, char **envp)
 	// 	i++;
 	// }
 	// ft_printf("all children finish\n");
-	exit_clean(argv, &data);
+	if (is_here_doc(argv))
+		unlink (".heredoc");
+	exit_clean(&data, 0);
 }
 // wait(NULL) != -1 || errno != ECHILD

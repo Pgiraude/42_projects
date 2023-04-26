@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/14 13:44:20 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:44:35 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct e_data
 int     open_file(int argc, char **argv, t_data *data);
 int     get_command(char *cmd, char **envp, t_data *data, int index);
 
-void	exit_clean(char **argv, t_data *data);
+void	exit_clean(t_data *data, int mode);
 int     check_arguments(int argc, char **argv, int min_arg);
 int     is_here_doc(char **argv);
 void	wait_all_child(t_data *data);
-void    error_manager(char *msg, int error_code);
+void    error_manager(char *msg, t_data *data, int error_code);
 
 #endif 

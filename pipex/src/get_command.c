@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/25 18:48:52 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:24:30 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_path(char **envp, char **path, char ***options)
 	line_envp = get_environnement(envp);
 	if (line_envp == NULL)
 	{
-		error_manager(NULL, 7);
+		error_manager(NULL, NULL, 7);
 		return (7);
 	}
 	all_paths = ft_split(line_envp, ':');
@@ -56,7 +56,7 @@ int	get_path(char **envp, char **path, char ***options)
 		free (the_path);
 		free (cmd);
 	}
-	error_manager(*options[0], 6);
+	error_manager(*options[0], NULL, 6);
 	return (ft_freestrings(all_paths), 6);
 }
 
@@ -76,20 +76,19 @@ int	check_path(char **path, char ***options)
 	ft_freestrings(tmp);
 	if (access(*path, F_OK) == 0)
 		return (0);
-	error_manager(*options[0], 6);
+	error_manager(*options[0], NULL, 6);
 	return (6);
 }
 
 int	get_command(char *cmd, char **envp, t_data *data, int index)
 {
-	if (!cmd)
-	{
-		error_manager(ft_itoa(index + 1), 5);
-		return (5);
-	}
-	
 	data->path = NULL;
 	data->options = NULL;
+	if (cmd[0] == '\0')
+	{
+		error_manager(ft_itoa(index + 1), data, 5);
+		return (5);
+	}
 	data->options = ft_split(cmd, ' ');
 	if (ft_strchr(data->options[0], '/'))
 		check_path(&data->path, &data->options);

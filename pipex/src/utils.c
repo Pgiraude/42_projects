@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/25 19:09:52 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:20:11 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,9 @@ int	check_arguments(int argc, char **argv, int min_arg)
 	return (0);
 }
 
-void	exit_clean(char **argv, t_data *data)
+int	is_here_doc(char **argv)
 {
-	ft_freestrings(data->options);
-	if (data->path)
-		free(data->path);
-	close(data->file1);
-	close(data->file2);
-	if (data->pid)
-		free(data->pid);
-	if (is_here_doc(argv))
-		unlink (".heredoc");
-	exit(0);
-}
-
-int	is_here_doc(char *argv)
-{
-	if (ft_strnstr(argv, "here_doc", 8) && ft_strlen(argv[1]) == 8)
+	if (ft_strnstr(argv[1], "here_doc", 8) && ft_strlen(argv[1]) == 8)
 		return (1);
 	else
 		return (0);
