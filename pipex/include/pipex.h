@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:13 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/26 17:44:35 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:25:17 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ typedef struct e_data
 {
     int     file1;
     int     file2;
+    char    **env;
     char    **options;
     char    *path;
     pid_t   *pid;
     int     index_cmd;
 }t_data;
 
-int     open_file(int argc, char **argv, t_data *data);
+int     open_file(int argc, char **argv, int *first_cmd, t_data *data);
 int     get_command(char *cmd, char **envp, t_data *data, int index);
 
 void	exit_clean(t_data *data, int mode);

@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:51:48 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/26 17:20:11 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/27 21:27:45 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,9 @@ void	wait_all_child(t_data *data)
 	int		i;
 
 	i = 0;
-	while(i <= data->index_cmd)
+	while (i <= data->index_cmd)
 	{
 		end_status = waitpid(data->pid[i], &wstatus, 0);
-		if (end_status == -1)
-		{
-			perror("Error child process");
-		}
 		i++;
 	}
 }

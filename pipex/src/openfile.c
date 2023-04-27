@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 19:17:33 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/26 18:04:54 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:29:29 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	no_heredoc(int argc, char **argv, t_data *data)
 	return (0);
 }
 
-int	open_file(int argc, char **argv, t_data *data)
+int	open_file(int argc, char **argv, int *first_cmd, t_data *data)
 {
 	int	error;
 
@@ -47,7 +47,8 @@ int	open_file(int argc, char **argv, t_data *data)
 		error_manager("few", NULL, 3);
 		return (2);
 	}
-	
 	no_heredoc(argc, argv, data);
+	data->index_cmd = argc - 3 - 1;
+	*first_cmd = 2;
 	return (0);
 }

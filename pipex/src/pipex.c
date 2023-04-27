@@ -6,44 +6,55 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/26 18:03:14 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/27 21:17:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data, char **envp)
+void	exec_child(int fd_stdin, int *fd, int index, t_data *data)
+{
+	if (index == data->index_cmd)
+		dup2(data->file2, STDOUT_FILENO);
+	else
+		dup2(fd[WRITE], STDOUT_FILENO);
+	dup2(fd_stdin, STDIN_FILENO);
+	close(fd[WRITE]);
+	close(fd[READ]);
+	data->pid[index] = execve(data->path, data->options, data->env);
+	if (index != 0)
+		close (fd_stdin);
+	error_manager(NULL, data, 9);
+}
+
+int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		fd[2];
 
-	pipe(fd);
+	if (pipe(fd) == -1)
+		error_manager(NULL, data, 4);
 	data->pid[index] = fork();
 	if (data->pid[index] == -1)
-		error_manager(NULL, NULL, 4);
+		error_manager(NULL, data, 4);
 	if (data->pid[index] == 0)
 	{
-		if (fd_stdin == -1)
+		if ((fd_stdin == -1) || (index == data->index_cmd && data->file2 == -1) \
+			|| get_command(cmd, data->env, data, index) != 0)
+		{
+			if (index != 0)
+				close (fd_stdin);
+			close(fd[WRITE]);
+			close(fd[READ]);
 			error_manager(NULL, data, 8);
-		else if (index == data->index_cmd && data->file2 == -1)
-			error_manager(NULL, data, 8);
-		get_command(cmd, envp, data, index);
-		if (index == data->index_cmd)
-			dup2(data->file2, STDOUT_FILENO);
-		else
-			dup2(fd[WRITE], STDOUT_FILENO); //on écrit dans le pipe qui suit
-		dup2(fd_stdin, STDIN_FILENO); //recupère le pipe fd[READ] du précédant child
-		close(fd[WRITE]);
-		close(fd[READ]);
-		data->pid[index] = execve(data->path, data->options, envp);
-
-		error_manager(NULL, NULL, 8);
+		}
+		exec_child(fd_stdin, fd, index, data);
 	}
-	close(fd[WRITE]); //on vient de write dans le process fils ce qui nous interesse donc on close dans process 
-		return (fd[READ]); //on voudra read le pipe dans un autre process fils donc on recup ici dans process père
+	close(fd[WRITE]);
+	return (fd[READ]);
 }
 
-int	lunch_process(char **envp, char **all_cmd, t_data *data)
+int	lunch_process(char **all_cmd, t_data *data)
 {
 	int		index;
 	int		fd_read;
@@ -54,13 +65,9 @@ int	lunch_process(char **envp, char **all_cmd, t_data *data)
 	while (index <= data->index_cmd)
 	{
 		last_read = fd_read;
-		fd_read = lunch_child(fd_read, index, all_cmd[index], data, envp);
-		close(last_read);
-		// if (data->pid[index] <= 0)
-		// {
-		// 	error_manager(NULL, 9);
-		// 	return (9);
-		// }
+		fd_read = lunch_child(fd_read, index, all_cmd[index], data);
+		if (last_read != -1)
+			close(last_read);
 		index++;
 	}
 	close(fd_read);
@@ -71,32 +78,21 @@ int	lunch_process(char **envp, char **all_cmd, t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	int		first_cmd;
 	char	*cmd;
 	int		i;
 
 	data.path = NULL;
 	data.options = NULL;
-	if (open_file(argc, argv, &data) != 0)
+	data.env = envp;
+	if (open_file(argc, argv, &first_cmd, &data) != 0)
 		return (1);
-	data.index_cmd = argc - 3 - 1;
 	data.pid = malloc(sizeof(pid_t) * (data.index_cmd + 2));
 	if (!data.pid)
 		return (1);
 	data.pid[data.index_cmd + 1] = '\0';
-	lunch_process(envp, argv + 2, &data);
-
-
-
-	// i = 0;
-	// while (wait(NULL) != -1)
-	// {
-	// 	// wait(NULL);
-	// 	ft_printf("waited for a child to finish\n");
-	// 	i++;
-	// }
-	// ft_printf("all children finish\n");
-	if (is_here_doc(argv))
+	lunch_process(argv + first_cmd, &data);
+	if (is_here_doc(argv) && first_cmd == 3)
 		unlink (".heredoc");
 	exit_clean(&data, 0);
 }
-// wait(NULL) != -1 || errno != ECHILD

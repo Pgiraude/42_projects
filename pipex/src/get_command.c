@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:07:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/26 18:24:30 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/27 21:25:56 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	get_path(char **envp, char **path, char ***options)
 
 	line_envp = get_environnement(envp);
 	if (line_envp == NULL)
-	{
-		error_manager(NULL, NULL, 7);
-		return (7);
-	}
+		return (error_manager(NULL, NULL, 7), 7);
 	all_paths = ft_split(line_envp, ':');
 	i = -1;
 	while (all_paths[++i])
@@ -82,31 +79,21 @@ int	check_path(char **path, char ***options)
 
 int	get_command(char *cmd, char **envp, t_data *data, int index)
 {
+	char	*tmp;
+
 	data->path = NULL;
 	data->options = NULL;
 	if (cmd[0] == '\0')
 	{
-		error_manager(ft_itoa(index + 1), data, 5);
+		tmp = ft_itoa(index + 1);
+		error_manager(tmp, NULL, 5);
+		free (tmp);
 		return (5);
 	}
 	data->options = ft_split(cmd, ' ');
 	if (ft_strchr(data->options[0], '/'))
-		check_path(&data->path, &data->options);
+		return (check_path(&data->path, &data->options));
 	else
-		get_path(envp, &data->path, &data->options);
+		return (get_path(envp, &data->path, &data->options));
 	return (0);
 }
-
-
-	// while (++index <= data->index_cmd)
-	// {
-	// 	data->options[index] = ft_split(argv[index], ' ');
-	// 	if (ft_strchr(data->options[index][0], '/'))
-	// 		error += check_path(index, data);
-	// 	else
-	// 		error += get_path(envp, index, data);
-	// 	if (error != 0)
-	// 		return (get_command_error(index, argv, data));
-	// }
-	// data->options[index] = NULL;
-	// data->paths[index] = NULL;

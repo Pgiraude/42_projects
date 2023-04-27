@@ -58,6 +58,7 @@ push_swap_tester/
 PIPEX_TESTER/
 pipex_tester_42/
 pipexMedic/
+pipex-tester/
 
 #parametre vscode
 .vscode/
