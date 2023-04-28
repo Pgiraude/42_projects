@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 11:56:04 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/03/17 12:29:46 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/28 21:02:00 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strcmp(char *str_1, char *str_2)
 	{
 		if (str_1[i] < str_2[i])
 			return (str_1[i] - str_2[i]);
-		if(str_1[i] > str_2[i])
+		if (str_1[i] > str_2[i])
 			return (str_1[i] - str_2[i]);
 		i++;
 	}
