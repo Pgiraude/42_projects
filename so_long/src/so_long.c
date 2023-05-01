@@ -15,6 +15,11 @@
 int	main(void)
 {
 	void	*mlx;
+	void	*mlx_win;
 
-	mlx = mlx_unit();
+	mlx = mlx_init();
+	mlx_win = "ss";
+	mlx_win = "sssd";
+	mlx_win = mlx_new_window(mlx, 1920, 1080, "test");
+	mlx_loop(mlx);
 }

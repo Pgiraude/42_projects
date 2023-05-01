@@ -14,7 +14,6 @@
 # define SO_LONG_H
 
 # include "../minilibx-linux/mlx.h"
-# include <mlx.h>
 
 
 #endif
