@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/04/27 21:10:18 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/05/01 19:21:04 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,14 +39,6 @@ $(NAME): $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(FLAGS)
 
 all: $(NAME)
-
-#bonus: openfile_bonus.o $(filter-out openfile.o, $(OBJS))
-
-#bonus:
-#	$(CC) -c openfile_bonus.c
-#	mv openfile_bonus.o openfile.o
-#	$(LIBFT) 
-#	$(CC) -o $(NAME) $(OBJS) ./libft/libft.a $(FLAGS)
 
 bonus: $(OBJS_B)
 	$(LIBFT)
