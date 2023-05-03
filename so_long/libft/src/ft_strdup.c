@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:24:29 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/13 18:46:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/libft.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+char	*ft_strdup(const char *s)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	int		len;
+	char	*ptr;
+	int		i;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
-
-
-#endif
+	len = 0;
+	while (s[len])
+		len++;
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		ptr[i] = s[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
+}

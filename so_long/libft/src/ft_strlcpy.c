@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:18:25 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/02 17:53:05 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/libft.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+size_t	ft_strlen_strlcpy(const char *c)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	int	i;
 
-typedef struct s_vars
+	i = 0;
+	while (c[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
+	size_t	i;
+	size_t	len_src;
 
-
-#endif
+	len_src = ft_strlen_strlcpy(src);
+	i = 0;
+	if (size > 0)
+	{
+		while (i <= (size - 1) && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (len_src);
+}

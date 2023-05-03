@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/05/06 21:22:37 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/06/27 20:33:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/libft.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	const unsigned char	*ptr1;
+	const unsigned char	*ptr2;
+	size_t				i;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
-
-
-#endif
+	ptr1 = s1;
+	ptr2 = s2;
+	i = 0;
+	while (i < n)
+	{
+		if (ptr1[i] != ptr2[i])
+			return (ptr1[i] - ptr2[i]);
+		i++;
+	}
+	return (0);
+}

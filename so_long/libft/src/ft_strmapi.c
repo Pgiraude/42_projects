@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/22 19:33:40 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/12 19:51:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/libft.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	char	*str;
+	int		i;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
-
-
-#endif
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!str)
+		return (NULL);
+	while (s[i])
+	{
+		str[i] = (*f)(i, s[i]);
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}

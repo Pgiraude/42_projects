@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_convert_dec.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 19:58:32 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/23 19:57:41 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../../include/ft_printf.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+size_t	ft_convert_dec(int value)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	size_t			neg;
+	long long int	convert;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
-
-
-#endif
+	neg = 0;
+	convert = value;
+	ft_putnbr_fd(convert, 1);
+	if (convert < 0)
+	{
+		neg++;
+		convert *= -1;
+	}
+	return (ft_len_calculator(convert, 10) + neg);
+}

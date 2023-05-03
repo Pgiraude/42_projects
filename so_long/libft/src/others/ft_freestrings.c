@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_freestrings.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2023/04/28 20:56:11 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/04/28 21:03:22 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../../include/libft.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+void	ft_freestrings(char **tab_str)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	int	i;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
-
-
-#endif
+	i = 0;
+	if (!tab_str)
+		return ;
+	while (tab_str[i])
+	{
+		free (tab_str[i]);
+		i++;
+	}
+	if (tab_str)
+		free (tab_str);
+}

@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_convert_udec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/08/19 20:01:34 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/08/23 19:16:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../../include/ft_printf.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+void	ft_putnbr_u(unsigned int n)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	long unsigned int	l;
 
-typedef struct s_vars
+	l = n;
+	if (l > 9)
+	{
+		ft_putnbr_u(l / 10);
+	}
+	ft_putchar_fd(((l % 10) + 48), 1);
+}
+
+size_t	ft_convert_udec(unsigned int value)
 {
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
+	size_t	len;
 
-
-#endif
+	len = ft_len_calculator(value, 10);
+	ft_putnbr_u(value);
+	return (len);
+}

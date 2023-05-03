@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/01 16:49:07 by pgiraude          #+#    #+#              #
-#    Updated: 2023/05/02 13:28:26 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/05/03 18:22:25 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,14 +28,17 @@ CC 		=	cc
 
 MLX 	=	cd minilibx-linux && make
 
+LIBFT	=	cd libft && make
+
 #%.o: %.c
 #	$(CC) $(FLAGS) $(OBJS) -Iminilibx-linux -O3 -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	$(LIBFT)
 	$(MLX)
-	$(CC) $(FLAGS) $(OBJS) -Iminilibx-linux -Lminilibx-linux -lmlx -lm -lXext -lX11 -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) ./libft/libft.a -Iminilibx-linux -Lminilibx-linux -lmlx -lm -lXext -lX11 -o $(NAME)
 
 
 #$(NAME): $(OBJS)a
@@ -45,10 +48,12 @@ $(NAME): $(OBJS)
 
 
 clean:
+	$(LIBFT) clean
 	$(MLX) clean
 	$(RM) $(OBJS)
 
 fclean: clean
+	$(LIBFT) fclean
 	$(RM) $(NAME)
 
 re: fclean all

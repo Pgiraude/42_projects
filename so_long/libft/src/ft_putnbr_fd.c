@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/03 18:11:46 by pgiraude         ###   ########.fr       */
+/*   Created: 2022/06/20 21:52:13 by pgiraude          #+#    #+#             */
+/*   Updated: 2022/07/02 17:09:38 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/libft.h"
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/include/libft.h"
-
-typedef struct s_data
+void	ft_putchar_putnbr(char c, int fd)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}t_data;
+	write(fd, &c, 1);
+}
 
-typedef struct s_vars
+void	ft_putnbr_fd(int n, int fd)
 {
-	void	*mlx;
-	void	*mlx_win;
-}t_vars;
+	long int	l;
 
-
-#endif
+	l = n;
+	if (l < 0)
+	{
+		l = l * -1;
+		ft_putchar_putnbr('-', fd);
+	}
+	if (l > 9)
+	{
+		ft_putnbr_fd((l / 10), fd);
+	}
+	ft_putchar_putnbr(((l % 10) + 48), fd);
+}
