@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/05/01 19:21:04 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/05/04 18:32:57 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJS = $(SRC:.c=.o) $(SRC_UTILS:.c=.o)
 
 OBJS_B = $(SRC_B:.c=.o) $(SRC_UTILS:.c=.o)
 
-#OBJS_UTILS = $(SRC_UTILS:.c=.o)
+
 
 RM = rm -f
 
@@ -33,6 +33,7 @@ FLAGS = -Werror -Wextra -Wall
 LIBFT = cd libft && make
 
 MAKEFLAGS	=	--no-print-directory
+
 
 $(NAME): $(OBJS)
 	$(LIBFT) 
@@ -45,11 +46,11 @@ bonus: $(OBJS_B)
 	$(CC) -o $(NAME) $(OBJS_B) ./libft/libft.a $(FLAGS)
 	$(RM) src/openfile.o
 
+
 clean:
 	$(LIBFT) clean
 	$(RM) $(OBJS)
 	$(RM) $(OBJS_B)
-
 
 fclean: clean
 	$(LIBFT) fclean

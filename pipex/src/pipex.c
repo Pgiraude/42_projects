@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/27 21:17:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:07:49 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exec_child(int fd_stdin, int *fd, int index, t_data *data)
 	error_manager(NULL, data, 9);
 }
 
-int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data)
+int	launch_child(int fd_stdin, int index, char *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -54,7 +54,7 @@ int	lunch_child(int fd_stdin, int index, char *cmd, t_data *data)
 	return (fd[READ]);
 }
 
-int	lunch_process(char **all_cmd, t_data *data)
+int	launch_process(char **all_cmd, t_data *data)
 {
 	int		index;
 	int		fd_read;
@@ -65,7 +65,7 @@ int	lunch_process(char **all_cmd, t_data *data)
 	while (index <= data->index_cmd)
 	{
 		last_read = fd_read;
-		fd_read = lunch_child(fd_read, index, all_cmd[index], data);
+		fd_read = launch_child(fd_read, index, all_cmd[index], data);
 		if (last_read != -1)
 			close(last_read);
 		index++;
@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!data.pid)
 		return (1);
 	data.pid[data.index_cmd + 1] = '\0';
-	lunch_process(argv + first_cmd, &data);
+	launch_process(argv + first_cmd, &data);
 	if (is_here_doc(argv) && first_cmd == 3)
 		unlink (".heredoc");
 	exit_clean(&data, 0);
