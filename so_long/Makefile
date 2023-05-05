@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/01 16:49:07 by pgiraude          #+#    #+#              #
-#    Updated: 2023/05/03 18:22:25 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/05/05 14:41:39 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	so_long
 
 SRC_DIR 	=	src/
 
-SRC 	=	so_long.c
+SRC 	=	so_long.c error_manager.c check_map.c
 
 
 OBJS 	=	$(addprefix $(SRC_DIR), $(SRC:.c=.o))
