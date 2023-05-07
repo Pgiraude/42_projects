@@ -19,33 +19,77 @@ typedef struct s_count
 	int	coin;
 }t_count;
 
-
-int check_map_character(char *line, int map_width, t_count *count)
+int	check_map_lines(char **map, size_t map_hight)
 {
-	int	len_line;
+	size_t	x;
+	size_t	y;
+	size_t	len_line;
+
+	x = 0;
+	len_line = ft_strlen(map[x]);
+	while (map[x])
+	{
+		if (len_line != ft_strlen(map[x]))
+			return (ft_freestrings(map), error_manager(NULL, 15));
+		if (x == 0 || x == map_hight - 1)
+		{
+			y = 0;
+			while (map[x][y])
+			{
+				if (map[x][y] != '1')
+					return (ft_freestrings(map), error_manager(NULL, 15));
+				y++;
+			}
+		}
+		x++;
+	}
+	if (len_line < 3 || x < 3 || len_line + x < 8)
+		return (ft_freestrings(map), error_manager(NULL, 20));
+	return (0);
+}
+
+
+	// len_line = ft_strlen(line);
+	// if (len_line == *map_width)
+	// 	return (first_line_check(line, map_width, 1));
+	// if (line[0] != '1')
+	// 	return (free(line), error_manager(NULL, 16));
+	// if (len_line - 1 != *map_width)
+	// 	return (free(line), error_manager(NULL, 17));
+
+int check_map_characters(char *line, t_count *count)
+{
 	int	i;
 
-	i = 0;
-	len_line = ft_strlen(line);
-	if (!(line[0] == '1' || ft_strlen(line) + 1 == map_width))
-		return (free(line), error_manager(NULL, 16));
+	if (line[0] != '1')
+		return (free(line), error_manager(NULL, 15));
+	i = 1;
 	while (line[i])
 	{
 		if (!(line[i] == '0' || line[i] == '1' || line[i] == 'C' \
-			|| line[i] == 'E' || line[i] == 'P' || (line[i] == '\n' && i + 1 == len_line)))
-			return (free(line), error_manager(line, 12));
-		else if (line[i] == 'E')
+			|| line[i] == 'E' || line[i] == 'P' || line[i] == '\n'))
+			return (free(line), error_manager(NULL, 12));
+		if (line[i] == '\n' && line[i + 1] == '\0')
+			return (free(line), error_manager(NULL, 19));
+		if (line[i] == '\n' && (line[i + 1] == '\n'))
+			return (free(line), error_manager(NULL, 16));
+		if (line[i] == '\n' && !(line[i - 1] == '1' && line[i + 1] == '1'))
+			return (free(line), error_manager(NULL, 17));
+		if (line[i] == 'E')
 			count->exit++;
-		else if (line[i] == 'P')
+		if (line[i] == 'P')
 			count->pos++;
-		else if (line[i] == 'C')
+		if (line[i] == 'C')
 			count->coin++;
 		i++;
 	}
 	return (0);
 }
 
-int	check_number_character(t_count *count)
+	// if (i + 1 == *map_width && line[i] != '1')
+	// 	return (free(line), error_manager(NULL, 18));
+
+int	check_number_characters(t_count *count)
 {
 	if (count->exit == 0)
 		return (error_manager("exit", 14));
@@ -60,49 +104,54 @@ int	check_number_character(t_count *count)
 	return (0);
 }
 
-int	first_line_check(char *line, int *map_width, int mode)
+int	check_map(char *line, char ***map)
 {
-	int i;
+	t_count	count;
+	size_t	map_hight;
 
+	*map = NULL;
 	if (line == NULL)
 		return (error_manager(NULL, 11));
-	if (mode == 0)
-		*map_width = ft_strlen(line) - 1;
-	i = -1;
-	while (line[++i])
-	{
-		if (!(line[i] == '1' || (line[i] == '\n' && i == ft_strlen(line))))
-			return (free(line), error_manager(NULL, 15));
-	}
+	count.exit = 0;
+	count.pos = 0;
+	count.coin = 0;
+	check_map_characters(line, &count);
+	check_number_characters(&count);
+	
+	*map = ft_split(line, '\n');
+	
+	free (line);
+	map_hight = 0;
+	ft_printf("test\n");
+	while (map[map_hight])
+		map_hight++;
+	check_map_lines(*map, map_hight);
 	return (0);
 }
 
 int get_map(char *argv)
 {
-	t_count	count;
 	int     map_fd;
 	char    *line;
-	int 	*map_width;
-	int		i;
+	char	*big_line;
+	char	*tmp;
+	char	**map;
 
-	count.exit = 0;
-	count.pos = 0;
-	count.coin = 0;
 	map_fd = open(argv, O_RDONLY, 0644);
 	if (map_fd < 0)
 		return (error_manager(argv, 10));
 	line = get_next_line(map_fd);
-	first_line_check(line, &map_width, 0);
-	i = 0;
-	ft_printf("%s", line);
+	big_line = NULL;
 	while (line)
 	{
-		i++;
-		check_map_character(line, map_width, &count);
-		free(line);
+		tmp = big_line;
+		big_line = ft_strjoin(tmp, line);
+		free (tmp);
+		free (line);
 		line = get_next_line(map_fd);
-		ft_printf("%s", line);
 	}
-	check_number_character(&count);
+	ft_printf("%s|\n", big_line);
+	check_map(big_line, &map);
+
 	return (0);
 }
