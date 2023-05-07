@@ -61,7 +61,7 @@ int	error_manager(char *msg, int key_error)
 	}
 	else if (key_error == 19)
 	{
-		ft_printf(": Map incorrect design, should not end white '\\n'\n");
+		ft_printf(": Map incorrect design, should not end with '\\n'\n");
 		exit(EXIT_FAILURE);
 		return (19);
 	}

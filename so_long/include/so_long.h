@@ -33,6 +33,6 @@ typedef struct s_vars
 
 
 int	error_manager(char *msg, int key_error);
-int get_map(char *argv);
+int get_map(char *map_name);
 
 #endif
