@@ -19,17 +19,38 @@ typedef struct s_count
 	int	coin;
 }t_count;
 
-// int	check_map_path(char **map)
-// {
-// 	size_t	x;
-// 	size_t	y;
+typedef struct s_save
+{
+	int	x;
+	int	y;
+}t_save;
 
-// 	x = 0;
-// 	while (map[x])
-// 	{
+int	check_map_path(char **map, t_count *count)
+{
+	size_t	x;
+	size_t	y;
 
-// 	}
-// }
+	x = -1;
+	while (map[++x])
+	{
+		y = -1;
+		while (map[x][++y])
+		{
+			if (map[x][y] == 'P')
+				break;
+		}
+	}
+
+	t_save	save;
+
+	save.x = x;
+	save.y = y;
+	while (map[x][y] == '1')
+	{
+		
+	}
+	
+}
 
 int	check_map_lines(char **map, size_t map_height, size_t map_width)
 {
