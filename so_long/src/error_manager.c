@@ -53,5 +53,11 @@ int	error_manager(char *msg, int key_error)
 		exit(EXIT_FAILURE);
 		return (14);
 	}
+	else if (key_error == 15 || key_error == 16)
+	{
+		ft_printf(": Map incorrect design, need a rectangle surrounded by walls\n");
+		exit(EXIT_FAILURE);
+		return (15);
+	}
 	return (0);
 }
