@@ -14,7 +14,7 @@ NAME	=	so_long
 
 SRC_DIR 	=	src/
 
-SRC 	=	so_long.c error_manager.c check_map.c
+SRC 	=	so_long.c error_manager.c get_map.c check_map_paths.c
 
 
 OBJS 	=	$(addprefix $(SRC_DIR), $(SRC:.c=.o))
