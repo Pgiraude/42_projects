@@ -44,8 +44,8 @@ int	main(int argc, char **argv)
 	get_map(argv[1]);
 
 	vars.mlx = mlx_init();
-	vars.mlx_win = mlx_new_window(vars.mlx, 1920, 1080, "test");
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
+	vars.mlx_win = mlx_new_window(vars.mlx, 512, 512, "test");
+	img.img = mlx_new_image(vars.mlx, 512, 512);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 	&img.endian);
 	
@@ -70,7 +70,7 @@ int	main(int argc, char **argv)
 
 	ft_printf("image val=%d\n", image);
 
-	mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, 1600, 100);
+	mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, 300, 300);
 
 
 	ft_printf("image width=%d height=%d\n", img_width, img_height);

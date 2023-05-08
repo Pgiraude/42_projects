@@ -53,5 +53,23 @@ int	error_manager(char *msg, int key_error)
 		exit(EXIT_FAILURE);
 		return (14);
 	}
+	else if (key_error == 15 || key_error == 16 || key_error == 17 || key_error == 18)
+	{
+		ft_printf(": Map incorrect design, need a rectangle surrounded by walls\n");
+		exit(EXIT_FAILURE);
+		return (15);
+	}
+	else if (key_error == 19)
+	{
+		ft_printf(": Map incorrect design, should not end with '\\n'\n");
+		exit(EXIT_FAILURE);
+		return (19);
+	}
+	else if (key_error == 20)
+	{
+		ft_printf(": Map is too small\n");
+		exit(EXIT_FAILURE);
+		return (20);
+	}
 	return (0);
 }

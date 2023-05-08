@@ -31,8 +31,14 @@ typedef struct s_vars
 	void	*mlx_win;
 }t_vars;
 
+typedef struct s_count
+{
+	int	exit;
+	int	pos;
+	int	coin;
+}t_count;
 
 int	error_manager(char *msg, int key_error);
-int get_map(char *argv);
+int get_map(char *map_name);
 
 #endif
