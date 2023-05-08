@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:13:37 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/05 19:49:09 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:28:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,14 @@ int	check_number_characters(t_count *count)
 	return (0);
 }
 
-int	check_map(char *line, char ***map)
+int	check_map(char *line)
 {
 	t_count	count;
 	size_t	map_height;
 	size_t	map_width;
-
-	*map = NULL;
+	char	**map;
+	
+	map = NULL;
 	if (line == NULL)
 		return (error_manager(NULL, 11));
 	count.exit = 0;
@@ -97,14 +98,14 @@ int	check_map(char *line, char ***map)
 	count.coin = 0;
 	check_map_characters(line, &count);
 	check_number_characters(&count);
-	*map = ft_split(line, '\n');
+	map = ft_split(line, '\n');
 	free (line);
 	map_height = 0;
-	ft_printf("test\n");
 	while (map[map_height])
 		map_height++;
-	map_width = ft_strlen(*map[0]);
-	check_map_lines(*map, map_height, map_width);
+	map_width = ft_strlen(map[0]);
+	check_map_lines(map, map_height, map_width);
+	check_map_paths(map, &count);
 	return (0);
 }
 
@@ -114,7 +115,7 @@ int get_map(char *map_name)
 	char    *line;
 	char	*big_line;
 	char	*tmp;
-	char	**map;
+	// char	**map;
 
 	map_fd = open(map_name, O_RDONLY, 0644);
 	if (map_fd < 0)
@@ -130,7 +131,7 @@ int get_map(char *map_name)
 		line = get_next_line(map_fd);
 	}
 	ft_printf("%s|\n", big_line);
-	check_map(big_line, &map);
+	check_map(big_line);
 
 	return (0);
 }

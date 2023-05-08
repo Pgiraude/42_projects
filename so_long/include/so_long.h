@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/08 14:26:58 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:58:51 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ typedef struct s_count
 
 int	error_manager(char *msg, int key_error);
 int get_map(char *map_name);
+int	check_map_paths(char **map, t_count *count);
 
 #endif
