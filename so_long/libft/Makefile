@@ -12,6 +12,11 @@ SRC =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c	\
 		ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_strcmp.c
 
 
+SRC_CHAINLISTDIR	=	src/chainlist/
+
+SRC_CHAINLIST	=	chainlist.c
+
+
 SRC_PRINTFDIR	=	src/ft_printf/
 
 SRC_PRINTF	=	ft_printf.c ft_convert_hex.c ft_convert_ptr.c \
@@ -28,6 +33,7 @@ SRC_OTHERSDIR	=	src/others/
 SRC_OTHERS		=	ft_freestrings.c
 
 OBJS    =   $(addprefix $(SRCDIR), $(SRC:.c=.o)) \
+			$(addprefix $(SRC_CHAINLISTDIR), $(SRC_CHAINLIST:.c=.o)) \
 			$(addprefix $(SRC_PRINTFDIR), $(SRC_PRINTF:.c=.o)) \
 			$(addprefix $(SRC_GNLDIR), $(SRC_GNL:.c=.o)) \
 			$(addprefix $(SRC_OTHERSDIR), $(SRC_OTHERS:.c=.o))
