@@ -36,6 +36,8 @@ typedef struct s_count
 	int	exit;
 	int	pos;
 	int	coin;
+	size_t	map_height;
+	size_t	map_width;
 }t_count;
 
 int	error_manager(char *msg, int key_error);

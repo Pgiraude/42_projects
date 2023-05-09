@@ -18,39 +18,56 @@ typedef struct s_pos
 	int	y;
 }t_pos;
 
-int	down(char **map, t_pos *current)
+int	down(char **map, t_pos *current, char *track_moove, int nb_moove)
 {
 	if (map[current->y + 1][current->x] == '1')
 		return (-1);
 	current->y++;
+	track_moove[nb_moove] = 'd';
+	track_moove[nb_moove + 1] = '\0';
+	nb_moove++;
 	return (0);
 }
 
-int	up(char **map, t_pos *current)
+int	up(char **map, t_pos *current, char *track_moove, int nb_moove)
 {
 	if (map[current->y - 1][current->x] == '1')
 		return (-1);
 	current->y--;
+	track_moove[nb_moove] = 'u';
+	track_moove[nb_moove + 1] = '\0';
+	nb_moove++;
 	return (0);
 }
 
-int	right(char **map, t_pos *current)
+int	right(char **map, t_pos *current, char *track_moove, int nb_moove)
 {
 	if (map[current->y][current->x + 1] == '1')
 		return (-1);
 	current->x++;
+	track_moove[nb_moove] = 'r';
+	track_moove[nb_moove + 1] = '\0';
+	nb_moove++;
 	return (0);
 }
 
-int	left(char **map, t_pos *current)
+int	left(char **map, t_pos *current, char *track_moove, int nb_moove)
 {
 	if (map[current->y + 1][current->x - 1] == '1')
 		return (-1);
 	current->x--;
+	track_moove[nb_moove] = 'l';
+	track_moove[nb_moove + 1] = '\0';
+	nb_moove++;
 	return (0);
 }
 
-int	check_all_paths(char **map, t_pos *current, t_count *count)
+void	back_track(char **map, t_pos *current, t_count *count, char *track_moove)
+{
+	while ()
+}
+
+int	check_all_paths(char **map, t_pos *current, t_count *count, char *track_moove)
 {
 	int	x = 0;
 	while (map[x])
@@ -60,34 +77,28 @@ int	check_all_paths(char **map, t_pos *current, t_count *count)
 	}
 	ft_printf("count pos=%d cur y=%d cur x=%d\n", count->pos, current->y, current->x);
 
-	
 	if (map[current->y][current->x] == 'P')
-	{
-		ft_printf("test1\n");
 		count->pos--;
-		ft_printf("test2\n");
-	}
 	if (map[current->y][current->x] == 'E')
 		count->exit--;
 	if (map[current->y][current->x] == 'C')
 		count->coin--;
-	ft_printf("test\n");
 	map[current->y][current->x] = '1';
 
 	
 	if (count->coin == 0 && count->pos == 0 && count->exit == 0)
 		return (0);
 		
-	if (up(map, current) != -1)
-		return (check_all_paths(map, current, count));
-	else if (right(map, current) != -1)
-		return (check_all_paths(map, current, count));
-	else if (down(map, current) != -1)
-		return (check_all_paths(map, current, count));
-	else if (left(map, current) != -1)
-		return (check_all_paths(map, current, count));
+	if (up(map, current, track_moove, nb_moove) != -1)
+		return (check_all_paths(map, current, count, track_moove));
+	else if (right(map, current, track_moove, nb_moove) != -1)
+		return (check_all_paths(map, current, count, track_moove));
+	else if (down(map, current, track_moove, nb_moove) != -1)
+		return (check_all_paths(map, current, count, track_moove));
+	else if (left(map, current, track_moove, nb_moove) != -1)
+		return (check_all_paths(map, current, count, track_moove));
 
-	
+	back_track(map, current, count, track_moove);
 	return (0);
 }
 
@@ -120,12 +131,18 @@ int	get_pos(char **map, char letter, t_pos *pos)
 int	check_map_paths(char **map, t_count *count)
 {
 	t_pos	current;
+	char	*track_moove;
 
 	current.x = 0;
 	current.y = 0;
 	get_pos(map, 'P', &current);
 	ft_printf("cur y=%d cur x=%d OUT\n", current.y, current.x);
-	check_all_paths(map, &current, count);
+	
+	track_moove = malloc(sizeof(char) * (count->map_height * count->map_width));
+	if (!track_moove)
+		return (error_manager(NULL, 30));
+	track_moove[count->map_height * count->map_width] = '\0';
+	check_all_paths(map, &current, count, track_moove);
 	
 	int	x = 0;
 	while (map[x])

@@ -71,5 +71,11 @@ int	error_manager(char *msg, int key_error)
 		exit(EXIT_FAILURE);
 		return (20);
 	}
+	else if (key_error == 30)
+	{
+		ft_printf(": Malloc failed\n");
+		exit(EXIT_FAILURE);
+		return (30);
+	}
 	return (0);
 }

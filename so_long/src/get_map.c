@@ -86,8 +86,6 @@ int	check_number_characters(t_count *count)
 int	check_map(char *line)
 {
 	t_count	count;
-	size_t	map_height;
-	size_t	map_width;
 	char	**map;
 	
 	map = NULL;
@@ -100,11 +98,11 @@ int	check_map(char *line)
 	check_number_characters(&count);
 	map = ft_split(line, '\n');
 	free (line);
-	map_height = 0;
-	while (map[map_height])
-		map_height++;
-	map_width = ft_strlen(map[0]);
-	check_map_lines(map, map_height, map_width);
+	count.map_height = 0;
+	while (map[count.map_height])
+		count.map_height++;
+	count.map_width = ft_strlen(map[0]);
+	check_map_lines(map, count.map_height, count.map_width);
 	check_map_paths(map, &count);
 	return (0);
 }
