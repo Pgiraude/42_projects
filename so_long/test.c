@@ -48,7 +48,35 @@ t_list	*ft_add_data_list(t_list *list, void *data, int	pos)
 	return (list);
 }
 
+t_list	*ft_suppr_data_list(t_list *list, void **data, int pos)
+{
+	t_list	*tmp;
+	t_list	*tmp_b;
 
+	if (!list)
+		return (list);
+	else
+	{
+		tmp = list;
+		if (pos == 0)
+		{
+			list = list->next;
+			*data = tmp->data;
+			tmp->next = NULL;
+			free (tmp);
+		}
+		else
+		{
+			tmp_b = list;
+			while (tmp->next != NULL || (pos-- - 1) == 0)
+				tmp = tmp->next;
+			while (tmp_b->next != tmp)
+				tmp_b = tmp_b->next;
+			tmp_b->next = tmp->next;
+		}
+	}
+	return (list);
+}
 
 int	main(void)
 {
