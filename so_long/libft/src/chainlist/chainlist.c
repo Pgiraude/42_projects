@@ -48,7 +48,6 @@ t_list	*ft_add_cell_list(t_list *list, void *data, int	pos)
 		else
 		{
 			tmp = list;
-			
 			while (tmp->next != NULL && pos-- != 0)
 				tmp = tmp->next;
 			new_node->next = tmp->next;

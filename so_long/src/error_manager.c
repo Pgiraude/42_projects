@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:20:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/05 19:46:21 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:16:53 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int	error_manager(char *msg, int key_error)
 		ft_printf(": Malloc failed\n");
 		exit(EXIT_FAILURE);
 		return (30);
+	}
+	else if (key_error == 31)
+	{
+		ft_printf(": Map incorrect path\n");
+		exit(EXIT_FAILURE);
+		return (31);
 	}
 	return (0);
 }
