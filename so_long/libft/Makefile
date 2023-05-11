@@ -30,7 +30,7 @@ SRC_GNL		=	get_next_line.c get_next_line_utils.c get_next_line_bonus.c
 
 SRC_OTHERSDIR	=	src/others/
 
-SRC_OTHERS		=	ft_freestrings.c
+SRC_OTHERS		=	ft_free_strings.c ft_dup_strings.c
 
 OBJS    =   $(addprefix $(SRCDIR), $(SRC:.c=.o)) \
 			$(addprefix $(SRC_CHAINLISTDIR), $(SRC_CHAINLIST:.c=.o)) \

@@ -21,21 +21,21 @@ int	check_map_lines(char **map, size_t map_height, size_t map_width)
 	while (map[x])
 	{
 		if (map_width != ft_strlen(map[x]))
-			return (ft_freestrings(map), error_manager(NULL, 15));
+			return (ft_free_strings(map), error_manager(NULL, 15));
 		if (x == 0 || x == map_height - 1)
 		{
 			y = 0;
 			while (map[x][y])
 			{
 				if (map[x][y] != '1')
-					return (ft_freestrings(map), error_manager(NULL, 15));
+					return (ft_free_strings(map), error_manager(NULL, 15));
 				y++;
 			}
 		}
 		x++;
 	}
 	if (map_width < 3 || x < 3 || map_width + x < 8)
-		return (ft_freestrings(map), error_manager(NULL, 20));
+		return (ft_free_strings(map), error_manager(NULL, 20));
 	return (0);
 }
 
@@ -83,53 +83,53 @@ int	check_number_characters(t_count *count)
 	return (0);
 }
 
-int	check_map(char *line)
+char	**check_map_conformity(char *one_line_map)
 {
 	t_count	count;
 	char	**map;
-	
+
 	map = NULL;
-	if (line == NULL)
+	if (one_line_map == NULL)
 		return (error_manager(NULL, 11));
 	count.exit = 0;
 	count.pos = 0;
 	count.coin = 0;
-	check_map_characters(line, &count);
+	check_map_characters(one_line_map, &count);
 	check_number_characters(&count);
-	map = ft_split(line, '\n');
-	free (line);
+	map = ft_split(one_line_map, '\n');
+	free (one_line_map);
 	count.map_height = 0;
 	while (map[count.map_height])
 		count.map_height++;
 	count.map_width = ft_strlen(map[0]);
 	check_map_lines(map, count.map_height, count.map_width);
-	check_map_paths(map, &count);
-	return (0);
+	check_map_paths(ft_dup_strings(map), &count);
+	return (map);
 }
 
 int get_map(char *map_name)
 {
 	int     map_fd;
 	char    *line;
-	char	*big_line;
+	char	*one_line_map;
 	char	*tmp;
-	// char	**map;
+	char	**map;
 
 	map_fd = open(map_name, O_RDONLY, 0644);
 	if (map_fd < 0)
 		return (error_manager(map_name, 10));
 	line = get_next_line(map_fd);
-	big_line = NULL;
+	one_line_map = NULL;
 	while (line)
 	{
-		tmp = big_line;
-		big_line = ft_strjoin(tmp, line);
+		tmp = one_line_map;
+		one_line_map = ft_strjoin(tmp, line);
 		free (tmp);
 		free (line);
 		line = get_next_line(map_fd);
 	}
-	ft_printf("%s|\n", big_line);
-	check_map(big_line);
+	ft_printf("%s|\n", one_line_map);
+	map = check_map_conformity(one_line_map);
 
 	return (0);
 }
