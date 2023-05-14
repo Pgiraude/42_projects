@@ -39,7 +39,7 @@ int	check_map_lines(char **map, size_t map_height, size_t map_width)
 	return (0);
 }
 
-int check_map_characters(char *line, t_count *count)
+int check_map_characters(char *line, t_map *count)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ int check_map_characters(char *line, t_count *count)
 	return (0);
 }
 
-int	check_number_characters(t_count *count)
+int	check_number_characters(t_map *count)
 {
 	if (count->exit == 0)
 		return (error_manager("exit", 14));
@@ -83,41 +83,41 @@ int	check_number_characters(t_count *count)
 	return (0);
 }
 
-char	**check_map_conformity(char *one_line_map)
+t_map	check_map_conformity(char *one_line_map)
 {
-	t_count	count;
+	t_map	map_param;
 	char	**map;
 
-	map = NULL;
 	if (one_line_map == NULL)
-		return (error_manager(NULL, 11));
-	count.exit = 0;
-	count.pos = 0;
-	count.coin = 0;
-	check_map_characters(one_line_map, &count);
-	check_number_characters(&count);
+		error_manager(NULL, 11);
+	map_param.exit = 0;
+	map_param.pos = 0;
+	map_param.coin = 0;
+	check_map_characters(one_line_map, &map_param);
+	check_number_characters(&map_param);
 	map = ft_split(one_line_map, '\n');
 	free (one_line_map);
-	count.map_height = 0;
-	while (map[count.map_height])
-		count.map_height++;
-	count.map_width = ft_strlen(map[0]);
-	check_map_lines(map, count.map_height, count.map_width);
-	check_map_paths(ft_dup_strings(map), &count);
-	return (map);
+	map_param.map_height = 0;
+	while (map[map_param.map_height])
+		map_param.map_height++;
+	map_param.map_width = ft_strlen(map[0]);
+	check_map_lines(map, map_param.map_height, map_param.map_width);
+	check_map_paths(ft_dup_strings(map), &map_param);
+	map_param.map = map;
+	return (map_param);
 }
 
-int get_map(char *map_name)
+t_map get_map(char *map_name)
 {
+	t_map	map_param;
 	int     map_fd;
 	char    *line;
 	char	*one_line_map;
 	char	*tmp;
-	char	**map;
 
 	map_fd = open(map_name, O_RDONLY, 0644);
 	if (map_fd < 0)
-		return (error_manager(map_name, 10));
+		error_manager(map_name, 10);
 	line = get_next_line(map_fd);
 	one_line_map = NULL;
 	while (line)
@@ -129,7 +129,6 @@ int get_map(char *map_name)
 		line = get_next_line(map_fd);
 	}
 	ft_printf("%s|\n", one_line_map);
-	map = check_map_conformity(one_line_map);
-
-	return (0);
+	map_param = check_map_conformity(one_line_map);
+	return (map_param);
 }

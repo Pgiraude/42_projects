@@ -18,7 +18,7 @@ typedef struct s_pos
 	int	y;
 }t_pos;
 
-int	check_all_paths(char **map, t_pos *current, t_count *count, t_list **track_path);
+int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_path);
 
 int	mooves(char **map, t_pos *current, char direction)
 {
@@ -49,7 +49,7 @@ int	mooves(char **map, t_pos *current, char direction)
 	return (0);
 }
 
-int	back_track(char **map, t_pos *current, t_count *count, t_list *track_path)
+int	back_track(char **map, t_pos *current, t_map *count, t_list *track_path)
 {
 	void	*data;
 	void	*moove;
@@ -81,7 +81,7 @@ int	back_track(char **map, t_pos *current, t_count *count, t_list *track_path)
 	return (-1);
 }
 
-int	check_all_paths(char **map, t_pos *current, t_count *count, t_list **track_path)
+int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_path)
 {
 
 
@@ -155,7 +155,7 @@ int	get_pos(char **map, char letter, t_pos *pos)
 	return (1);
 }
 
-int	check_map_paths(char **map, t_count *count)
+int	check_map_paths(char **map, t_map *count)
 {
 	t_pos	current;
 	t_list	*track_path;

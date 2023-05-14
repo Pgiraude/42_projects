@@ -32,23 +32,41 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	my_mlx_get_screen_size(t_map map_param, t_vars vars , t_data img)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 0;
+	y = 0;
+	if (map_param.map_height > 20 || map_param.map_width > 20)
+		error_manager(NULL, 40);
+	x = map_param.map_width * 50;
+	y = map_param.map_height * 50;
+	vars.mlx_win = mlx_new_window(vars.mlx, x, y, "so_long");
+	img.img = mlx_new_image(vars.mlx, x, y);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+	&img.endian);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_data	img;
+	t_map	map_param;
 
 	if (argc < 2)
 		error_manager("few", 1);
 	// else if (argc > 2)
 	// 	error_manager("much", 1);
-	get_map(argv[1]);
+	map_param = get_map(argv[1]);
 
 	vars.mlx = mlx_init();
-	vars.mlx_win = mlx_new_window(vars.mlx, 512, 512, "test");
-	img.img = mlx_new_image(vars.mlx, 512, 512);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-	&img.endian);
+	if (!vars.mlx)
+		return (-1);
 	
+	my_mlx_get_screen_size(map_param, vars, img);
+
 	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
 	my_mlx_pixel_put(&img, 6, 5, 0x00FF0000);
 	my_mlx_pixel_put(&img, 7, 5, 0x00FF0000);

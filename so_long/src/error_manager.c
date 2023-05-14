@@ -83,5 +83,11 @@ int	error_manager(char *msg, int key_error)
 		exit(EXIT_FAILURE);
 		return (31);
 	}
+	else if (key_error == 40)
+	{
+		ft_printf(": Map is too big\n");
+		exit(EXIT_FAILURE);
+		return (31);
+	}
 	return (0);
 }
