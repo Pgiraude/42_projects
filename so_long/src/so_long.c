@@ -24,6 +24,8 @@ int	ft_close(t_vars *vars)
 	return (0);
 }
 
+
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -41,8 +43,8 @@ void	my_mlx_get_screen_size(t_map map_param, t_vars vars , t_data img, char *pat
 	y = 0;
 	if (map_param.map_height > 20 || map_param.map_width > 20)
 		error_manager(NULL, 40);
-	x = map_param.map_width * 16;
-	y = map_param.map_height * 16;
+	x = map_param.map_width * 50;
+	y = map_param.map_height * 50;
 	vars.mlx_win = mlx_new_window(vars.mlx, x, y, "so_long");
 	img.img = mlx_new_image(vars.mlx, x, y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
@@ -63,7 +65,7 @@ void	my_mlx_get_screen_size(t_map map_param, t_vars vars , t_data img, char *pat
 			if (map_param.map[y][x] == '1')
 			{
 				image = mlx_xpm_file_to_image(vars.mlx, path, &img_width, &img_height);
-				mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, x * 16, y * 16);
+				mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, x * 50, y * 50);
 			}
 			x++;
 		}
