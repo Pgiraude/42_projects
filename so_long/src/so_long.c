@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:03:01 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/05 17:29:45 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:05:51 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ int	find_image(t_img *img, t_vars vars)
 	int		img_width;
 	int		img_height;
 
-	img->img_0 = mlx_xpm_file_to_image(vars.mlx, "./images/Dirt_06-50x50-clean.xpm", &img_width, &img_height);
+	img->img_0 = mlx_xpm_file_to_image(vars.mlx, FLOOR, &img_width, &img_height);
 	if (!img->img_0)
 		return (1);
-	img->img_1 = mlx_xpm_file_to_image(vars.mlx, "./images/brick-50-50.xpm", &img_width, &img_height);
+	img->img_1 = mlx_xpm_file_to_image(vars.mlx, WALLS, &img_width, &img_height);
 	if (!img->img_1)
 		return (1);
-	img->img_P = mlx_xpm_file_to_image(vars.mlx, "./images/chevalier.xpm", &img_width, &img_height);
+	img->img_P = mlx_xpm_file_to_image(vars.mlx, PLAYER, &img_width, &img_height);
 	if (!img->img_P)
 		return (1);
-	img->img_E = mlx_xpm_file_to_image(vars.mlx, "./images/door.xpm", &img_width, &img_height);
+	img->img_E = mlx_xpm_file_to_image(vars.mlx, DOOR, &img_width, &img_height);
 	if (!img->img_E)
 		return (1);
-	img->img_C = mlx_xpm_file_to_image(vars.mlx, "./images/crystal_01d.xpm", &img_width, &img_height);
+	img->img_C = mlx_xpm_file_to_image(vars.mlx, COINS, &img_width, &img_height);
 	if (!img->img_C)
 		return (1);
 	return (0);
