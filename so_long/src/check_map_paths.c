@@ -12,12 +12,6 @@
 
 #include "../include/so_long.h"
 
-typedef struct s_pos
-{
-	int	x;
-	int	y;
-}t_pos;
-
 int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_path);
 
 int	mooves(char **map, t_pos *current, char direction)

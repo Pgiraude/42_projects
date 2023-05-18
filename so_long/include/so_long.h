@@ -41,6 +41,12 @@ typedef struct s_map
 	char	**map;
 }t_map;
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}t_pos;
+
 int		error_manager(char *msg, int key_error);
 t_map	get_map(char *map_name);
 int		check_map_paths(char **map, t_map *count);
