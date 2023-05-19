@@ -22,6 +22,8 @@
 # define FLOOR "./images/Dirt_06-50x50-clean.xpm"
 # define PLAYER "./images/chevalier.xpm"
 
+# define BLOCK 50
+
 # define W_KEY 119
 # define A_KEY 97
 # define S_KEY 115
@@ -44,7 +46,7 @@ typedef struct s_data
 typedef struct s_vars
 {
 	void	*mlx;
-	void	*mlx_win;
+	void	*window;
 	char	**map;
 }t_vars;
 

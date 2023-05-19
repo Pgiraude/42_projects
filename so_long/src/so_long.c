@@ -15,7 +15,7 @@
 int	ft_close(t_vars *vars)
 {
 		ft_printf("test\n"); //segfault mlx_destroy
-	mlx_destroy_window(vars->mlx, vars->mlx_win);
+	mlx_destroy_window(vars->mlx, vars->window);
 	mlx_loop_end(vars->mlx);
 
 
@@ -23,7 +23,6 @@ int	ft_close(t_vars *vars)
 
 	return (0);
 }
-
 
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -45,11 +44,16 @@ typedef struct s_img
 	void	*img_C;
 }t_img;
 
-int	find_image(t_img *img, t_vars vars)
+int	initialise_images(t_img *img, t_vars vars)
 {
 	int		img_width;
 	int		img_height;
 
+	img->img_0 = 0;
+	img->img_1 = 0;
+	img->img_P = 0;
+	img->img_E = 0;
+	img->img_C = 0;
 	img->img_0 = mlx_xpm_file_to_image(vars.mlx, FLOOR, &img_width, &img_height);
 	if (!img->img_0)
 		return (1);
@@ -68,51 +72,42 @@ int	find_image(t_img *img, t_vars vars)
 	return (0);
 }
 
-void	put_image(t_vars vars, t_img *img, t_pos pos, char index_map)
+void	push_image_to_window(t_vars vars, t_img img, t_pos pos, char index_map)
 {
 	if (index_map == '0')
-		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img->img_0, pos.x * 50, pos.y * 50);
+		mlx_put_image_to_window(vars.mlx, vars.window, img.img_0, pos.x * BLOCK, pos.y * BLOCK);
 	if (index_map == '1')
-		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img->img_1, pos.x * 50, pos.y * 50);
+		mlx_put_image_to_window(vars.mlx, vars.window, img.img_1, pos.x * BLOCK, pos.y * BLOCK);
 	if (index_map == 'P')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img->img_0, pos.x * 50, pos.y * 50);
-		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img->img_P, pos.x * 50, pos.y * 50);
+		mlx_put_image_to_window(vars.mlx, vars.window, img.img_P, pos.x * BLOCK, pos.y * BLOCK);
 	}
 	if (index_map == 'E')
-		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img->img_E, pos.x * 50, pos.y * 50);
+		mlx_put_image_to_window(vars.mlx, vars.window, img.img_E, pos.x * BLOCK, pos.y * BLOCK);
 	if (index_map == 'C')
-		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img->img_C, pos.x * 50, pos.y * 50);
+		mlx_put_image_to_window(vars.mlx, vars.window, img.img_C, pos.x * BLOCK, pos.y * BLOCK);
 }
 
-void	put_image_to_window(t_map map_param, t_vars vars)
+void	push_map_to_window(t_map map_param, t_vars vars, t_img images)
 {
-	t_img	img;
 	t_pos	pos;
-	
-	img.img_0 = 0;
-	img.img_1 = 0;
-	img.img_P = 0;
-	img.img_E = 0;
-	img.img_C = 0;
 
 	pos.y = 0;
-	find_image(&img, vars);
-	ft_printf("img=%d\n", img.img_1);
 	while (map_param.map[pos.y])
 	{
 		pos.x = 0;
 		while (map_param.map[pos.y][pos.x])
 		{
-			put_image(vars, &img, pos, map_param.map[pos.y][pos.x]);
+			push_image_to_window(vars, images, pos, map_param.map[pos.y][pos.x]);
 			pos.x++;
 		}
 		pos.y++;
 	}
 }
 
-void	my_mlx_get_screen_size(t_map map_param, t_vars vars , t_data img)
+void	my_mlx_get_screen_size(t_map map_param, t_vars vars)
 {
+	t_data	set_up;
 	size_t	x;
 	size_t	y;
 
@@ -120,35 +115,35 @@ void	my_mlx_get_screen_size(t_map map_param, t_vars vars , t_data img)
 	y = 0;
 	if (map_param.map_height > 20 || map_param.map_width > 20)
 		error_manager(NULL, 40);
-	x = map_param.map_width * 50;
-	y = map_param.map_height * 50;
-	vars.mlx_win = mlx_new_window(vars.mlx, x, y, "so_long");
-	img.img = mlx_new_image(vars.mlx, x, y);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-	&img.endian);
+	x = map_param.map_width * BLOCK;
+	y = map_param.map_height * BLOCK;
+	vars.window = mlx_new_window(vars.mlx, x, y, "so_long");
+	set_up.img = mlx_new_image(vars.mlx, x, y);
+	set_up.addr = mlx_get_data_addr(set_up.img, &set_up.bits_per_pixel, &set_up.line_length,
+	&set_up.endian);
 	
-	put_image_to_window(map_param, vars);
 }
 
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
-	t_data	img;
 	t_map	map_param;
+	t_img	images;
 
 	if (argc < 2)
 		error_manager("few", 1);
-	// else if (argc > 2)
-	// 	error_manager("much", 1);
+
 	map_param = get_map(argv[1]);
 
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (-1);
 	
-	my_mlx_get_screen_size(map_param, vars, img);
+	my_mlx_get_screen_size(map_param, vars);
+	initialise_images(&images, vars);
+	push_map_to_window(map_param, vars, images);
 
-	// mlx_hook(vars.mlx_win, 2, 1L<<0, ft_close, &vars);
+
 	mlx_loop(vars.mlx);
 }
 

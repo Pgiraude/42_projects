@@ -14,7 +14,7 @@
 
 int close_window(t_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->mlx_win);
+	mlx_destroy_window(vars->mlx, vars->window);
 	return (0);
 }
 
@@ -35,17 +35,17 @@ int update_screen(t_vars *vars)
 			if (vars->map[y][x] == '1')
 			{
 				image = mlx_xpm_file_to_image(vars->mlx, WALLS, &img_width, &img_height);
-				mlx_put_image_to_window(vars->mlx, vars->mlx_win, image, x * 50, y * 50);
+				mlx_put_image_to_window(vars->mlx, vars->window, image, x * 50, y * 50);
 			}
             if (vars->map[y][x] == 'P')
 			{
 				image = mlx_xpm_file_to_image(vars->mlx, PLAYER, &img_width, &img_height);
-				mlx_put_image_to_window(vars->mlx, vars->mlx_win, image, x * 50, y * 50);
+				mlx_put_image_to_window(vars->mlx, vars->window, image, x * 50, y * 50);
 			}
 			if (vars->map[y][x] == '0')
 			{
 				image = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
-				mlx_put_image_to_window(vars->mlx, vars->mlx_win, image, x * 50, y * 50);
+				mlx_put_image_to_window(vars->mlx, vars->window, image, x * 50, y * 50);
 			}
 			x++;
 		}
@@ -65,9 +65,9 @@ int	moov_up(t_vars *vars)
 	if (vars->map[pos.y - 1][pos.x] != '1')
 	{
 		// image = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
-		// mlx_put_image_to_window(vars->mlx, vars->mlx_win, image, pos.x * 50, pos.y * 50);
+		// mlx_put_image_to_window(vars->mlx, vars->window, image, pos.x * 50, pos.y * 50);
 		// image = mlx_xpm_file_to_image(vars->mlx, PLAYER, &img_width, &img_height);
-		// mlx_put_image_to_window(vars->mlx, vars->mlx_win, image, pos.x * 50, (pos.y - 1) * 50);
+		// mlx_put_image_to_window(vars->mlx, vars->window, image, pos.x * 50, (pos.y - 1) * 50);
 		vars->map[pos.y][pos.x] = '0';
 		vars->map[pos.y - 1][pos.x] = 'P';
 	}
@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 
     x = map_param.map_width * 50;
 	y = map_param.map_height * 50;
-	vars.mlx_win = mlx_new_window(vars.mlx, x, y, "so_long");
+	vars.window = mlx_new_window(vars.mlx, x, y, "so_long");
 	img.img = mlx_new_image(vars.mlx, x, y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
@@ -133,17 +133,17 @@ int main(int argc, char **argv)
 			if (map_param.map[y][x] == '1')
 			{
 				image = mlx_xpm_file_to_image(vars.mlx, WALLS, &img_width, &img_height);
-				mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, x * 50, y * 50);
+				mlx_put_image_to_window(vars.mlx, vars.window, image, x * 50, y * 50);
 			}
             if (map_param.map[y][x] == 'P')
 			{
 				image = mlx_xpm_file_to_image(vars.mlx, PLAYER, &img_width, &img_height);
-				mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, x * 50, y * 50);
+				mlx_put_image_to_window(vars.mlx, vars.window, image, x * 50, y * 50);
 			}
 			if (map_param.map[y][x] == '0')
 			{
 				image = mlx_xpm_file_to_image(vars.mlx, FLOOR, &img_width, &img_height);
-				mlx_put_image_to_window(vars.mlx, vars.mlx_win, image, x * 50, y * 50);
+				mlx_put_image_to_window(vars.mlx, vars.window, image, x * 50, y * 50);
 			}
 			x++;
 		}
@@ -156,8 +156,8 @@ int main(int argc, char **argv)
 
 	vars.map = map_param.map;
 	
-    mlx_key_hook(vars.mlx_win, ft_hook_events, &vars);
-	mlx_hook(vars.mlx_win, 17, 0, close_window, &vars);
+    mlx_key_hook(vars.window, ft_hook_events, &vars);
+	mlx_hook(vars.window, 17, 0, close_window, &vars);
 
 	mlx_loop_hook(vars.mlx, update_screen, &vars);
 		ft_printf("chr final=%c", vars.map[2][2]);
