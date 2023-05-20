@@ -12,12 +12,6 @@
 
 #include "../include/so_long.h"
 
-int close_window(t_vars *vars)
-{
-	mlx_destroy_window(vars->mlx, vars->window);
-	return (0);
-}
-
 int update_screen(t_vars *vars)
 {
 	int		img_width;
@@ -54,50 +48,12 @@ int update_screen(t_vars *vars)
 	return (0);
 }
 
-int	moov_up(t_vars *vars)
-{
-	t_pos	pos;
-	// int		img_width;
-	// int		img_height;
-	// int		*image;
 
-	get_pos(vars->map, 'P', &pos);
-	if (vars->map[pos.y - 1][pos.x] != '1')
-	{
-		// image = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
-		// mlx_put_image_to_window(vars->mlx, vars->window, image, pos.x * 50, pos.y * 50);
-		// image = mlx_xpm_file_to_image(vars->mlx, PLAYER, &img_width, &img_height);
-		// mlx_put_image_to_window(vars->mlx, vars->window, image, pos.x * 50, (pos.y - 1) * 50);
-		vars->map[pos.y][pos.x] = '0';
-		vars->map[pos.y - 1][pos.x] = 'P';
-	}
-	return (0);
-}
-
-int	ft_hook_events(int keycode, t_vars *vars)
-{
-	if (keycode == 65307)
-		close_window(vars);
-	else if (keycode == W_KEY || keycode == UP)
-	{
-		ft_printf("UP\n");
-		moov_up(vars);
-		ft_printf("chr=%c", vars->map[2][2]);
-		return (0);
-	}
-	else if (keycode == D_KEY || keycode == RIGHT)
-		return (0);
-	else if (keycode == S_KEY || keycode == DOWN)
-		return (0);
-	else if (keycode == A_KEY || keycode == LEFT)
-		return (0);
-	return (1);
-}
 
 int main(int argc, char **argv)
 {
     t_vars	vars;
-	t_data	img;
+	t_setup	img;
 	t_map	map_param;
 
 	if (argc < 2)

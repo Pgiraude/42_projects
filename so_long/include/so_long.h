@@ -34,31 +34,43 @@
 # define DOWN 65364
 # define RIGHT 65363
 
-typedef struct s_data
+typedef struct s_setup
 {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}t_data;
+}t_setup;
 
-typedef struct s_vars
+typedef struct s_images
 {
-	void	*mlx;
-	void	*window;
-	char	**map;
-}t_vars;
+	void	*img_0;
+	void	*img_1;
+	void	*img_P;
+	void	*img_E;
+	void	*img_C;
+}t_images;
 
 typedef struct s_map
 {
-	int	exit;
-	int	pos;
-	int	coin;
+	int		exit;
+	int		pos;
+	int		coin;
 	size_t	map_height;
 	size_t	map_width;
 	char	**map;
 }t_map;
+
+typedef struct s_vars
+{
+	void			*mlx;
+	void			*window;
+	char			**map;
+	struct s_images	images;
+	struct s_setup	set_up;
+	struct s_map	map_vars;
+}t_vars;
 
 typedef struct s_pos
 {
@@ -71,5 +83,7 @@ t_map	get_map(char *map_name);
 int		check_map_paths(char **map, t_map *count);
 
 int	get_pos(char **map, char letter, t_pos *pos);
+int	ft_hook_events(int keycode, t_vars *vars);
+int close_window(t_vars *vars);
 
 #endif
