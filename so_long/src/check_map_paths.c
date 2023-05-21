@@ -126,15 +126,13 @@ int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_pat
 
 int	get_pos(char **map, char letter, t_pos *pos)
 {
-	static int	y;
-	static int	x;
+	int	y;
+	int	x;
 
-	if (letter != 'C')
-		y = 0;
+	y = 0;
 	while (map[y])
 	{
-		if (!(letter == 'C' && x != 0))
-			x = -1;
+		x = -1;
 		while (map[y][++x])
 		{
 			if (map[y][x] == letter)
