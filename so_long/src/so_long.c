@@ -45,23 +45,12 @@ int	initialise_images(t_vars *vars)
 	vars->images.img_E = 0;
 	vars->images.img_C = 0;
 	vars->images.img_0 = mlx_xpm_file_to_image(vars->mlx, FLOOR, &img_width, &img_height);
-	if (!vars->images.img_0)
-	{
-		
-		return (1);
-	}
 	vars->images.img_1 = mlx_xpm_file_to_image(vars->mlx, WALLS, &img_width, &img_height);
-	if (!vars->images.img_1)
-		return (1);
 	vars->images.img_P = mlx_xpm_file_to_image(vars->mlx, PLAYER, &img_width, &img_height);
-	if (!vars->images.img_P)
-		return (1);
 	vars->images.img_E = mlx_xpm_file_to_image(vars->mlx, DOOR, &img_width, &img_height);
-	if (!vars->images.img_E)
-		return (1);
 	vars->images.img_C = mlx_xpm_file_to_image(vars->mlx, COINS, &img_width, &img_height);
-	if (!vars->images.img_C)
-		return (1);
+	if (!vars->images.img_0 || !vars->images.img_1 || !vars->images.img_P || !vars->images.img_E || !vars->images.img_C)
+		return (error_manager(NULL, 50));
 	return (0);
 }
 
@@ -135,28 +124,9 @@ int	main(int argc, char **argv)
 
 	my_mlx_get_screen_size(map_param, &vars);
 
-	// t_data	set_up;
-	// size_t	x;
-	// size_t	y;
-
-	// x = 0;
-	// y = 0;
-	// if (map_param.map_height > 20 || map_param.map_width > 20)
-	// 	error_manager(NULL, 40);
-	// x = map_param.map_width * BLOCK;
-	// y = map_param.map_height * BLOCK;
-	// vars.window = mlx_new_window(vars.mlx, x, y, "so_long");
-	// set_up.img = mlx_new_image(vars.mlx, x, y);
-	// set_up.addr = mlx_get_data_addr(set_up.img, &set_up.bits_per_pixel, &set_up.line_length,
-	// &set_up.endian);
-
-
-
 	initialise_images(&vars);
-		ft_printf("TEST\n");
-	push_map_to_window(&vars);
-		ft_printf("TEST2\n");
 
+	push_map_to_window(&vars);
 
     mlx_key_hook(vars.window, ft_hook_events, &vars);
 	mlx_hook(vars.window, 17, 0, close_window, &vars);

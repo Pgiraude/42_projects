@@ -5,6 +5,7 @@
 int close_window(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->window);
+	mlx_loop_end(vars->mlx);
 	return (0);
 }
 
@@ -12,7 +13,9 @@ int	player_moov(t_vars *vars, t_pos cur_pos, t_pos next_pos)
 {
 	t_pos coord;
 
-	if (vars->map[next_pos.y][next_pos.x] == 'E')
+	if (vars->map[next_pos.y][next_pos.x] == '1')
+		return (0);
+	else if (vars->map[next_pos.y][next_pos.x] == 'E')
 	{
 		if (get_pos(vars->map, 'C', &coord) == 0)
 		{
@@ -24,26 +27,24 @@ int	player_moov(t_vars *vars, t_pos cur_pos, t_pos next_pos)
 			close_window(vars);
 		}
 	}
-	else if (vars->map[next_pos.y][next_pos.x] != '1')
+	else if (vars->map[cur_pos.y][cur_pos.x] == 'X')
 	{
-		if (vars->map[cur_pos.y][cur_pos.x] == 'X')
-		{
-			vars->map[cur_pos.y][cur_pos.x] = 'E';
-			vars->map[next_pos.y][next_pos.x] = 'P';
-		}
-		else
-		{
-			vars->map[cur_pos.y][cur_pos.x] = '0';
-			vars->map[next_pos.y][next_pos.x] = 'P';
-		}
+		vars->map[cur_pos.y][cur_pos.x] = 'E';
+		vars->map[next_pos.y][next_pos.x] = 'P';
 	}
-	return (0);
+	else
+	{
+		vars->map[cur_pos.y][cur_pos.x] = '0';
+		vars->map[next_pos.y][next_pos.x] = 'P';
+	}
+	return (1);
 }
 
 int	ft_hook_events(int keycode, t_vars *vars)
 {
-	t_pos   current_pos;
-	t_pos   next_pos;
+	t_pos   	current_pos;
+	t_pos   	next_pos;
+	static int	nbr_moove;
 
 	if (keycode == 65307)
 		close_window(vars);
@@ -69,6 +70,6 @@ int	ft_hook_events(int keycode, t_vars *vars)
 	{
 		next_pos.x--;
 	}
-	player_moov(vars, current_pos, next_pos);
+	nbr_moove += player_moov(vars, current_pos, next_pos);
 	return (1);
 }

@@ -87,7 +87,13 @@ int	error_manager(char *msg, int key_error)
 	{
 		ft_printf(": Map is too big\n");
 		exit(EXIT_FAILURE);
-		return (31);
+		return (40);
+	}
+	else if (key_error == 50)
+	{
+		ft_printf(": Couldn't found images path\n");
+		exit(EXIT_FAILURE);
+		return (50);
 	}
 	return (0);
 }
