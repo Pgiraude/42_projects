@@ -93,6 +93,16 @@ void	my_mlx_get_screen_size(t_map map_param, t_vars *vars)
 	&vars->set_up.endian);
 }
 
+t_vars test(t_vars *a)
+{
+	t_vars b;
+
+	b.map = NULL;
+	a->map = b.map;
+	b.map = NULL;
+	return (b);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
@@ -105,21 +115,24 @@ int	main(int argc, char **argv)
 
 	map_param = check_map_conformity(argv[1]);
 	check_map_paths(ft_dup_strings(map_param.map), &map_param);
+	
+	
 	vars.map = map_param.map;
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
-		return (-1);
+	test(&vars);
+	ft_free_strings(vars.map);
+	
+	// vars.mlx = mlx_init();
+	// if (!vars.mlx)
+	// 	return (-1);
 
-	my_mlx_get_screen_size(map_param, &vars);
+	// my_mlx_get_screen_size(map_param, &vars);
 
-	initialise_images(&vars);
+	// initialise_images(&vars);
 
-	// push_map_to_window(&vars);
+    // mlx_key_hook(vars.window, ft_hook_events, &vars);
+	// mlx_hook(vars.window, 17, 0, close_window, &vars);
 
-    mlx_key_hook(vars.window, ft_hook_events, &vars);
-	mlx_hook(vars.window, 17, 0, close_window, &vars);
+	// mlx_loop_hook(vars.mlx, push_map_to_window, &vars);
 
-	mlx_loop_hook(vars.mlx, push_map_to_window, &vars);
-
-	mlx_loop(vars.mlx);
+	// mlx_loop(vars.mlx);
 }

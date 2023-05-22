@@ -3,22 +3,24 @@
 
 int	ft_clean_mlx(t_vars *vars)
 {
-	if (vars->mlx)
-		mlx_loop_end(vars->mlx);
-	if (vars->mlx && vars->images.img_0)
+	// if (vars->mlx)
+	
+
+	if (vars->images.img_0)
 		mlx_destroy_image(vars->mlx, vars->images.img_0);
-	if (vars->mlx && vars->images.img_1)
+	if (vars->images.img_1)
 		mlx_destroy_image(vars->mlx, vars->images.img_1);
-	if (vars->mlx && vars->images.img_C)
+	if (vars->images.img_C)
 		mlx_destroy_image(vars->mlx, vars->images.img_C);
-	if (vars->mlx && vars->images.img_E)
+	if (vars->images.img_E)
 		mlx_destroy_image(vars->mlx, vars->images.img_E);
-	if (vars->mlx && vars->images.img_P)
+	if (vars->images.img_P)
 		mlx_destroy_image(vars->mlx, vars->images.img_P);
-	if (vars->mlx && vars->window)
-		mlx_destroy_window(vars->mlx, vars->window);
-	if (vars->mlx)
-		mlx_destroy_display(vars->mlx);
+
+	// if (vars->mlx && vars->window)
+		
+	// if (vars->mlx)
+		
 	return (0);
 }
 
@@ -28,13 +30,17 @@ int close_window(t_vars *vars)
 	// mlx_loop_end(vars->mlx);
 
 	ft_clean_mlx(vars);
+		mlx_loop_end(vars->mlx);
+	mlx_destroy_window(vars->mlx, vars->window);
+	mlx_destroy_display(vars->mlx);
+	free (vars->mlx);
 	// vars->window = 0;
 	// mlx_destroy_display(vars->mlx);
 	// free(vars->mlx);
 	return (0);
 }
 
-int	player_moov(t_vars *vars, t_pos cur_pos, t_pos next_pos)
+int	player_move(t_vars *vars, t_pos cur_pos, t_pos next_pos)
 {
 	t_pos coord;
 
@@ -87,6 +93,6 @@ int	ft_hook_events(int keycode, t_vars *vars)
 		next_pos.y++;
 	else if (keycode == A_KEY || keycode == LEFT)
 		next_pos.x--;
-	vars->nbr_moves += player_moov(vars, current_pos, next_pos);
+	vars->nbr_moves += player_move(vars, current_pos, next_pos);
 	return (1);
 }
