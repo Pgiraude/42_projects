@@ -83,33 +83,20 @@ int	check_number_characters(t_map *count)
 	return (0);
 }
 
-t_map	check_map_conformity(char *one_line_map)
+int	check_file_extension(char *file_name, char *extension)
 {
-	t_map	map_param;
-	char	**map;
+	size_t	len_file;
+	size_t	len_ext;
 
-	if (one_line_map == NULL)
-		error_manager(NULL, 11);
-	map_param.exit = 0;
-	map_param.pos = 0;
-	map_param.coin = 0;
-	check_map_characters(one_line_map, &map_param);
-	check_number_characters(&map_param);
-	map = ft_split(one_line_map, '\n');
-	free (one_line_map);
-	map_param.map_height = 0;
-	while (map[map_param.map_height])
-		map_param.map_height++;
-	map_param.map_width = ft_strlen(map[0]);
-	check_map_lines(map, map_param.map_height, map_param.map_width);
-	check_map_paths(ft_dup_strings(map), &map_param);
-	map_param.map = map;
-	return (map_param);
+	len_file = ft_strlen(file_name);
+	len_ext = ft_strlen(extension);
+	if (len_file < len_ext)
+		return (1);
+	return (ft_strncmp(file_name + (len_file - len_ext), extension, len_ext));
 }
 
-t_map get_map(char *map_name)
+char	*get_map_line(char *map_name)
 {
-	t_map	map_param;
 	int     map_fd;
 	char    *line;
 	char	*one_line_map;
@@ -128,7 +115,33 @@ t_map get_map(char *map_name)
 		free (line);
 		line = get_next_line(map_fd);
 	}
-	ft_printf("%s|\n", one_line_map);
-	map_param = check_map_conformity(one_line_map);
+	return (one_line_map);
+}
+
+t_map	check_map_conformity(char *map_name)
+{
+	char	**map;
+	char 	*one_line_map;
+	t_map	map_param;
+
+	if (check_file_extension(map_name, ".ber") != 0)
+		error_manager(NULL, 21);
+	one_line_map = get_map_line(map_name);
+	if (one_line_map == NULL)
+		error_manager(NULL, 11);
+	map_param.exit = 0;
+	map_param.pos = 0;
+	map_param.coin = 0;
+	check_map_characters(one_line_map, &map_param);
+	check_number_characters(&map_param);
+	map = ft_split(one_line_map, '\n');
+	free (one_line_map);
+	map_param.map_height = 0;
+	while (map[map_param.map_height])
+		map_param.map_height++;
+	map_param.map_width = ft_strlen(map[0]);
+	check_map_lines(map, map_param.map_height, map_param.map_width);
+	map_param.map = map;
 	return (map_param);
 }
+

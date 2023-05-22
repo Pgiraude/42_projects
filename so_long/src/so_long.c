@@ -115,6 +115,8 @@ int	main(int argc, char **argv)
 		error_manager("few", 1);
 
 	map_param = get_map(argv[1]);
+	check_map_paths(ft_dup_strings(map_param.map), &map_param);
+
 	vars.map = map_param.map;
 	vars.mlx = mlx_init();
 	if (!vars.mlx)

@@ -71,6 +71,12 @@ int	error_manager(char *msg, int key_error)
 		exit(EXIT_FAILURE);
 		return (20);
 	}
+	else if (key_error == 21)
+	{
+		ft_printf(": Map file need to end with .ber extension\n");
+		exit(EXIT_FAILURE);
+		return (21);
+	}
 	else if (key_error == 30)
 	{
 		ft_printf(": Malloc failed\n");
