@@ -43,32 +43,35 @@ int	moves(char **map, t_pos *current, char direction)
 	return (0);
 }
 
-int	back_track(char **map, t_pos *current, t_map *count, t_list *track_path)
+int	back_track(char **map, t_pos *current, t_map *count, t_list **track_path)
 {
 	void	*data;
 	void	*move;
+	t_list	*info;
 
-	data = track_path->data;
+	info = *track_path;
+
+	data = info->data;
 	move = NULL;
 
 	// if (track_path == NULL)
 	// 	ft_printf("track_path dont work\n");
 	move = "U";
-	if (track_path->data == move)
+	if (info->data == move)
 		current->y++;
 	move = "R";
-	if (track_path->data == move)
+	if (info->data == move)
 		current->x--;
 	move = "D";
-	if (track_path->data == move)
+	if (info->data == move)
 		current->y--;
 	move = "L";
-	if (track_path->data == move)
+	if (info->data == move)
 		current->x++;
-	track_path = ft_suppr_cell_list(track_path, &data, 0);
+	*track_path = ft_suppr_cell_list(*track_path, &data, 0);
 	if (track_path != NULL)
 	{
-		return (check_all_paths(map, current, count, &track_path));
+		return (check_all_paths(map, current, count, track_path));
 	}
 	return (-1);
 }
@@ -117,7 +120,7 @@ int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_pat
 			*track_path = ft_add_cell_list(*track_path, "L", 0);
 		return (check_all_paths(map, current, count, track_path));
 	}
-	if (back_track(map, current, count, *track_path) == 0)
+	if (back_track(map, current, count, track_path) == 0)
 		return (0);
 	return (-1);
 }

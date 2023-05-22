@@ -118,21 +118,20 @@ int	main(int argc, char **argv)
 	
 	
 	vars.map = map_param.map;
-	test(&vars);
-	ft_free_strings(vars.map);
+
 	
-	// vars.mlx = mlx_init();
-	// if (!vars.mlx)
-	// 	return (-1);
+	vars.mlx = mlx_init();
+	if (!vars.mlx)
+		return (-1);
 
-	// my_mlx_get_screen_size(map_param, &vars);
+	my_mlx_get_screen_size(map_param, &vars);
 
-	// initialise_images(&vars);
+	initialise_images(&vars);
 
-    // mlx_key_hook(vars.window, ft_hook_events, &vars);
-	// mlx_hook(vars.window, 17, 0, close_window, &vars);
+    mlx_key_hook(vars.window, ft_hook_events, &vars);
+	mlx_hook(vars.window, 17, 0, close_window, &vars);
 
-	// mlx_loop_hook(vars.mlx, push_map_to_window, &vars);
+	mlx_loop_hook(vars.mlx, push_map_to_window, &vars);
 
-	// mlx_loop(vars.mlx);
+	mlx_loop(vars.mlx);
 }
