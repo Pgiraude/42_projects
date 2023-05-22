@@ -73,7 +73,7 @@ int	error_manager(char *msg, int key_error)
 	}
 	else if (key_error == 21)
 	{
-		ft_printf(": Map file need to end with .ber extension\n");
+		ft_printf(": Map file need to end with '%s' extension\n", msg);
 		exit(EXIT_FAILURE);
 		return (21);
 	}

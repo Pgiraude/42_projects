@@ -67,6 +67,7 @@ typedef struct s_vars
 	void			*mlx;
 	void			*window;
 	char			**map;
+	int				nbr_moves;
 	struct s_images	images;
 	struct s_setup	set_up;
 	struct s_map	map_vars;
@@ -79,7 +80,7 @@ typedef struct s_pos
 }t_pos;
 
 int		error_manager(char *msg, int key_error);
-t_map	get_map(char *map_name);
+t_map	check_map_conformity(char *map_name);
 int		check_map_paths(char **map, t_map *count);
 
 int	get_pos(char **map, char letter, t_pos *pos);

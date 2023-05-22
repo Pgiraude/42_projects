@@ -125,7 +125,7 @@ t_map	check_map_conformity(char *map_name)
 	t_map	map_param;
 
 	if (check_file_extension(map_name, ".ber") != 0)
-		error_manager(NULL, 21);
+		error_manager(".ber", 21);
 	one_line_map = get_map_line(map_name);
 	if (one_line_map == NULL)
 		error_manager(NULL, 11);
@@ -144,4 +144,3 @@ t_map	check_map_conformity(char *map_name)
 	map_param.map = map;
 	return (map_param);
 }
-

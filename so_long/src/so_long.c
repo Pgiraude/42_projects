@@ -12,19 +12,6 @@
 
 #include "../include/so_long.h"
 
-int	ft_close(t_vars *vars)
-{
-		ft_printf("test\n"); //segfault mlx_destroy
-	mlx_destroy_window(vars->mlx, vars->window);
-	mlx_loop_end(vars->mlx);
-
-
-	// mlx_destroy_display(vars->mlx);
-
-	return (0);
-}
-
-
 void	my_mlx_pixel_put(t_setup *data, int x, int y, int color)
 {
 	char	*dst;
@@ -32,7 +19,6 @@ void	my_mlx_pixel_put(t_setup *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
-
 
 int	initialise_images(t_vars *vars)
 {
@@ -61,9 +47,7 @@ void	push_image_to_window(t_vars *vars, t_pos pos, char index_map)
 	if (index_map == '1')
 		mlx_put_image_to_window(vars->mlx, vars->window, vars->images.img_1, pos.x * BLOCK, pos.y * BLOCK);
 	if (index_map == 'P')
-	{
 		mlx_put_image_to_window(vars->mlx, vars->window, vars->images.img_P, pos.x * BLOCK, pos.y * BLOCK);
-	}
 	if (index_map == 'E')
 		mlx_put_image_to_window(vars->mlx, vars->window, vars->images.img_E, pos.x * BLOCK, pos.y * BLOCK);
 	if (index_map == 'C')
@@ -73,6 +57,7 @@ void	push_image_to_window(t_vars *vars, t_pos pos, char index_map)
 int	push_map_to_window(t_vars *vars)
 {
 	t_pos	pos;
+	char	*nbr_moves;
 
 	pos.y = 0;
 	while (vars->map[pos.y])
@@ -85,6 +70,9 @@ int	push_map_to_window(t_vars *vars)
 		}
 		pos.y++;
 	}
+	nbr_moves = ft_itoa(vars->nbr_moves);
+	mlx_string_put(vars->mlx, vars->window, 32, 32, 0xFFFFFF, "moves: ");
+	mlx_string_put(vars->mlx, vars->window, 75, 32, 0xFFFFFF, nbr_moves);
 	return (0);
 }
 
@@ -103,7 +91,6 @@ void	my_mlx_get_screen_size(t_map map_param, t_vars *vars)
 	vars->set_up.img = mlx_new_image(vars->mlx, x, y);
 	vars->set_up.addr = mlx_get_data_addr(vars->set_up.img, &vars->set_up.bits_per_pixel, &vars->set_up.line_length,
 	&vars->set_up.endian);
-	
 }
 
 int	main(int argc, char **argv)
@@ -114,21 +101,20 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		error_manager("few", 1);
 
-	map_param = get_map(argv[1]);
-	check_map_paths(ft_dup_strings(map_param.map), &map_param);
+	vars.nbr_moves = -1;
 
+	map_param = check_map_conformity(argv[1]);
+	check_map_paths(ft_dup_strings(map_param.map), &map_param);
 	vars.map = map_param.map;
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
 		return (-1);
 
-
-
 	my_mlx_get_screen_size(map_param, &vars);
 
 	initialise_images(&vars);
 
-	push_map_to_window(&vars);
+	// push_map_to_window(&vars);
 
     mlx_key_hook(vars.window, ft_hook_events, &vars);
 	mlx_hook(vars.window, 17, 0, close_window, &vars);
@@ -137,4 +123,3 @@ int	main(int argc, char **argv)
 
 	mlx_loop(vars.mlx);
 }
-

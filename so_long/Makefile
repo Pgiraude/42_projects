@@ -16,9 +16,9 @@ NAME_2	= test
 
 SRC_DIR 	=	src/
 
-SRC 	=	so_long.c error_manager.c get_map.c check_map_paths.c hook_events.c
+SRC 	=	so_long.c error_manager.c check_map_conformity.c check_map_paths.c hook_events.c
 
-TEST	=	test.c error_manager.c get_map.c check_map_paths.c hook_events.c
+TEST	=	test.c error_manager.c check_map_conformity.c check_map_paths.c hook_events.c
 
 OBJS 	=	$(addprefix $(SRC_DIR), $(SRC:.c=.o))
 

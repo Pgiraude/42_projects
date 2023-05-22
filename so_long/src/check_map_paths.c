@@ -53,7 +53,6 @@ int	back_track(char **map, t_pos *current, t_map *count, t_list *track_path)
 
 	if (track_path == NULL)
 		ft_printf("track_path dont work\n");
-	ft_printf("1=%s\n", track_path->data);
 	moove = "U";
 	if (track_path->data == moove)
 		current->y++;
@@ -69,7 +68,6 @@ int	back_track(char **map, t_pos *current, t_map *count, t_list *track_path)
 	track_path = ft_suppr_cell_list(track_path, &data, 0);
 	if (track_path != NULL)
 	{
-		ft_printf("back track test6\n");
 		return (check_all_paths(map, current, count, &track_path));
 	}
 	return (-1);
@@ -88,13 +86,13 @@ int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_pat
 	map[current->y][current->x] = '1';
 
 /*-----------------------*/
-	int	x = 0;
-	while (map[x])
-	{
-		ft_printf("%s check path\n", map[x]);
-		x++;
-	}
-	ft_printf("count pos=%d cur y=%d cur x=%d\n", count->pos, current->y, current->x);
+	// int	x = 0;
+	// while (map[x])
+	// {
+	// 	ft_printf("%s check path\n", map[x]);
+	// 	x++;
+	// }
+	// ft_printf("count pos=%d cur y=%d cur x=%d\n", count->pos, current->y, current->x);
 /*-----------------------*/
 	
 	if (count->coin == 0 && count->pos == 0 && count->exit == 0)
