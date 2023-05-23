@@ -12,14 +12,6 @@
 
 #include "../include/so_long.h"
 
-void	my_mlx_pixel_put(t_setup *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
 int	initialise_images(t_vars *vars)
 {
 	int		img_width;
@@ -76,7 +68,7 @@ int	push_map_to_window(t_vars *vars)
 	return (0);
 }
 
-void	my_mlx_get_screen_size(t_map map_param, t_vars *vars)
+int	my_mlx_get_screen_size(t_map map_param, t_vars *vars)
 {
 	size_t	x;
 	size_t	y;
@@ -84,13 +76,14 @@ void	my_mlx_get_screen_size(t_map map_param, t_vars *vars)
 	x = 0;
 	y = 0;
 	if (map_param.map_height > 20 || map_param.map_width > 20)
-		error_manager(NULL, 40);
+		return (free(vars->mlx), ft_free_strings(map_param.map), error_manager(NULL, 40));
 	x = map_param.map_width * BLOCK;
 	y = map_param.map_height * BLOCK;
 	vars->window = mlx_new_window(vars->mlx, x, y, "so_long");
 	vars->set_up.img = mlx_new_image(vars->mlx, x, y);
 	vars->set_up.addr = mlx_get_data_addr(vars->set_up.img, &vars->set_up.bits_per_pixel, &vars->set_up.line_length,
 	&vars->set_up.endian);
+	return (0);
 }
 
 t_vars test(t_vars *a)
@@ -114,24 +107,24 @@ int	main(int argc, char **argv)
 	vars.nbr_moves = -1;
 
 	map_param = check_map_conformity(argv[1]);
-	check_map_paths(ft_dup_strings(map_param.map), &map_param);
-	
-	
+	if (check_map_paths(ft_dup_strings(map_param.map), &map_param) != 0)
+		return (ft_free_strings(map_param.map), error_manager(NULL, -1));
 	vars.map = map_param.map;
-
-	
+	vars.mlx = NULL;
 	vars.mlx = mlx_init();
 	if (!vars.mlx)
-		return (-1);
+		return (ft_free_strings(map_param.map), error_manager(NULL, 60));
 
 	my_mlx_get_screen_size(map_param, &vars);
 
 	initialise_images(&vars);
 
+
+	mlx_loop_hook(vars.mlx, push_map_to_window, &vars);
     mlx_key_hook(vars.window, ft_hook_events, &vars);
 	mlx_hook(vars.window, 17, 0, close_window, &vars);
 
-	mlx_loop_hook(vars.mlx, push_map_to_window, &vars);
+
 
 	mlx_loop(vars.mlx);
 }

@@ -161,9 +161,9 @@ int	check_map_paths(char **map, t_map *count)
 	track_path = NULL;
 	track_path = ft_add_cell_list(track_path, NULL, 0);
 	if (!track_path)
-		return (error_manager(NULL, 30));
+		return (ft_free_strings(map), error_manager(NULL, 30));
 	if (check_all_paths(map, &current, count, &track_path) == -1)
-		return (error_manager(NULL, 31));
+		return (ft_free_strings(map), error_manager(NULL, 31));
 	while (track_path)
 	{
 		tmp = track_path;

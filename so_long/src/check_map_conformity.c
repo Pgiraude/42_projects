@@ -68,18 +68,18 @@ int check_map_characters(char *line, t_map *count)
 	return (0);
 }
 
-int	check_number_characters(t_map *count)
+int	check_number_characters(char *line, t_map *count)
 {
 	if (count->exit == 0)
-		return (error_manager("exit", 14));
+		return (free(line), error_manager("exit", 14));
 	if (count->pos == 0)
-		return (error_manager("starting point", 14));
+		return (free(line), error_manager("starting point", 14));
 	if (count->coin == 0)
-		return (error_manager("coin", 14));
+		return (free(line), error_manager("coin", 14));
 	if (count->exit > 1)
-		return (error_manager("exit", 13));
+		return (free(line), error_manager("exit", 13));
 	if (count->pos > 1)
-		return (error_manager("starting point", 13));
+		return (free(line), error_manager("starting point", 13));
 	return (0);
 }
 
@@ -115,6 +115,7 @@ char	*get_map_line(char *map_name)
 		free (line);
 		line = get_next_line(map_fd);
 	}
+	close (map_fd);
 	return (one_line_map);
 }
 
@@ -133,7 +134,7 @@ t_map	check_map_conformity(char *map_name)
 	map_param.pos = 0;
 	map_param.coin = 0;
 	check_map_characters(one_line_map, &map_param);
-	check_number_characters(&map_param);
+	check_number_characters(one_line_map, &map_param);
 	map = ft_split(one_line_map, '\n');
 	free (one_line_map);
 	map_param.map_height = 0;
