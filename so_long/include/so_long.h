@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:59:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/18 16:04:31 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:48:13 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ typedef struct s_images
 {
 	void	*img_0;
 	void	*img_1;
-	void	*img_P;
-	void	*img_E;
-	void	*img_C;
+	void	*img_p;
+	void	*img_e;
+	void	*img_c;
 }t_images;
 
 typedef struct s_map
@@ -83,8 +83,13 @@ int		error_manager(char *msg, int key_error);
 t_map	check_map_conformity(char *map_name);
 int		check_map_paths(char **map, t_map *count);
 
-int	get_pos(char **map, char letter, t_pos *pos);
-int	ft_hook_events(int keycode, t_vars *vars);
-int close_window(t_vars *vars);
+int		get_pos(char **map, char letter, t_pos *pos);
+int		ft_hook_events(int keycode, t_vars *vars);
+int		close_window(t_vars *vars, int status);
+
+int		push_map_to_window(t_vars *vars);
+int		check_file_extension(char *file_name, char *extension);
+
+int		check_all_paths(char **map, t_pos *cur, t_map *count, t_list **path);
 
 #endif

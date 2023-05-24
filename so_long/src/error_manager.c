@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:20:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/10 18:16:53 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:35:02 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int	map_conformity_errors(char *msg, int key_error)
 		ft_printf(": Too much %s in the map, only one is needed\n", msg);
 	else if (key_error == 14)
 		ft_printf(": Need at least one %s\n", msg);
-	else if (key_error == 15 || key_error == 16 || key_error == 17 || key_error == 18)
-		ft_printf(": Map incorrect design, need a rectangle surrounded by walls\n");
+	else if (key_error == 15 || key_error == 16
+		|| key_error == 17 || key_error == 18)
+		ft_printf(": Map incorrect design, \
+			need a rectangle surrounded by walls\n");
 	else if (key_error == 19)
 		ft_printf(": Map incorrect design, should not end with '\\n'\n");
 	else if (key_error == 20)
@@ -55,9 +57,13 @@ int	error_manager(char *msg, int key_error)
 	else if (key_error == 40)
 		ft_printf(": Map is too big\n");
 	else if (key_error == 50)
-		ft_printf(": Couldn't found images path\n");
-	else if (key_error == 60)
 		ft_printf(": mlx_init didn't work\n");
+	else if (key_error == 60)
+		ft_printf(": Couldn't found images path\n");
+	else if (key_error == 61)
+		ft_printf(": Images extension invalid, need '.xpm'\n");
+	if (key_error >= 60)
+		return (-1);
 	exit(EXIT_FAILURE);
 	return (0);
 }

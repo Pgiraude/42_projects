@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_map.c                                          :+:      :+:    :+:   */
+/*   check_map_conformity.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:13:37 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/08 17:28:52 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:44:43 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_map_lines(char **map, size_t map_height, size_t map_width)
 	return (0);
 }
 
-int check_map_characters(char *line, t_map *count)
+int	check_map_characters(char *line, t_map *count)
 {
 	int	i;
 
@@ -83,22 +83,10 @@ int	check_number_characters(char *line, t_map *count)
 	return (0);
 }
 
-int	check_file_extension(char *file_name, char *extension)
-{
-	size_t	len_file;
-	size_t	len_ext;
-
-	len_file = ft_strlen(file_name);
-	len_ext = ft_strlen(extension);
-	if (len_file < len_ext)
-		return (1);
-	return (ft_strncmp(file_name + (len_file - len_ext), extension, len_ext));
-}
-
 char	*get_map_line(char *map_name)
 {
-	int     map_fd;
-	char    *line;
+	int		map_fd;
+	char	*line;
 	char	*one_line_map;
 	char	*tmp;
 
@@ -122,7 +110,7 @@ char	*get_map_line(char *map_name)
 t_map	check_map_conformity(char *map_name)
 {
 	char	**map;
-	char 	*one_line_map;
+	char	*one_line_map;
 	t_map	map_param;
 
 	if (check_file_extension(map_name, ".ber") != 0)

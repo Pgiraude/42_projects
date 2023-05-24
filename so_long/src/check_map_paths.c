@@ -6,13 +6,11 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:48:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/10 18:49:47 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:50:02 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_path);
 
 int	moves(char **map, t_pos *current, char direction)
 {
@@ -43,19 +41,15 @@ int	moves(char **map, t_pos *current, char direction)
 	return (0);
 }
 
-int	back_track(char **map, t_pos *current, t_map *count, t_list **track_path)
+int	back_track(char **map, t_pos *current, t_map *count, t_list **path)
 {
 	void	*data;
 	void	*move;
 	t_list	*info;
 
-	info = *track_path;
-
+	info = *path;
 	data = info->data;
 	move = NULL;
-
-	// if (track_path == NULL)
-	// 	ft_printf("track_path dont work\n");
 	move = "U";
 	if (info->data == move)
 		current->y++;
@@ -68,59 +62,44 @@ int	back_track(char **map, t_pos *current, t_map *count, t_list **track_path)
 	move = "L";
 	if (info->data == move)
 		current->x++;
-	*track_path = ft_suppr_cell_list(*track_path, &data, 0);
-	if (track_path != NULL)
-	{
-		return (check_all_paths(map, current, count, track_path));
-	}
+	*path = ft_suppr_cell_list(*path, &data, 0);
+	if (path != NULL)
+		return (check_all_paths(map, current, count, path));
 	return (-1);
 }
 
-int	check_all_paths(char **map, t_pos *current, t_map *count, t_list **track_path)
+int	check_all_paths(char **map, t_pos *cur, t_map *count, t_list **path)
 {
-
-
-	if (map[current->y][current->x] == 'P')
+	if (map[cur->y][cur->x] == 'P')
 		count->pos--;
-	if (map[current->y][current->x] == 'E')
+	if (map[cur->y][cur->x] == 'E')
 		count->exit--;
-	if (map[current->y][current->x] == 'C')
+	if (map[cur->y][cur->x] == 'C')
 		count->coin--;
-	map[current->y][current->x] = '1';
-
-/*-----------------------*/
-	// int	x = 0;
-	// while (map[x])
-	// {
-	// 	ft_printf("%s check path\n", map[x]);
-	// 	x++;
-	// }
-	// ft_printf("count pos=%d cur y=%d cur x=%d\n", count->pos, current->y, current->x);
-/*-----------------------*/
-	
+	map[cur->y][cur->x] = '1';
 	if (count->coin == 0 && count->pos == 0 && count->exit == 0)
 		return (0);
-	if (moves(map, current, 'U') != -1)
+	if (moves(map, cur, 'U') != -1)
 	{
-		*track_path = ft_add_cell_list(*track_path, "U", 0);
-		return (check_all_paths(map, current, count, track_path));
+		*path = ft_add_cell_list(*path, "U", 0);
+		return (check_all_paths(map, cur, count, path));
 	}
-	else if (moves(map, current, 'R') != -1)
+	else if (moves(map, cur, 'R') != -1)
 	{
-			*track_path = ft_add_cell_list(*track_path, "R", 0);
-		return (check_all_paths(map, current, count, track_path));
+			*path = ft_add_cell_list(*path, "R", 0);
+		return (check_all_paths(map, cur, count, path));
 	}
-	else if (moves(map, current, 'D') != -1)
+	else if (moves(map, cur, 'D') != -1)
 	{
-			*track_path = ft_add_cell_list(*track_path, "D", 0);
-		return (check_all_paths(map, current, count, track_path));
+			*path = ft_add_cell_list(*path, "D", 0);
+		return (check_all_paths(map, cur, count, path));
 	}
-	else if (moves(map, current, 'L') != -1)
+	else if (moves(map, cur, 'L') != -1)
 	{
-			*track_path = ft_add_cell_list(*track_path, "L", 0);
-		return (check_all_paths(map, current, count, track_path));
+			*path = ft_add_cell_list(*path, "L", 0);
+		return (check_all_paths(map, cur, count, path));
 	}
-	if (back_track(map, current, count, track_path) == 0)
+	if (back_track(map, cur, count, path) == 0)
 		return (0);
 	return (-1);
 }
@@ -151,36 +130,24 @@ int	get_pos(char **map, char letter, t_pos *pos)
 int	check_map_paths(char **map, t_map *count)
 {
 	t_pos	current;
-	t_list	*track_path;
+	t_list	*path;
 	t_list	*tmp;
 
 	current.x = 0;
 	current.y = 0;
 	get_pos(map, 'P', &current);
-	
-	track_path = NULL;
-	track_path = ft_add_cell_list(track_path, NULL, 0);
-	if (!track_path)
+	path = NULL;
+	path = ft_add_cell_list(path, NULL, 0);
+	if (!path)
 		return (ft_free_strings(map), error_manager(NULL, 30));
-	if (check_all_paths(map, &current, count, &track_path) == -1)
+	if (check_all_paths(map, &current, count, &path) == -1)
 		return (ft_free_strings(map), error_manager(NULL, 31));
-	while (track_path)
+	while (path)
 	{
-		tmp = track_path;
-		track_path = track_path->next;
+		tmp = path;
+		path = path->next;
 		free (tmp);
 	}
-
-	/*----------*/
-	// int	x = 0;
-	// while (map[x])
-	// {
-	// 	ft_printf("%s check path\n", map[x]);
-	// 	x++;
-	// }
-	/*----------*/
-	
 	ft_free_strings(map);
-	
 	return (0);
 }
