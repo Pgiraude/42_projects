@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freestrings.c                                   :+:      :+:    :+:   */
+/*   ft_dup_strings.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:56:11 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/28 21:03:22 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:37:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_dup_strings(char **tab_str)
 		return (NULL);
 	while (tab_str[i])
 		i++;
-	new_tab = malloc(sizeof(char*) * (i + 1));
+	new_tab = malloc(sizeof(char *) * (i + 1));
 	if (!new_tab)
 		return (NULL);
 	i = 0;

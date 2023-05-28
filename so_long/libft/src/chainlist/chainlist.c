@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chainlist.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/28 19:36:35 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/05/28 19:37:21 by pgiraude         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/chainlist.h"
 
@@ -29,7 +40,7 @@ t_list	*ft_create_list(t_list *new_list, void *data)
 	return (new_list);
 }
 
-t_list	*ft_add_cell_list(t_list *list, void *data, int	pos)
+t_list	*ft_add_cell_list(t_list *list, void *data, int pos)
 {
 	t_list	*new_node;
 	t_list	*tmp;

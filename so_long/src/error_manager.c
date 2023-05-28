@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:20:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/24 18:35:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:25:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	map_conformity_errors(char *msg, int key_error)
 		ft_printf(": Need at least one %s\n", msg);
 	else if (key_error == 15 || key_error == 16
 		|| key_error == 17 || key_error == 18)
-		ft_printf(": Map incorrect design, \
-			need a rectangle surrounded by walls\n");
+		ft_printf(": Map isn't a rectangle surrounded by walls\n");
 	else if (key_error == 19)
 		ft_printf(": Map incorrect design, should not end with '\\n'\n");
 	else if (key_error == 20)
@@ -50,10 +49,6 @@ int	error_manager(char *msg, int key_error)
 		ft_printf(": Too %s arguments\n", msg);
 	else if (key_error >= 10 && key_error <= 29)
 		map_conformity_errors(msg, key_error);
-	else if (key_error == 30)
-		ft_printf(": Malloc failed\n");
-	else if (key_error == 31)
-		ft_printf(": Map incorrect path\n");
 	else if (key_error == 40)
 		ft_printf(": Map is too big\n");
 	else if (key_error == 50)
@@ -62,6 +57,10 @@ int	error_manager(char *msg, int key_error)
 		ft_printf(": Couldn't found images path\n");
 	else if (key_error == 61)
 		ft_printf(": Images extension invalid, need '.xpm'\n");
+	else if (key_error == 70)
+		ft_printf(": Malloc failed\n");
+	else if (key_error == 71)
+		ft_printf(": Map incorrect path\n");
 	if (key_error >= 60)
 		return (-1);
 	exit(EXIT_FAILURE);

@@ -6,39 +6,35 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:48:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/24 18:50:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/05/28 19:26:14 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int	moves(char **map, t_pos *current, char direction)
+char	*moves(char **map, t_pos *current)
 {
-	if (direction == 'U')
+	if (map[current->y - 1][current->x] != '1')
 	{
-		if (map[current->y - 1][current->x] == '1')
-			return (-1);
 		current->y--;
+		return ("U");
 	}
-	else if (direction == 'R')
+	else if (map[current->y][current->x + 1] != '1')
 	{
-		if (map[current->y][current->x + 1] == '1')
-			return (-1);
 		current->x++;
+		return ("R");
 	}
-	else if (direction == 'D')
+	else if (map[current->y + 1][current->x] != '1')
 	{
-		if (map[current->y + 1][current->x] == '1')
-			return (-1);
 		current->y++;
+		return ("D");
 	}
-	else if (direction == 'L')
+	else if (map[current->y][current->x - 1] != '1')
 	{
-		if (map[current->y][current->x - 1] == '1')
-			return (-1);
 		current->x--;
+		return ("L");
 	}
-	return (0);
+	return (NULL);
 }
 
 int	back_track(char **map, t_pos *current, t_map *count, t_list **path)
@@ -48,7 +44,6 @@ int	back_track(char **map, t_pos *current, t_map *count, t_list **path)
 	t_list	*info;
 
 	info = *path;
-	data = info->data;
 	move = NULL;
 	move = "U";
 	if (info->data == move)
@@ -62,14 +57,18 @@ int	back_track(char **map, t_pos *current, t_map *count, t_list **path)
 	move = "L";
 	if (info->data == move)
 		current->x++;
+	data = NULL;
 	*path = ft_suppr_cell_list(*path, &data, 0);
-	if (path != NULL)
+	if (data == NULL)
+		return (-1);
+	else
 		return (check_all_paths(map, current, count, path));
-	return (-1);
 }
 
 int	check_all_paths(char **map, t_pos *cur, t_map *count, t_list **path)
 {
+	char	*direction;
+
 	if (map[cur->y][cur->x] == 'P')
 		count->pos--;
 	if (map[cur->y][cur->x] == 'E')
@@ -79,52 +78,15 @@ int	check_all_paths(char **map, t_pos *cur, t_map *count, t_list **path)
 	map[cur->y][cur->x] = '1';
 	if (count->coin == 0 && count->pos == 0 && count->exit == 0)
 		return (0);
-	if (moves(map, cur, 'U') != -1)
+	direction = moves(map, cur);
+	if (direction != NULL)
 	{
-		*path = ft_add_cell_list(*path, "U", 0);
-		return (check_all_paths(map, cur, count, path));
-	}
-	else if (moves(map, cur, 'R') != -1)
-	{
-			*path = ft_add_cell_list(*path, "R", 0);
-		return (check_all_paths(map, cur, count, path));
-	}
-	else if (moves(map, cur, 'D') != -1)
-	{
-			*path = ft_add_cell_list(*path, "D", 0);
-		return (check_all_paths(map, cur, count, path));
-	}
-	else if (moves(map, cur, 'L') != -1)
-	{
-			*path = ft_add_cell_list(*path, "L", 0);
+		*path = ft_add_cell_list(*path, direction, 0);
 		return (check_all_paths(map, cur, count, path));
 	}
 	if (back_track(map, cur, count, path) == 0)
 		return (0);
 	return (-1);
-}
-
-int	get_pos(char **map, char letter, t_pos *pos)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (map[y])
-	{
-		x = -1;
-		while (map[y][++x])
-		{
-			if (map[y][x] == letter)
-			{
-				pos->x = x;
-				pos->y = y;
-				return (0);
-			}
-		}
-		y++;
-	}
-	return (1);
 }
 
 int	check_map_paths(char **map, t_map *count)
@@ -139,9 +101,9 @@ int	check_map_paths(char **map, t_map *count)
 	path = NULL;
 	path = ft_add_cell_list(path, NULL, 0);
 	if (!path)
-		return (ft_free_strings(map), error_manager(NULL, 30));
+		return (ft_free_strings(map), error_manager(NULL, 70));
 	if (check_all_paths(map, &current, count, &path) == -1)
-		return (ft_free_strings(map), error_manager(NULL, 31));
+		return (ft_free_strings(map), error_manager(NULL, 71));
 	while (path)
 	{
 		tmp = path;
