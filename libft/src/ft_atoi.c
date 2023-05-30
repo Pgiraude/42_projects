@@ -6,11 +6,26 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 21:23:33 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/06/27 20:06:18 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/28 21:19:55 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
+
+long long int	get_nbr(const char *nptr)
+{
+	int				i;
+	long long int	nb;
+
+	i = 0;
+	nb = 0;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		nb = (nptr[i] - 48) + nb * 10;
+		i++;
+	}
+	return (nb);
+}
 
 int	ft_atoi(const char *nptr)
 {
@@ -19,7 +34,6 @@ int	ft_atoi(const char *nptr)
 	long long int	nb;
 
 	sign = 1;
-	nb = 0;
 	i = 0;
 	if (!nptr)
 		return (0);
@@ -32,11 +46,7 @@ int	ft_atoi(const char *nptr)
 	}
 	else if (nptr[i] == '+')
 		i++;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		nb = (nptr[i] - 48) + nb * 10;
-		i++;
-	}
+	nb = get_nbr(nptr + i);
 	if (nb * sign > INT_MAX || nb * sign < INT_MIN)
 		return (EXIT_FAILURE);
 	return (nb * sign);

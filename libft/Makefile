@@ -1,5 +1,6 @@
 NAME    =   libft.a
 
+
 SRCDIR	=	src/
 
 SRC =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c	\
@@ -10,18 +11,32 @@ SRC =	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c	\
 		ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c	\
 		ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_strcmp.c
 
+
+SRC_CHAINLISTDIR	=	src/chainlist/
+
+SRC_CHAINLIST	=	chainlist.c
+
+
 SRC_PRINTFDIR	=	src/ft_printf/
 
 SRC_PRINTF	=	ft_printf.c ft_convert_hex.c ft_convert_ptr.c \
 				ft_len_calculator.c ft_convert_dec.c ft_convert_str.c ft_convert_udec.c
 
+
 SRC_GNLDIR	=	src/get_next_line/
 
 SRC_GNL		=	get_next_line.c get_next_line_utils.c get_next_line_bonus.c
 
+
+SRC_OTHERSDIR	=	src/others/
+
+SRC_OTHERS		=	ft_free_strings.c ft_dup_strings.c
+
 OBJS    =   $(addprefix $(SRCDIR), $(SRC:.c=.o)) \
+			$(addprefix $(SRC_CHAINLISTDIR), $(SRC_CHAINLIST:.c=.o)) \
 			$(addprefix $(SRC_PRINTFDIR), $(SRC_PRINTF:.c=.o)) \
-			$(addprefix $(SRC_GNLDIR), $(SRC_GNL:.c=.o))
+			$(addprefix $(SRC_GNLDIR), $(SRC_GNL:.c=.o)) \
+			$(addprefix $(SRC_OTHERSDIR), $(SRC_OTHERS:.c=.o))
 
 RM  =   rm -f
 

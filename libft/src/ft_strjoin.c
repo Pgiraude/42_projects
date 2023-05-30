@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 22:03:56 by pgiraude          #+#    #+#             */
-/*   Updated: 2022/07/12 22:58:26 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:14:15 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	str_index = ft_strjoin_dup(s1, str);
 	str_index = ft_strjoin_dup(s2, str_index);
-	str_index = '\0';
+	str_index[0] = '\0';
 	return (str);
 }

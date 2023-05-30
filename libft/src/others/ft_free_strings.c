@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_freestrings.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/20 21:54:42 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/28 21:02:29 by pgiraude         ###   ########.fr       */
+/*   Created: 2023/04/28 20:56:11 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/04/28 21:03:22 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../../include/libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_free_strings(char **tab_str)
 {
-	write(fd, s, ft_strlen(s));
+	int	i;
+
+	i = 0;
+	if (!tab_str)
+		return ;
+	while (tab_str[i])
+	{
+		free (tab_str[i]);
+		i++;
+	}
+	if (tab_str)
+		free (tab_str);
 }
