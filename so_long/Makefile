@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/01 16:49:07 by pgiraude          #+#    #+#              #
-#    Updated: 2023/05/28 20:11:23 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/05/28 20:30:29 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,10 @@ clean:
 	$(LIBFT) clean
 	$(MLX) clean
 	$(RM) $(OBJS)
-	$(RM) $(OB_TEST)
 
 fclean: clean
 	$(LIBFT) fclean
 	$(RM) $(NAME)
-	$(RM) $(NAME_2)
 
 re: fclean all
 	
