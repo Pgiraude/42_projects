@@ -17,24 +17,25 @@ int print_time(struct timeval start)
 	return (0);
 }
 
-
+pthread_mutex_t mutex;
 
 void	*philo_fx(void *arg)
 {
 	int	i;
-	t_time *lol;
-	pthread_mutex_t mutex;
+	t_time lol;
 
-	lol = (t_time*)arg;
-	lol->lock = mutex;
+
+	lol = *(t_time*)arg;
+	// lol.lock = mutex;
 	i = 0;
 	while (i < 100000)
 	{
-		pthread_mutex_lock(&mutex);
+		pthread_mutex_lock(&lol.lock);
+		// pthread_mutex_lock(&mutex);
 		mail++;
 		i++;
-		pthread_mutex_unlock(&mutex);
-		
+		// pthread_mutex_unlock(&mutex);
+		pthread_mutex_unlock(&lol.lock);
 	}
 	
 }
@@ -43,36 +44,38 @@ int main(int argc, char **argv)
 {
 	struct timeval	start;
 	pthread_t		th[4];
-	t_time			*cool;
+	t_time			cool;
 
 
-	cool = malloc(sizeof(t_time));
+	// cool = malloc(sizeof(t_time));
 	mail = 0;
-	pthread_mutex_init(&cool->lock, NULL);
+	pthread_mutex_init(&cool.lock, NULL);
+	// pthread_mutex_init(&mutex, NULL);
 	gettimeofday(&start, NULL);
 
 	int	i;
 	i = 0;
-	while (th[i])
+	while (i < 4)
 	{
-		if (pthread_create(&th[i], NULL, &philo_fx, cool) != 0)
+		if (pthread_create(&th[i], NULL, &philo_fx, &cool) != 0)
 			return (-1);
 		i++;
 	}
 
 	print_time(start);
 
-
-	i = 0;
-	while (th[i])
+	int x;
+	x = 0;
+	while (x < 4)
 	{
-		if (pthread_join(th[i], NULL) != 0)
+		if (pthread_join(th[x], NULL) != 0)
 			return (-1);
-		i++;
+		x++;
 	}
 
-	pthread_mutex_destroy(&cool->lock);
-	free(cool);
+	pthread_mutex_destroy(&cool.lock);
+	// pthread_mutex_destroy(&mutex);
+	// free(cool);
 	printf("mail =%d\n", mail);
 
 	print_time(start);
