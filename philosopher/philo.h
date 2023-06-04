@@ -6,6 +6,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdlib.h>
+# include <unistd.h>
+
+
+# define EATING 4
+# define SLEEPING 5
+# define THINKING 6
 
 typedef struct s_time
 {
@@ -17,5 +23,6 @@ typedef struct s_time
 	pthread_mutex_t lock;
 }t_time;
 
+void	*routine(void *arg);
 
 #endif
