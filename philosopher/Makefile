@@ -1,6 +1,6 @@
 NAME =	philo
 
-SRC	=	routine.c test.c error_manager.c init_philo.c
+SRC	=	routine.c philo.c error_manager.c init_philo.c launch_philo.c
 
 OBJ	=	$(SRC:.c=.o)
 

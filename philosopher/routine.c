@@ -11,7 +11,7 @@ void	*routine(void *arg)
 
 	
 
-	usleep(1000 * 3000);
+	usleep(1000 * 1000);
 	pthread_mutex_unlock(&lol->lock);
 	printf("finish sleeping\n");
 }

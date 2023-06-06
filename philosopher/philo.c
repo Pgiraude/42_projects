@@ -22,19 +22,15 @@ int main(int argc, char **argv)
 	pthread_t		th[4];
 	t_time			*cool;
 
+	
+
 	cool = malloc(sizeof(t_time));
 	pthread_mutex_init(&cool->lock, NULL);
 
-	gettimeofday(&start, NULL);
+	init_philo(argc, argv, &(*cool));
 
-	int	i;
-	i = 0;
-	while (i < 2)
-	{
-		if (pthread_create(&th[i], NULL, &routine, &(*cool)) != 0)
-			return (-1);
-		i++;
-	}
+	printf("nbr philo=%d\n", cool->nbr_philo);
+	gettimeofday(&start, NULL);
 
 	print_time(start);
 
