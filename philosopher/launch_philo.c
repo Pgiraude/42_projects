@@ -1,16 +1,33 @@
 #include "philo.h"
 
-int	launch_philo(t_time *data)
+int	launch_philo(t_param *param)
 {
-	int	index_philo;
+	t_philo	*philo;
+	int		index;
 	
+	philo = NULL;
+	philo = malloc(sizeof(t_philo) * (param->nbr_philo));
+	if (!philo)
+		return (error_manager(3));
 
-	index_philo = 0;
-	while (index_philo < data->nbr_philo)
+	int	i;
+	i = 0;
+	while (i < param->nbr_philo)
 	{
-		if (pthread_create(&th[index_philo], NULL, &routine, &(*cool)) != 0)
-			return (-1);
+		if (i == param->nbr_philo - 1)
+			philo[i].right_fork = philo[0].left_fork;
+		else
+			philo[i].right_fork = philo[i + 1].left_fork;
+		philo[i].num_philo = i + 1;
+		philo[i].param = param;
 		i++;
 	}
 
+	index = 0;
+	while (index < param->nbr_philo)
+	{
+		if (pthread_create(&philo[index].thread, NULL, &routine, &philo[index]) != 0)
+			return (-1);
+		index++;
+	}
 }

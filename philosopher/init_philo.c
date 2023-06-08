@@ -29,7 +29,7 @@ int	atoi_philo(char *str_nbr)
 	return (nbr);	
 }
 
-int init_philo(int argc, char **argv, t_time *data)
+int init_philo(int argc, char **argv, t_param *data)
 {
 	int	nbr;
 
@@ -56,4 +56,6 @@ int init_philo(int argc, char **argv, t_time *data)
 	data->nbr_eat = atoi_philo(argv[5]);
 	if (data->nbr_eat <= 0)
 		return (error_manager(data->nbr_eat));
+
+	
 }

@@ -19,31 +19,26 @@ int print_time(struct timeval start)
 int main(int argc, char **argv)
 {
 	struct timeval	start;
-	pthread_t		th[4];
-	t_time			*cool;
+	t_philo			philo;
+	t_param			*param;
 
 	
 
-	cool = malloc(sizeof(t_time));
-	pthread_mutex_init(&cool->lock, NULL);
+	param = malloc(sizeof(t_param));
 
-	init_philo(argc, argv, &(*cool));
+	param->start 
+	pthread_mutex_init(&param->lock, NULL);
 
-	printf("nbr philo=%d\n", cool->nbr_philo);
+	init_philo(argc, argv, &(*param));
+
+	printf("nbr philo=%d\n", param->nbr_philo);
 	gettimeofday(&start, NULL);
 
 	print_time(start);
 
-	int x;
-	x = 0;
-	while (x < 2)
-	{
-		if (pthread_join(th[x], NULL) != 0)
-			return (-1);
-		x++;
-	}
+	end_philo(&philo, param);
 
-	pthread_mutex_destroy(&cool->lock);
+	pthread_mutex_destroy(&param->lock);
 
 	print_time(start);
 }

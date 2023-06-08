@@ -2,16 +2,24 @@
 
 void	*routine(void *arg)
 {
-	t_time *lol;
+	t_philo *philo;
+	int		i;
 
 
-	lol = (t_time*)arg;
+	philo = (t_philo*)arg;
 
-	pthread_mutex_lock(&lol->lock);
+	i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&philo->left_fork);
+		pthread_mutex_lock(&philo->right_fork);
 
-	
 
-	usleep(1000 * 1000);
-	pthread_mutex_unlock(&lol->lock);
+		usleep(philo.param->eat_time);
+		printf("Philo finish eating at %d")
+
+		pthread_mutex_unlock(&philo->left_fork);
+		pthread_mutex_unlock(&philo->right_fork);
+	}
 	printf("finish sleeping\n");
 }

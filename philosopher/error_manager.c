@@ -12,6 +12,8 @@ int	error_manager_init(int error_code)
 		printf("Error %d: Need more arguments\n", error_code);
 	if (error_code == 2)
 		printf("Error %d: Need less arguments\n", error_code);
+	if (error_code == 3)
+		printf("Error %d: Malloc failde\n", error_code);
 	return (error_code);
 }
 
