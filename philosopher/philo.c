@@ -25,14 +25,13 @@ int main(int argc, char **argv)
 	
 
 	param = malloc(sizeof(t_param));
-
-	param->start 
+	gettimeofday(&start, NULL);
+	param->start = start;
 	pthread_mutex_init(&param->lock, NULL);
 
 	init_philo(argc, argv, &(*param));
 
 	printf("nbr philo=%d\n", param->nbr_philo);
-	gettimeofday(&start, NULL);
 
 	print_time(start);
 

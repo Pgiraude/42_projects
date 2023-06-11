@@ -33,9 +33,10 @@ typedef struct s_philo
 	struct timeval	start;
 	pthread_mutex_t right_fork;
 	pthread_mutex_t left_fork;
-	struct t_param	*param;
+	struct s_param	*param;
 }t_philo;
 
+int		print_time(struct timeval start);
 
 void	*routine(void *arg);
 
