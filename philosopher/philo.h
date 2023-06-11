@@ -46,4 +46,6 @@ int		error_manager(int error_code);
 
 int		end_philo(t_philo *philo, t_param *param);
 
+int		launch_philo(t_param *param, t_philo **philo);
+
 #endif

@@ -1,12 +1,13 @@
 #include "philo.h"
 
-int	launch_philo(t_param *param)
+int	launch_philo(t_param *param, t_philo **phil)
 {
-	t_philo	*philo;
 	int		index;
-	
-	philo = NULL;
-	philo = malloc(sizeof(t_philo) * (param->nbr_philo));
+	t_philo *philo;
+
+	*phil = NULL;
+	*phil = malloc(sizeof(t_philo) * (param->nbr_philo));
+	philo = *phil;
 	if (!philo)
 		return (error_manager(3));
 
@@ -23,6 +24,10 @@ int	launch_philo(t_param *param)
 		i++;
 	}
 
+	usleep(100 *   1000);
+	printf("2st time :");
+	print_time(param->start);
+
 	index = 0;
 	while (index < param->nbr_philo)
 	{
@@ -30,4 +35,8 @@ int	launch_philo(t_param *param)
 			return (-1);
 		index++;
 	}
+	usleep(100 *   1000);
+	printf("3st time :");
+	print_time(param->start);
+	return (0);
 }

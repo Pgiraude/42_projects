@@ -19,7 +19,7 @@ int print_time(struct timeval start)
 int main(int argc, char **argv)
 {
 	struct timeval	start;
-	t_philo			philo;
+	t_philo			*philo;
 	t_param			*param;
 
 	
@@ -27,15 +27,25 @@ int main(int argc, char **argv)
 	param = malloc(sizeof(t_param));
 	gettimeofday(&start, NULL);
 	param->start = start;
+
+
 	pthread_mutex_init(&param->lock, NULL);
 
+	/*--------------------------------*/
 	init_philo(argc, argv, &(*param));
-
 	printf("nbr philo=%d\n", param->nbr_philo);
+	/*--------------------------------*/
 
-	print_time(start);
+	usleep(100 *   1000);
+	printf("1st time :");
+	print_time(param->start);
 
-	end_philo(&philo, param);
+	launch_philo(param, &philo);
+
+
+
+
+	end_philo(philo, param);
 
 	pthread_mutex_destroy(&param->lock);
 
