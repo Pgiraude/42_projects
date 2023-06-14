@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   end_philo.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/14 16:32:50 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/06/14 16:33:36 by pgiraude         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int end_philo(t_philo *philo, t_param *param)
@@ -12,4 +24,5 @@ int end_philo(t_philo *philo, t_param *param)
 		pthread_mutex_destroy(&philo[index].left_fork);
 		index++;
 	}
+	return (0);
 }
