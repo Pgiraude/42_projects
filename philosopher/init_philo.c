@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/14 16:33:10 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:03:03 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ int init_philo(int argc, char **argv, t_param *data)
 	data->nbr_eat = atoi_philo(argv[5]);
 	if (data->nbr_eat <= 0)
 		return (error_manager(data->nbr_eat));
-
-	
+	return (0);
 }

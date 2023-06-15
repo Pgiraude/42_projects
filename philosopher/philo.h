@@ -30,8 +30,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				num_philo;
 	int 			nbr_eat;
-	struct timeval	start;
-	pthread_mutex_t right_fork;
+	int				last_meal;
+	pthread_mutex_t *right_fork;
 	pthread_mutex_t left_fork;
 	struct s_param	*param;
 }t_philo;
@@ -47,5 +47,7 @@ int		error_manager(int error_code);
 int		end_philo(t_philo *philo, t_param *param);
 
 int		launch_philo(t_param *param, t_philo **philo);
+
+int		get_time(struct timeval start, int *time);
 
 #endif

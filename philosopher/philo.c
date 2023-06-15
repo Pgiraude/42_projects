@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/14 16:33:21 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:59:29 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int print_time(struct timeval start)
 	printf("Time taken is : %ld milliseconds\n", (finish - begin));
 	return (0);
 }
-
 
 int main(int argc, char **argv)
 {
@@ -55,8 +54,8 @@ int main(int argc, char **argv)
 
 
 
-
 	end_philo(philo, param);
+	printf("END\n\n");
 
 	pthread_mutex_destroy(&param->lock);
 
