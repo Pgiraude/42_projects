@@ -24,6 +24,5 @@ int end_philo(t_philo *philo, t_param *param)
 		pthread_mutex_destroy(&philo[index].left_fork);
 		index++;
 	}
-	printf("END\n\n");
 	return (0);
 }

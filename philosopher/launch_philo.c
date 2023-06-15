@@ -36,10 +36,6 @@ int	launch_philo(t_param *param, t_philo **phil)
 		i++;
 	}
 
-	usleep(100 *   1000);
-	printf("2st time :");
-	print_time(param->start);
-
 	index = 0;
 	while (index < param->nbr_philo)
 	{
@@ -47,8 +43,5 @@ int	launch_philo(t_param *param, t_philo **phil)
 			return (-1);
 		index++;
 	}
-	usleep(100 *   1000);
-	printf("3st time :");
-	print_time(param->start);
 	return (0);
 }

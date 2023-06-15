@@ -43,11 +43,8 @@ int main(int argc, char **argv)
 
 	/*--------------------------------*/
 	init_philo(argc, argv, &(*param));
-	printf("nbr philo=%d\n", param->nbr_philo);
 	/*--------------------------------*/
 
-	usleep(100 *   1000);
-	printf("1st time :");
 	print_time(param->start);
 
 	launch_philo(param, &philo);
@@ -55,7 +52,6 @@ int main(int argc, char **argv)
 
 
 	end_philo(philo, param);
-	printf("END\n\n");
 
 	pthread_mutex_destroy(&param->lock);
 

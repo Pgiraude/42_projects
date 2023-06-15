@@ -14,9 +14,26 @@
 
 void	print_status(int status, t_philo *philo)
 {
+	int	time;
+
+	if (get_time(philo->param->start, &time) < 0)
+		return ; 
 	if (status == EATING)
 	{
-		
+		printf("%d %d is eating\n", time, philo->num_philo);
+		usleep(philo->param->eat_time * 1000);
+		if (get_time(philo->param->start, &time) < 0)
+			return ; 
+		philo->last_meal = time;
+	}
+	if (status == SLEEPING)
+	{
+		printf("%d %d is sleeping\n", time, philo->num_philo);
+		usleep(philo->param->sleep_time * 1000);
+	}
+	if (status == THINKING)
+	{
+		printf("%d %d is thinking\n", time, philo->num_philo);
 	}
 }
 
@@ -58,17 +75,7 @@ void	*routine(void *arg)
 	philo = (t_philo*)arg;
 	
 	take_forks(philo);
-
-	// if (get_time(philo->param->start, &time) < 0)
-	// 	return (NULL); 
-	// printf("%d %d is eating\n", time, philo->num_philo);
-
-	usleep(philo->param->eat_time * 1000);
-
-	// if (get_time(philo->param->start, &time) < 0)
-	// 	return (NULL); 
-	// philo->last_meal = time;
-
+	print_status(EATING, philo);
 	if (philo->num_philo % 2 != 0)
 	{
 		pthread_mutex_unlock(philo->right_fork);
@@ -79,12 +86,8 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 	}
-
-	// if (get_time(philo->param->start, &time) < 0)
-	// 	return (NULL); 
-	// printf("%d %d is sleeping\n", time, philo->num_philo);
-
-	// usleep(philo->param->sleep_time * 1000);
-	printf("end routine \n");
+	print_status(SLEEPING, philo);
+	print_status(THINKING, philo);
+	
 	return (0);
 }
