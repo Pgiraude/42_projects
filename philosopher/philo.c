@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/15 16:59:29 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:42:23 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,39 @@ int print_time(struct timeval start)
 	printf("Time taken is : %ld milliseconds\n", (finish - begin));
 	return (0);
 }
+
+int	is_dead(t_philo *philo)
+{
+	int time;
+
+	get_time(philo->param->start, &time);
+	if ((time - philo->last_meal) > philo->param->die_time)
+	{
+		print_status(DEAD, philo);
+		return (1);
+	}
+	return (0);
+}
+
+int	check_life_philo(t_philo **philo)
+{
+	int	index;
+	int	eat;
+
+	eat = 0;
+	index = 0;
+	while (index < philo[index]->param->nbr_philo)
+	{
+		if (is_dead(philo[index]) == 1)
+			break ;
+		if (philo[index]->nbr_eat >= philo[index]->param->nbr_eat)
+		{
+			eat++;
+		}
+	}
+	
+}
+
 
 int main(int argc, char **argv)
 {
@@ -49,7 +82,7 @@ int main(int argc, char **argv)
 
 	launch_philo(param, &philo);
 
-
+	check_life_philo(&philo);
 
 	end_philo(philo, param);
 

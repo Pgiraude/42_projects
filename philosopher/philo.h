@@ -13,6 +13,7 @@
 # define EATING 4
 # define SLEEPING 5
 # define THINKING 6
+# define DEAD 7
 
 typedef struct s_param
 {
@@ -49,5 +50,7 @@ int		end_philo(t_philo *philo, t_param *param);
 int		launch_philo(t_param *param, t_philo **philo);
 
 int		get_time(struct timeval start, int *time);
+
+void	print_status(int status, t_philo *philo);
 
 #endif
