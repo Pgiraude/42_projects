@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/20 12:42:23 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:08:44 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,24 @@ int	check_life_philo(t_philo **philo)
 {
 	int	index;
 	int	eat;
-
-	eat = 0;
-	index = 0;
-	while (index < philo[index]->param->nbr_philo)
-	{
-		if (is_dead(philo[index]) == 1)
-			break ;
-		if (philo[index]->nbr_eat >= philo[index]->param->nbr_eat)
-		{
-			eat++;
-		}
-	}
 	
+	while (1)
+	{
+		eat = 0;
+		index = 0;
+		while (index < philo[index]->param->nbr_philo)
+		{
+			if (is_dead(philo[index]) == 1)
+				return (1);
+			if (philo[index]->nbr_eat >= philo[index]->param->nbr_eat)
+			{
+				eat++;
+			}
+		}
+		if (eat == index)
+			return (2);
+	}
+	return (0);
 }
 
 
