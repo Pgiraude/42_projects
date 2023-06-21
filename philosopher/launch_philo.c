@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/15 17:16:03 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:43:49 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	launch_philo(t_param *param, t_philo **phil)
 		else
 			philo[i].right_fork = &philo[i + 1].left_fork;
 		philo[i].num_philo = i + 1;
+		philo[i].last_meal = 0;
+		philo[i].nbr_eat = 0;
 		philo[i].param = param;
 		i++;
 	}

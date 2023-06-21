@@ -22,6 +22,8 @@ typedef struct s_param
 	int				eat_time;
 	int				sleep_time;
 	int				nbr_eat;
+	int				dead;
+	int				eat;
 	struct timeval	start;
 	pthread_mutex_t	lock;
 }t_param;
@@ -52,5 +54,9 @@ int		launch_philo(t_param *param, t_philo **philo);
 int		get_time(struct timeval start, int *time);
 
 void	print_status(int status, t_philo *philo);
+
+int		check_life_philo(t_philo **philo);
+
+int		philo_sign(t_philo *philo);
 
 #endif

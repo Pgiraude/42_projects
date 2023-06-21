@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/20 14:08:44 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:54:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,41 @@ int	is_dead(t_philo *philo)
 	get_time(philo->param->start, &time);
 	if ((time - philo->last_meal) > philo->param->die_time)
 	{
+		pthread_mutex_lock(&philo->param->lock);
+		philo->param->dead++;
+		pthread_mutex_unlock(&philo->param->lock);
 		print_status(DEAD, philo);
 		return (1);
 	}
 	return (0);
 }
 
+int	philo_sign(t_philo *philo)
+{
+	int value;
+
+	pthread_mutex_lock(&philo->param->lock);
+	value = philo->param->dead;
+	pthread_mutex_unlock(&philo->param->lock);
+	return (value);
+}
+
 int	check_life_philo(t_philo **philo)
 {
 	int	index;
 	int	eat;
-	
-	while (1)
+
+	eat = 0;
+	index = 0;
+	while (index < philo[index]->param->nbr_philo)
 	{
-		eat = 0;
-		index = 0;
-		while (index < philo[index]->param->nbr_philo)
-		{
-			if (is_dead(philo[index]) == 1)
-				return (1);
-			if (philo[index]->nbr_eat >= philo[index]->param->nbr_eat)
-			{
-				eat++;
-			}
-		}
-		if (eat == index)
-			return (2);
+		if (is_dead(philo[index]) == 1)
+			return (1);
+		if (philo[index]->nbr_eat >= philo[index]->param->nbr_eat)
+			eat++;
 	}
+	if (eat == index)
+		return (2);
 	return (0);
 }
 
@@ -76,7 +84,6 @@ int main(int argc, char **argv)
 	gettimeofday(&start, NULL);
 	param->start = start;
 
-
 	pthread_mutex_init(&param->lock, NULL);
 
 	/*--------------------------------*/
@@ -87,8 +94,8 @@ int main(int argc, char **argv)
 
 	launch_philo(param, &philo);
 
-	check_life_philo(&philo);
-
+	while (check_life_philo(&philo) == 0)
+		;
 	end_philo(philo, param);
 
 	pthread_mutex_destroy(&param->lock);
