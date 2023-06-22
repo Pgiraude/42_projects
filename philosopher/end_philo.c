@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:32:50 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/15 15:23:36 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:33:10 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ int end_philo(t_philo *philo, t_param *param)
 		pthread_mutex_destroy(&philo[index].left_fork);
 		index++;
 	}
+	pthread_mutex_destroy(&param->lock);
+	free (philo);
+	free (param);
 	return (0);
 }

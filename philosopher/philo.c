@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/21 17:54:12 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:54:48 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_dead(t_philo *philo)
 	if ((time - philo->last_meal) > philo->param->die_time)
 	{
 		pthread_mutex_lock(&philo->param->lock);
-		philo->param->dead++;
+		philo->param->dead = TRUE;
 		pthread_mutex_unlock(&philo->param->lock);
 		print_status(DEAD, philo);
 		return (1);
@@ -46,31 +46,42 @@ int	philo_sign(t_philo *philo)
 {
 	int value;
 
+	value = FALSE;
 	pthread_mutex_lock(&philo->param->lock);
-	value = philo->param->dead;
+	if (philo->param->dead == TRUE)
+		value = TRUE;
+	if (philo->param->eat == TRUE)
+		value = TRUE;
 	pthread_mutex_unlock(&philo->param->lock);
 	return (value);
 }
 
-int	check_life_philo(t_philo **philo)
+int	check_life_philo(t_philo *philo, t_param *param)
 {
 	int	index;
 	int	eat;
 
 	eat = 0;
 	index = 0;
-	while (index < philo[index]->param->nbr_philo)
+	while (index < param->nbr_philo)
 	{
-		if (is_dead(philo[index]) == 1)
+		if (is_dead(&philo[index]) == 1)
 			return (1);
-		if (philo[index]->nbr_eat >= philo[index]->param->nbr_eat)
+		pthread_mutex_lock(&param->lock);
+		if (philo[index].nbr_eat >= param->nbr_eat)
 			eat++;
+		pthread_mutex_unlock(&param->lock);
+		index++;
 	}
-	if (eat == index)
+	if (eat == index && param->nbr_eat > 0)
+	{
+		pthread_mutex_lock(&param->lock);
+		param->eat = TRUE;
+		pthread_mutex_unlock(&param->lock);
 		return (2);
+	}
 	return (0);
 }
-
 
 int main(int argc, char **argv)
 {
@@ -78,27 +89,22 @@ int main(int argc, char **argv)
 	t_philo			*philo;
 	t_param			*param;
 
-	
-
 	param = malloc(sizeof(t_param));
 	gettimeofday(&start, NULL);
 	param->start = start;
 
-	pthread_mutex_init(&param->lock, NULL);
-
 	/*--------------------------------*/
-	init_philo(argc, argv, &(*param));
+	if (init_philo(argc, argv, param, &philo) != 0)
+		return (free (param), 1);
 	/*--------------------------------*/
 
 	print_time(param->start);
 
-	launch_philo(param, &philo);
+	if (launch_philo(param, philo) != 0)
+		return (free (param), free (philo), 2);
 
-	while (check_life_philo(&philo) == 0)
+	while (check_life_philo(philo, param) == 0)
 		;
 	end_philo(philo, param);
-
-	pthread_mutex_destroy(&param->lock);
-
 	print_time(start);
 }

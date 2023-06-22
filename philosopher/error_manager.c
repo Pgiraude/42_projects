@@ -6,18 +6,18 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:32:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/14 16:33:01 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:02:27 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	error_manager_init(int error_code)
+int	error_manager_init(int error_code, char *msg)
 {
 	if (error_code == -3)
 		printf("Error %d: Value is supperior too int max\n", error_code);
 	if (error_code == -2)
-		printf("Error %d: Incorrect value, need a positive decimal int\n", error_code);
+		printf("Error %d: Bad value, need a positive decimal int\n", error_code);
 	if (error_code == -1)
 		printf("Error %d: No value, need a positive decimal int\n", error_code);
 	if (error_code == 1)
@@ -26,16 +26,23 @@ int	error_manager_init(int error_code)
 		printf("Error %d: Need less arguments\n", error_code);
 	if (error_code == 3)
 		printf("Error %d: Malloc failde\n", error_code);
+	if (error_code >= 4 && error_code <= 7)
+		printf("Error %d: %s must be an int superior to 0\n", error_code, msg);
+	if (error_code == 8)
+	{
+		printf("Error %d: Number of eat by philo ", error_code);
+		printf("if define must be an int superior to 0\n");
+	}
 	return (error_code);
 }
 
-int	error_manager(int error_code)
+int	error_manager(int error_code, char *msg)
 {
 	if (error_code == 0)
 		return (error_code);
-	if (error_code < 0)
-
 	if (error_code < 20)
-		return (error_manager_init(error_code));
-	return (0);
+		return (error_manager_init(error_code, msg));
+	if (error_code == 20)
+		printf("Error %d: Failed create threads\n", error_code);
+	return (error_code);
 }

@@ -15,6 +15,12 @@
 # define THINKING 6
 # define DEAD 7
 
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}t_bool;
+
 typedef struct s_param
 {
 	int				nbr_philo;
@@ -22,8 +28,8 @@ typedef struct s_param
 	int				eat_time;
 	int				sleep_time;
 	int				nbr_eat;
-	int				dead;
-	int				eat;
+	t_bool			dead;
+	t_bool			eat;
 	struct timeval	start;
 	pthread_mutex_t	lock;
 }t_param;
@@ -43,20 +49,22 @@ int		print_time(struct timeval start);
 
 void	*routine(void *arg);
 
-int		init_philo(int argc, char **argv, t_param *data);
+int		init_philo(int argc, char **argv, t_param *data, t_philo **philo);
 
-int		error_manager(int error_code);
+int		error_manager(int error_code, char *msg);
 
 int		end_philo(t_philo *philo, t_param *param);
 
-int		launch_philo(t_param *param, t_philo **philo);
+int		launch_philo(t_param *param, t_philo *philo);
 
 int		get_time(struct timeval start, int *time);
 
 void	print_status(int status, t_philo *philo);
 
-int		check_life_philo(t_philo **philo);
+int		check_life_philo(t_philo *philo, t_param *param);
 
 int		philo_sign(t_philo *philo);
+
+int		is_dead(t_philo *philo);
 
 #endif
