@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int end_philo(t_philo *philo, t_param *param)
+int exit_philo(t_philo *philo, t_param *param)
 {
 	int index;
 
@@ -20,8 +20,9 @@ int end_philo(t_philo *philo, t_param *param)
 	while (index < param->nbr_philo)
 	{
 		if (pthread_join(philo[index].thread, NULL) != 0)
-			return (-1);
-		pthread_mutex_destroy(&philo[index].left_fork);
+			error_manager(30, NULL);
+		if (pthread_mutex_destroy(&philo[index].left_fork) != 0)
+			error_manager(31, NULL);
 		index++;
 	}
 	pthread_mutex_destroy(&param->lock);

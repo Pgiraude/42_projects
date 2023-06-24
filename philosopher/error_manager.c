@@ -44,5 +44,9 @@ int	error_manager(int error_code, char *msg)
 		return (error_manager_init(error_code, msg));
 	if (error_code == 20)
 		printf("Error %d: Failed create threads\n", error_code);
+	if (error_code == 30)
+		printf("Error %d: Failed thread_join\n", error_code);
+	if (error_code == 31)
+		printf("Error %d: Failed mutex_destroy\n", error_code);
 	return (error_code);
 }

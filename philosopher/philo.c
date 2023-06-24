@@ -105,6 +105,6 @@ int main(int argc, char **argv)
 
 	while (check_life_philo(philo, param) == 0)
 		;
-	end_philo(philo, param);
+	exit_philo(philo, param);
 	print_time(start);
 }

@@ -1,7 +1,7 @@
 NAME =	philo
 
 SRC	=	philo.c error_manager.c init_philo.c \
-		launch_philo.c end_philo.c utils_philo.c
+		launch_philo.c exit_philo.c utils_philo.c
 
 OBJ	=	$(SRC:.c=.o)
 

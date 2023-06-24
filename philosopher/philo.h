@@ -53,7 +53,7 @@ int		init_philo(int argc, char **argv, t_param *data, t_philo **philo);
 
 int		error_manager(int error_code, char *msg);
 
-int		end_philo(t_philo *philo, t_param *param);
+int		exit_philo(t_philo *philo, t_param *param);
 
 int		launch_philo(t_param *param, t_philo *philo);
 
