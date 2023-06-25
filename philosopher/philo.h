@@ -67,4 +67,6 @@ int		philo_sign(t_philo *philo);
 
 int		is_dead(t_philo *philo);
 
+int		atoi_philo(char *str_nbr);
+
 #endif

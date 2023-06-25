@@ -25,7 +25,9 @@ int exit_philo(t_philo *philo, t_param *param)
 			error_manager(31, NULL);
 		index++;
 	}
-	pthread_mutex_destroy(&param->lock);
+	printf("%d ++\n", index);
+	if (pthread_mutex_destroy(&param->lock) != 0)
+		error_manager(32, NULL);
 	free (philo);
 	free (param);
 	return (0);

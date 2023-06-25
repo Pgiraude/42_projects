@@ -47,6 +47,8 @@ int	error_manager(int error_code, char *msg)
 	if (error_code == 30)
 		printf("Error %d: Failed thread_join\n", error_code);
 	if (error_code == 31)
-		printf("Error %d: Failed mutex_destroy\n", error_code);
+		printf("Error %d: Failed fork_mutex_destroy\n", error_code);
+	if (error_code == 32)
+		printf("Error %d: Failed lock_mutex_destroy\n", error_code);
 	return (error_code);
 }

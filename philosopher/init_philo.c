@@ -12,35 +12,6 @@
 
 #include "philo.h"
 
-int	atoi_philo(char *str_nbr)
-{
-	int			i;
-	long int	nbr;
-
-	nbr = 0;
-	i = 0;
-	if (!str_nbr)
-		return (-1);
-	while (str_nbr[i] == ' ' || str_nbr[i] == '	')
-		i++;
-	if (str_nbr[i] == '\0')
-		return (-1);
-	if (str_nbr[i] == '0')
-		return (-2);
-	while (str_nbr[i] >= '0' && str_nbr[i] <= '9')
-	{
-		nbr = nbr * 10 + (str_nbr[i] - 48);
-		i++;
-	}
-	while (str_nbr[i] == ' ' || str_nbr[i] == '	')
-		i++;
-	if (str_nbr[i] != '\0' || nbr == 0)
-		return (-2);
-	else if (nbr > INT_MAX)
-		return (-3);
-	return (nbr);
-}
-
 int	parsing_values(int argc, char **argv, t_param *param)
 {
 	param->nbr_philo = atoi_philo(argv[1]);
@@ -74,9 +45,15 @@ int	init_threads(t_philo *philo, t_param *param)
 	while (i < param->nbr_philo)
 	{
 		if (i == param->nbr_philo - 1)
+		{
+			pthread_mutex_init(&philo[0].left_fork, NULL);
 			philo[i].right_fork = &philo[0].left_fork;
+		}
 		else
+		{
+			pthread_mutex_init(&philo[i + 1].left_fork, NULL);
 			philo[i].right_fork = &philo[i + 1].left_fork;
+		}
 		philo[i].num_philo = i + 1;
 		philo[i].last_meal = 0;
 		philo[i].nbr_eat = 0;
