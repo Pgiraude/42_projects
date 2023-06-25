@@ -45,10 +45,16 @@ int	error_manager(int error_code, char *msg)
 	if (error_code == 20)
 		printf("Error %d: Failed create threads\n", error_code);
 	if (error_code == 30)
-		printf("Error %d: Failed thread_join\n", error_code);
+		printf("Error %d: Failed init_mutex 0\n", error_code);
 	if (error_code == 31)
-		printf("Error %d: Failed fork_mutex_destroy\n", error_code);
+		printf("Error %d: Failed init_mutex 1\n", error_code);
 	if (error_code == 32)
+		printf("Error %d: Failed lock_mutex\n", error_code);
+	if (error_code == 40)
+		printf("Error %d: Failed thread_join\n", error_code);
+	if (error_code == 41)
+		printf("Error %d: Failed fork_mutex_destroy\n", error_code);
+	if (error_code == 42)
 		printf("Error %d: Failed lock_mutex_destroy\n", error_code);
 	return (error_code);
 }

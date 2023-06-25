@@ -46,12 +46,14 @@ int	init_threads(t_philo *philo, t_param *param)
 	{
 		if (i == param->nbr_philo - 1)
 		{
-			pthread_mutex_init(&philo[0].left_fork, NULL);
+			if (pthread_mutex_init(&philo[0].left_fork, NULL) != 0)
+				return (error_manager(30, NULL));
 			philo[i].right_fork = &philo[0].left_fork;
 		}
 		else
 		{
-			pthread_mutex_init(&philo[i + 1].left_fork, NULL);
+			if (pthread_mutex_init(&philo[i + 1].left_fork, NULL) != 0) 
+				return (error_manager(31, NULL));
 			philo[i].right_fork = &philo[i + 1].left_fork;
 		}
 		philo[i].num_philo = i + 1;
@@ -80,6 +82,7 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 	if (!(*philo))
 		return (error_manager(3, NULL));
 	init_threads(*philo, param);
-	pthread_mutex_init(&param->lock, NULL);
+	if (pthread_mutex_init(&param->lock, NULL) != 0)
+		return (error_manager(32, NULL));
 	return (0);
 }

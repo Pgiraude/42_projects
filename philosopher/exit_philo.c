@@ -20,14 +20,16 @@ int exit_philo(t_philo *philo, t_param *param)
 	while (index < param->nbr_philo)
 	{
 		if (pthread_join(philo[index].thread, NULL) != 0)
-			error_manager(30, NULL);
+			error_manager(40, NULL);
 		if (pthread_mutex_destroy(&philo[index].left_fork) != 0)
-			error_manager(31, NULL);
+		{
+			printf("index = %d :", index);
+			error_manager(41, NULL);
+		}
 		index++;
 	}
-	printf("%d ++\n", index);
 	if (pthread_mutex_destroy(&param->lock) != 0)
-		error_manager(32, NULL);
+		error_manager(42, NULL);
 	free (philo);
 	free (param);
 	return (0);
