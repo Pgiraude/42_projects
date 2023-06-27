@@ -92,7 +92,7 @@ void	*routine(void *arg)
 		if (philo_sign(philo) == TRUE)
 			break ;
 		take_forks(philo);
-		if (philo_sign(philo) != 0)
+		if (philo_sign(philo) == TRUE)
 		{
 			pthread_mutex_unlock(&philo->left_fork);
 			pthread_mutex_unlock(philo->right_fork);
