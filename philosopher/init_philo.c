@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/27 16:12:18 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:03:55 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 		return (error_manager(2, NULL));
 	if (parsing_values(argc, argv, param) != 0)
 		return (1);
-	param->dead = FALSE;
-	param->eat = FALSE;
 	*philo = NULL;
 	*philo = malloc(sizeof(t_philo) * (param->nbr_philo));
 	if (!(*philo))
@@ -86,5 +84,11 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 		return (error_manager(32, NULL));
 	if (pthread_mutex_init(&param->lock_print, NULL) != 0)
 		return (error_manager(32, NULL));
+	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
+		return (error_manager(32, NULL));
+	pthread_mutex_lock(&param->lock_dead);
+	param->dead = FALSE;
+	param->eat = FALSE;
+	pthread_mutex_unlock(&param->lock_dead);
 	return (0);
 }

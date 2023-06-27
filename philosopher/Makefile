@@ -5,14 +5,14 @@ SRC	=	philo.c error_manager.c init_philo.c \
 
 OBJ	=	$(SRC:.c=.o)
 
-FLAGS	=	-Werror -Wextra -Wall
+FLAGS	=	-Werror -Wextra -Wall 
 
 CC	=	cc
 
 RM	=	rm -f
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) -pthread $(OBJ) -o $(NAME)
+	$(CC) -g $(FLAGS) -pthread $(OBJ) -o $(NAME)
 
 all: $(NAME)
 
