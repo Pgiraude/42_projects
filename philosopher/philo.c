@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/22 13:54:48 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:20:58 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ int main(int argc, char **argv)
 
 	while (check_life_philo(philo, param) == 0)
 		;
-	end_philo(philo, param);
+	exit_philo(philo, param);
 	print_time(start);
 }
