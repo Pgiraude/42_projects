@@ -31,7 +31,9 @@ typedef struct s_param
 	t_bool			dead;
 	t_bool			eat;
 	struct timeval	start;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	lock_dead;
+	pthread_mutex_t	lock_value;
+	pthread_mutex_t	lock_print;
 }t_param;
 
 typedef struct s_philo
@@ -63,7 +65,7 @@ void	print_status(int status, t_philo *philo);
 
 int		check_life_philo(t_philo *philo, t_param *param);
 
-int		philo_sign(t_philo *philo);
+int		philo_sign(t_philo *philo, t_param *param);
 
 int		is_dead(t_philo *philo);
 

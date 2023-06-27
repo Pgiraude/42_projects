@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/22 13:32:11 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:12:18 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 	if (!(*philo))
 		return (error_manager(3, NULL));
 	init_threads(*philo, param);
-	if (pthread_mutex_init(&param->lock, NULL) != 0)
+	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
+		return (error_manager(32, NULL));
+	if (pthread_mutex_init(&param->lock_print, NULL) != 0)
 		return (error_manager(32, NULL));
 	return (0);
 }
