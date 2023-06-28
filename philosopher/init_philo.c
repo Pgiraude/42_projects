@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/27 19:34:05 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:31:06 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	init_threads(t_philo *philo, t_param *param)
 		philo[i].nbr_eat = 0;
 		philo[i].param = param;
 		i++;
+		printf("YES, philo last_meal=%d\n", philo[i].last_meal = 0);
 	}
 	return (0);
 }
@@ -68,6 +69,7 @@ int	init_threads(t_philo *philo, t_param *param)
 int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 {
 	int	nbr;
+	struct timeval	start;
 
 	if (argc < 5)
 		return (error_manager(1, NULL));
@@ -77,6 +79,7 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 		return (1);
 	*philo = NULL;
 	*philo = malloc(sizeof(t_philo) * (param->nbr_philo));
+	
 	if (!(*philo))
 		return (error_manager(3, NULL));
 	init_threads(*philo, param);
@@ -85,11 +88,11 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 	if (pthread_mutex_init(&param->lock_print, NULL) != 0)
 		return (error_manager(32, NULL));
 	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
-		return (error_manager(32, NULL));
-		
-	pthread_mutex_lock(&param->lock_dead);
+		return (error_manager(32, NULL));	
 	param->dead = FALSE;
 	param->eat = FALSE;
-	pthread_mutex_unlock(&param->lock_dead);
+	gettimeofday(&start, NULL);
+	param->start = start;
+	
 	return (0);
 }
