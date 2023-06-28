@@ -61,7 +61,6 @@ int	init_threads(t_philo *philo, t_param *param)
 		philo[i].nbr_eat = 0;
 		philo[i].param = param;
 		i++;
-		printf("YES, philo last_meal=%d\n", philo[i].last_meal = 0);
 	}
 	return (0);
 }
@@ -77,18 +76,23 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 		return (error_manager(2, NULL));
 	if (parsing_values(argc, argv, param) != 0)
 		return (1);
+	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
+		return (error_manager(32, NULL));
+	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
+		return (error_manager(32, NULL));
+	pthread_mutex_lock(&param->lock_value);
+	pthread_mutex_lock(&param->lock_dead);
 	*philo = NULL;
 	*philo = malloc(sizeof(t_philo) * (param->nbr_philo));
-	
+	pthread_mutex_unlock(&param->lock_dead);
+	pthread_mutex_unlock(&param->lock_value);
 	if (!(*philo))
 		return (error_manager(3, NULL));
 	init_threads(*philo, param);
-	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
-		return (error_manager(32, NULL));
+	
 	if (pthread_mutex_init(&param->lock_print, NULL) != 0)
 		return (error_manager(32, NULL));
-	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
-		return (error_manager(32, NULL));	
+
 	param->dead = FALSE;
 	param->eat = FALSE;
 	gettimeofday(&start, NULL);
