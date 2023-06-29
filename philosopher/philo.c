@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 14:08:02 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:44:53 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_status(int status, t_philo *philo)
 {
 	int	time;
 
-	if (philo_sign(philo->param) == FALSE)
+	if (philo_sign(philo->param, FALSE) == FALSE)
 	{
 		if (status == SLEEPING)
 		{
@@ -33,6 +33,7 @@ void	print_status(int status, t_philo *philo)
 			pthread_mutex_unlock(&philo->param->lock_print);
 		}
 	}
+	pthread_mutex_unlock(&philo->param->lock_dead);
 }
 
 int	is_dead(t_philo *philo, t_param *param)
@@ -40,13 +41,11 @@ int	is_dead(t_philo *philo, t_param *param)
 	int	time;
 	int	last_meal;
 
-	pthread_mutex_lock(&param->lock_value);
+	pthread_mutex_lock(&param->lock_dead);
 	get_time(param->start, &time);
 	last_meal = philo->last_meal;
 	if ((time - last_meal) > param->die_time)
 	{
-		pthread_mutex_unlock(&param->lock_value);
-		pthread_mutex_lock(&param->lock_dead);
 		param->dead = TRUE;
 		pthread_mutex_lock(&param->lock_print);
 		get_time(param->start, &time);
@@ -55,11 +54,11 @@ int	is_dead(t_philo *philo, t_param *param)
 		pthread_mutex_unlock(&param->lock_dead);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(&param->lock_value);
+	pthread_mutex_unlock(&param->lock_dead);
 	return (FALSE);
 }
 
-int	philo_sign(t_param *param)
+int	philo_sign(t_param *param, int mode)
 {
 	int	value;
 
@@ -67,11 +66,12 @@ int	philo_sign(t_param *param)
 	pthread_mutex_lock(&param->lock_dead);
 	if (param->dead == TRUE)
 		value = TRUE;
-	pthread_mutex_unlock(&param->lock_dead);
 	pthread_mutex_lock(&param->lock_value);
 	if (param->eat == TRUE)
 		value = TRUE;
 	pthread_mutex_unlock(&param->lock_value);
+	if (mode == TRUE)
+		pthread_mutex_unlock(&param->lock_dead);
 	return (value);
 }
 
@@ -84,7 +84,7 @@ int	check_life_philo(t_philo *philo, t_param *param)
 
 	nbr_philo = get_value(&param->lock_value, &param->nbr_philo);
 	nbr_eat = get_value(&param->lock_value, &param->nbr_eat);
-	while (philo_sign(param) == FALSE)
+	while (philo_sign(param, TRUE) == FALSE)
 	{
 		eat = 0;
 		index = 0;

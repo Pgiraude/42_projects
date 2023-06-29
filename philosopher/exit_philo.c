@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:32:50 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:24:57 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:46:12 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	exit_philo(t_philo *philo, t_param *param)
 			error_manager(41, NULL);
 		index++;
 	}
+	if (pthread_mutex_destroy(&param->lock_dead) != 0)
+		error_manager(42, NULL);
 	if (pthread_mutex_destroy(&param->lock_value) != 0)
 		error_manager(42, NULL);
 	if (pthread_mutex_destroy(&param->lock_print) != 0)
-		error_manager(42, NULL);
-	if (pthread_mutex_destroy(&param->lock_dead) != 0)
 		error_manager(42, NULL);
 	return (0);
 }

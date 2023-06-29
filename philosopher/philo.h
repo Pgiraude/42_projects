@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:06:23 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 13:00:27 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:40:54 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_status(int status, t_philo *philo);
 
 int		check_life_philo(t_philo *philo, t_param *param);
 
-int		philo_sign(t_param *param);
+int		philo_sign(t_param *param, int mode);
 
 int		is_dead(t_philo *philo, t_param *param);
 

@@ -6,17 +6,17 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 15:14:54 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:58:11 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	int	time;
 
-	if (philo_sign(philo->param) == FALSE)
+	if (philo_sign(philo->param, FALSE) == FALSE)
 	{
 		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
@@ -26,9 +26,8 @@ int	eating(t_philo *philo)
 		philo->last_meal = time;
 		philo->nbr_eat++;
 		pthread_mutex_unlock(&philo->param->lock_value);
-		return (0);
 	}
-	return (1);
+	pthread_mutex_unlock(&philo->param->lock_dead);
 }
 
 void	take_forks(t_philo *philo)
@@ -38,7 +37,7 @@ void	take_forks(t_philo *philo)
 
 	num_philo = get_value(&philo->param->lock_value, &philo->num_philo);
 	lock_unlock(philo, num_philo, TRUE);
-	if (philo_sign(philo->param) == FALSE)
+	if (philo_sign(philo->param, FALSE) == FALSE)
 	{
 		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
@@ -47,6 +46,7 @@ void	take_forks(t_philo *philo)
 		printf("%d %d has taken a fork\n", time, philo->num_philo);
 		pthread_mutex_unlock(&philo->param->lock_print);
 	}
+	pthread_mutex_unlock(&philo->param->lock_dead);
 }
 
 void	*routine(void *arg)
@@ -59,20 +59,20 @@ void	*routine(void *arg)
 	if (num_philo % 2 != 0)
 	{
 		print_status(THINKING, philo);
-		usleep(1000);
+		usleep(2000);
 	}
-	while (philo_sign(philo->param) == FALSE)
+	while (philo_sign(philo->param, TRUE) == FALSE)
 	{
 		take_forks(philo);
 		eating(philo);
-		if (philo_sign(philo->param) == FALSE)
+		if (philo_sign(philo->param, TRUE) == FALSE)
 			usleep(philo->param->eat_time * 1000);
 		lock_unlock(philo, num_philo, FALSE);
 		print_status(SLEEPING, philo);
-		if (philo_sign(philo->param) == FALSE)
+		if (philo_sign(philo->param, TRUE) == FALSE)
 			usleep(philo->param->sleep_time * 1000);
 		print_status(THINKING, philo);
-		if (philo_sign(philo->param) == FALSE)
+		if (philo_sign(philo->param, TRUE) == FALSE)
 			usleep((philo->param->die_time - (philo->param->sleep_time + philo->param->eat_time)) / 2 * 1000);
 	}
 	return (0);
