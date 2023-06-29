@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:22:16 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:14:54 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,13 @@ int	eating(t_philo *philo)
 	return (1);
 }
 
-void	print_status(int status, t_philo *philo)
-{
-	int	time;
-
-	if (philo_sign(philo->param) == FALSE)
-	{
-		if (status == SLEEPING)
-		{
-			pthread_mutex_lock(&philo->param->lock_print);
-			get_time(philo->param->start, &time);
-			printf("%d %d is sleeping\n", time, philo->num_philo);
-			pthread_mutex_unlock(&philo->param->lock_print);
-		}
-		if (status == THINKING)
-		{
-			pthread_mutex_lock(&philo->param->lock_print);
-			get_time(philo->param->start, &time);
-			printf("%d %d is thinking\n", time, philo->num_philo);
-			pthread_mutex_unlock(&philo->param->lock_print);
-		}
-	}
-}
-
 void	take_forks(t_philo *philo)
 {
 	int	time;
 	int	num_philo;
 
 	num_philo = get_value(&philo->param->lock_value, &philo->num_philo);
-	if (num_philo % 2 != 0)
-	{
-		pthread_mutex_lock(&philo->left_fork);
-		pthread_mutex_lock(philo->right_fork);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->right_fork);
-		pthread_mutex_lock(&philo->left_fork);
-	}
+	lock_unlock(philo, num_philo, TRUE);
 	if (philo_sign(philo->param) == FALSE)
 	{
 		pthread_mutex_lock(&philo->param->lock_print);
@@ -91,7 +59,7 @@ void	*routine(void *arg)
 	if (num_philo % 2 != 0)
 	{
 		print_status(THINKING, philo);
-		usleep(10000);
+		usleep(1000);
 	}
 	while (philo_sign(philo->param) == FALSE)
 	{
@@ -99,20 +67,13 @@ void	*routine(void *arg)
 		eating(philo);
 		if (philo_sign(philo->param) == FALSE)
 			usleep(philo->param->eat_time * 1000);
-		if (num_philo % 2 != 0)
-		{
-			pthread_mutex_unlock(philo->right_fork);
-			pthread_mutex_unlock(&philo->left_fork);
-		}
-		else
-		{
-			pthread_mutex_unlock(&philo->left_fork);
-			pthread_mutex_unlock(philo->right_fork);
-		}
+		lock_unlock(philo, num_philo, FALSE);
 		print_status(SLEEPING, philo);
 		if (philo_sign(philo->param) == FALSE)
 			usleep(philo->param->sleep_time * 1000);
 		print_status(THINKING, philo);
+		if (philo_sign(philo->param) == FALSE)
+			usleep((philo->param->die_time - (philo->param->sleep_time + philo->param->eat_time)) / 2 * 1000);
 	}
 	return (0);
 }

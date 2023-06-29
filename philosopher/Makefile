@@ -5,7 +5,7 @@ SRC	=	philo.c error_manager.c init_philo.c \
 
 OBJ	=	$(SRC:.c=.o)
 
-FLAGS	=	-Werror -Wextra -Wall -g
+FLAGS	=	-Werror -Wextra -Wall
 
 CC	=	cc
 

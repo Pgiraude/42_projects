@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:51:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:08:26 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:02:29 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ int	atoi_philo(char *str_nbr)
 		return (-1);
 	while (str_nbr[i] == ' ' || str_nbr[i] == '	')
 		i++;
-	if (str_nbr[i] == '\0')
+	if (str_nbr[i] == '\0' || (str_nbr[i] == '0' && !(str_nbr[i + 1] == ' ' \
+		|| str_nbr[i + 1] == '\0' || str_nbr[i + 1] == '	')))
 		return (-1);
-	if (str_nbr[i] == '0')
-		return (-2);
 	while (str_nbr[i] >= '0' && str_nbr[i] <= '9')
 	{
 		nbr = nbr * 10 + (str_nbr[i] - 48);
@@ -51,9 +50,9 @@ int	atoi_philo(char *str_nbr)
 	}
 	while (str_nbr[i] == ' ' || str_nbr[i] == '	')
 		i++;
-	if (str_nbr[i] != '\0' || nbr == 0)
+	if (str_nbr[i] != '\0')
 		return (-2);
-	else if (nbr > INT_MAX)
+	else if (nbr > INT_MAX || nbr < 0)
 		return (-3);
 	return (nbr);
 }
@@ -74,4 +73,32 @@ int	change_value(pthread_mutex_t *lock, int *value, int new_value)
 	*value = new_value;
 	pthread_mutex_unlock(lock);
 	return (0);
+}
+
+void	lock_unlock(t_philo *philo, int num_philo, int mode)
+{
+	if (mode == TRUE)
+	{
+		if (num_philo % 2 != 0)
+		{
+			pthread_mutex_lock(&philo->left_fork);
+			pthread_mutex_lock(philo->right_fork);
+		}
+		else
+		{
+			pthread_mutex_lock(philo->right_fork);
+			pthread_mutex_lock(&philo->left_fork);
+		}
+		return ;
+	}
+	if (num_philo % 2 != 0)
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(&philo->left_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+	}
 }

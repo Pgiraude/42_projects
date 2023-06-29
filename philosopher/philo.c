@@ -6,24 +6,33 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:12:15 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:08:02 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	print_time(struct timeval start)
+void	print_status(int status, t_philo *philo)
 {
-	struct timeval	current;
-	long int		begin;
-	long int		finish;
+	int	time;
 
-	if (gettimeofday(&current, NULL) == -1)
-		return (-1);
-	begin = start.tv_sec * 1000 + (start.tv_usec / 1000);
-	finish = current.tv_sec * 1000 + (current.tv_usec / 1000);
-	printf("Time taken is : %ld milliseconds\n", (finish - begin));
-	return (0);
+	if (philo_sign(philo->param) == FALSE)
+	{
+		if (status == SLEEPING)
+		{
+			pthread_mutex_lock(&philo->param->lock_print);
+			get_time(philo->param->start, &time);
+			printf("%d %d is sleeping\n", time, philo->num_philo);
+			pthread_mutex_unlock(&philo->param->lock_print);
+		}
+		if (status == THINKING)
+		{
+			pthread_mutex_lock(&philo->param->lock_print);
+			get_time(philo->param->start, &time);
+			printf("%d %d is thinking\n", time, philo->num_philo);
+			pthread_mutex_unlock(&philo->param->lock_print);
+		}
+	}
 }
 
 int	is_dead(t_philo *philo, t_param *param)
@@ -108,5 +117,4 @@ int	main(int argc, char **argv)
 	exit_philo(philo, param);
 	free (philo);
 	free (param);
-	print_time(param->start);
 }

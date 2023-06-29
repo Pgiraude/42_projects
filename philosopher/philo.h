@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:06:23 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:07:28 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:00:27 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ int		atoi_philo(char *str_nbr);
 int		get_value(pthread_mutex_t *lock, int *value);
 
 int		change_value(pthread_mutex_t *lock, int *value, int new_value);
+
+void	lock_unlock(t_philo *philo, int num_philo, int mode);
 
 #endif
