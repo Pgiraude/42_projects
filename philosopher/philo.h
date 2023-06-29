@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:06:23 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 16:40:54 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 21:09:40 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ typedef struct s_param
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
-	int				nbr_eat;
+	int				nbr_eat_full;
 	int				dead;
-	int				eat;
+	int				full;
+	int				count_full;
 	struct timeval	start;
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_value;

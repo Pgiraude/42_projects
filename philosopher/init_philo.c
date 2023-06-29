@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:27:52 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 21:10:49 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ int	parsing_values(int argc, char **argv, t_param *param)
 		return (error_manager(7, "Sleep time"));
 	if (argc == 6)
 	{
-		param->nbr_eat = atoi_philo(argv[5]);
-		if (param->nbr_eat < 0)
+		param->nbr_eat_full = atoi_philo(argv[5]);
+		if (param->nbr_eat_full < 0)
 			return (error_manager(8, NULL));
-		else if (param->nbr_eat == 0)
+		else if (param->nbr_eat_full == 0)
 			return (error_manager(9, NULL));
 	}
 	else
-		param->nbr_eat = -1;
+		param->nbr_eat_full = -1;
+	param->count_full = 0;
 	return (0);
 }
 
@@ -90,7 +91,7 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
 		return (error_manager(32, NULL));
 	param->dead = FALSE;
-	param->eat = FALSE;
+	param->full = FALSE;
 	gettimeofday(&start, NULL);
 	param->start = start;
 	return (0);

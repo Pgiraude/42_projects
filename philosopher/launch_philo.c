@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 16:58:11 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 22:37:01 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ void	eating(t_philo *philo)
 		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
 		printf("%d %d is eating\n", time, philo->num_philo);
-		pthread_mutex_unlock(&philo->param->lock_print);
-		pthread_mutex_lock(&philo->param->lock_value);
+		
+		// pthread_mutex_lock(&philo->param->lock_value);
 		philo->last_meal = time;
+		pthread_mutex_unlock(&philo->param->lock_print);
 		philo->nbr_eat++;
-		pthread_mutex_unlock(&philo->param->lock_value);
+		if (philo->nbr_eat == philo->param->nbr_eat_full)
+			philo->param->count_full++;
+		if (philo->param->count_full == philo->param->nbr_philo)
+			philo->param->full = TRUE;
+		// pthread_mutex_unlock(&philo->param->lock_value);
 	}
 	pthread_mutex_unlock(&philo->param->lock_dead);
 }
@@ -57,10 +62,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	num_philo = get_value(&philo->param->lock_value, &philo->num_philo);
 	if (num_philo % 2 != 0)
-	{
 		print_status(THINKING, philo);
-		usleep(2000);
-	}
 	while (philo_sign(philo->param, TRUE) == FALSE)
 	{
 		take_forks(philo);
@@ -72,8 +74,6 @@ void	*routine(void *arg)
 		if (philo_sign(philo->param, TRUE) == FALSE)
 			usleep(philo->param->sleep_time * 1000);
 		print_status(THINKING, philo);
-		if (philo_sign(philo->param, TRUE) == FALSE)
-			usleep((philo->param->die_time - (philo->param->sleep_time + philo->param->eat_time)) / 2 * 1000);
 	}
 	return (0);
 }
