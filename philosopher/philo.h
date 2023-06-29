@@ -67,7 +67,7 @@ int		check_life_philo(t_philo *philo, t_param *param);
 
 int		philo_sign(t_param *param);
 
-int		is_dead(t_philo philo, t_param *param);
+int		is_dead(t_philo *philo, t_param *param);
 
 int		atoi_philo(char *str_nbr);
 

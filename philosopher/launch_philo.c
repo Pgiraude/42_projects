@@ -60,9 +60,7 @@ void	take_forks(t_philo *philo)
 	int	time;
 	int num_philo;
 	
-	pthread_mutex_lock(&philo->param->lock_value);
-	num_philo = philo->num_philo;
-	pthread_mutex_unlock(&philo->param->lock_value);
+	num_philo = get_value(&philo->param->lock_value, &philo->num_philo);
 	if (num_philo % 2 != 0)
 	{
 		pthread_mutex_lock(&philo->left_fork);
@@ -88,7 +86,7 @@ void	*routine(void *arg)
 {
 	t_philo *philo;
 	int num_philo;
-	
+
 	philo = (t_philo*)arg;
 	pthread_mutex_lock(&philo->param->lock_value);
 	num_philo = philo->num_philo;
@@ -100,7 +98,6 @@ void	*routine(void *arg)
 	}
 	while (philo_sign(philo->param) == FALSE)
 	{
-		
 		take_forks(philo);
 		eating(philo);
 		if (philo_sign(philo->param) == FALSE)

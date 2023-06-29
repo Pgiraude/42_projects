@@ -27,25 +27,26 @@ int print_time(struct timeval start)
 	return (0);
 }
 
-int	is_dead(t_philo philo, t_param *param)
+int	is_dead(t_philo *philo, t_param *param)
 {
 	int time;
 	int last_meal;
 	
 	pthread_mutex_lock(&param->lock_value);
 	get_time(param->start, &time);
-	last_meal = philo.last_meal;
+	last_meal = philo->last_meal;
 	if ((time - last_meal) > param->die_time)
 	{
 		pthread_mutex_unlock(&param->lock_value);
 		pthread_mutex_lock(&param->lock_dead);
 		param->dead = TRUE;
-		pthread_mutex_unlock(&param->lock_dead);
+		
 		pthread_mutex_lock(&param->lock_print);
 		time = 0;
 		get_time(param->start, &time);
-		printf("%d %d is dead\n", time, philo.num_philo);
+		printf("%d %d is dead\n", time, philo->num_philo);
 		pthread_mutex_unlock(&param->lock_print);
+		pthread_mutex_unlock(&param->lock_dead);
 		return (TRUE);
 	}
 	pthread_mutex_unlock(&param->lock_value);
@@ -83,7 +84,7 @@ int	check_life_philo(t_philo *philo, t_param *param)
 		index = 0;
 		while (index < nbr_philo)
 		{
-			if (is_dead(philo[index], param) == TRUE)
+			if (is_dead(&philo[index], param) == TRUE)
 				return (0);
 			if (get_value(&param->lock_value, &philo[index].nbr_eat) >= nbr_eat)
 				eat++;
@@ -111,5 +112,7 @@ int main(int argc, char **argv)
 	
 	check_life_philo(philo, param);
 	exit_philo(philo, param);
+	free (philo);
+	free (param);
 	print_time(param->start);
 }
