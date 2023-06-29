@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 22:37:01 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 00:20:48 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,14 @@ void	eating(t_philo *philo)
 
 	if (philo_sign(philo->param, FALSE) == FALSE)
 	{
-		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
 		printf("%d %d is eating\n", time, philo->num_philo);
-		
-		// pthread_mutex_lock(&philo->param->lock_value);
 		philo->last_meal = time;
-		pthread_mutex_unlock(&philo->param->lock_print);
 		philo->nbr_eat++;
 		if (philo->nbr_eat == philo->param->nbr_eat_full)
 			philo->param->count_full++;
 		if (philo->param->count_full == philo->param->nbr_philo)
 			philo->param->full = TRUE;
-		// pthread_mutex_unlock(&philo->param->lock_value);
 	}
 	pthread_mutex_unlock(&philo->param->lock_dead);
 }
@@ -44,12 +39,10 @@ void	take_forks(t_philo *philo)
 	lock_unlock(philo, num_philo, TRUE);
 	if (philo_sign(philo->param, FALSE) == FALSE)
 	{
-		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
 		printf("%d %d has taken a fork\n", time, philo->num_philo);
 		get_time(philo->param->start, &time);
 		printf("%d %d has taken a fork\n", time, philo->num_philo);
-		pthread_mutex_unlock(&philo->param->lock_print);
 	}
 	pthread_mutex_unlock(&philo->param->lock_dead);
 }
@@ -86,10 +79,8 @@ void	*one_routine(void *arg)
 	time = 0;
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->left_fork);
-	pthread_mutex_lock(&philo->param->lock_print);
 	get_time(philo->param->start, &time);
 	printf("%d %d has taken a fork\n", time, philo->num_philo);
-	pthread_mutex_unlock(&philo->param->lock_print);
 	pthread_mutex_unlock(&philo->left_fork);
 	return (0);
 }
@@ -103,14 +94,20 @@ int	launch_philo(t_param *param, t_philo *philo)
 	{
 		if (pthread_create(&philo[index].thread, NULL, \
 			&one_routine, &philo[index]) != 0)
+		{
+			exit_error_threads(philo, philo->param, index);
 			return (error_manager(20, NULL));
+		}
 		return (0);
 	}
 	while (index < param->nbr_philo)
 	{
 		if (pthread_create(&philo[index].thread, NULL, \
 			&routine, &philo[index]) != 0)
+		{
+			exit_error_threads(philo, philo->param, index);
 			return (error_manager(20, NULL));
+		}
 		index++;
 	}
 	return (0);

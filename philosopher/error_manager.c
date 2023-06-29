@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:32:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 12:29:36 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 00:35:17 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	error_manager_init(int error_code, char *msg)
 		printf("Error %d: Need less arguments\n", error_code);
 	if (error_code == 3)
 		printf("Error %d: Malloc failde\n", error_code);
-	if (error_code >= 4 && error_code <= 7)
+	if (error_code == 4 || error_code == 5)
 		printf("Error %d: %s must be an int superior to 0\n", error_code, msg);
+	if (error_code >= 6 && error_code <= 7)
+		printf("Error %d: %s must be an int superior to -1\n", error_code, msg);
 	if (error_code == 8)
 	{
 		printf("Error %d: Number of eat by philo ", error_code);

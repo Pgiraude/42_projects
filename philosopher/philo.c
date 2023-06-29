@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 22:57:01 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 23:41:30 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,13 @@ void	print_status(int status, t_philo *philo)
 	{
 		if (status == SLEEPING)
 		{
-			pthread_mutex_lock(&philo->param->lock_print);
 			get_time(philo->param->start, &time);
 			printf("%d %d is sleeping\n", time, philo->num_philo);
-			pthread_mutex_unlock(&philo->param->lock_print);
 		}
 		if (status == THINKING)
 		{
-			pthread_mutex_lock(&philo->param->lock_print);
 			get_time(philo->param->start, &time);
 			printf("%d %d is thinking\n", time, philo->num_philo);
-			pthread_mutex_unlock(&philo->param->lock_print);
 			pthread_mutex_unlock(&philo->param->lock_dead);
 			time = (philo->param->sleep_time + philo->param->eat_time);
 			if ((philo->param->die_time - time) > 0)
@@ -50,19 +46,16 @@ int	is_dead(t_philo *philo, t_param *param)
 
 	if (philo_sign(param, FALSE) == FALSE)
 	{
-		pthread_mutex_lock(&param->lock_print);
 		get_time(param->start, &time);
 		last_meal = philo->last_meal;
 		if ((time - last_meal) > param->die_time)
 		{
 			get_time(param->start, &time);
 			printf("%d %d is dead\n", time, philo->num_philo);
-			pthread_mutex_unlock(&param->lock_print);
 			param->dead = TRUE;
 			pthread_mutex_unlock(&param->lock_dead);
 			return (TRUE);
 		}
-		pthread_mutex_unlock(&param->lock_print);
 	}
 	pthread_mutex_unlock(&param->lock_dead);
 	return (FALSE);
@@ -107,14 +100,15 @@ int	main(int argc, char **argv)
 {
 	t_philo			*philo;
 	t_param			*param;
+	struct timeval	start;
 
 	param = malloc(sizeof(t_param));
 	if (init_philo(argc, argv, param, &philo) != 0)
 		return (free (param), 1);
+	gettimeofday(&start, NULL);
+	param->start = start;
 	if (launch_philo(param, philo) != 0)
 		return (free (param), free (philo), 2);
 	check_life_philo(philo, param);
 	exit_philo(philo, param);
-	free (philo);
-	free (param);
 }

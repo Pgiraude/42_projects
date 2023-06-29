@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:51:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 14:02:29 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 00:05:48 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int	atoi_philo(char *str_nbr)
 {
 	int			i;
 	long int	nbr;
+	int			count;
 
 	nbr = 0;
 	i = 0;
+	count = 0;
 	if (!str_nbr)
 		return (-1);
 	while (str_nbr[i] == ' ' || str_nbr[i] == '	')
@@ -47,13 +49,12 @@ int	atoi_philo(char *str_nbr)
 	{
 		nbr = nbr * 10 + (str_nbr[i] - 48);
 		i++;
+		count++;
 	}
 	while (str_nbr[i] == ' ' || str_nbr[i] == '	')
 		i++;
-	if (str_nbr[i] != '\0')
+	if (str_nbr[i] != '\0' || nbr > INT_MAX || nbr < 0 || count > 11)
 		return (-2);
-	else if (nbr > INT_MAX || nbr < 0)
-		return (-3);
 	return (nbr);
 }
 

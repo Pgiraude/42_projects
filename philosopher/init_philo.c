@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 21:10:49 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 00:34:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	parsing_values(int argc, char **argv, t_param *param)
 	if (param->die_time <= 0)
 		return (error_manager(5, "Die time"));
 	param->eat_time = atoi_philo(argv[3]);
-	if (param->eat_time <= 0)
+	if (param->eat_time < 0)
 		return (error_manager(6, "Eat time"));
 	param->sleep_time = atoi_philo(argv[4]);
-	if (param->sleep_time <= 0)
+	if (param->sleep_time < 0)
 		return (error_manager(7, "Sleep time"));
 	if (argc == 6)
 	{
@@ -44,8 +44,8 @@ int	init_threads(t_philo *philo, t_param *param)
 {
 	int	i;
 
-	i = 0;
-	while (i < param->nbr_philo)
+	i = -1;
+	while (++i < param->nbr_philo)
 	{
 		if (i == param->nbr_philo - 1)
 		{
@@ -63,7 +63,6 @@ int	init_threads(t_philo *philo, t_param *param)
 		philo[i].last_meal = 0;
 		philo[i].nbr_eat = 0;
 		philo[i].param = param;
-		i++;
 	}
 	return (0);
 }
@@ -71,7 +70,6 @@ int	init_threads(t_philo *philo, t_param *param)
 int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 {
 	int				nbr;
-	struct timeval	start;
 
 	if (argc < 5)
 		return (error_manager(1, NULL));
@@ -84,15 +82,14 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 	if (!(*philo))
 		return (error_manager(3, NULL));
 	init_threads(*philo, param);
-	if (pthread_mutex_init(&param->lock_print, NULL) != 0)
-		return (error_manager(32, NULL));
 	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
 		return (error_manager(32, NULL));
 	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
+	{
+		pthread_mutex_destroy(&param->lock_dead);
 		return (error_manager(32, NULL));
+	}
 	param->dead = FALSE;
 	param->full = FALSE;
-	gettimeofday(&start, NULL);
-	param->start = start;
 	return (0);
 }

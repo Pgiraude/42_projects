@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:06:23 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 21:09:40 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 23:51:43 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_param
 	struct timeval	start;
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_value;
-	pthread_mutex_t	lock_print;
 }t_param;
 
 typedef struct s_philo
@@ -58,34 +57,23 @@ typedef struct s_philo
 	struct s_param	*param;
 }t_philo;
 
-int		print_time(struct timeval start);
-
-void	*routine(void *arg);
-
 int		init_philo(int argc, char **argv, t_param *data, t_philo **philo);
-
-int		error_manager(int error_code, char *msg);
-
-int		exit_philo(t_philo *philo, t_param *param);
 
 int		launch_philo(t_param *param, t_philo *philo);
 
 int		get_time(struct timeval start, int *time);
-
 void	print_status(int status, t_philo *philo);
-
 int		check_life_philo(t_philo *philo, t_param *param);
-
 int		philo_sign(t_param *param, int mode);
 
-int		is_dead(t_philo *philo, t_param *param);
-
 int		atoi_philo(char *str_nbr);
-
 int		get_value(pthread_mutex_t *lock, int *value);
-
 int		change_value(pthread_mutex_t *lock, int *value, int new_value);
-
 void	lock_unlock(t_philo *philo, int num_philo, int mode);
+
+int		exit_philo(t_philo *philo, t_param *param);
+int		exit_error_threads(t_philo *philo, t_param *param, int value);
+
+int		error_manager(int error_code, char *msg);
 
 #endif
