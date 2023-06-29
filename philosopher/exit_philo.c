@@ -6,15 +6,15 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:32:50 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/27 17:45:03 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:24:57 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int exit_philo(t_philo *philo, t_param *param)
+int	exit_philo(t_philo *philo, t_param *param)
 {
-	int index;
+	int	index;
 	int	nbr_philo;
 
 	index = 0;

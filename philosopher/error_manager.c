@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:32:59 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/22 12:02:27 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:29:36 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	error_manager_init(int error_code, char *msg)
 	if (error_code == 8)
 	{
 		printf("Error %d: Number of eat by philo ", error_code);
-		printf("if define must be an int superior to 0\n");
+		printf("if define must be an int superior to -1\n");
 	}
+	if (error_code == 9)
+		printf("Number of eat by philo should be superior to 0\n");
 	return (error_code);
 }
 

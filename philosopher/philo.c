@@ -6,14 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/28 19:33:47 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:12:15 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-int print_time(struct timeval start)
+int	print_time(struct timeval start)
 {
 	struct timeval	current;
 	long int		begin;
@@ -29,9 +28,9 @@ int print_time(struct timeval start)
 
 int	is_dead(t_philo *philo, t_param *param)
 {
-	int time;
-	int last_meal;
-	
+	int	time;
+	int	last_meal;
+
 	pthread_mutex_lock(&param->lock_value);
 	get_time(param->start, &time);
 	last_meal = philo->last_meal;
@@ -40,9 +39,7 @@ int	is_dead(t_philo *philo, t_param *param)
 		pthread_mutex_unlock(&param->lock_value);
 		pthread_mutex_lock(&param->lock_dead);
 		param->dead = TRUE;
-		
 		pthread_mutex_lock(&param->lock_print);
-		time = 0;
 		get_time(param->start, &time);
 		printf("%d %d is dead\n", time, philo->num_philo);
 		pthread_mutex_unlock(&param->lock_print);
@@ -55,7 +52,7 @@ int	is_dead(t_philo *philo, t_param *param)
 
 int	philo_sign(t_param *param)
 {
-	int value;
+	int	value;
 
 	value = FALSE;
 	pthread_mutex_lock(&param->lock_dead);
@@ -64,7 +61,7 @@ int	philo_sign(t_param *param)
 	pthread_mutex_unlock(&param->lock_dead);
 	pthread_mutex_lock(&param->lock_value);
 	if (param->eat == TRUE)
-	 	value = TRUE;
+		value = TRUE;
 	pthread_mutex_unlock(&param->lock_value);
 	return (value);
 }
@@ -97,19 +94,16 @@ int	check_life_philo(t_philo *philo, t_param *param)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_philo			*philo;
 	t_param			*param;
 
 	param = malloc(sizeof(t_param));
-
 	if (init_philo(argc, argv, param, &philo) != 0)
 		return (free (param), 1);
-
 	if (launch_philo(param, philo) != 0)
 		return (free (param), free (philo), 2);
-	
 	check_life_philo(philo, param);
 	exit_philo(philo, param);
 	free (philo);

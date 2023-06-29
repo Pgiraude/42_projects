@@ -6,13 +6,13 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:51:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/15 16:18:16 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:08:26 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int get_time(struct timeval start, int *time)
+int	get_time(struct timeval start, int *time)
 {
 	struct timeval	current;
 	long int		begin;
@@ -25,7 +25,7 @@ int get_time(struct timeval start, int *time)
 	if ((finish - begin) > INT_MAX)
 		return (-2);
 	*time = 0;
-    *time = finish - begin;
+	*time = finish - begin;
 	return (0);
 }
 
@@ -68,7 +68,7 @@ int	get_value(pthread_mutex_t *lock, int *value)
 	return (tmp);
 }
 
-int change_value(pthread_mutex_t *lock, int *value, int new_value)
+int	change_value(pthread_mutex_t *lock, int *value, int new_value)
 {
 	pthread_mutex_lock(lock);
 	*value = new_value;

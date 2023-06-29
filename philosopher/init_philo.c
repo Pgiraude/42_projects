@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/28 17:31:06 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:27:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	parsing_values(int argc, char **argv, t_param *param)
 	if (argc == 6)
 	{
 		param->nbr_eat = atoi_philo(argv[5]);
-		if (param->nbr_eat <= 0)
+		if (param->nbr_eat < 0)
 			return (error_manager(8, NULL));
+		else if (param->nbr_eat == 0)
+			return (error_manager(9, NULL));
 	}
 	else
 		param->nbr_eat = -1;
@@ -52,7 +54,7 @@ int	init_threads(t_philo *philo, t_param *param)
 		}
 		else
 		{
-			if (pthread_mutex_init(&philo[i + 1].left_fork, NULL) != 0) 
+			if (pthread_mutex_init(&philo[i + 1].left_fork, NULL) != 0)
 				return (error_manager(31, NULL));
 			philo[i].right_fork = &philo[i + 1].left_fork;
 		}
@@ -67,7 +69,7 @@ int	init_threads(t_philo *philo, t_param *param)
 
 int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 {
-	int	nbr;
+	int				nbr;
 	struct timeval	start;
 
 	if (argc < 5)
@@ -76,23 +78,20 @@ int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 		return (error_manager(2, NULL));
 	if (parsing_values(argc, argv, param) != 0)
 		return (1);
-	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
-		return (error_manager(32, NULL));
-	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
-		return (error_manager(32, NULL));
 	*philo = NULL;
 	*philo = malloc(sizeof(t_philo) * (param->nbr_philo));
 	if (!(*philo))
 		return (error_manager(3, NULL));
 	init_threads(*philo, param);
-	
 	if (pthread_mutex_init(&param->lock_print, NULL) != 0)
 		return (error_manager(32, NULL));
-
+	if (pthread_mutex_init(&param->lock_dead, NULL) != 0)
+		return (error_manager(32, NULL));
+	if (pthread_mutex_init(&param->lock_value, NULL) != 0)
+		return (error_manager(32, NULL));
 	param->dead = FALSE;
 	param->eat = FALSE;
 	gettimeofday(&start, NULL);
 	param->start = start;
-	
 	return (0);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/29 12:06:23 by pgiraude          #+#    #+#             */
+/*   Updated: 2023/06/29 12:07:28 by pgiraude         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -8,7 +19,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-
 
 # define EATING 4
 # define SLEEPING 5
@@ -40,10 +50,10 @@ typedef struct s_philo
 {	
 	pthread_t		thread;
 	int				num_philo;
-	int 			nbr_eat;
+	int				nbr_eat;
 	int				last_meal;
-	pthread_mutex_t *right_fork;
-	pthread_mutex_t left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	left_fork;
 	struct s_param	*param;
 }t_philo;
 
