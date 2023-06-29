@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:19 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/29 23:41:30 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 01:51:46 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_status(int status, t_philo *philo)
 			if ((philo->param->die_time - time) > 0)
 				usleep (((philo->param->die_time - time) / 2) * 1000);
 			else
-				usleep (philo->param->eat_time / 2);
+				usleep (philo->param->die_time / 2);
 			return ;
 		}
 	}

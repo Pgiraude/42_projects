@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:14 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/30 00:20:48 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 01:51:08 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ void	*one_routine(void *arg)
 	t_philo	*philo;
 	int		time;
 
-	time = 0;
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->left_fork);
-	get_time(philo->param->start, &time);
-	printf("%d %d has taken a fork\n", time, philo->num_philo);
-	pthread_mutex_unlock(&philo->left_fork);
+	print_status(THINKING, philo);
+	if (philo_sign(philo->param, FALSE) == FALSE)
+	{
+		get_time(philo->param->start, &time);
+		printf("%d %d has taken a fork\n", time, philo->num_philo);
+	}
+	pthread_mutex_unlock(&philo->param->lock_dead);
 	return (0);
 }
 
