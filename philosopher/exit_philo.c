@@ -17,7 +17,6 @@ int exit_philo(t_philo *philo, t_param *param)
 	int index;
 	int	nbr_philo;
 
-
 	index = 0;
 	pthread_mutex_lock(&param->lock_value);
 	nbr_philo = param->nbr_philo;
@@ -29,7 +28,7 @@ int exit_philo(t_philo *philo, t_param *param)
 		pthread_mutex_lock(&param->lock_dead);
 		if (pthread_mutex_destroy(&philo[index].left_fork) != 0)
 		{
-			printf("index = %d :", index);
+			// printf("index = %d :", index);
 			error_manager(41, NULL);
 		}
 		pthread_mutex_unlock(&param->lock_dead);

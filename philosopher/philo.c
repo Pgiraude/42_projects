@@ -40,7 +40,11 @@ int	is_dead(t_philo philo, t_param *param)
 		pthread_mutex_lock(&param->lock_dead);
 		param->dead = TRUE;
 		pthread_mutex_unlock(&param->lock_dead);
-		print_status(DEAD, &philo);
+		pthread_mutex_lock(&param->lock_print);
+		time = 0;
+		get_time(param->start, &time);
+		printf("%d %d is dead\n", time, philo.num_philo);
+		pthread_mutex_unlock(&param->lock_print);
 		return (TRUE);
 	}
 	pthread_mutex_unlock(&param->lock_value);
@@ -63,16 +67,6 @@ int	philo_sign(t_philo *philo, t_param *param)
 	return (value);
 }
 
-int	check_values(pthread_mutex_t *lock, t_bool *value)
-{
-	t_bool	tmp;
-
-	pthread_mutex_lock(lock);
-	tmp = *value;
-	pthread_mutex_unlock(lock);
-	return (tmp);
-}
-
 int change_values(pthread_mutex_t *lock, int *value, int new_value)
 {
 	pthread_mutex_lock(lock);
@@ -88,11 +82,8 @@ int	check_life_philo(t_philo *philo, t_param *param)
 	int	nbr_philo;
 	int	nbr_eat;
 
-	pthread_mutex_lock(&param->lock_value);
-	nbr_philo = param->nbr_philo;
-	nbr_eat = param->nbr_eat;
-	pthread_mutex_unlock(&param->lock_value);
-
+	nbr_philo = get_value(&param->lock_value, &param->nbr_philo);
+	nbr_eat = get_value(&param->lock_value, &param->nbr_eat);
 	while (1)
 	{
 		eat = 0;

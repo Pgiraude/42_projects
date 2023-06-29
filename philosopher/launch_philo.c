@@ -12,55 +12,45 @@
 
 #include "philo.h"
 
-void	eating(t_philo *philo)
+int	eating(t_philo *philo)
 {
 	int	time;
 	
-	pthread_mutex_lock(&philo->param->lock_print);
-	time = 0;
-	get_time(philo->param->start, &time);
-	printf("%d %d is eating\n", time, philo->num_philo);
-	pthread_mutex_unlock(&philo->param->lock_print);
-	pthread_mutex_lock(&philo->param->lock_value);
-	philo->last_meal = time;
-	philo->nbr_eat++;
-	pthread_mutex_unlock(&philo->param->lock_value);
-	usleep(philo->param->eat_time * 1000);
+	if (philo_sign(philo, philo->param) == FALSE)
+	{
+		pthread_mutex_lock(&philo->param->lock_print);
+		get_time(philo->param->start, &time);
+		printf("%d %d is eating\n", time, philo->num_philo);
+		pthread_mutex_unlock(&philo->param->lock_print);
+		pthread_mutex_lock(&philo->param->lock_value);
+		philo->last_meal = time;
+		philo->nbr_eat++;
+		pthread_mutex_unlock(&philo->param->lock_value);
+		return (0);
+	}
+	return (1);
 }
 
 void	print_status(int status, t_philo *philo)
 {
 	int	time;
 
-	if (status == SLEEPING)
+	if (philo_sign(philo, philo->param) == FALSE)
 	{
-		pthread_mutex_lock(&philo->param->lock_print);
-		time = 0;
-		get_time(philo->param->start, &time);
-		printf("%d %d is sleeping\n", time, philo->num_philo);
-		pthread_mutex_unlock(&philo->param->lock_print);
-		
-		usleep(philo->param->sleep_time * 1000);
-	}
-
-
-	if (status == THINKING)
-	{
-		pthread_mutex_lock(&philo->param->lock_print);
-		time = 0;
-		get_time(philo->param->start, &time);
-		printf("%d %d is thinking\n", time, philo->num_philo);
-		pthread_mutex_unlock(&philo->param->lock_print);
-	}
-
-
-	if (status == DEAD)
-	{
-		pthread_mutex_lock(&philo->param->lock_print);
-		time = 0;
-		get_time(philo->param->start, &time);
-		printf("%d %d is dead\n", time, philo->num_philo);
-		pthread_mutex_unlock(&philo->param->lock_print);
+		if (status == SLEEPING)
+		{
+			pthread_mutex_lock(&philo->param->lock_print);
+			get_time(philo->param->start, &time);
+			printf("%d %d is sleeping\n", time, philo->num_philo);
+			pthread_mutex_unlock(&philo->param->lock_print);
+		}
+		if (status == THINKING)
+		{
+			pthread_mutex_lock(&philo->param->lock_print);
+			get_time(philo->param->start, &time);
+			printf("%d %d is thinking\n", time, philo->num_philo);
+			pthread_mutex_unlock(&philo->param->lock_print);
+		}
 	}
 
 }
@@ -73,7 +63,6 @@ void	take_forks(t_philo *philo)
 	pthread_mutex_lock(&philo->param->lock_value);
 	num_philo = philo->num_philo;
 	pthread_mutex_unlock(&philo->param->lock_value);
-
 	if (num_philo % 2 != 0)
 	{
 		pthread_mutex_lock(&philo->left_fork);
@@ -84,20 +73,15 @@ void	take_forks(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(&philo->left_fork);
 	}
-	// if (philo_sign(philo, philo->param) == TRUE)
-	// {
-	// 	pthread_mutex_unlock(philo->right_fork);
-	// 	pthread_mutex_unlock(&philo->left_fork);
-	// 	return ;
-	// }
+	if (philo_sign(philo, philo->param) == FALSE)
+	{
 		pthread_mutex_lock(&philo->param->lock_print);
-		time = 0;
 		get_time(philo->param->start, &time);
 		printf("%d %d has taken a fork\n", time, philo->num_philo);
 		get_time(philo->param->start, &time);
 		printf("%d %d has taken a fork\n", time, philo->num_philo);
 		pthread_mutex_unlock(&philo->param->lock_print);
-		return ;
+	}
 }
 
 void	*routine(void *arg)
@@ -112,17 +96,16 @@ void	*routine(void *arg)
 	if (num_philo % 2 != 0)
 	{
 		print_status(THINKING, philo);
-		usleep(1000);
+		usleep(10000);
 	}
-	while (check_values(&philo->param->lock_dead, &philo->param->dead) == FALSE)
+	while (philo_sign(philo, philo->param) == FALSE)
 	{
 		
 		take_forks(philo);
-
 		eating(philo);
-
-		
-		if (philo->num_philo % 2 != 0)
+		if (philo_sign(philo, philo->param) == FALSE)
+			usleep(philo->param->eat_time * 1000);
+		if (num_philo % 2 != 0)
 		{
 			pthread_mutex_unlock(philo->right_fork);
 			pthread_mutex_unlock(&philo->left_fork);
@@ -132,9 +115,9 @@ void	*routine(void *arg)
 			pthread_mutex_unlock(&philo->left_fork);
 			pthread_mutex_unlock(philo->right_fork);
 		}
-
 		print_status(SLEEPING, philo);
-
+		if (philo_sign(philo, philo->param) == FALSE)
+			usleep(philo->param->sleep_time * 1000);
 		print_status(THINKING, philo);
 	}
 	return (0);

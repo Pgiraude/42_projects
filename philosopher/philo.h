@@ -67,9 +67,10 @@ int		check_life_philo(t_philo *philo, t_param *param);
 
 int		philo_sign(t_philo *philo, t_param *param);
 
+int		get_value(pthread_mutex_t *lock, int *value);
+
 int		is_dead(t_philo philo, t_param *param);
 
 int		atoi_philo(char *str_nbr);
 
-int		check_values(pthread_mutex_t *lock, t_bool *value);
 #endif
