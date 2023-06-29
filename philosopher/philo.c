@@ -12,6 +12,7 @@
 
 #include "philo.h"
 
+
 int print_time(struct timeval start)
 {
 	struct timeval	current;
@@ -51,28 +52,20 @@ int	is_dead(t_philo philo, t_param *param)
 	return (FALSE);
 }
 
-int	philo_sign(t_philo *philo, t_param *param)
+int	philo_sign(t_param *param)
 {
 	int value;
 
 	value = FALSE;
 	pthread_mutex_lock(&param->lock_dead);
-	if (philo->param->dead == TRUE)
+	if (param->dead == TRUE)
 		value = TRUE;
 	pthread_mutex_unlock(&param->lock_dead);
 	pthread_mutex_lock(&param->lock_value);
-	if (philo->param->eat == TRUE)
+	if (param->eat == TRUE)
 	 	value = TRUE;
 	pthread_mutex_unlock(&param->lock_value);
 	return (value);
-}
-
-int change_values(pthread_mutex_t *lock, int *value, int new_value)
-{
-	pthread_mutex_lock(lock);
-	*value = new_value;
-	pthread_mutex_unlock(lock);
-	return (0);
 }
 
 int	check_life_philo(t_philo *philo, t_param *param)
@@ -84,7 +77,7 @@ int	check_life_philo(t_philo *philo, t_param *param)
 
 	nbr_philo = get_value(&param->lock_value, &param->nbr_philo);
 	nbr_eat = get_value(&param->lock_value, &param->nbr_eat);
-	while (1)
+	while (philo_sign(param) == FALSE)
 	{
 		eat = 0;
 		index = 0;
@@ -92,19 +85,12 @@ int	check_life_philo(t_philo *philo, t_param *param)
 		{
 			if (is_dead(philo[index], param) == TRUE)
 				return (0);
-			pthread_mutex_lock(&param->lock_value);
-			if (philo[index].nbr_eat >= nbr_eat)
+			if (get_value(&param->lock_value, &philo[index].nbr_eat) >= nbr_eat)
 				eat++;
-			pthread_mutex_unlock(&param->lock_value);
 			index++;
 		}
 		if (eat == index && nbr_eat > 0)
-		{
-			pthread_mutex_lock(&param->lock_value);
-			param->eat = TRUE;
-			pthread_mutex_unlock(&param->lock_value);
-			return (0);
-		}
+			change_value(&param->lock_value, &param->eat, TRUE);
 		usleep(1000);
 	}
 	return (0);
@@ -117,10 +103,8 @@ int main(int argc, char **argv)
 
 	param = malloc(sizeof(t_param));
 
-	/*--------------------------------*/
 	if (init_philo(argc, argv, param, &philo) != 0)
 		return (free (param), 1);
-	/*--------------------------------*/
 
 	if (launch_philo(param, philo) != 0)
 		return (free (param), free (philo), 2);

@@ -28,8 +28,8 @@ typedef struct s_param
 	int				eat_time;
 	int				sleep_time;
 	int				nbr_eat;
-	t_bool			dead;
-	t_bool			eat;
+	int				dead;
+	int				eat;
 	struct timeval	start;
 	pthread_mutex_t	lock_dead;
 	pthread_mutex_t	lock_value;
@@ -65,12 +65,14 @@ void	print_status(int status, t_philo *philo);
 
 int		check_life_philo(t_philo *philo, t_param *param);
 
-int		philo_sign(t_philo *philo, t_param *param);
-
-int		get_value(pthread_mutex_t *lock, int *value);
+int		philo_sign(t_param *param);
 
 int		is_dead(t_philo philo, t_param *param);
 
 int		atoi_philo(char *str_nbr);
+
+int		get_value(pthread_mutex_t *lock, int *value);
+
+int		change_value(pthread_mutex_t *lock, int *value, int new_value);
 
 #endif

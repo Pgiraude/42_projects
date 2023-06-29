@@ -67,3 +67,11 @@ int	get_value(pthread_mutex_t *lock, int *value)
 	pthread_mutex_unlock(lock);
 	return (tmp);
 }
+
+int change_value(pthread_mutex_t *lock, int *value, int new_value)
+{
+	pthread_mutex_lock(lock);
+	*value = new_value;
+	pthread_mutex_unlock(lock);
+	return (0);
+}

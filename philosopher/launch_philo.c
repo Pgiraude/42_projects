@@ -16,7 +16,7 @@ int	eating(t_philo *philo)
 {
 	int	time;
 	
-	if (philo_sign(philo, philo->param) == FALSE)
+	if (philo_sign(philo->param) == FALSE)
 	{
 		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
@@ -35,7 +35,7 @@ void	print_status(int status, t_philo *philo)
 {
 	int	time;
 
-	if (philo_sign(philo, philo->param) == FALSE)
+	if (philo_sign(philo->param) == FALSE)
 	{
 		if (status == SLEEPING)
 		{
@@ -73,7 +73,7 @@ void	take_forks(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 		pthread_mutex_lock(&philo->left_fork);
 	}
-	if (philo_sign(philo, philo->param) == FALSE)
+	if (philo_sign(philo->param) == FALSE)
 	{
 		pthread_mutex_lock(&philo->param->lock_print);
 		get_time(philo->param->start, &time);
@@ -98,12 +98,12 @@ void	*routine(void *arg)
 		print_status(THINKING, philo);
 		usleep(10000);
 	}
-	while (philo_sign(philo, philo->param) == FALSE)
+	while (philo_sign(philo->param) == FALSE)
 	{
 		
 		take_forks(philo);
 		eating(philo);
-		if (philo_sign(philo, philo->param) == FALSE)
+		if (philo_sign(philo->param) == FALSE)
 			usleep(philo->param->eat_time * 1000);
 		if (num_philo % 2 != 0)
 		{
@@ -116,7 +116,7 @@ void	*routine(void *arg)
 			pthread_mutex_unlock(philo->right_fork);
 		}
 		print_status(SLEEPING, philo);
-		if (philo_sign(philo, philo->param) == FALSE)
+		if (philo_sign(philo->param) == FALSE)
 			usleep(philo->param->sleep_time * 1000);
 		print_status(THINKING, philo);
 	}
