@@ -32,6 +32,9 @@ SRC_OTHERSDIR	=	src/others/
 
 SRC_OTHERS		=	ft_free_strings.c ft_dup_strings.c
 
+HEADER			=	include/libft.h include/get_next_line.h include/ft_printf.h
+					include/chainlist.h
+
 OBJS    =   $(addprefix $(SRCDIR), $(SRC:.c=.o)) \
 			$(addprefix $(SRC_CHAINLISTDIR), $(SRC_CHAINLIST:.c=.o)) \
 			$(addprefix $(SRC_PRINTFDIR), $(SRC_PRINTF:.c=.o)) \
@@ -43,6 +46,9 @@ RM  =   rm -f
 MAKEFLAGS	=	--no-print-directory
 
 CFLAGS = -Werror -Wextra -Wall
+
+%.o : %.c ${HEADER}
+	${CC} ${CFLAGS} -o $@ -c $<
 
 $(NAME): $(OBJS)
 	ar  rcs $(NAME) $(OBJS)

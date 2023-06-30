@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:33:07 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/06/30 00:34:08 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:30:52 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ int	init_threads(t_philo *philo, t_param *param)
 
 int	init_philo(int argc, char **argv, t_param *param, t_philo **philo)
 {
-	int				nbr;
-
 	if (argc < 5)
 		return (error_manager(1, NULL));
 	if (argc > 6)

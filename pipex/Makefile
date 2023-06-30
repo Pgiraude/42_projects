@@ -6,7 +6,7 @@
 #    By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 19:14:58 by pgiraude          #+#    #+#              #
-#    Updated: 2023/05/04 18:32:57 by pgiraude         ###   ########.fr        #
+#    Updated: 2023/06/30 10:43:50 by pgiraude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,17 +22,20 @@ OBJS = $(SRC:.c=.o) $(SRC_UTILS:.c=.o)
 
 OBJS_B = $(SRC_B:.c=.o) $(SRC_UTILS:.c=.o)
 
-
+HEADER	=	include/pipex.h
 
 RM = rm -f
 
 CC = cc
 
-FLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall
 
 LIBFT = cd libft && make
 
 MAKEFLAGS	=	--no-print-directory
+
+%.o : %.c ${HEADER}
+	${CC} ${CFLAGS} -o $@ -c $<
 
 
 $(NAME): $(OBJS)
