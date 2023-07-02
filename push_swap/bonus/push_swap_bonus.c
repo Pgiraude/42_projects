@@ -60,9 +60,7 @@ void	check_result(t_list *list_a, int max_len)
 {
 	t_cell	*cell;
 	t_cell	*cell_back;
-	int		pos;
 
-	pos = 1;
 	cell_back = list_a->last;
 	cell = list_a->first;
 	if (list_a->len != max_len
