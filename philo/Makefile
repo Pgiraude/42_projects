@@ -17,7 +17,7 @@ RM	=	rm -f
 	${CC} ${CFLAGS} -o $@ -c $<
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -pthread $(OBJ) -o $(NAME)
+	$(CC) -pthread $(OBJ) -o $(NAME)
 
 all: $(NAME)
 
