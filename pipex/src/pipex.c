@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:15:06 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/05/04 18:07:49 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:26:19 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	exec_child(int fd_stdin, int *fd, int index, t_data *data)
 
 int	launch_child(int fd_stdin, int index, char *cmd, t_data *data)
 {
-	pid_t	pid;
 	int		fd[2];
 
 	if (pipe(fd) == -1)
@@ -79,8 +78,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	int		first_cmd;
-	char	*cmd;
-	int		i;
 
 	data.path = NULL;
 	data.options = NULL;

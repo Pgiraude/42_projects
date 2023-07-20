@@ -6,7 +6,7 @@
 /*   By: pgiraude <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 19:17:25 by pgiraude          #+#    #+#             */
-/*   Updated: 2023/04/27 20:27:38 by pgiraude         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:25:23 by pgiraude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*gnl_heredoc(char *limiter)
 {
 	char	*line;
 	char	*new_line;
-	char	*tmp;
 
 	new_line = NULL;
 	line = NULL;
