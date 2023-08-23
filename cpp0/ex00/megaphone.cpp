@@ -16,5 +16,6 @@ int main(int argc, char **argv)
                 std::cout << (char) toupper(argv[i][j]);
             }
         }
+        std::cout << std::endl;
     }
 }

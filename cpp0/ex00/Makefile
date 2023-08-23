@@ -2,24 +2,22 @@ NAME = megaphone
 
 CC = c++
 
-CFLAGS	=	-Werror -Wextra -Wall -std=c++98 #-pedantic-errors
-
+CPPFLAGS	=	-Werror -Wextra -Wall -std=c++98 #-pedantic-errors
 
 SRC = megaphone.cpp
 
-OBJ	=	$(SRC:.cpp=.o)
+OBJS	=	$(SRC:.cpp=.o)
 
+%.o : %.cpp
+	${CC} ${CPPFLAGS} -c $< -o $@
 
-%.o : %.cpp #${HEADER}
-	${CC} ${CFLAGS} -o $@ -c $<
+$(NAME):	$(OBJS)
+	$(CC) $(CPPFLAGS) -o $(NAME) $(OBJS)
 
 all : $(NAME)
 
-$(NAME):	$(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
-
 clean :
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 fclean	: clean
 	rm -f $(NAME)
