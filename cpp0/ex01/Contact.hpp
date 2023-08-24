@@ -1,22 +1,27 @@
 
 #ifndef CONTACT_H
-    #define CONTACT_H
+	#define CONTACT_H
 
 #include <string>
-#include <iostream> 
+#include <iostream>
+#include <cstring>
 
 class Contact
 {
-    public:
+	public:
 
-        Contact(void);
-        ~Contact(void);
+		Contact(void);
+		~Contact(void);
 
-        void    first_name(void);
-        void    last_name(void);
-        void    nickname(void);
-        void    phone_number(void);
-        void    darkest_secret(void);
+		int    first_name(void);
+		int    last_name(void);
+		int    nickname(void);
+		int    phone_number(void);
+		int    darkest_secret(void);
+	
+		std::string _first_name;
+	private:
+		
 
 
 
