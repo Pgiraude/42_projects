@@ -1,15 +1,6 @@
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 
-void	add_contact(PhoneBook &phonebook)
-{
-	std::cout << "Contact n° " << "1" << std::endl;
-	// std::string first_name;//, last_name, nickname, phone_number, darkest_secret;
-
-	phonebook.contact[0].first_name();
-
-}
-
 int main(int argc, char **argv)
 {
 
@@ -17,27 +8,35 @@ int main(int argc, char **argv)
 		return (0);
 
 
-	PhoneBook directory;
-	std::cout << "Enter command 'ADD', 'SEARCH' or 'EXIT'" << std::endl;
+	PhoneBook phonebook;
+	int index = 0;
+
 	std::cout << argv[0] << std::endl;
 
 
 	std::string input;
-
-	getline(std::cin, input);
-
-	if (input == "EXIT")
+	while (1)
 	{
-		std::cout << "EXIT" << std::endl;
-		return (0);
-	}
-	else if (input == "ADD")
-	{
-		add_contact(directory);
-	}
-	else if (input == "SEARCH")
-	{
+		std::cout << "Enter command 'ADD', 'SEARCH' or 'EXIT'" << std::endl;
+		getline(std::cin, input);
 
+		if (input == "EXIT")
+		{
+			std::cout << "EXIT" << std::endl;
+			return (0);
+		}
+		else if (input == "ADD")
+		{
+			phonebook.add_contact(phonebook.contact[index], index);
+		}
+		else if (input == "SEARCH")
+		{
+			phonebook.search_contact(phonebook);
+		}
+		else
+		{
+			std::cout << "Invalid input, try again" << std::endl;
+		}
 	}
-	std::cout << "First name =" << directory.contact[0]._first_name << std::endl;
+	
 }

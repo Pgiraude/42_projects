@@ -6,7 +6,7 @@ RM = rm -f
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp contact.cpp
+SRC = main.cpp contact.cpp phonebook.cpp
 
 HEADER = Contact.hpp PhoneBook.hpp
 

@@ -33,19 +33,20 @@ int check_string(std::string word, int (*function)(int))
 
 int    Contact::first_name(void)
 {
-	std::string first_name;
+	std::string input;
 
 	while (1)
 	{
-		getline(std::cin, first_name);
-		if (first_name == "EXIT")
+		std::cout << "Enter first name :" << std::endl;
+		getline(std::cin, input);
+		if (input == "EXIT")
 		{
 			std::cout << "EXIT ADD NEW CONTACT" << std::endl;
 			return (1);
 		}
-		else if (check_string(first_name, std::isalpha) == 0)
+		else if (check_string(input, std::isalpha) == 0)
 		{
-			this->_first_name = first_name;
+			this->_first_name = input;
 			return (0);
 		}
 		else
@@ -56,19 +57,20 @@ int    Contact::first_name(void)
 
 int    Contact::last_name(void)
 {
-	std::string first_name;
+	std::string input;
 
 	while (1)
 	{
-		getline(std::cin, first_name);
-		if (first_name == "EXIT")
+		std::cout << "Enter last name :" << std::endl;
+		getline(std::cin, input);
+		if (input == "EXIT")
 		{
 			std::cout << "EXIT ADD NEW CONTACT" << std::endl;
 			return (1);
 		}
-		else if (check_string(first_name, std::isalpha) == 0)
+		else if (check_string(input, std::isalpha) == 0)
 		{
-			this->_first_name = first_name;
+			this->_last_name = input;
 			return (0);
 		}
 		else
@@ -78,19 +80,20 @@ int    Contact::last_name(void)
 
 int    Contact::nickname(void)
 {
-	std::string first_name;
+	std::string input;
 
 	while (1)
 	{
-		getline(std::cin, first_name);
-		if (first_name == "EXIT")
+		std::cout << "Enter nickname :" << std::endl;
+		getline(std::cin, input);
+		if (input == "EXIT")
 		{
 			std::cout << "EXIT ADD NEW CONTACT" << std::endl;
 			return (1);
 		}
-		else if (check_string(first_name, std::isalpha) == 0)
+		else if (check_string(input, std::isalpha) == 0)
 		{
-			this->_first_name = first_name;
+			this->_nickname = input;
 			return (0);
 		}
 		else
@@ -100,19 +103,20 @@ int    Contact::nickname(void)
 
 int    Contact::phone_number(void)
 {
-	std::string first_name;
+	std::string input;
 
 	while (1)
 	{
-		getline(std::cin, first_name);
-		if (first_name == "EXIT")
+		std::cout << "Enter phone number :" << std::endl;
+		getline(std::cin, input);
+		if (input == "EXIT")
 		{
 			std::cout << "EXIT ADD NEW CONTACT" << std::endl;
 			return (1);
 		}
-		else if (check_string(first_name, std::isalnum) == 0)
+		else if (check_string(input, std::isalnum) == 0)
 		{
-			this->_first_name = first_name;
+			this->_phone_number = input;
 			return (0);
 		}
 		else
@@ -122,19 +126,20 @@ int    Contact::phone_number(void)
 
 int    Contact::darkest_secret(void)
 {
-	std::string first_name;
+	std::string input;
 
 	while (1)
 	{
-		getline(std::cin, first_name);
-		if (first_name == "EXIT")
+		std::cout << "Enter your darkest secret :" << std::endl;
+		getline(std::cin, input);
+		if (input == "EXIT")
 		{
 			std::cout << "EXIT ADD NEW CONTACT" << std::endl;
 			return (1);
 		}
-		else if (check_string(first_name, std::isalpha) == 0)
+		else if (check_string(input, std::isalpha) == 0)
 		{
-			this->_first_name = first_name;
+			this->_darkest_secret = input;
 			return (0);
 		}
 		else
