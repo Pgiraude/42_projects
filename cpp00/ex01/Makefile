@@ -6,14 +6,14 @@ RM = rm -f
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp contact.cpp phonebook.cpp
+SRC = main.cpp Contact.cpp PhoneBook.cpp
 
 HEADER = Contact.hpp PhoneBook.hpp
 
 OBJS = $(SRC:.cpp=.o)
 
 %.o: %.cpp	$(HEADER)
-	$(CC) $(CPPFLAGS) -c $< -o $@
+	$(CC) -g $(CPPFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
 	$(CC) $(CPPFLAGS) -o $(NAME) $(OBJS)

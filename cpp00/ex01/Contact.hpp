@@ -18,7 +18,6 @@ class Contact
 		int			nickname(void);
 		int			phone_number(void);
 		int			darkest_secret(void);
-		void		clear_contact(Contact&);
 		std::string	get_contact(std::string);
 		bool		full;
 	

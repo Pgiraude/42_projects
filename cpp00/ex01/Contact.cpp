@@ -14,15 +14,6 @@ Contact::~Contact(void)
 	return ;
 }
 
-void	Contact::clear_contact(Contact &contact)
-{
-	contact._first_name.clear();
-	contact._last_name.clear();
-	contact._nickname.clear();
-	contact._phone_number.clear();
-	contact._darkest_secret.clear();
-}
-
 std::string	Contact::get_contact(std::string str)
 {
 	if (str == "first_name")

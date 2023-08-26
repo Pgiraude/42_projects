@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	argv[0] = NULL;
 	std::string input;
 	int index = 0;
-	for (int i = 0 ; i < 7 ; i++)
+	for (int i = 0 ; i <= 7 ; i++)
 		phonebook.contact[i].full = 0;
 	while (1)
 	{

@@ -69,7 +69,7 @@ void	PhoneBook::search_contact(PhoneBook phonebook)
 		std::cout << "PhoneBook is empty" << std::endl;
 		return ;
 	}
-	while (phonebook.contact[index].full == 1 && index <= 7)
+	while (index <= 7 && phonebook.contact[index].full == 1)
 	{
 		std::cout << "|----------|----------|----------|----------|" << std::endl;
 		std::cout << "|" << "         " << index + 1;
@@ -92,15 +92,15 @@ void	PhoneBook::add_contact(Contact &contact, int &index)
 	std::cout << "Add contact n° " << index + 1 << std::endl;
 	std::cout << "-----------------------------------------" << std::endl;
 	if (new_contact.first_name() == 1)
-		return (new_contact.clear_contact(new_contact));
+		return ;
 	if (new_contact.last_name() == 1)
-		return (new_contact.clear_contact(new_contact));
+		return ;
 	if (new_contact.nickname() == 1)
-		return (new_contact.clear_contact(new_contact));
+		return ;
 	if (new_contact.phone_number() == 1)
-		return (new_contact.clear_contact(new_contact));
+		return ;
 	if (new_contact.darkest_secret() == 1)
-		return (new_contact.clear_contact(new_contact));
+		return ;
 	std::cout << "Contact n° " << index + 1 << " succesfully added" << std::endl;
 	contact = new_contact;
 	contact.full = 1;
