@@ -4,13 +4,11 @@ CC = c++
 
 CPPFLAGS	=	-Werror -Wextra -Wall -std=c++98
 
-SRC = main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
-
-HEADER	= Zombie.hpp
+SRC = main.cpp
 
 OBJS	=	$(SRC:.cpp=.o)
 
-%.o : %.cpp $(HEADER)
+%.o : %.cpp
 	${CC} -g ${CPPFLAGS} -c $< -o $@
 
 $(NAME):	$(OBJS)
