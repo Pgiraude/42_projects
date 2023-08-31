@@ -8,10 +8,12 @@ class PhoneBook
 {
 
     public:
-        void	search_contact(PhoneBook);
-        void	add_contact(Contact&, int&);
+        int	search_contact(PhoneBook);
+        int	add_contact(int&);
+        int	print_contact(PhoneBook phonebook);
+
+    private:
         Contact contact[8];
-        int index;
 
 };
 

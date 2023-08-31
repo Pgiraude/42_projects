@@ -13,13 +13,8 @@ class Contact
 		Contact(void);
 		~Contact(void);
 
-		int			first_name(void);
-		int			last_name(void);
-		int			nickname(void);
-		int			phone_number(void);
-		int			darkest_secret(void);
-		std::string	get_contact(std::string);
-		bool		full;
+		int			fill_data(std::string);
+		std::string	get_private_info(std::string);
 	
 	private:
 		std::string _first_name;
@@ -27,6 +22,7 @@ class Contact
 		std::string _nickname;
 		std::string _phone_number;
 		std::string _darkest_secret;
+		std::string	_full;
 		
 
 
