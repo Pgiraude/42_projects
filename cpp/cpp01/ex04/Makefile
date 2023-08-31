@@ -1,4 +1,4 @@
-NAME = weapon
+NAME = filestream
 
 CC = c++
 
@@ -6,9 +6,9 @@ RM = rm -f
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp HumanA.cpp Weapon.cpp HumanB.cpp
+SRC = main.cpp
 
-HEADER = HumanA.hpp Weapon.hpp HumanB.hpp
+HEADER =
 
 OBJS = $(SRC:.cpp=.o)
 
