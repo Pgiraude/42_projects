@@ -19,7 +19,10 @@ int	check_init_error(int argc, char **argv)
 {
 	if (argc != 4)
 	{
-		std::cout << "need 3 arguments, try again!" << std::endl;
+		std::cout << "need 3 arguments, try again! :" << std::endl;
+		std::cout << "Argument n°1 = filename to open" << std::endl;
+		std::cout << "Argument n°2 = string to find in filename" << std::endl;
+		std::cout << "Argument n°3 = the replacing string" << std::endl;
 		return (1);
 	}
 	std::string filename = argv[1];
