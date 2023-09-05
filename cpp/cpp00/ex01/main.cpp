@@ -24,8 +24,9 @@ int main(int argc, char **argv)
 			error = phonebook.add_contact(index);
 		else if (input == "SEARCH")
 			error = phonebook.search_contact(phonebook);
+		else
+			std::cout << "Invalid input, try again" << std::endl;
 		if (error == 2)
 			return (2);
-		std::cout << "Invalid input, try again" << std::endl;
 	}
 }
