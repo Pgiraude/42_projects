@@ -12,7 +12,15 @@ Fixed::Fixed(Fixed &copy)
     *this = copy;
 }
 
-Fixed::Fixed()
+Fixed::Fixed(float const &flt)
+{
+
+}
+
+Fixed::Fixed(int const &integer)
+{
+
+}
 
 Fixed   &Fixed::operator=(Fixed const &rhs)
 {
@@ -36,4 +44,10 @@ void    Fixed::setRawBits(int const raw)
 {
     std::cout << "setrawbits member function called" << std::endl;
     this->_number = raw;
+}
+
+std::ostream    &operator<<(std::ostream &out, Fixed const &i)
+{
+	out << i.toFloat();
+	return out;
 }

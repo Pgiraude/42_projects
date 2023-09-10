@@ -9,15 +9,22 @@ class Fixed
 		Fixed(void);
 		Fixed(Fixed &copy);
 		~Fixed(void);
+		Fixed(float const &);
+		Fixed(int const &);
 
 		int getRawBits(void) const;
 		void setRawBits(int const raw);
 
 		Fixed	&operator=(Fixed const &rhs);
 
+		float	toFloat(void) const;
+		int		toInt(void) const;
+
 	private:
 		int _number;
 		int	_fractional = 8;
 };
+
+std::ostream	&operator<<(std::ostream &out, Fixed const &i);
 
 #endif
