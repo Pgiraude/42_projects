@@ -22,7 +22,7 @@ class Fixed
 
 	private:
 		int _number;
-		int	_fractional = 8;
+		const static int	_fractional = 8;
 };
 
 std::ostream	&operator<<(std::ostream &out, Fixed const &i);
