@@ -2,7 +2,7 @@
 
 Fixed::Fixed(void)
 {
-	std::cout << "Default constructor is called" << std::endl;
+	std::cout << "Default constructor called" << std::endl;
 	this->_number = 0;
 }
 
@@ -14,8 +14,8 @@ Fixed::Fixed(Fixed &copy)
 
 Fixed::Fixed(float const &flt)
 {
-	float b = flt;
-	b++;
+	this->_number = flt / (1 << this->_fractional);
+	
 }
 
 Fixed::Fixed(int const &integer)
@@ -50,7 +50,10 @@ void    Fixed::setRawBits(int const raw)
 
 float Fixed::toFloat(void) const
 {
-	return (1.1f);
+	float	test;
+
+	test = this->_number * (1 << this->_fractional);
+	return (test);
 }
 
 int Fixed::toInt(void) const
