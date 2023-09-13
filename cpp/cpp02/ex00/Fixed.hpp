@@ -16,8 +16,8 @@ class Fixed
 		Fixed	&operator=(Fixed const &rhs);
 
 	private:
-		int _number;
-		int	_fractional = 8;
+		int                 _number;
+		const static int	_fractional = 8;
 };
 
 #endif
