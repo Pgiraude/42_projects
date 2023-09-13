@@ -12,15 +12,16 @@ Fixed::Fixed(Fixed &copy)
 	*this = copy;
 }
 
-Fixed::Fixed(float const &flt)
+Fixed::Fixed(float const value)
 {
-	this->_number = flt / (1 << this->_fractional);
-	
+	std::cout << "Float constructor called" << std::endl;
+	this->_number = roundf(value * (1 << this->_fractional));
+	std::cout << "float number = " << this->_number << std::endl;
 }
 
-Fixed::Fixed(int const &integer)
+Fixed::Fixed(int const value)
 {
-	this->_number = integer << this->_fractional;
+	this->_number = value << this->_fractional;
 	std::cout << "Int constructor called" << std::endl;
 }
 
@@ -52,7 +53,7 @@ float Fixed::toFloat(void) const
 {
 	float	test;
 
-	test = this->_number * (1 << this->_fractional);
+	test = this->_number / (float)(1 << this->_fractional);
 	return (test);
 }
 
