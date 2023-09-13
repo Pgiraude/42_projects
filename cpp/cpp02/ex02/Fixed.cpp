@@ -31,6 +31,12 @@ Fixed   &Fixed::operator=(Fixed const &rhs)
 	return (*this);
 }
 
+Fixed   Fixed::operator+(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '+' called" << std::endl;
+	return (Fixed(this->toFloat() + rhs.toFloat()));
+}
+
 Fixed::~Fixed(void)
 {
 	std::cout << "Destructor is called" << std::endl;
