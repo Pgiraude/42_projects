@@ -20,7 +20,19 @@ class Fixed
 		int		toInt(void) const;
 
 		Fixed	&operator=(Fixed const &rhs);
+		Fixed	operator-(Fixed const &rhs) const;
+		void	operator--(int);
 		Fixed	operator+(Fixed const &rhs) const;
+		void	operator++(int);
+
+		Fixed	operator*(Fixed const &rhs) const;
+		Fixed	operator/(Fixed const &rhs) const;
+
+		bool	operator==(Fixed const &rhs) const;
+		bool	operator<(Fixed const &rhs) const;
+		bool	operator>(Fixed const &rhs) const;
+		bool	operator<=(Fixed const &rhs) const;
+		bool	operator>=(Fixed const &rhs) const;
 	private:
 		int					_number;
 		const static int	_fractional = 8;

@@ -37,6 +37,64 @@ Fixed   Fixed::operator+(Fixed const &rhs) const
 	return (Fixed(this->toFloat() + rhs.toFloat()));
 }
 
+void	Fixed::operator++(int)
+{
+	this->_number = this->_number + (1 << this->_fractional);
+}
+
+Fixed   Fixed::operator-(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '-' called" << std::endl;
+	return (Fixed(this->toFloat() - rhs.toFloat()));
+}
+
+void	Fixed::operator--(int)
+{
+	this->_number = this->_number - (1 << this->_fractional);
+}
+
+Fixed   Fixed::operator*(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '*' called" << std::endl;
+	return (Fixed(this->toFloat() * rhs.toFloat()));
+}
+
+Fixed   Fixed::operator/(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '/' called" << std::endl;
+	return (Fixed(this->toFloat() / rhs.toFloat()));
+}
+
+bool	Fixed::operator==(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '==' called" << std::endl;
+	return (this->_number == rhs._number);
+}
+
+bool	Fixed::operator<(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '<' called" << std::endl;
+	return (this->_number < rhs._number);
+}
+
+bool	Fixed::operator>(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '>' called" << std::endl;
+	return (this->_number > rhs._number);
+}
+
+bool	Fixed::operator<=(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '<=' called" << std::endl;
+	return (this->_number <= rhs._number);
+}
+
+bool	Fixed::operator>=(Fixed const &rhs) const
+{
+	std::cout << "Addition assignement operator '>=' called" << std::endl;
+	return (this->_number >= rhs._number);
+}
+
 Fixed::~Fixed(void)
 {
 	std::cout << "Destructor is called" << std::endl;
