@@ -21,20 +21,29 @@ class Fixed
 
 		Fixed	&operator=(Fixed const &rhs);
 		Fixed	operator-(Fixed const &rhs) const;
-		void	operator--(int);
 		Fixed	operator+(Fixed const &rhs) const;
-		void	operator++(int);
-
 		Fixed	operator*(Fixed const &rhs) const;
 		Fixed	operator/(Fixed const &rhs) const;
 
+		Fixed	operator++(int);
+		Fixed	operator++(void);
+		Fixed	operator--(int);
+		Fixed	operator--(void);
+
 		bool	operator==(Fixed const &rhs) const;
+		bool	operator!=(Fixed const &rhs) const;
 		bool	operator<(Fixed const &rhs) const;
 		bool	operator>(Fixed const &rhs) const;
 		bool	operator<=(Fixed const &rhs) const;
 		bool	operator>=(Fixed const &rhs) const;
+
+		Fixed static		&min(Fixed&, Fixed&);
+		Fixed static const	&min(Fixed const&, Fixed const&);
+		Fixed static		&max(Fixed&, Fixed&);
+		Fixed static const	&max(Fixed const&, Fixed const&);
+
 	private:
-		int					_number;
+		int					_rawNumber;
 		const static int	_fractional = 8;
 };
 

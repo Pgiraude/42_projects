@@ -22,7 +22,7 @@ class Fixed
 		int		toInt(void) const;
 
 	private:
-		int _number;
+		int					_rawNumber;
 		const static int	_fractional = 8;
 };
 
