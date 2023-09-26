@@ -71,14 +71,14 @@ Fixed	Fixed::operator++(int)
 	Fixed	tmp(*this);
 
 	// std::cout << "Foreword incrementation operator '++' called" << std::endl;
-	this->_rawNumber += (1 << this->_fractional);
+	this->_rawNumber += 1;
 	return (tmp);
 }
 
 Fixed	Fixed::operator++()
 {
 	// std::cout << "Backward incrementation operator '++' called" << std::endl;
-	this->_rawNumber += (1 << this->_fractional);
+	this->_rawNumber += 1;
 	return (*this);
 }
 
@@ -87,14 +87,14 @@ Fixed	Fixed::operator--(int)
 	Fixed	tmp(*this);
 
 	// std::cout << "Foreword decrementation operator '--' called" << std::endl;
-	this->_rawNumber -= (1 << this->_fractional);
+	this->_rawNumber -= 1;
 	return (tmp);
 }
 
 Fixed	Fixed::operator--()
 {
 	// std::cout << "Backward decrementation operator '--' called" << std::endl;
-	this->_rawNumber -= (1 << this->_fractional);
+	this->_rawNumber -= 1;
 	return (*this);
 }
 

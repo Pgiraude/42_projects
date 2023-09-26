@@ -107,4 +107,19 @@ int main(void)
 		std::cout << "Max value = " << Fixed::max(a, b) << std::endl;
 		std::cout << "Min value = " << Fixed::min(a, b) << std::endl;
 	}
+	std::cout << "---------- test n°5 ----------" << std::endl << std::endl;
+	{
+		Fixed a;
+		Fixed const b( Fixed(5.05f) * Fixed(2) );
+
+		std::cout << a << std::endl;
+		std::cout << ++a << std::endl;
+		std::cout << a << std::endl;
+		std::cout << a++ << std::endl;
+		std::cout << a << std::endl;
+	
+		std::cout << b << std::endl;
+	
+		std::cout << Fixed::max(a, b) << std::endl;
+	}
 }
