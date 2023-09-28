@@ -1,19 +1,24 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : _name("unknown"), _health_pts(max_health), _energy_pts(max_energy), _attack_dmg(20)
+ClapTrap::ClapTrap(void) : _health_pts(max_health), _energy_pts(max_energy), _attack_dmg(attack_dmg), _name("unknown"), _name_class("ClapTrap")
 {
-	std::cout << "ClapTrap void constructor called" << std::endl;
+	std::cout << _name_class << " void constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _health_pts(max_health), _energy_pts(max_energy), _attack_dmg(20)
+ClapTrap::ClapTrap(std::string name) : _health_pts(max_health), _energy_pts(max_energy), _attack_dmg(attack_dmg), _name(name), _name_class("ClapTrap")
 {
-	std::cout << "ClapTrap name constructor called" << std::endl;
+	std::cout << _name_class << " name constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(ClapTrap const &copy)
 {
-	std::cout << "ClapTrap copy constructor called" << std::endl;
+	std::cout << _name_class << " copy constructor called" << std::endl;
 	*this = copy;
+}
+
+ClapTrap::~ClapTrap(void)
+{
+	std::cout << _name_class << " destructor called" << std::endl;
 }
 
 ClapTrap   &ClapTrap::operator=(ClapTrap const &rhs)
@@ -29,7 +34,7 @@ ClapTrap   &ClapTrap::operator=(ClapTrap const &rhs)
 
 void	ClapTrap::attack(const std::string& target)
 {
-	std::cout << "ClapTrap " << this->_name;
+	std::cout << _name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 	{
 		std::cout << " is dead so... Can't attack " << target << std::endl;
@@ -48,7 +53,7 @@ void	ClapTrap::attack(const std::string& target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	std::cout << "ClapTrap " << this->_name << " take " << amount << " damage! ";
+	std::cout << _name_class << " " << this->_name << " take " << amount << " damage! ";
 	if (this->_health_pts <= 0)
 		std::cout  << this->_name << " was already dead anyway..." << std::endl;
 	else if ((this->_health_pts - amount) <= 0)
@@ -62,7 +67,7 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	std::cout << "ClapTrap " << this->_name;
+	std::cout << _name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 		std::cout << " is dead... Too late for repairing." << std::endl;
 	else if (this->_energy_pts <= 0)
@@ -89,6 +94,11 @@ std::string	ClapTrap::get_name(void) const
 	return (this->_name);
 }
 
+std::string	ClapTrap::get_name_class(void) const
+{
+	return (this->_name_class);
+}
+
 int	ClapTrap::get_health(void) const
 {
 	return (this->_health_pts);
@@ -101,7 +111,7 @@ int	ClapTrap::get_energy(void) const
 
 std::ostream	&operator<<(std::ostream &out, const ClapTrap &i)
 {
-	out << "ClapTrap " << i.get_name() << " got " << i.get_health();
+	out << i.get_name_class() << " " << i.get_name() << " got " << i.get_health();
 	out << " health points and " << i.get_energy() << " energy" << std::endl;
 	return (out);
 }

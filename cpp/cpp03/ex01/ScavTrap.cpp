@@ -1,32 +1,42 @@
 #include "ScavTrap.hpp"
+#include "ClapTrap.hpp"
 
-ScavTrap::ScavTrap(void) : _name("unknown")
+ScavTrap::ScavTrap(void)
 {
-    _health_pts = this->max_health;
-	std::cout << "ScavTrap void constructor called" << std::endl;
+	this->_health_pts = max_health;
+	this->_energy_pts = max_energy;
+	this->_attack_dmg = attack_dmg;
+	this->_name_class = "ScavTrap";
+	std::cout << _name_class << " void constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-	clap
-	 _health_pts(max_health), _energy_pts(max_energy), _attack_dmg(20)
-	std::cout << "ScavTrap name constructor called" << std::endl;
+	this->_health_pts = max_health;
+	this->_energy_pts = max_energy;
+	this->_attack_dmg = attack_dmg;
+	this->_name_class = "ScavTrap";
+	std::cout << _name_class << " name constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(ScavTrap const &copy)
+ScavTrap::ScavTrap(ScavTrap const &copy) : ClapTrap(copy)
 {
-	std::cout << "ScavTrap copy constructor called" << std::endl;
-	*this = copy;
+	std::cout << _name_class << " copy constructor called" << std::endl;
 }
 
 ScavTrap::~ScavTrap(void)
 {
-	std::cout << "ScavTrap destructor called" << std::endl;
+	std::cout << _name_class << " destructor called" << std::endl;
+}
+
+std::string	ScavTrap::get_name_class(void) const
+{
+	return (this->_name_class);
 }
 
 std::ostream	&operator<<(std::ostream &out, const ScavTrap &i)
 {
-	out << "ClapTrap " << i.get_name() << " got " << i.get_health();
+	out << i.get_name_class() << " " << i.get_name() << " got " << i.get_health();
 	out << " health points and " << i.get_energy() << " energy" << std::endl;
 	return (out);
 }
