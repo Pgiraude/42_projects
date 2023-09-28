@@ -21,17 +21,16 @@ class ClapTrap
         void beRepaired(unsigned int amount);
 
         ClapTrap	&operator=(ClapTrap const &rhs);
-        
-        const static int max_health = 10;
-        const static int max_energy = 10;
 
-        int         _health_pts;
-        int         _energy_pts;
-        int         _attack_dmg;
+    protected:
 
-    private:
-        std::string _name;
+        const static int    max_health = 10;
+        const static int    max_energy = 10;
 
+        int                 _health_pts;
+        int                 _energy_pts;
+        int                 _attack_dmg;
+        std::string         _name;
     
 };
 
