@@ -30,9 +30,9 @@ class ClapTrap
 		std::string         _name;
 
 	private:
-		const static int    max_health = 10;
-		const static int    max_energy = 10;
-		const static int	attack_dmg = 0;
+		const static int    _max_health = 10;
+		const static int    _max_energy = 10;
+		const static int	_set_attack_dmg = 0;
 		std::string         _name_class;
 	
 };

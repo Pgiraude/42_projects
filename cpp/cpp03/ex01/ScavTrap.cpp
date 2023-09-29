@@ -3,20 +3,38 @@
 
 ScavTrap::ScavTrap(void)
 {
-	this->_health_pts = max_health;
-	this->_energy_pts = max_energy;
-	this->_attack_dmg = attack_dmg;
+	this->_health_pts = _max_health;
+	this->_energy_pts = _max_energy;
+	this->_attack_dmg = _set_attack_dmg;
 	this->_name_class = "ScavTrap";
 	std::cout << _name_class << " void constructor called" << std::endl;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-	this->_health_pts = max_health;
-	this->_energy_pts = max_energy;
-	this->_attack_dmg = attack_dmg;
+	this->_health_pts = _max_health;
+	this->_energy_pts = _max_energy;
+	this->_attack_dmg = _set_attack_dmg;
 	this->_name_class = "ScavTrap";
 	std::cout << _name_class << " name constructor called" << std::endl;
+}
+
+void	ScavTrap::attack(const std::string& target)
+{
+	std::cout << _name_class << " " << this->_name;
+	if (this->_health_pts <= 0)
+	{
+		std::cout << " is not in this world anymore so... Can't attack " << target << std::endl;
+		return ;
+	}
+	else if (this->_energy_pts <= 0)
+	{
+		std::cout << " not have enough energy so... Can't attack " << target << std::endl;
+		return ;
+	}
+	std::cout << " attack FURIOUSLY " << target << ", causing ";
+	std::cout << this->_attack_dmg << " points of damage!" << std::endl;
+	this->_energy_pts--;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &copy) : ClapTrap(copy)

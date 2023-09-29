@@ -13,12 +13,14 @@ class ScavTrap : public ClapTrap
 		ScavTrap(ScavTrap const &copy);
 		~ScavTrap(void);
 
+		void attack(const std::string& target);
+
 		std::string	get_name_class(void) const;
 
 	private:
-		const static int	max_health = 100;
-		const static int	max_energy = 50;
-		const static int	attack_dmg = 20;
+		const static int	_max_health = 100;
+		const static int	_max_energy = 50;
+		const static int	_set_attack_dmg = 20;
 		std::string         _name_class;
 };
 

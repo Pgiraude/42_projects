@@ -71,12 +71,12 @@ void ClapTrap::beRepaired(unsigned int amount)
 		std::cout << " is dead... Too late for repairing." << std::endl;
 	else if (this->_energy_pts <= 0)
 		std::cout << " has no energy left. No repair possible!" << std::endl;
-	else if (this->_health_pts == max_health)
+	else if (this->_health_pts == _max_health)
 		std::cout << " is already at max health points. What are you traying to repair?" << std::endl;
-	else if (this->_health_pts + amount >= max_health)
+	else if (this->_health_pts + amount >= _max_health)
 	{
 		std::cout << " is repaired to full health!" << std::endl;
-		this->_health_pts = max_health;
+		this->_health_pts = _max_health;
 		this->_energy_pts--;
 	}
 	else
