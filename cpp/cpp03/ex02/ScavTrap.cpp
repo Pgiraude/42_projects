@@ -22,7 +22,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _guard_gate(false)
 
 void	ScavTrap::attack(const std::string& target)
 {
-	std::cout << _name_class << " " << this->_name;
+	std::cout << this->_name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 	{
 		std::cout << " is not in this world anymore so... Can't attack " << target << std::endl;
