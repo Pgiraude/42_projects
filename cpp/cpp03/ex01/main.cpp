@@ -8,6 +8,7 @@ int main(void)
 		ScavTrap a;
 
 		a.attack("the neighbour");
+		a.beRepaired(5);
 		std::cout << a;
 
 	}

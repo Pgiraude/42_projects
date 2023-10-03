@@ -1,11 +1,11 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : _name("unknown"), _health_pts(10), _energy_pts(10), _attack_dmg(0)
+ClapTrap::ClapTrap(void) : _health_pts(10), _energy_pts(10), _attack_dmg(0), _name("unknown")
 {
 	std::cout << "ClapTrap void constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _health_pts(10), _energy_pts(10), _attack_dmg(0)
+ClapTrap::ClapTrap(std::string name) : _health_pts(10), _energy_pts(10), _attack_dmg(0), _name(name)
 {
 	std::cout << "ClapTrap name constructor called" << std::endl;
 }

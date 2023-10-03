@@ -26,8 +26,8 @@ class ClapTrap
 		int	_health_pts;
 		int	_energy_pts;
 		int	_attack_dmg;
-		const static int _max_health = 100;
-		const static int _max_energy = 50;
+		const static int _max_health = 10;
+		const static int _max_energy = 10;
 
 	private:
 		std::string _name;

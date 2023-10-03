@@ -29,6 +29,7 @@ class ClapTrap
 		int                 _attack_dmg;
 		std::string         _name;
 		std::string         _name_class;
+		int 				_m_health;
 
 	private:
 		const static int    _max_health = 10;
