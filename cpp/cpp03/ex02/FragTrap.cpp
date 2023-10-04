@@ -3,6 +3,7 @@
 
 FragTrap::FragTrap(void)
 {
+	this->_m_health = _max_health;
 	this->_health_pts = _max_health;
 	this->_energy_pts = _max_energy;
 	this->_attack_dmg = _set_attack_dmg;
@@ -12,6 +13,7 @@ FragTrap::FragTrap(void)
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
+	this->_m_health = _max_health;
 	this->_health_pts = _max_health;
 	this->_energy_pts = _max_energy;
 	this->_attack_dmg = _set_attack_dmg;
