@@ -1,4 +1,4 @@
-NAME = claptrap1
+NAME = scavtrap1
 
 CC = c++
 

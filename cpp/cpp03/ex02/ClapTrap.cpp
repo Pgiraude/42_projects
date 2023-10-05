@@ -1,11 +1,11 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(void) : _health_pts(_max_health), _energy_pts(_max_energy), _attack_dmg(_set_attack_dmg), _name("unknown"), _name_class("ClapTrap")
+ClapTrap::ClapTrap(void) : _health_pts(_max_health), _energy_pts(_max_energy), _attack_dmg(_set_attack_dmg), _name("unknown"), _name_class("ClapTrap"), _m_health(_max_health)
 {
 	std::cout << "ClapTrap void constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _health_pts(_max_health), _energy_pts(_max_energy), _attack_dmg(_set_attack_dmg), _name(name), _name_class("ClapTrap")
+ClapTrap::ClapTrap(std::string name) : _health_pts(_max_health), _energy_pts(_max_energy), _attack_dmg(_set_attack_dmg), _name(name), _name_class("ClapTrap"), _m_health(_max_health)
 {
 	std::cout << "ClapTrap name constructor called" << std::endl;
 }
@@ -66,23 +66,25 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
+	int amt = amount;
+
 	std::cout << _name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 		std::cout << " is dead... Too late for repairing." << std::endl;
 	else if (this->_energy_pts <= 0)
 		std::cout << " has no energy left. No repair possible!" << std::endl;
-	else if (this->_health_pts == _max_health)
+	else if (this->_health_pts == _m_health)
 		std::cout << " is already at max health points. What are you traying to repair?" << std::endl;
-	else if (this->_health_pts + amount >= _max_health)
+	else if (this->_health_pts + amt >= _m_health)
 	{
 		std::cout << " is repaired to full health!" << std::endl;
-		this->_health_pts = _max_health;
+		this->_health_pts = _m_health;
 		this->_energy_pts--;
 	}
 	else
 	{
-		std::cout << " is repaired gaining " << amount << " health points." << std::endl;
-		this->_health_pts += amount;
+		std::cout << " is repaired gaining " << amt << " health points." << std::endl;
+		this->_health_pts += amt;
 		this->_energy_pts--;
 	}
 

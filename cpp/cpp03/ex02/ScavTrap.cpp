@@ -4,6 +4,7 @@
 ScavTrap::ScavTrap(void)
 {
 	this->_health_pts = _max_health;
+	this->_m_health = _max_health;
 	this->_energy_pts = _max_energy;
 	this->_attack_dmg = _set_attack_dmg;
 	this->_name_class = "ScavTrap";
@@ -14,6 +15,7 @@ ScavTrap::ScavTrap(void)
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _guard_gate(false)
 {
 	this->_health_pts = _max_health;
+	this->_m_health = _max_health;
 	this->_energy_pts = _max_energy;
 	this->_attack_dmg = _set_attack_dmg;
 	this->_name_class = "ScavTrap";
@@ -22,7 +24,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _guard_gate(false)
 
 void	ScavTrap::attack(const std::string& target)
 {
-	std::cout << this->_name_class << " " << this->_name;
+	std::cout << _name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 	{
 		std::cout << " is not in this world anymore so... Can't attack " << target << std::endl;

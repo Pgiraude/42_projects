@@ -1,4 +1,4 @@
-NAME = claptrap1
+NAME = fragtrap2
 
 CC = c++
 
