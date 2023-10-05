@@ -1,7 +1,7 @@
 #ifndef BRAIN_HPP
-#define BRAIN_HPP
+# define BRAIN_HPP
 
-#include <iostream>
+# include <iostream>
 
 class Brain
 {       
@@ -11,7 +11,6 @@ class Brain
 		~Brain(void);
 
         Brain	&operator=(Brain const &rhs);
-
 		std::string _ideas[100];
 };
 

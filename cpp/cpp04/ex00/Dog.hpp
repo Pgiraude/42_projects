@@ -1,8 +1,8 @@
 #ifndef DOG_HPP
-#define DOG_HPP
+# define DOG_HPP
 
-
-#include "Animal.hpp"
+# include <iostream>
+# include "Animal.hpp"
 
 class Dog : public Animal
 {       
@@ -11,15 +11,13 @@ class Dog : public Animal
 		Dog(Dog const &copy);
 		~Dog(void);
 
-        std::string	get_type(void) const;
-
 		
         Dog	&operator=(Dog const &rhs);
-        void    makeSound(void);
+        void    makeSound(void) const;
 
 };
 
-std::ostream    &operator<<(std::ostream &out, const Animal &i);
+std::ostream    &operator<<(std::ostream &out, const Dog &i);
 
 
 #endif
