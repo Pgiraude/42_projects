@@ -1,12 +1,12 @@
 #include "Cat.hpp"
 
-Cat::Cat(void) : Animal("Cat")
+Cat::Cat(void) : AAnimal("Cat")
 {
 	std::cout << "Cat VOID constructor called" << std::endl;
 	_brain = new Brain;
 }
 
-Cat::Cat(Cat const &copy) : Animal(copy)
+Cat::Cat(Cat const &copy) : AAnimal(copy)
 {
 	std::cout << "Cat of type " << this->_type << " COPY constructor called" << std::endl;
 	this->_brain = new Brain(*copy._brain);

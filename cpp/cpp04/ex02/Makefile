@@ -1,4 +1,4 @@
-NAME = brain0
+NAME = abstractclass02
 
 CC = c++
 
@@ -6,10 +6,10 @@ RM = rm -f
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = Animal.cpp main.cpp Cat.cpp Dog.cpp \
+SRC = AAnimal.cpp main.cpp Cat.cpp Dog.cpp \
 		Brain.cpp
 
-HEADER = Animal.hpp Cat.hpp Dog.hpp \
+HEADER = AAnimal.hpp Cat.hpp Dog.hpp \
 		Brain.hpp
 
 OBJS = $(SRC:.cpp=.o)
