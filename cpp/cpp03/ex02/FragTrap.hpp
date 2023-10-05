@@ -17,6 +17,7 @@ class FragTrap : public ClapTrap
 
 		void	HighFivesGuys(void);
 
+		FragTrap   &operator=(FragTrap const &rhs);
 
 	private:
 		const static int	_max_health = 100;

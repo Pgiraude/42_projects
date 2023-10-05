@@ -10,6 +10,9 @@ class Brain
 		Brain(Brain const &copy);
 		~Brain(void);
 
+		void    		setIdeas(std::string ideas, int pos);
+		std::string		getIdeas(int pos);
+
         Brain	&operator=(Brain const &rhs);
 		std::string _ideas[100];
 };

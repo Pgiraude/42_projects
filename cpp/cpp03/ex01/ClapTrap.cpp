@@ -7,13 +7,14 @@ ClapTrap::ClapTrap(void) : _health_pts(_max_health), _energy_pts(_max_energy), _
 
 ClapTrap::ClapTrap(std::string name) : _health_pts(_max_health), _energy_pts(_max_energy), _attack_dmg(_set_attack_dmg), _name(name), _name_class("ClapTrap"), _m_health(_max_health)
 {
+	if (name.empty())
+		this->_name = "unknown";
 	std::cout << "ClapTrap name constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(ClapTrap const &copy)
+ClapTrap::ClapTrap(ClapTrap const &copy) : _health_pts(copy._health_pts), _energy_pts(copy._energy_pts), _attack_dmg(copy._attack_dmg), _name(copy._name), _name_class(copy._name_class), _m_health(copy._m_health)
 {
 	std::cout << "ClapTrap copy constructor called" << std::endl;
-	*this = copy;
 }
 
 ClapTrap::~ClapTrap(void)
@@ -23,10 +24,14 @@ ClapTrap::~ClapTrap(void)
 
 ClapTrap   &ClapTrap::operator=(ClapTrap const &rhs)
 {
-	this->_name = rhs._name;
-	this->_health_pts = rhs._health_pts;
-	this->_energy_pts = rhs._energy_pts;
-	this->_attack_dmg = rhs._set_attack_dmg;
+	if (this != &rhs)
+	{
+		this->_name = rhs._name;
+		this->_health_pts = rhs._health_pts;
+		this->_energy_pts = rhs._energy_pts;
+		this->_attack_dmg = rhs._attack_dmg;
+		this->_m_health = rhs._m_health;
+	}
 	return (*this);
 }
 
@@ -34,7 +39,7 @@ ClapTrap   &ClapTrap::operator=(ClapTrap const &rhs)
 
 void	ClapTrap::attack(const std::string& target)
 {
-	std::cout << _name_class << " " << this->_name;
+	std::cout << this->_name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 	{
 		std::cout << " is dead so... Can't attack " << target << std::endl;
@@ -67,18 +72,20 @@ void ClapTrap::takeDamage(unsigned int amount)
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	int amt = amount;
+	unsigned int h_pts = this->_health_pts;
+	unsigned int m_h_pts = this->_m_health;
 
-	std::cout << _name_class << " " << this->_name;
+	std::cout << this->_name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 		std::cout << " is dead... Too late for repairing." << std::endl;
 	else if (this->_energy_pts <= 0)
 		std::cout << " has no energy left. No repair possible!" << std::endl;
-	else if (this->_health_pts == _m_health)
+	else if (this->_health_pts == this->_m_health)
 		std::cout << " is already at max health points. What are you traying to repair?" << std::endl;
-	else if (this->_health_pts + amt >= _m_health)
+	else if (h_pts + amount >= m_h_pts)
 	{
 		std::cout << " is repaired to full health!" << std::endl;
-		this->_health_pts = _m_health;
+		this->_health_pts = this->_m_health;
 		this->_energy_pts--;
 	}
 	else

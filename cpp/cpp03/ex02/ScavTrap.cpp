@@ -22,6 +22,11 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _guard_gate(false)
 	std::cout << _name_class << " name constructor called" << std::endl;
 }
 
+ScavTrap::ScavTrap(ScavTrap const &copy) : ClapTrap(copy), _guard_gate(copy._guard_gate)
+{
+	std::cout << _name_class << " copy constructor called" << std::endl;
+}
+
 void	ScavTrap::attack(const std::string& target)
 {
 	std::cout << _name_class << " " << this->_name;
@@ -38,12 +43,6 @@ void	ScavTrap::attack(const std::string& target)
 	std::cout << " attack FURIOUSLY " << target << ", causing ";
 	std::cout << this->_attack_dmg << " points of damage!" << std::endl;
 	this->_energy_pts--;
-}
-
-ScavTrap::ScavTrap(ScavTrap const &copy) : ClapTrap(copy), _guard_gate(copy._guard_gate)
-{
-	this->_name_class = "ScavTrap";
-	std::cout << _name_class << " copy constructor called" << std::endl;
 }
 
 ScavTrap::~ScavTrap(void)
@@ -76,6 +75,20 @@ void	ScavTrap::guarGate(void)
 		_guard_gate = false;
 	}
 	
+}
+
+ScavTrap   &ScavTrap::operator=(ScavTrap const &rhs)
+{
+	if (this != &rhs)
+	{
+		this->_guard_gate = rhs._guard_gate;
+		this->_name = rhs._name;
+		this->_health_pts = rhs._health_pts;
+		this->_energy_pts = rhs._energy_pts;
+		this->_attack_dmg = rhs._attack_dmg;
+		this->_m_health = rhs._m_health;
+	}
+	return (*this);
 }
 
 std::ostream	&operator<<(std::ostream &out, const ScavTrap &i)

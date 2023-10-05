@@ -7,6 +7,8 @@ ClapTrap::ClapTrap(void) : _health_pts(10), _energy_pts(10), _attack_dmg(0), _na
 
 ClapTrap::ClapTrap(std::string name) : _health_pts(10), _energy_pts(10), _attack_dmg(0), _name(name)
 {
+	if (name.empty())
+		this->_name = "unknown";
 	std::cout << "ClapTrap name constructor called" << std::endl;
 }
 
@@ -18,10 +20,13 @@ ClapTrap::ClapTrap(ClapTrap const &copy)
 
 ClapTrap   &ClapTrap::operator=(ClapTrap const &rhs)
 {
-	this->_name = rhs._name;
-	this->_health_pts = rhs._health_pts;
-	this->_energy_pts = rhs._energy_pts;
-	this->_attack_dmg = rhs._attack_dmg;
+	if (this != &rhs)
+	{
+		this->_name = rhs._name;
+		this->_health_pts = rhs._health_pts;
+		this->_energy_pts = rhs._energy_pts;
+		this->_attack_dmg = rhs._attack_dmg;
+	}
 	return (*this);
 }
 

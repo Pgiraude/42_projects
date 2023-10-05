@@ -2,14 +2,15 @@
 
 Cat::Cat(void) : Animal("Cat")
 {
-	_brain = new Brain;
+	
 	std::cout << "Cat VOID constructor called" << std::endl;
+	_brain = new Brain;
 }
 
 Cat::Cat(Cat const &copy) : Animal(copy)
 {
-	_brain = copy._brain;
 	std::cout << "Cat of type " << this->_type << " COPY constructor called" << std::endl;
+	_brain = copy._brain;
 }
 
 Cat::~Cat(void)
@@ -20,11 +21,12 @@ Cat::~Cat(void)
 
 Cat   &Cat::operator=(Cat const &rhs)
 {
+	std::cout << "Cat of type " << this->_type << " COPY '=' assignement '=' called" << std::endl;
 	if (this != &rhs)
 	{
 		this->_type = rhs._type;
+		this->_brain = new Brain(*rhs._brain);
 	}
-	std::cout << "Cat of type " << this->_type << " COPY '=' assignement '=' called" << std::endl;
 	return (*this);
 }
 

@@ -13,12 +13,13 @@ class ScavTrap : public ClapTrap
 		ScavTrap(ScavTrap const &copy);
 		~ScavTrap(void);
 
+		ScavTrap   &operator=(ScavTrap const &rhs);
+
 		void attack(const std::string& target);
 
 		std::string	get_name_class(void) const;
 
 		void	guarGate(void);
-
 
 		bool	_guard_gate;
 

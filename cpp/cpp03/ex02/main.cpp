@@ -31,6 +31,16 @@ int main(void)
 		a.takeDamage(70);
 		a.beRepaired(100);
 		std::cout << a << "-----------" << std::endl;
+	}
+	std::cout << std::endl << "-----------test n3 FragTrap cpy------------" <<std::endl;
+	{
+		FragTrap a("bob");
+		FragTrap b(a);
 
+		std::cout << "original = " << a;
+		std::cout << "copy = " << b;
+		b.attack("David");
+		std::cout << "original = " << a;
+		std::cout << "copy (attack David) = " << b;
 	}
 }

@@ -8,7 +8,7 @@ FragTrap::FragTrap(void)
 	this->_energy_pts = _max_energy;
 	this->_attack_dmg = _set_attack_dmg;
 	this->_name_class = "FragTrap";
-	std::cout << _name_class << " void constructor called" << std::endl;
+	std::cout << this->_name_class << " void constructor called" << std::endl;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name)
@@ -18,18 +18,17 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name)
 	this->_energy_pts = _max_energy;
 	this->_attack_dmg = _set_attack_dmg;
 	this->_name_class = "FragTrap";
-	std::cout << _name_class << " name constructor called" << std::endl;
+	std::cout << this->_name_class << " name constructor called" << std::endl;
 }
 
 FragTrap::FragTrap(FragTrap const &copy) : ClapTrap(copy)
 {
-	this->_name_class = "FragTrap";
-	std::cout << _name_class << " copy constructor called" << std::endl;
+	std::cout << this->_name_class << " copy constructor called" << std::endl;
 }
 
 FragTrap::~FragTrap(void)
 {
-	std::cout << _name_class << " destructor called" << std::endl;
+	std::cout << this->_name_class << " destructor called" << std::endl;
 }
 
 std::string	FragTrap::get_name_class(void) const
@@ -39,13 +38,26 @@ std::string	FragTrap::get_name_class(void) const
 
 void	FragTrap::HighFivesGuys(void)
 {
-	std::cout << _name_class << " " << this->_name;
+	std::cout << this->_name_class << " " << this->_name;
 	if (this->_health_pts <= 0)
 	{
 		std::cout << " is dead so... Can't request a high Five" << std::endl;
 		return ;
 	}
 	std::cout << " is giving you a friendly high five!" << std::endl;
+}
+
+FragTrap   &FragTrap::operator=(FragTrap const &rhs)
+{
+	if (this != &rhs)
+	{
+		this->_name = rhs._name;
+		this->_health_pts = rhs._health_pts;
+		this->_energy_pts = rhs._energy_pts;
+		this->_attack_dmg = rhs._attack_dmg;
+		this->_m_health = rhs._m_health;
+	}
+	return (*this);
 }
 
 std::ostream	&operator<<(std::ostream &out, const FragTrap &i)

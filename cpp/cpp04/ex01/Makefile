@@ -7,11 +7,9 @@ RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC = Animal.cpp main.cpp Cat.cpp Dog.cpp \
-		WrongAnimal.cpp WrongCat.cpp \
 		Brain.cpp
 
 HEADER = Animal.hpp Cat.hpp Dog.hpp \
-		WrongAnimal.hpp WrongCat.hpp \
 		Brain.hpp
 
 OBJS = $(SRC:.cpp=.o)
